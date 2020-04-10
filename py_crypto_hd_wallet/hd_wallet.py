@@ -28,7 +28,7 @@ from bip_utils import (
     Bip32,
     Bip44Changes, Bip44Coins, Bip44PrivKeyTypes, Bip44PubKeyTypes,
     Bip44, Bip49, Bip84
-    )
+)
 
 
 @unique
