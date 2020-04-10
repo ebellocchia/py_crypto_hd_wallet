@@ -20,9 +20,9 @@
 
 
 # Imports
-import binascii
 import json
 from enum      import IntEnum, unique
+from .         import utils
 from bip_utils import (
     Bip39MnemonicGenerator, Bip39SeedGenerator,
     Bip32,
@@ -94,14 +94,6 @@ class HdWalletSpecs(IntEnum):
 
 class HdWalletConst:
     """ Class container for HD wallet constants. """
-
-    # Map specifications to BIP name
-    SPECS_TO_NAME = \
-        {
-            HdWalletSpecs.BIP44 : "BIP-0044",
-            HdWalletSpecs.BIP49 : "BIP-0049",
-            HdWalletSpecs.BIP84 : "BIP-0084",
-        }
 
     # Map specifications to BIP class
     SPECS_TO_BIP_CLASS = \
@@ -182,7 +174,7 @@ class HdWallet:
         """
 
         # Set data
-        self.__SetWalletData("seed_bytes", self.__BytesToString(seed_bytes))
+        self.__SetWalletData("seed_bytes", utils.BytesToString(seed_bytes))
         # Create wallet from seed
         self.m_bip_obj = self.__GetBipClass().FromSeed(seed_bytes, self.m_coin_idx)
 
@@ -207,14 +199,14 @@ class HdWallet:
         if not isinstance(change_idx, HdWalletChanges):
             raise TypeError("Change index is not an enumerative of HdWalletChanges")
         if address_num < 0:
-            raise ValueError("Addresses number shall be greater than zero")
+            raise ValueError("Address number shall be greater than zero")
         if self.m_bip_obj is None:
             raise RuntimeError("Wallet shall be created before generating keys and addresses")
 
         # Set wallet name
         self.__SetWalletData("wallet_name", self.m_wallet_name)
         # Set specification name
-        self.__SetWalletData("spec_name", HdWalletConst.SPECS_TO_NAME[self.m_spec_idx])
+        self.__SetWalletData("spec_name", self.m_bip_obj.SpecName())
         # Set coin name
         coin_name = self.m_bip_obj.CoinNames()
         self.__SetWalletData("coin_name", "%s (%s)" % (coin_name["name"], coin_name["abbr"]))
@@ -336,12 +328,12 @@ class HdWallet:
 
         # Add public keys
         key_data["ex_pub"]   = bip_obj.PublicKey()
-        key_data["raw_pub"]  = HdWallet.__BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_COMPR_KEY))
+        key_data["raw_pub"]  = utils.BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_COMPR_KEY))
 
         # Add private keys only if not public-only
         if not bip_obj.IsPublicOnly():
             key_data["ex_priv"]  = bip_obj.PrivateKey()
-            key_data["raw_priv"] = HdWallet.__BytesToString(bip_obj.PrivateKey(Bip44PrivKeyTypes.RAW_KEY))
+            key_data["raw_priv"] = utils.BytesToString(bip_obj.PrivateKey(Bip44PrivKeyTypes.RAW_KEY))
 
             # Add WIF if supported by the coin
             wif = bip_obj.WalletImportFormat()
@@ -349,15 +341,3 @@ class HdWallet:
                 key_data["wif"] = wif
 
         return key_data
-
-    @staticmethod
-    def __BytesToString(data_bytes):
-        """ Convert bytes to string.
-
-        Args:
-            data_bytes (str) : data bytes
-
-        Return (str)
-            Bytes converted to string
-        """
-        return binascii.hexlify(data_bytes).decode("utf-8")
