@@ -107,12 +107,12 @@ class HdWalletConst:
 class HdWallet:
     """ HD wallet class. It basically wraps the bip_utils, allowing to generate a complete wallet. """
 
-    def __init__(self, wallet_name, coin_idx, spec_idx = HdWalletSpecs.BIP44):
+    def __init__(self, wallet_name, coin_idx = HdWalletCoins.BITCOIN, spec_idx = HdWalletSpecs.BIP44):
         """ Construct class.
 
         Args:
             wallet_name (str)                  : wallet name
-            coin_idx (HdWalletCoins)           : coin index, must be a HdWalletCoins enum
+            coin_idx (HdWalletCoins, optional) : coin index, must be a HdWalletCoins enum, Bitcoin if not specified
             spec_idx (HdWalletSpecs, optional) : specification index, must be a HdWalletSpecs enum, BIP44 if not specified
         """
 
@@ -136,6 +136,24 @@ class HdWallet:
         """ Reset wallet data. """
         self.m_bip_obj     = None
         self.m_wallet_data = {}
+
+    @staticmethod
+    def CreateFromFile(file_path):
+        """ Create wallet from file.
+
+        Args:
+            file_path (str) : file path
+
+        Returns (HdWallet):
+            HdWallet class
+        """
+
+        hd_wallet = HdWallet("")
+
+        with open(file_path, "r") as f:
+            hd_wallet.m_wallet_data = json.load(f)
+
+        return hd_wallet
 
     def CreateRandom(self, words_num):
         """ Create wallet randomly.
