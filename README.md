@@ -67,15 +67,21 @@ After a wallet is constructed, it can be created:
 
         # Create from private extended key
         ex_key = "xprv9s21ZrQH143K4L5D8NLB8rE6XwqsK7hkDLUnVpeMq1t59fZPGU4811A1ih8mPrKisgftXWJZZXAoKdzCcX4WERMXns4s9pDYr54iHs3sSha"
-        hd_wallet.CreateFromExMasterKey(ex_key)
+        hd_wallet.CreateFromExtendedKey(ex_key)
 
         # Create from public extended key, generating a public-only wallet
         ex_key = "xpub661MyMwAqRbcG3PEsG7NDvmtyGb6oMcHY2ExjZJZo7y8LUgEoVTgp9PFZz4iNfaDLTfairQf21r3hP5CGYzboge4EcRNNrdEggpBo2HcJVg"
-        hd_wallet.CreateFromExMasterKey(ex_key)
+        hd_wallet.CreateFromExtendedKey(ex_key)
+
+- from a file previously saved:
+
+        # NOTE 1: CreateFromFile is a static method
+        # NOTE 2: there is currently no validation for a wallet loaded from file
+        hd_wallet = HdWallet.CreateFromFile("my_wallet.txt")
 
 ### Generating wallet keys and addresses
 
-After a wallet is created, you can generate keys and addresses by simply calling the *GenerateKeysAndAddresses* method. If you call the method before creating the wallet with the previous methods, a *RuntimeError* exception will, be raised.\
+After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method. If you call the method before creating the wallet with the previous methods, a *RuntimeError* exception will, be raised.\
 For generating a wallet, you can specify the account index, the change index and the number of addresses.\
 If you call the method with no parameters, the default values will be:
 - Account index 0
@@ -103,9 +109,9 @@ Supported change index enumerative:
 **Example**
 
     # Generate with default parameters
-    hd_wallet.GenerateKeysAndAddresses()
+    hd_wallet.Generate()
     # Specify parameters
-    hd_wallet.GenerateKeysAndAddresses(account_idx = 1, change_idx = HdWalletChanges.CHAIN_EXT, address_num = 5)
+    hd_wallet.Generate(account_idx = 1, change_idx = HdWalletChanges.CHAIN_EXT, address_num = 5)
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
@@ -132,7 +138,7 @@ Code:
 
     hd_wallet = HdWallet("eth_wallet", HdWalletCoins.ETHEREUM)
     hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_24)
-    hd_wallet.GenerateKeysAndAddresses(address_num = 3)
+    hd_wallet.Generate(address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
 Output:
@@ -209,7 +215,7 @@ Code:
 
     hd_wallet = HdWallet("ltc_bip84_wallet", HdWalletCoins.LITECOIN, HdWalletSpecs.BIP84)
     hd_wallet.CreateFromExtendedKey(ex_key)
-    hd_wallet.GenerateKeysAndAddresses(account_idx = 2, change_idx = HdWalletChanges.CHAIN_INT, address_num = 3)
+    hd_wallet.Generate(account_idx = 2, change_idx = HdWalletChanges.CHAIN_INT, address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
 Output:
@@ -291,7 +297,7 @@ Code:
 
     hd_wallet = HdWallet("btc_bip49_wallet", HdWalletCoins.BITCOIN, HdWalletSpecs.BIP49)
     hd_wallet.CreateFromExtendedKey(ex_key)
-    hd_wallet.GenerateKeysAndAddresses(address_num = 3)
+    hd_wallet.Generate(address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
 Output:
@@ -353,7 +359,7 @@ Code:
 
     hd_wallet = HdWallet("doge_wallet", HdWalletCoins.DOGECOIN)
     hd_wallet.CreateFromExtendedKey(ex_key)
-    hd_wallet.GenerateKeysAndAddresses()
+    hd_wallet.Generate()
     hd_wallet.SaveToFile("my_wallet.txt")
 
 Output:
@@ -382,7 +388,7 @@ Code:
 
     hd_wallet = HdWallet("btc_wo_wallet", HdWalletCoins.BITCOIN)
     hd_wallet.CreateFromExtendedKey(ex_key)
-    hd_wallet.GenerateKeysAndAddresses(address_num = 3)
+    hd_wallet.Generate(address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
 Output:
