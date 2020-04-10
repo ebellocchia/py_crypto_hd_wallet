@@ -31,6 +31,7 @@ setuptools.setup(
     url="https://github.com/ebellocchia/py_crypto_hd_wallet",
     download_url="https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v%s.tar.gz" % version,
     license="MIT",
+    test_suite="tests",
     install_requires = ["bip_utils"],
     packages=["py_crypto_hd_wallet"],
     keywords="bitcoin, litecoin, dogecoin, dash, ethereum, ripple, wallet, hd-wallet, bip39, bip32, bip44, bip49, bip84, python",
