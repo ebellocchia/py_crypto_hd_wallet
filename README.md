@@ -6,6 +6,30 @@
 This package contains a very basic implementation of a HD (Hierarchical Deterministic) wallet based on my [bip_utils](https://github.com/ebellocchia/bip_utils) library. It is basically a simple wrapper for the [bip_utils](https://github.com/ebellocchia/bip_utils) library for generating the mnemonic, seed, public/private keys and addresses.\
 The supported coins are the same of the [bip_utils](https://github.com/ebellocchia/bip_utils) library, so check the related page.
 
+## Install the package
+
+The package requires Python 3, it is not compatible with Python 2.
+To install it:
+- Using *setuptools*:
+
+        python setup.py install
+
+- Using *pip*:
+
+        pip install py_crypto_hd_wallet
+
+To run the unit tests:
+
+- Without code coverage
+
+        python setup.py test
+
+- With code coverage and report:
+
+        pip install coverage
+        coverage run -m unittest discover
+        coverage report
+
 ## Usage
 
 ### Class creation
