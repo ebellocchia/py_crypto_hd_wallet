@@ -386,7 +386,7 @@ class HdWalletTests(unittest.TestCase):
             if test["type"] == "random":
                 hd_wallet.CreateRandom(test["words_num"])
                 # Generate wallet
-                hd_wallet.GenerateKeysAndAddresses(test["acc_idx"], test["change_idx"], test["addr_num"])
+                hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
                 # Test wallet data
                 self.assertFalse(hd_wallet.IsWatchOnly())
                 self.assertEqual(len(hd_wallet.GetData()["mnemonic"].split(" ")), test["words_num"].value)
@@ -401,7 +401,7 @@ class HdWalletTests(unittest.TestCase):
                 elif test["type"] == "from_exkey":
                     hd_wallet.CreateFromExtendedKey(test["ex_key"])
                 # Generate wallet
-                hd_wallet.GenerateKeysAndAddresses(test["acc_idx"], test["change_idx"], test["addr_num"])
+                hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
                 # Test wallet data
                 self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
                 self.assertEqual(test["wallet_data"], hd_wallet.GetData())
@@ -429,7 +429,7 @@ class HdWalletTests(unittest.TestCase):
     def test_not_created(self):
         hd_wallet = HdWallet("test_wallet")
          # Generate wallet before creating it
-        self.assertRaises(RuntimeError, hd_wallet.GenerateKeysAndAddresses)
+        self.assertRaises(RuntimeError, hd_wallet.Generate)
         self.assertRaises(RuntimeError, hd_wallet.IsWatchOnly)
 
     def test_invalid_params(self):
@@ -447,6 +447,6 @@ class HdWalletTests(unittest.TestCase):
         # Create wallet
         hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_12)
 
-        # Invalid parameters for GenerateKeysAndAddresses
-        self.assertRaises(TypeError , hd_wallet.GenerateKeysAndAddresses, change_idx = 0)
-        self.assertRaises(ValueError, hd_wallet.GenerateKeysAndAddresses, address_num = -1)
+        # Invalid parameters for Generate
+        self.assertRaises(TypeError , hd_wallet.Generate, change_idx = 0)
+        self.assertRaises(ValueError, hd_wallet.Generate, address_num = -1)

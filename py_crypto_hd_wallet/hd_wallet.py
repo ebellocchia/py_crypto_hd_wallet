@@ -153,6 +153,7 @@ class HdWallet:
         with open(file_path, "r") as f:
             hd_wallet.m_wallet_data = json.load(f)
 
+        # TODO: create a validator class to check if the wallet is valid
         return hd_wallet
 
     def CreateRandom(self, words_num):
@@ -204,7 +205,7 @@ class HdWallet:
         """
         self.m_bip_obj = self.__GetBipClass().FromExtendedKey(key_str, self.m_coin_idx)
 
-    def GenerateKeysAndAddresses(self, account_idx = 0, change_idx = HdWalletChanges.CHAIN_EXT, address_num = 20):
+    def Generate(self, account_idx = 0, change_idx = HdWalletChanges.CHAIN_EXT, address_num = 20):
         """ Generate wallet keys and addresses.
 
         Args:
