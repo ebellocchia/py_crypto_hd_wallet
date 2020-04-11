@@ -174,17 +174,17 @@ The possible values are:
     - *HdWalletDataTypes.CHANGE_KEY*
     - *HdWalletDataTypes.ADDRESSES*
 
-        py_crypto_hd_wallet import HdWalletDataTypes
+                py_crypto_hd_wallet import HdWalletDataTypes
 
-        # Get wallet name
-        wallet_name = hd_wallet.GetData(HdWalletDataTypes.WALLET_NAME)
-        # Get account index and key (key will be a dictionary, see next paragraph)
-        acc_idx = hd_wallet.GetData(HdWalletDataTypes.ACCOUNT_IDX)
-        acc_key = hd_wallet.GetData(HdWalletDataTypes.ACCOUNT_KEY)
-        # Get addresses (will be a dictionary, see next paragraph)
-        addresses = hd_wallet.GetData(HdWalletDataTypes.ADDRESSES)
-        # Check if a data is present
-        has_data = hd_wallet.HasData(HdWalletDataTypes.ACCOUNT_IDX)
+                # Get wallet name
+                wallet_name = hd_wallet.GetData(HdWalletDataTypes.WALLET_NAME)
+                # Get account index and key (key will be a dictionary, see next paragraph)
+                acc_idx = hd_wallet.GetData(HdWalletDataTypes.ACCOUNT_IDX)
+                acc_key = hd_wallet.GetData(HdWalletDataTypes.ACCOUNT_KEY)
+                # Get addresses (will be a dictionary, see next paragraph)
+                addresses = hd_wallet.GetData(HdWalletDataTypes.ADDRESSES)
+                # Check if a data is present
+                has_data = hd_wallet.HasData(HdWalletDataTypes.ACCOUNT_IDX)
 
 ### Some examples of wallet JSON outputs
 
