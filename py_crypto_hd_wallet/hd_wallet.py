@@ -136,13 +136,24 @@ class HdWallet:
         """
         return self.m_bip_obj.IsPublicOnly()
 
-    def GetData(self):
-        """ Get wallet data.
+    def ToDict(self):
+        """ Get wallet data as a dictionary.
 
         Returns (dict):
-            Wallet data
+            Wallet data as a dictionary
         """
         return self.m_wallet_data
+
+    def ToJson(self, json_indent = 4):
+        """ Get wallet data as string in JSON format.
+
+        Args:
+            json_indent (int, optional) : indent for JSON format, 4 by default
+
+        Returns (str):
+            Wallet data as string in JSON format
+        """
+        return json.dumps(self.m_wallet_data, indent = json_indent)
 
     def GetDataType(self, data_type):
         """ Get wallet data of the specified type.
@@ -162,15 +173,6 @@ class HdWallet:
             return self.m_wallet_data[data_key_str]
         else:
             return None
-
-    def SaveToFile(self, file_path):
-        """ Save wallet to file in JSON format.
-
-        Args:
-            file_path (str) : file path
-        """
-        with open(file_path, "w") as f:
-            f.write(json.dumps(self.m_wallet_data, indent = 4))
 
     #
     # Private methods
