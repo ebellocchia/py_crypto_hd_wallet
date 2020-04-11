@@ -25,11 +25,13 @@ import json
 import os
 import unittest
 from py_crypto_hd_wallet import (
-    HdWallet, HdWalletFactory, HdWalletSaver,
-    HdWalletChanges, HdWalletCoins, HdWalletSpecs, HdWalletWordsNum, HdWalletDataTypes
+    HdWallet, HdWalletFactory, HdWalletSaver, HdWalletKeys, HdWalletAddresses,
+    HdWalletChanges, HdWalletCoins, HdWalletSpecs, HdWalletWordsNum, HdWalletDataTypes, HdWalletKeyTypes
 )
 # Just for testing
-from py_crypto_hd_wallet.hd_wallet import HdWalletConst
+from py_crypto_hd_wallet.hd_wallet_addr import HdWalletAddressesConst
+from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeysConst
+from py_crypto_hd_wallet.hd_wallet      import HdWalletConst
 
 # Ethereum wallet from seed
 TEST_VECTOR = \
@@ -258,7 +260,7 @@ TEST_VECTOR = \
                         "raw_uncompr_pub": "d902f35f560e0470c63313c7369168d9d7df2d49bf295fd9fb7cb109ccee04947d000a1345d3845dd83b4c5814f876c918305b598f066c958fad972bf59f2ec7",
                         "ex_priv": "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5",
                         "raw_priv": "1837c1be8e2995ec11cda2b066151be2cfb48adf9e47b151d46adab3a21cdf67",
-                        "wif": "6uJgfG4pBbMffTdMSGQVurdK6xBcZjhf1iDU2jtPAw5PzRdhx9m"
+                        "wif_priv": "6uJgfG4pBbMffTdMSGQVurdK6xBcZjhf1iDU2jtPAw5PzRdhx9m"
                     },
                     "purpose_key": {
                         "ex_pub": "zpub6nQP3Kke7oZS9QFQb8sVwb29vtXH66Er1faFqocsBh4KR8XrVKJmgsjLY8xDf9Ps5ifSMX7oHgoAj2CSWBeQbZRJS1KzGQL2SGFGDyZXGbz",
@@ -266,7 +268,7 @@ TEST_VECTOR = \
                         "raw_uncompr_pub": "c098a6743927554712f1cbc240ef73190db1b7633b08d54ff853899439c102b51f3c247d877613d8ebd5caf331f814a5421868c196aebb65732985ddfafd9ab5",
                         "ex_priv": "zprvAZR2dpDkHS18vvAwV7LVaT5RNrgngdWzeSef3RDFdMXLYLChwmzX95QrgrN67wosG2QjJgwUYbfiHTUTaMBb9czFCUUgKk12gKfKPR19T7P",
                         "raw_priv": "f36a166922514e2e3c7f09e139b0aeff039cbf020606670b27554f7fe1a24d9c",
-                        "wif": "6vyDk5W6psiyaxTfYrCFqpjqnnyiLdBXqqPzvJqmnfcjdfULaLF"
+                        "wif_priv": "6vyDk5W6psiyaxTfYrCFqpjqnnyiLdBXqqPzvJqmnfcjdfULaLF"
                     },
                     "coin_key": {
                         "ex_pub": "zpub6pNAXMNU74t5LozEhv5YkraP5qKGTDENJLDjtyU7XD7TAC7rDnBEv28HrYaRirxyfJtTtq64Cx136Zy4Z3pEhS8foMqseEyt2fzx6GqjZ5X",
@@ -274,7 +276,7 @@ TEST_VECTOR = \
                         "raw_uncompr_pub": "8fc79beaaf791f26f94ff65a697d9822974d76b71814a27a579b90a5cb34d479e7a167212ec340a5e15c59934fb1014b97fbc7462de61e9716a27bcf790b3d6f",
                         "ex_priv": "zprvAbNp7qqaGhKn8KumbtYYPideXoUn3kWWw7J96b4VxsaUHPnhgErzNDop1EYkEjAboQa1fZKcu7vpjcA459fSBS5goMiMRyKQLvtjmxicd98",
                         "raw_priv": "04e2afd771056acb6d2b135cde1bf5e48bfe0d45e0cebd2564bd8af181398359",
-                        "wif": "6uAAqq676gdo44PNqGZ5UPFHU17sgfMTbSupfnH3S8Pn4NZ2TU5"
+                        "wif_priv": "6uAAqq676gdo44PNqGZ5UPFHU17sgfMTbSupfnH3S8Pn4NZ2TU5"
                     },
                     "account_idx": 2,
                     "account_key": {
@@ -283,7 +285,7 @@ TEST_VECTOR = \
                         "raw_uncompr_pub": "d3f39769e1a2c930337f94f976b7ae776e0508bf69d51eb72f10dbab0b98e80404434410f2086491c7b3d714e9794bc20eb8ad429f96b26f31897a8c607f4905",
                         "ex_priv": "zprvAdQSgFiAHcXKguUNx4QieoLykmxyh2mxSiPUZcmohNnEHH6wUvu9FZUNhA6mKaaqBDr6rjf18GLn6KSsEbjzpD3ZFAQRVAh71eXdZXYVam4",
                         "raw_priv": "26636b848b4c1187c95f827cee303455d034645aa5742c634a4a88057ef0de0b",
-                        "wif": "6uQvdQ9F989FUzaWUtGpzvjrjTyPTHMevkWRZH5XzyuHjdjzUTx"
+                        "wif_priv": "6uQvdQ9F989FUzaWUtGpzvjrjTyPTHMevkWRZH5XzyuHjdjzUTx"
                     },
                     "change_idx": 1,
                     "change_key": {
@@ -292,7 +294,7 @@ TEST_VECTOR = \
                         "raw_uncompr_pub": "22068c3e9b8b81e6116429e96cce0c7f34dfcbbe02748d7d039c3b6d5f0002e4325db506b39c54bf3787c97347fe640a36ece3a2fed444dcb32f79fb96c4e7a9",
                         "ex_priv": "zprvAfJUYd3ehXAjyCvod1HZU7gH56o3AXFnHVzpmnJGY5JDZwJAhS5h8RvPrWhnh3XXWfF7NmM2KMx6RwYtDy2JXjsV3SYUTb73JsR54wnwi8q",
                         "raw_priv": "19ecb6871998145bc4b14ec9dacf6eacc1be35a2d2f3c871d8e6fe80fd7af8fa",
-                        "wif": "6uKSG2cmhpVmoCNsZShEXKocMAg4wisMz29wXDnwcL82fkrrRXp"
+                        "wif_priv": "6uKSG2cmhpVmoCNsZShEXKocMAg4wisMz29wXDnwcL82fkrrRXp"
                     },
                     "addresses": {
                         "address_1": {
@@ -301,7 +303,7 @@ TEST_VECTOR = \
                             "raw_uncompr_pub": "c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1be8722700b9e957b500970b49b64ed140d7d497ce49efd9b5bf11f61119f0163",
                             "ex_priv": "zprvAhU7UnbqgYzaDMxVeX9x92BC3SqDQpfiXcVoKA4zW7pgvif9oQe133jewvCKqDdrXfG7EGjV8kZ4NcmnYLH3De58hZThxUSAT9ArQ9kkbyJ",
                             "raw_priv": "c2f59bac194fac86d3f81f5a99e15c208a1de977a124d5bb1d482dc64ddae168",
-                            "wif": "6vbt2SXs4e8BsMJf1i9pBM7JEm5Y8U9QSrHNWbcNv1i5yHcM9er",
+                            "wif_priv": "6vbt2SXs4e8BsMJf1i9pBM7JEm5Y8U9QSrHNWbcNv1i5yHcM9er",
                             "address": "ltc1qeyp9rflupuvw5j5pdyluhqgdxfk092hra6m8jm"
                         },
                         "address_2": {
@@ -310,7 +312,7 @@ TEST_VECTOR = \
                             "raw_uncompr_pub": "9111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f2269942508a95ec95c1aece10aa0ec6c375950ed4131a1300bb5970f75aa1a360f871",
                             "ex_priv": "zprvAhU7UnbqgYzaFe9tcM6NC3NMxErW7tsEAq8bJV9SGVETckgJUWud5rKxFup4RfzazWi1HGQVdufUhg2c9RzPmtZ8sDBgTNnqiM23UummCXc",
                             "raw_priv": "8a748332b72d01727f0e63bdc2ddda5db517940b22a91fe57afed4fa8905048b",
-                            "wif": "6vAzhXugPNZXxGVBL9kgWSVMH9B3ZhggCwwtqLsby9NUuE8PTWu",
+                            "wif_priv": "6vAzhXugPNZXxGVBL9kgWSVMH9B3ZhggCwwtqLsby9NUuE8PTWu",
                             "address": "ltc1q2ksy0gmj2y2zru74nd64zlaq8h30qpz6dstr2s"
                         },
                         "address_3": {
@@ -319,7 +321,7 @@ TEST_VECTOR = \
                             "raw_uncompr_pub": "01e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400ea341d4a8c1f97d46c9e6a8341b2fd81442b5ae8aea988ccf3f5f429d6eb9bd9",
                             "ex_priv": "zprvAhU7UnbqgYzaJRZt8m9BeagBGQ2rumcDcgDF4VtffwzCz3UsQwj3zXXcUqvjaMvwLzmtKhYLojHyQSMVyg3VbE7BknvoPVpduFcTECojzq4",
                             "raw_priv": "0e7002ca0442417ee8a2a20db68c84e6844352f43627660010df8e8182df0c61",
-                            "wif": "6uENqVe5yo2wa2R2aPcZGJdY2RadjiJ1nN4zEFKfNJ3UiE3QSwz",
+                            "wif_priv": "6uENqVe5yo2wa2R2aPcZGJdY2RadjiJ1nN4zEFKfNJ3UiE3QSwz",
                             "address": "ltc1qatkc4pe54qupgp0zazd5qycwmmyhklrkgpjxap"
                         }
                     }
@@ -348,13 +350,13 @@ TEST_VECTOR = \
                     "spec_name": "BIP-0044",
                     "coin_name": "Dogecoin (DOGE)",
                     "addresses": {
-                        "address_0": {
+                        "address_1": {
                             "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
                             "raw_compr_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
                             "raw_uncompr_pub": "cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0ef6096bd24259fb59a4338413d1b542eed17d4cce52709e6ec18ec51bb87b164",
                             "ex_priv": "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw",
                             "raw_priv": "21f5e16d57b9b70a1625020b59a85fa9342de9c103af3dd9f7b94393a4ac2f46",
-                            "wif": "6JPaMAeJjouhb8xPzFzETYCHJAJ9wBoFsCyC1LXFSTcZDmHgy6L",
+                            "wif_priv": "6JPaMAeJjouhb8xPzFzETYCHJAJ9wBoFsCyC1LXFSTcZDmHgy6L",
                             "address": "DBus3bamQjgJULBJtYXpEzDWQRwF5iwxgC"
                         }
                     }
@@ -417,6 +419,7 @@ TEST_VECTOR = \
 class HdWalletTests(unittest.TestCase):
     # Run all tests in test vector
     def test_vector(self):
+        self.maxDiff = None
         for test in TEST_VECTOR:
             # Construct wallet factory
             hd_wallet_fact = HdWalletFactory(test["coin"], test["spec"])
@@ -434,7 +437,7 @@ class HdWalletTests(unittest.TestCase):
 
                 # Test wallet data
                 self.assertFalse(hd_wallet.IsWatchOnly())
-                self.__test_wallet_data(compare_wallet.ToDict(), hd_wallet)
+                self.__test_wallet_content(compare_wallet.ToDict(), hd_wallet)
             else:
                 if test["type"] == "mnemonic":
                     hd_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], test["mnemonic"])
@@ -442,46 +445,16 @@ class HdWalletTests(unittest.TestCase):
                     hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
                 elif test["type"] == "from_exkey":
                     hd_wallet = hd_wallet_fact.CreateFromExtendedKey(test["wallet_name"], test["ex_key"])
+
                 # Generate wallet
                 hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
+
                 # Test wallet data
                 self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
-                self.__test_wallet_data(test["wallet_data_dict"], hd_wallet)
+                self.__test_wallet_content(test["wallet_data_dict"], hd_wallet)
 
             # Test save to file
-            self.__test_save_to_file(hd_wallet, test["file_path"])
-
-    # Helper method for testing wallet data
-    def __test_wallet_data(self, test_data_dict, hd_wallet):
-        # Check the whole data as a dictionary
-        self.assertEqual(test_data_dict, hd_wallet.ToDict())
-        # Test each single data type
-        for data_type in HdWalletDataTypes:
-            # Get key string from data type
-            data_key_str = HdWalletConst.DATA_TYPE_TO_STR[data_type]
-
-            # Check data if present in test wallet, otherwise it shall be None
-            if data_key_str in test_data_dict:
-                self.assertTrue(hd_wallet.HasData(data_type))
-                self.assertEqual(test_data_dict[data_key_str], hd_wallet.GetData(data_type))
-            else:
-                self.assertFalse(hd_wallet.HasData(data_type))
-                self.assertEqual(None, hd_wallet.GetData(data_type))
-
-    # Helper method for saving a wallet to file and test it
-    def __test_save_to_file(self, hd_wallet, file_path):
-        # Save wallet to file
-        HdWalletSaver(hd_wallet).SaveToFile(file_path)
-        # File shall exists
-        self.assertTrue(os.path.exists(file_path))
-
-        # Load again from file in JSON format
-        with open(file_path, "r") as f:
-            saved_data = json.load(f)
-        # Loaded data shall be the same
-        self.assertEqual(hd_wallet.ToDict(), saved_data)
-        # Remove file
-        os.remove(file_path)
+            self.__test_wallet_save_to_file(hd_wallet, test["file_path"])
 
     # Test invalid parameters
     def test_invalid_params(self):
@@ -501,7 +474,108 @@ class HdWalletTests(unittest.TestCase):
 
         # Invalid parameters for Generate
         self.assertRaises(TypeError , hd_wallet.Generate, change_idx = 0)
-        self.assertRaises(ValueError, hd_wallet.Generate, address_num = -1)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_num = -1)
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
+        # Invalid parameter for HdWalletKeys
+        self.assertRaises(TypeError, HdWalletKeys().HasKey, 0)
+        self.assertRaises(TypeError, HdWalletKeys().GetKey, 0)
+
+
+    #
+    # Helper methods
+    #
+
+    # Helper method for testing a wallet content
+    def __test_wallet_content(self, ref_wallet_dict, ut_wallet):
+        # Check the whole data as a dictionary
+        self.assertEqual(ref_wallet_dict, ut_wallet.ToDict())
+        # Test each single data type
+        for data_type in HdWalletDataTypes:
+            self.__test_wallet_data_type(data_type, ref_wallet_dict, ut_wallet)
+
+
+    # Helper method for testing a wallet data type
+    def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
+        # Get dictionary key
+        dict_key = HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]
+
+        # If data type is present in the reference wallet, check it
+        if dict_key in ref_wallet_dict:
+            # Data shall be present
+            self.assertTrue(ut_wallet.HasData(data_type))
+            # Get specific data
+            wallet_data = ut_wallet.GetData(data_type)
+
+            # In case of HdWalletKeys, test also keys individually
+            if isinstance(wallet_data, HdWalletKeys):
+                self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
+            # In case of HdWalletAddresses, test also address individually
+            elif isinstance(wallet_data, HdWalletAddresses):
+                self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data)
+            # Otherwise just test the content
+            else:
+                self.assertEqual(ref_wallet_dict[dict_key], wallet_data)
+        # If data type is not present, it shall be None
+        else:
+            self.assertFalse(ut_wallet.HasData(data_type))
+            self.assertEqual(None, ut_wallet.GetData(data_type))
+
+
+    # Helper method for testing wallet keys (HdWalletKeys)
+    def __test_wallet_keys(self, ref_keys_dict, ut_wallet_keys):
+        # Test all keys as a dictionary
+        self.assertEqual(ref_keys_dict, ut_wallet_keys.ToDict())
+        # Test all keys as a string in JSON format
+        self.assertEqual(json.dumps(ref_keys_dict, indent = 4), ut_wallet_keys.ToJson())
+
+        # Get and test each key type
+        for key_type in HdWalletKeyTypes:
+            # Get current dictionary key
+            dict_key = HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+
+            # If key type is present in the reference keys, check it
+            if dict_key in ref_keys_dict:
+                self.assertTrue(ut_wallet_keys.HasKey(key_type))
+                self.assertEqual(ref_keys_dict[dict_key], ut_wallet_keys.GetKey(key_type))
+            # If key type is not present, it shall be None
+            else:
+                self.assertFalse(ut_wallet_keys.HasKey(key_type))
+                self.assertEqual(None, ut_wallet_keys.GetKey(key_type))
+
+
+    # Helper method for testing wallet addresses (HdWalletAddresses)
+    def __test_wallet_addresses(self, test_addr_dict, ut_wallet_addr):
+        # Test whole addresses as a dictionary
+        self.assertEqual(test_addr_dict, ut_wallet_addr.ToDict())
+        # Test all addresses as a string in JSON format
+        self.assertEqual(json.dumps(test_addr_dict, indent = 4), ut_wallet_addr.ToJson())
+
+        # Test address count
+        self.assertEqual(len(test_addr_dict), ut_wallet_addr.Count())
+
+        # Test each address by iterating
+        for i, addr in enumerate(ut_wallet_addr):
+            # Get current dictionary key
+            dict_key = HdWalletAddressesConst.ADDR_DICT_KEY % (i + 1)
+            # Each address is simply a HdWalletKeys, so we can use the previous method
+            self.__test_wallet_keys(test_addr_dict[dict_key], addr)
+            # Test again but accessing via index
+            self.__test_wallet_keys(test_addr_dict[dict_key], ut_wallet_addr[i])
+
+
+    # Helper method for saving a wallet to file and test it
+    def __test_wallet_save_to_file(self, ut_wallet, file_path):
+        # Save wallet to file
+        HdWalletSaver(ut_wallet).SaveToFile(file_path)
+        # File shall exists
+        self.assertTrue(os.path.exists(file_path))
+
+        # Load again from file in JSON format
+        with open(file_path, "r") as f:
+            saved_data = json.load(f)
+        # Loaded data shall be the same
+        self.assertEqual(ut_wallet.ToDict(), saved_data)
+        # Remove file
+        os.remove(file_path)
