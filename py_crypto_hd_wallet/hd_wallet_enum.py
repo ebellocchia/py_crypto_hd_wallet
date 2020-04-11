@@ -20,7 +20,7 @@
 
 
 # Imports
-from enum      import Enum, IntEnum, unique
+from enum      import IntEnum, unique
 from bip_utils import Bip44Changes, Bip44Coins
 
 
@@ -86,7 +86,7 @@ class HdWalletSpecs(IntEnum):
 
 
 @unique
-class HdWalletDataTypes(Enum):
+class HdWalletDataTypes(IntEnum):
     """ Enumerative for wallet data types. """
 
     WALLET_NAME = 0,
@@ -103,3 +103,16 @@ class HdWalletDataTypes(Enum):
     ACCOUNT_KEY = 11,
     CHANGE_KEY  = 12,
     ADDRESSES   = 13,
+
+
+@unique
+class HdWalletKeyTypes(IntEnum):
+    """ Enumerative for wallet key types. """
+
+    EX_PRIV         = 0,
+    RAW_PRIV        = 1,
+    WIF_PRIV        = 2,
+    EX_PUB          = 3,
+    RAW_COMPR_PUB   = 4,
+    RAW_UNCOMPR_PUB = 5,
+    ADDRESS         = 6,
