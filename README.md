@@ -35,9 +35,10 @@ To run the unit tests:
 
 ## Usage
 
-### Class creation
+### Wallet factory construction
 
-The *HdWallet* is created by specifying the wallet name, coin and BIP specification used to derive keys and addresses.\
+A wallet is created by means of the *HdWalletFactory* class.\
+A *HdWalletFactory* class is constructed by specifying the coin and BIP specification used to derive keys and addresses. After the construction, the factory can be used to create wallets with the specified coin and BIP specification.\
 If no BIP specification is given, BIP-0044 will be used as default.
 
 Supported coin enumerative:
@@ -55,56 +56,50 @@ Supported BIP specification enumerative:
 
 **Example**
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletCoins, HdWalletSpecs
+    from py_crypto_hd_wallet import HdWalletFactory, HdWalletCoins, HdWalletSpecs
 
-    # Create a Bitcoin wallet, if not specified BIP-0044 will be used as specification
-    hd_wallet = HdWallet("main_wallet", HdWalletCoins.BITCOIN)
-    # Create a Litecoin wallet by specifying the BIP specification
-    hd_wallet = HdWallet("main_wallet", HdWalletCoins.LITECOIN, HdWalletSpecs.BIP49)
+    # Create a BIP-0044 (default value) Bitcoin wallet factory
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.BITCOIN)
+    # Create a BIP-0049 Litecoin wallet factory
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.LITECOIN, HdWalletSpecs.BIP49)
     # If a coin is not supported by the desired BIP specification, a ValueError exception will be raised, for example:
-    HdWallet("main_wallet", HdWalletCoins.ETHEREUM, HdWalletSpecs.BIP49)
+    HdWalletFactory(HdWalletCoins.ETHEREUM, HdWalletSpecs.BIP49)
 
 ### Wallet creation
 
-After a wallet is constructed, it can be created:
+After a wallet factory is constructed, a wallet can be created in the following ways:
 - randomly by generating a random mnemonic with the specified words number:
 
         from py_crypto_hd_wallet import HdWalletWordsNum
 
         # Create randomly by specifying the words number, these are the possible options:
-        hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_12)
-        hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_15)
-        hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_18)
-        hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_21)
-        hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_24)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_15)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_18)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_21)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_24)
 
 - from an already existent mnemonic:
 
         # Create from mnemonic
         mnemonic = "garbage fossil patrol shadow put morning miss chapter sister undo nation dignity"
-        hd_wallet.CreateFromMnemonic(mnemonic)
+        hd_wallet = hd_wallet_fact.CreateFromMnemonic("my_wallet_name", mnemonic)
 
 - from a seed:
 
         # Create from seed
         seed_bytes = b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4"
-        hd_wallet.CreateFromSeed(binascii.unhexlify(seed_bytes))
+        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
 
 - from a key in extended format (the extended key should be in the correct format depending on the wallet coin):
 
         # Create from private extended key
         ex_key = "xprv9s21ZrQH143K4L5D8NLB8rE6XwqsK7hkDLUnVpeMq1t59fZPGU4811A1ih8mPrKisgftXWJZZXAoKdzCcX4WERMXns4s9pDYr54iHs3sSha"
-        hd_wallet.CreateFromExtendedKey(ex_key)
+        hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name",ex_key)
 
         # Create from public extended key, generating a public-only wallet
         ex_key = "xpub661MyMwAqRbcG3PEsG7NDvmtyGb6oMcHY2ExjZJZo7y8LUgEoVTgp9PFZz4iNfaDLTfairQf21r3hP5CGYzboge4EcRNNrdEggpBo2HcJVg"
-        hd_wallet.CreateFromExtendedKey(ex_key)
-
-- from a file previously saved:
-
-        # NOTE 1: CreateFromFile is a static method
-        # NOTE 2: there is currently no validation for a wallet loaded from file
-        hd_wallet = HdWallet.CreateFromFile("my_wallet.txt")
+        hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name",ex_key)
 
 ### Generating wallet keys and addresses
 
@@ -161,10 +156,10 @@ After keys and addresses were generated, you can either get the data as dictiona
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletCoins, HdWalletWordsNum
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins, HdWalletWordsNum
 
-    hd_wallet = HdWallet("eth_wallet", HdWalletCoins.ETHEREUM)
-    hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_24)
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.ETHEREUM)
+    hd_wallet = hd_wallet_fact.CreateRandom("eth_wallet", HdWalletWordsNum.WORDS_NUM_24)
     hd_wallet.Generate(address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
@@ -236,12 +231,12 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletCoins, HdWalletChanges, HdWalletSpecs
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins, HdWalletChanges, HdWalletSpecs
 
     ex_key = "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5"
 
-    hd_wallet = HdWallet("ltc_bip84_wallet", HdWalletCoins.LITECOIN, HdWalletSpecs.BIP84)
-    hd_wallet.CreateFromExtendedKey(ex_key)
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.LITECOIN, HdWalletSpecs.BIP84)
+    hd_wallet = hd_wallet_fact.CreateFromExtendedKey("ltc_bip84_wallet", ex_key)
     hd_wallet.Generate(account_idx = 2, change_idx = HdWalletChanges.CHAIN_INT, address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
@@ -318,12 +313,12 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletCoins, HdWalletSpecs
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins, HdWalletSpecs
 
     ex_key = "yprvAHwhK6RbpuS3dgCYHM5jc2ZvEKd7Bi61u9FVhYMpgMSuZS613T1xxQeKTffhrHY79hZ5PsskBjcc6C2V7DrnsMsNaGDaWev3GLRQRgV7hxF"
 
-    hd_wallet = HdWallet("btc_bip49_wallet", HdWalletCoins.BITCOIN, HdWalletSpecs.BIP49)
-    hd_wallet.CreateFromExtendedKey(ex_key)
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.BITCOIN, HdWalletSpecs.BIP49)
+    hd_wallet = hd_wallet_fact.CreateFromExtendedKey("btc_bip49_wallet", ex_key)
     hd_wallet.Generate(address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
@@ -380,12 +375,12 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletCoins
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins
 
     ex_key = "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw"
 
-    hd_wallet = HdWallet("doge_wallet", HdWalletCoins.DOGECOIN)
-    hd_wallet.CreateFromExtendedKey(ex_key)
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.DOGECOIN)
+    hd_wallet = hd_wallet_fact.CreateFromExtendedKey("doge_wallet", ex_key)
     hd_wallet.Generate()
     hd_wallet.SaveToFile("my_wallet.txt")
 
@@ -409,12 +404,12 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletCoins
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins
 
     ex_key = "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY"
 
-    hd_wallet = HdWallet("btc_wo_wallet", HdWalletCoins.BITCOIN)
-    hd_wallet.CreateFromExtendedKey(ex_key)
+    hd_wallet_fact = HdWalletFactory(HdWalletCoins.BITCOIN)
+    hd_wallet = hd_wallet_fact.CreateFromExtendedKey("btc_wo_wallet", ex_key)
     hd_wallet.Generate(address_num = 3)
     hd_wallet.SaveToFile("my_wallet.txt")
 
