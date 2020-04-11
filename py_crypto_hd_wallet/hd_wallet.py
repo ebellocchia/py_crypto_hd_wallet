@@ -155,7 +155,22 @@ class HdWallet:
         """
         return json.dumps(self.m_wallet_data, indent = json_indent)
 
-    def GetDataType(self, data_type):
+    def HasData(self, data_type):
+        """ Get if the wallet data of the specified type is present.
+
+        Args:
+            data_type (HdWalletDataTypes) : data tyoe, shall be of HdWalletDataTypes enum
+
+        Returns (bool):
+            True if present, false otherwise
+        """
+        if not isinstance(data_type, HdWalletDataTypes):
+            raise TypeError("Data type is not an enumerative of HdWalletDataTypes")
+
+        data_key_str = HdWalletConst.DATA_TYPE_TO_STR[data_type]
+        return data_key_str in self.m_wallet_data
+
+    def GetData(self, data_type):
         """ Get wallet data of the specified type.
 
         Args:
@@ -164,13 +179,8 @@ class HdWallet:
         Returns (str, dict or None):
             Wallet data type, None if not found
         """
-        if not isinstance(data_type, HdWalletDataTypes):
-            raise TypeError("Data type is not an enumerative of HdWalletDataTypes")
-
-        data_key_str = HdWalletConst.DATA_TYPE_TO_STR[data_type]
-
-        if data_key_str in self.m_wallet_data:
-            return self.m_wallet_data[data_key_str]
+        if self.HasData(data_type):
+            return self.m_wallet_data[HdWalletConst.DATA_TYPE_TO_STR[data_type]]
         else:
             return None
 
