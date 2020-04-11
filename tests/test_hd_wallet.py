@@ -24,7 +24,7 @@ import binascii
 import json
 import os
 import unittest
-from py_crypto_hd_wallet import HdWallet, HdWalletChanges, HdWalletCoins, HdWalletSpecs, HdWalletWordsNum
+from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletChanges, HdWalletCoins, HdWalletSpecs, HdWalletWordsNum
 
 
 # Ethereum wallet from seed
@@ -80,13 +80,13 @@ TEST_VECTOR = \
             # Data for wallet test
             "watch_only"  : False,
             "wallet_data" : \
-                            {
-                    "mnemonic": "rain boss crew taxi win salmon tool stove pass monster diamond expect debris mutual syrup extra flower discover affair expect make motion great dignity",
-                    "passphrase": "",
-                    "seed_bytes": "be05b15b78bf796d10b119e1918d6ec378d6a37319e26037bc7789a5c958fa4f5baff22950f0861649b83a51d99b5990e3262e091972c72635e77a4953810c38",
+                {
                     "wallet_name": "eth_wallet",
                     "spec_name": "BIP-0044",
                     "coin_name": "Ethereum (ETH)",
+                    "mnemonic": "rain boss crew taxi win salmon tool stove pass monster diamond expect debris mutual syrup extra flower discover affair expect make motion great dignity",
+                    "passphrase": "",
+                    "seed_bytes": "be05b15b78bf796d10b119e1918d6ec378d6a37319e26037bc7789a5c958fa4f5baff22950f0861649b83a51d99b5990e3262e091972c72635e77a4953810c38",
                     "master": {
                         "ex_pub": "xpub661MyMwAqRbcFg15HbiVFmvPHtf66prHAuENEDcyNbpF6bMwgQyC2uvixMBucrDnW9zE2wVLWaim7o6PtTnAwgdo6GuGtakfJu8ZEJJA9mQ",
                         "raw_pub": "033dc3e298983f881ac54d74150decb42592a04fdae56ec1c327d65a9b78a7723e",
@@ -147,10 +147,10 @@ TEST_VECTOR = \
             "watch_only"  : False,
             "wallet_data" : \
                 {
-                    "seed_bytes": "be05b15b78bf796d10b119e1918d6ec378d6a37319e26037bc7789a5c958fa4f5baff22950f0861649b83a51d99b5990e3262e091972c72635e77a4953810c38",
                     "wallet_name": "eth_wallet",
                     "spec_name": "BIP-0044",
                     "coin_name": "Ethereum (ETH)",
+                    "seed_bytes": "be05b15b78bf796d10b119e1918d6ec378d6a37319e26037bc7789a5c958fa4f5baff22950f0861649b83a51d99b5990e3262e091972c72635e77a4953810c38",
                     "master": {
                         "ex_pub": "xpub661MyMwAqRbcFg15HbiVFmvPHtf66prHAuENEDcyNbpF6bMwgQyC2uvixMBucrDnW9zE2wVLWaim7o6PtTnAwgdo6GuGtakfJu8ZEJJA9mQ",
                         "raw_pub": "033dc3e298983f881ac54d74150decb42592a04fdae56ec1c327d65a9b78a7723e",
@@ -377,29 +377,32 @@ class HdWalletTests(unittest.TestCase):
     # Run all tests in test vector
     def test_vector(self):
         for test in TEST_VECTOR:
-            # Construct wallet
-            hd_wallet = HdWallet(test["wallet_name"], test["coin"], test["spec"])
-            # Wallet shall be empty
-            self.assertEqual({}, hd_wallet.GetData())
+            # Construct wallet factory
+            hd_wallet_fact = HdWalletFactory(test["coin"], test["spec"])
 
             # Create wallet depending on type
             if test["type"] == "random":
-                hd_wallet.CreateRandom(test["words_num"])
+                hd_wallet = hd_wallet_fact.CreateRandom(test["wallet_name"], test["words_num"])
                 # Generate wallet
                 hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
+
+                # Since the wallet is random, in order to check it we create a new wallet from the
+                # random wallet mnemonic. The two wallets shall be identical.
+                compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.GetData()["mnemonic"])
+                compare_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
+
                 # Test wallet data
                 self.assertFalse(hd_wallet.IsWatchOnly())
-                self.assertEqual(len(hd_wallet.GetData()["mnemonic"].split(" ")), test["words_num"].value)
-                self.assertEqual(hd_wallet.GetData()["wallet_name"], test["wallet_name"])
+                self.assertEqual(hd_wallet.GetData(), compare_wallet.GetData())
                 # Since it's random, get the generated wallet data
                 wallet_data = hd_wallet.GetData()
             else:
                 if test["type"] == "mnemonic":
-                    hd_wallet.CreateFromMnemonic(test["mnemonic"])
+                    hd_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], test["mnemonic"])
                 elif test["type"] == "from_seed":
-                    hd_wallet.CreateFromSeed(binascii.unhexlify(test["seed"]))
+                    hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
                 elif test["type"] == "from_exkey":
-                    hd_wallet.CreateFromExtendedKey(test["ex_key"])
+                    hd_wallet = hd_wallet_fact.CreateFromExtendedKey(test["wallet_name"], test["ex_key"])
                 # Generate wallet
                 hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
                 # Test wallet data
@@ -413,39 +416,28 @@ class HdWalletTests(unittest.TestCase):
             # File shall exists
             self.assertTrue(os.path.exists(test["file_path"]))
 
-            # Reset wallet
-            hd_wallet.ResetData()
-            # Wallet shall be empty
-            self.assertEqual({}, hd_wallet.GetData())
-
             # Load again from file
-            new_wallet = HdWallet.CreateFromFile(test["file_path"])
+            with open(test["file_path"], "r") as f:
+                saved_data = json.load(f)
             # Loaded data shall be the same
-            self.assertEqual(wallet_data, new_wallet.GetData())
+            self.assertEqual(wallet_data, saved_data)
             # Remove file
             os.remove(test["file_path"])
 
-    # Test not created wallet
-    def test_not_created(self):
-        hd_wallet = HdWallet("test_wallet")
-         # Generate wallet before creating it
-        self.assertRaises(RuntimeError, hd_wallet.Generate)
-        self.assertRaises(RuntimeError, hd_wallet.IsWatchOnly)
-
     def test_invalid_params(self):
         # Invalid parameters during construction
-        self.assertRaises(TypeError , HdWallet, "", 0)
-        self.assertRaises(TypeError , HdWallet, "", HdWalletCoins.BITCOIN, 0)
-        self.assertRaises(ValueError, HdWallet, "", HdWalletCoins.ETHEREUM, HdWalletSpecs.BIP49)
-        self.assertRaises(ValueError, HdWallet, "", HdWalletCoins.RIPPLE  , HdWalletSpecs.BIP84)
+        self.assertRaises(TypeError , HdWalletFactory, 0)
+        self.assertRaises(TypeError , HdWalletFactory, HdWalletCoins.BITCOIN, 0)
+        self.assertRaises(ValueError, HdWalletFactory, HdWalletCoins.ETHEREUM, HdWalletSpecs.BIP49)
+        self.assertRaises(ValueError, HdWalletFactory, HdWalletCoins.RIPPLE  , HdWalletSpecs.BIP84)
 
-        # Construct a wallet
-        hd_wallet = HdWallet("test_wallet")
+        # Construct a wallet factory
+        hd_wallet_fact = HdWalletFactory(HdWalletCoins.BITCOIN)
         # Invalid parameter for CreateRandom
-        self.assertRaises(TypeError, hd_wallet.CreateRandom, 12)
+        self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", 12)
 
         # Create wallet
-        hd_wallet.CreateRandom(HdWalletWordsNum.WORDS_NUM_12)
+        hd_wallet = hd_wallet_fact.CreateRandom("test_wallet", HdWalletWordsNum.WORDS_NUM_12)
 
         # Invalid parameters for Generate
         self.assertRaises(TypeError , hd_wallet.Generate, change_idx = 0)
