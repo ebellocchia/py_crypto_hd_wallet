@@ -91,7 +91,8 @@ After a wallet factory is constructed, a wallet can be created in the following 
         seed_bytes = b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4"
         hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
 
-- from a key in extended format (the extended key should be in the correct format depending on the wallet coin):
+- from a key in extended format.
+The extended key should be in the correct format depending on the wallet coin, otherwise a *ValueError* exception will be raised:
 
         # Create from private extended key
         ex_key = "xprv9s21ZrQH143K4L5D8NLB8rE6XwqsK7hkDLUnVpeMq1t59fZPGU4811A1ih8mPrKisgftXWJZZXAoKdzCcX4WERMXns4s9pDYr54iHs3sSha"
@@ -139,90 +140,127 @@ Supported change index enumerative:
 
 ### Getting wallet data
 
-After keys and addresses were generated, you can either get the data as dictionary or save it to a file in JSON format.\
+After keys and addresses were generated, you can:
 
-**Example**
+- get the whole data as dictionary (see next paragraph for output format):
 
-    # Get wallet data as a dictionary
-    wallet_data = hd_wallet.GetData()
-    # Save wallet data to file
-    hd_wallet.SaveToFile("my_wallet.txt")
+        # Get wallet data as a dictionary
+        wallet_data = hd_wallet.ToDict()
+
+- get the whole data as a string in JSON format (see next paragraph for output format):
+
+        # Get wallet data as a string in JSON format
+        wallet_data = hd_wallet.ToJson()
+
+- save data to a file in JSON format by means of the *HdWalletSaver* class, to store the generated keys and addresses:
+
+        # Save wallet data to file
+        HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+- get a specific data using the *HdWalletDataTypes* enum. If the specified data is not existent, *None* will be returned.
+The possible values are:
+    - *HdWalletDataTypes.WALLET_NAME*
+    - *HdWalletDataTypes.COIN_NAME*
+    - *HdWalletDataTypes.SPEC_NAME*
+    - *HdWalletDataTypes.MNEMONIC*
+    - *HdWalletDataTypes.PASSPHRASE*
+    - *HdWalletDataTypes.SEED_BYTES*
+    - *HdWalletDataTypes.ACCOUNT_IDX*
+    - *HdWalletDataTypes.CHANGE_IDX*
+    - *HdWalletDataTypes.MASTER_KEY*
+    - *HdWalletDataTypes.PURPOSE_KEY*
+    - *HdWalletDataTypes.COIN_KEY*
+    - *HdWalletDataTypes.ACCOUNT_KEY*
+    - *HdWalletDataTypes.CHANGE_KEY*
+    - *HdWalletDataTypes.ADDRESSES*
+
+        py_crypto_hd_wallet import HdWalletDataTypes
+
+        # Get wallet name
+        wallet_name = hd_wallet.GetDataType(HdWalletDataTypes.WALLET_NAME)
+        # Get account index and key (key will be a dictionary)
+        acc_idx = hd_wallet.GetDataType(HdWalletDataTypes.ACCOUNT_IDX)
+        acc_key = hd_wallet.GetDataType(HdWalletDataTypes.ACCOUNT_KEY)
+        # Get addresses (will be a dictionary)
+        addresses = hd_wallet.GetDataType(HdWalletDataTypes.ADDRESSES)
 
 ### Some examples of wallet JSON outputs
 
-**NOTE:** to limit the outpu size in the examples, the addresses number is limited to 3
+**NOTE:** to limit the output size in the examples, the addresses number is limited to 3
 
 **Random wallet with 24 words passphrase for Ethereum (WIF is not present since it is not supported by Ethereum)**
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins, HdWalletWordsNum
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletCoins, HdWalletWordsNum
 
     hd_wallet_fact = HdWalletFactory(HdWalletCoins.ETHEREUM)
     hd_wallet = hd_wallet_fact.CreateRandom("eth_wallet", HdWalletWordsNum.WORDS_NUM_24)
     hd_wallet.Generate(address_num = 3)
-    hd_wallet.SaveToFile("my_wallet.txt")
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
 
     {
-        "mnemonic": "rain boss crew taxi win salmon tool stove pass monster diamond expect debris mutual syrup extra flower discover affair expect make motion great dignity",
-        "passphrase": "",
-        "seed_bytes": "be05b15b78bf796d10b119e1918d6ec378d6a37319e26037bc7789a5c958fa4f5baff22950f0861649b83a51d99b5990e3262e091972c72635e77a4953810c38",
         "wallet_name": "eth_wallet",
         "spec_name": "BIP-0044",
         "coin_name": "Ethereum (ETH)",
-        "master": {
-            "ex_pub": "xpub661MyMwAqRbcFg15HbiVFmvPHtf66prHAuENEDcyNbpF6bMwgQyC2uvixMBucrDnW9zE2wVLWaim7o6PtTnAwgdo6GuGtakfJu8ZEJJA9mQ",
-            "raw_pub": "033dc3e298983f881ac54d74150decb42592a04fdae56ec1c327d65a9b78a7723e",
-            "ex_priv": "xprv9s21ZrQH143K3BvcBaBUtdyejrpbhN8RogJmRqDMpGHGDo2o8sewV7cF73sexLVeGZC1AA49QRzqZW7jb3NKpP5XwabCPZLkU74yQf9CmBd",
-            "raw_priv": "10f02c53262181fbd9ef05a72fe751b06896ecd24041b902d198fb3d8629e634"
+        "mnemonic": "connect gauge divide face pluck bright network outdoor smile trouble december flash sphere lizard scout lemon fame govern such hello simple praise drift defy",
+        "passphrase": "",
+        "seed_bytes": "50308d43f7af2755e9bd1b73a8e716ea240be3262bbbd1a2a40e8a95a7b1f7edc78ab3d071555141c6782a1573a895cc0a72251adf4e00d5d5ca5bf1cae74fa0",
+        "master_key": {
+            "ex_pub": "xpub661MyMwAqRbcEkHb9xiHZfhHfquEtcY346yHQ3LF4VwX969S1t3dqrniGHKApSLMwz1xMoroimP3t5sPJAT2x2iPPEbFCja21stj32vFRmD",
+            "raw_pub": "031416ca30c079c05ab43cb5d398daff9dc0e898937f76f1b4998bfea58f11d46f",
+            "ex_priv": "xprv9s21ZrQH143K2GD83wBHCXkZ7p4kV9pBgt3gbevdWAQYGHpHULjPJ4UER1ym5sBAYJ9SGrhJPYEBbM5WrUGiXhuUK9u8kPrWcuZpmEGmr9v",
+            "raw_priv": "ec074ca40d31e4285c94c4517f7f6d4a031b04f7b244be1aafdb55732f343cf8"
         },
-        "purpose": {
-            "ex_pub": "xpub692mmo1TcpWTrA1jzB2eM2e9P5vEKcq3gTiUtXDiG9FT6iA855ognX1G3N97pivu2gGaScYPbWLvWvQ5igqnG2qJ1RjWFZyuWuKpADc3cJN",
-            "raw_pub": "029d155ec354874b5c098a07eb0e21bbafd43d49db76ced50ecc2c48c6200329f7",
-            "ex_priv": "xprv9v3RNHUZnSxAdfwGt9VdythQq45jvA7CKEnt68p6hoiUDupyXYVSEignC73DNbhup4D4XWzruK15BE2mcHzKsCSTuevmK1Lgq6pgabit8oF",
-            "raw_priv": "93affe14058744d777a927854255a0a21d5e876d382cdf2c77db25e1ab76fce9"
+        "purpose_key": {
+            "ex_pub": "xpub688EfbD73Ed3xoQ2jEJLXDkxK6eKfQtL95iZdw7Su13cPGLR7XrZuYchiGBZ6jZeS4TVLx5gSVZwQukVZxYHRqQCFut5j2tem6ufzstPv8b",
+            "raw_pub": "021abffc8cff93d1db83b380c4ed537da2593a30ed0472a4b609ab7d620bfe337e",
+            "ex_priv": "xprv9u8tG5gDCs4kkKKZdCmLA5pDm4oqFxAUmrnxqYhqLfWdWU1GZzYKMkJDs2Gn1afN66eh7K3Mj6odGdasDUkP6quBTqY1Tb1KGLK6XpDHZuj",
+            "raw_priv": "ae50a8ea0555d68473f66f7a04aa601fe0e48405fb5570c371ff8bd125c30924"
         },
-        "coin": {
-            "ex_pub": "xpub6ArbQta8WCH2s979UDyfrG8hNhkDE5GKQCTme5b1joDEegJZjVB7aFe13cvazpqgy6DVaW63LoTwvGLzGDp2UGLjTMRmn3BZju2MKrFskW7",
-            "raw_pub": "03d527bd49aeb3a96b517eb7bbc3ddde04528f1966c52088867f2580afc11df232",
-            "ex_priv": "xprv9wsF1P3Efpijef2gNCSfV8BxpfuipcYU2yYAqhBQBTgFmsyRBwrs2TKXCJbTohdSveRQtFZvxLimPMrU2RW9TswG7VMEsGeSz6S3bQbvucg",
-            "raw_priv": "22a76f428f1ea78b90a054f31614216360f063c7a9d70ed82530d6ba690bd6f9"
+        "coin_key": {
+            "ex_pub": "xpub69v7ExEpKp1uZciyLXT9aYP5BdUN1qYUU4BwsPGdK52KRSm3imQVbdacyuoLETStgbryQ7Dk1QQR26vdwmMKXi5gVbx5HDEB7m9kPcjH7YV",
+            "raw_pub": "02061a5f2c127ac176453a2210b28ff7716ab84cb3dfca2b1cf90563b3c053fac5",
+            "ex_priv": "xprv9vvkqShvVSTcM8eWEVv9DQSLdbdscNpd6qGM4zs1kjVLYeRuBE6F3qG98f4RZsy789MENwMxt9ShyQe4kMLgVNrVgoWp1yahLbS4W7M6nye",
+            "raw_priv": "2c61b53fd0e8cbe313921d13a878a331558c17714ec338b007c58c3f0e053bf6"
         },
-        "account_0": {
-            "ex_pub": "xpub6Bwsb86aJezics6QQRuZvebTfFMF5ocSKzeWPZXP28t3JF9r6MGcPQ15C2J2kCLCNiXXceLnzVbw6VrTppfg8ixoRn2WGqRhykYEP5sJJbq",
-            "raw_pub": "02a6199844743c722e171a2739939b6f60b0117984a183a2912d6a706193dd05c6",
-            "ex_priv": "xprv9xxXBcZgUHSRQP1wJQNZZWej7DWkgLtaxmiubB7mToM4RSphYoxMqbgbLkZV8wjjnEs1a1sxoFiLMC6bab16ySUZWTnhdvtwSYY5CQhQqJw",
-            "raw_priv": "4981c4baf73037d750ea9079ba25d2795f26021f4b71ac4155a020622581cfe3"
+        "account_idx": 0,
+        "account_key": {
+            "ex_pub": "xpub6C3w1C5dU6qYeQPb5Qhu6XP4R3synrR7U5rqYCcrbCLDmsaFmxinGvm4xDpNNPYAYgU6ZUvXyPeRdvh9np9wo52gxuNeFY638x6oJd5ereq",
+            "raw_pub": "025411e972f64ed8aef1d4aec04da05ccbfe623422674af88c40fa441307cd9b8d",
+            "ex_priv": "xprv9y4abgYjdjHFRvK7yPAtjPSKs23VPPhG6rwEjpDF2roEu5F7ERQXj8Sb6z4FUN72ZanRFCqpwMaNeK2sozjgyYXXaoBNPCB6kxxWa7CSNd8",
+            "raw_priv": "fb4b94b5dcd98dd6fcbafb5181806e43f65959e3a6699ee0fa5637ed6113aba2"
         },
-        "change_0": {
-            "ex_pub": "xpub6EQC2ADt8LYSP3Utg891uFeLPLaBCK7fdBEgSCnbNJfYxiLjWKEM7dsjyrbgR9EZ5RtX2fW4iFNNjrAUMDxkA39s8XnvDRwraZsNouuvGrq",
-            "raw_pub": "020df6cee9d7b28841f5d61ff1600cfb44a86b3f45385a4fed54df758fc74b1ef3",
-            "ex_priv": "xprvA1QqcegzHxz9AZQRa6c1Y7hbqJjgnrPpFxK5dpNyoy8a5v1axmv6ZqZG8cSvAoQywG7LBftruT5zdTTSqM8S2LybDBTjSWR5WQF9mS6rZNi",
-            "raw_priv": "81c60167c289a5a59fc8e406efc5afba47d8968d6050efe50dcae18987e55095"
+        "change_idx": 0,
+        "change_key": {
+            "ex_pub": "xpub6EksrMnTMEeYjbzsCRSEfQi1tLim8P8PN9wgbdEuGc5ntY8RqMGF2sznCczKHgyxvKKizC4QjfxmRC3s5yT64kGG4RGimxzCEZUC537jwBq",
+            "raw_pub": "0278312c94bd8527ae527225ee2e15b66c41b2d4e5375de38c2308f3d78106da3a",
+            "ex_priv": "xprvA1mXSrFZWs6FX7vQ6PuEJGmHLJtGivQXzw25oEqHiGYp1joHHowzV5gJMMeLjL7HkwtbP9oezuG19RiaP1MDknFfWkgYDcZQHAc9Byo1Poc",
+            "raw_priv": "4ed8b86a1b50694a51a865bb53432ec26c16d10bbc322010a77d40b00bb38a0d"
         },
         "addresses": {
             "address_1": {
-                "ex_pub": "xpub6GaJkn2u4157pohgWhxVuQbYGcF1HDkwnwDWif325oLEnXLhkm1wLJkDwwVws82Ny8Zy8nDamzKBAVTK5xA6a9pwJg7jn4BrWoX6Fb3KzVS",
-                "raw_pub": "0292fc11ed3a227aa4e7d531527b774350588b90f2e3488b7521659cd5690211ff",
-                "ex_priv": "xprvA3axMGW1DdWpcKdDQgRVYGeoiaQWsm36RiHuvGdQXToFuj1ZDDhgnWRk6hEmACicc7DzxjmLPwCNAbbYs3ERWysF4XHKZCHrKTtLGySwGL3",
-                "raw_priv": "f8367836164dccbd72f0d53c6f290bbf986a58e66d031384b05744013834cadf",
-                "address": "0xC9D2F9385876EA1924921a7920B0067969e0CB51"
+                "ex_pub": "xpub6FrQgcDAwT2S3Pbc7oKgXTwDLYwLvDqkudchKNo63VKn3FnFQARJ4XJPsmDBJbbB7JCW91vTST4wu1mkHRYyrFiS7Ytvq3L2dktRPWczqCp",
+                "raw_pub": "035c4016642b55c17bb87fc821aca753c9bb6641395f5535ead62519185d9a62e9",
+                "ex_priv": "xprvA2s4H6gH75U8puX91mngAKzUnX6rWm7uYQh6WzPUV9noATT6rd73Wiyv2TpCWrJDeZMudMxmBvpGMDteKEEmKuwU7HVYHbjFCjLbdaCuZfR",
+                "raw_priv": "24b114f266d6ca3a10e0979a33fe6b70d1d7d72d0e8fade0b7a3ffcbf9d91429",
+                "address": "0x98194231035307C9cCed418EEE7CfBD85f8A8FaF"
             },
             "address_2": {
-                "ex_pub": "xpub6GaJkn2u4157sDewWYwMThpcc3XHbksxUmAUy9Bev4Ne2ASQAKk52fiyiA4vspiZkPtN7iwWbMpACQ7jHtA6nHjEeMKPd36ru7z7CTVH5pK",
-                "raw_pub": "033c43930453931c636fd8e64d63811cbcd4541e5bdf73c2dfdc0d90878980962a",
-                "ex_priv": "xprvA3axMGW1DdWpejaUQXQM6Zst41goCJA77YEtAkn3Miqf9N7FcnRpUsQVrsBwypzifmPjo1h2mSv329JLymvhJdeBVTtrVcgAHiTNYUyqRLn",
-                "raw_priv": "48d1de5002943ab8ef7c4e0b43a7df37793639e4b967986006f353bed3c567bf",
-                "address": "0xE1DB56b3A623BE59c7BFC81476B7c8fF5D9b26E3"
+                "ex_pub": "xpub6FrQgcDAwT2S3kQTZKe6hbWdSnk7pJfB8JqaQ4QvwzTWadTJoYDavaiig6Afi135QmyscZYgRJMYvcdnXAEaaj6nVwParpwj7xK4TYmm8DG",
+                "raw_pub": "028575016f813625e7ce14ee82c769d208447350c616801df28c4bf6ec53f21388",
+                "ex_priv": "xprvA2s4H6gH75U8qGKzTJ76LTZttkudQqwKm5uybg1KPevXhq8AFzuLNnQEpquuS99uYGoTVGmfnzAHmUeM8KQiSgSZ52rC6G3W7iBTpJgM4FV",
+                "raw_priv": "eba443bbb26adf807c99592cdb0a69ba0045c587170abe7288acf58d5e27a43a",
+                "address": "0x5352a9607772A005FE63B49b2C86DDD6554FDFA7"
             },
             "address_3": {
-                "ex_pub": "xpub6GaJkn2u4157ukxuLSzdcyApJCus3MndZcbmgSqyUVxkY72FTJ5X7msYhpRMPY8xKLzCyLSy9MNisPY2QybHMLwFRm1E6QNDt2LatwLVQsn",
-                "raw_pub": "02f463a8f83bc45be5f8fba28f56b68d10596c76f2fa24bedc3632834a466e1adb",
-                "ex_priv": "xprvA3axMGW1DdWphGtSERTdFqE5kB5Ndu4nCPgAt4SMvARmfJh6ukmGZyZ4rXbwZ4rEcJsL4wLhcRkZJJXBU5aYr8QeiXqw6eCNzGVyX5wZxVQ",
-                "raw_priv": "090d210966c3bfbf64816c6a1d0f30a403895b829f8d14d2d506aaec8d8efac0",
-                "address": "0x6FF62E840E809a590AAd92d546d2EdFa2886a3C7"
+                "ex_pub": "xpub6FrQgcDAwT2S6sPVTc7Xh3sAAHsYdcfXceFwy7QQtqg5Gbzauim9gnSrwy2w6SkSLjebMWKo3LvuoGpv2E9fLuuchZpK62Jdim4inkRSMXd",
+                "raw_pub": "035b7aee93e3f4ac87d25e5513249e4f8e7bfd9419731c1d3e497fe882afe0b6f3",
+                "ex_priv": "xprvA2s4H6gH75U8tPK2MaaXKuvRcG34E9wgFRLMAizoLW96PofSNBSu8z8P6fWDN3G2RFJSn3ATohxUwU8oPtx5J3DmLgvYKqavNcxFELaQdwU",
+                "raw_priv": "12589999957035550ea86d0c3baef22ca9d9f4873d9b619b12fdb359c588b8b9",
+                "address": "0xF5950A6162EfF9416061e7Db197bdf3069a76Ee9"
             }
         }
     }
@@ -231,14 +269,14 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins, HdWalletChanges, HdWalletSpecs
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletCoins, HdWalletChanges, HdWalletSpecs
 
     ex_key = "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5"
 
     hd_wallet_fact = HdWalletFactory(HdWalletCoins.LITECOIN, HdWalletSpecs.BIP84)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("ltc_bip84_wallet", ex_key)
     hd_wallet.Generate(account_idx = 2, change_idx = HdWalletChanges.CHAIN_INT, address_num = 3)
-    hd_wallet.SaveToFile("my_wallet.txt")
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
 
@@ -246,35 +284,37 @@ Output:
         "wallet_name": "ltc_bip84_wallet",
         "spec_name": "BIP-0084",
         "coin_name": "Litecoin (LTC)",
-        "master": {
+        "master_key": {
             "ex_pub": "zpub6jftahH18ngZxLmXaKw3GSZzZsszmt9WqedkyZdezFtWRFBZqsQH5hyUmb4pCEeZGmVfQuP5bedXTB8is6fTv19U1GQRyQUKQGUTzyHACMF",
             "raw_pub": "03d902f35f560e0470c63313c7369168d9d7df2d49bf295fd9fb7cb109ccee0494",
             "ex_priv": "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5",
             "raw_priv": "1837c1be8e2995ec11cda2b066151be2cfb48adf9e47b151d46adab3a21cdf67",
             "wif": "6uJgfG4pBbMffTdMSGQVurdK6xBcZjhf1iDU2jtPAw5PzRdhx9m"
         },
-        "purpose": {
+        "purpose_key": {
             "ex_pub": "zpub6nQP3Kke7oZS9QFQb8sVwb29vtXH66Er1faFqocsBh4KR8XrVKJmgsjLY8xDf9Ps5ifSMX7oHgoAj2CSWBeQbZRJS1KzGQL2SGFGDyZXGbz",
             "raw_pub": "03c098a6743927554712f1cbc240ef73190db1b7633b08d54ff853899439c102b5",
             "ex_priv": "zprvAZR2dpDkHS18vvAwV7LVaT5RNrgngdWzeSef3RDFdMXLYLChwmzX95QrgrN67wosG2QjJgwUYbfiHTUTaMBb9czFCUUgKk12gKfKPR19T7P",
             "raw_priv": "f36a166922514e2e3c7f09e139b0aeff039cbf020606670b27554f7fe1a24d9c",
             "wif": "6vyDk5W6psiyaxTfYrCFqpjqnnyiLdBXqqPzvJqmnfcjdfULaLF"
         },
-        "coin": {
+        "coin_key": {
             "ex_pub": "zpub6pNAXMNU74t5LozEhv5YkraP5qKGTDENJLDjtyU7XD7TAC7rDnBEv28HrYaRirxyfJtTtq64Cx136Zy4Z3pEhS8foMqseEyt2fzx6GqjZ5X",
             "raw_pub": "038fc79beaaf791f26f94ff65a697d9822974d76b71814a27a579b90a5cb34d479",
             "ex_priv": "zprvAbNp7qqaGhKn8KumbtYYPideXoUn3kWWw7J96b4VxsaUHPnhgErzNDop1EYkEjAboQa1fZKcu7vpjcA459fSBS5goMiMRyKQLvtjmxicd98",
             "raw_priv": "04e2afd771056acb6d2b135cde1bf5e48bfe0d45e0cebd2564bd8af181398359",
             "wif": "6uAAqq676gdo44PNqGZ5UPFHU17sgfMTbSupfnH3S8Pn4NZ2TU5"
         },
-        "account_2": {
+        "account_idx": 2,
+        "account_key": {
             "ex_pub": "zpub6rPo5mF47z5cuPYr45wj1wHiJooU6VVoowK5N1BRFiKDA5S62UDPoMnrYUPiNsGgfQpaCV2w2uXnjgUmnestsBp1XPqyPyCFSB1pT8JSwQL",
             "raw_pub": "03d3f39769e1a2c930337f94f976b7ae776e0508bf69d51eb72f10dbab0b98e804",
             "ex_priv": "zprvAdQSgFiAHcXKguUNx4QieoLykmxyh2mxSiPUZcmohNnEHH6wUvu9FZUNhA6mKaaqBDr6rjf18GLn6KSsEbjzpD3ZFAQRVAh71eXdZXYVam4",
             "raw_priv": "26636b848b4c1187c95f827cee303455d034645aa5742c634a4a88057ef0de0b",
             "wif": "6uQvdQ9F989FUzaWUtGpzvjrjTyPTHMevkWRZH5XzyuHjdjzUTx"
         },
-        "change_1": {
+        "change_idx": 1,
+        "change_key": {
             "ex_pub": "zpub6tHpx8aYXtj3Bh1Gj2pZqFd1d8dXZyydeivRaAht6QqCSjdKEyPwgEEshojsEgemRDkwi7SR9kAJ92TJmT538AZwUNHdGvG7yyhxWL98ZAV",
             "raw_pub": "0322068c3e9b8b81e6116429e96cce0c7f34dfcbbe02748d7d039c3b6d5f0002e4",
             "ex_priv": "zprvAfJUYd3ehXAjyCvod1HZU7gH56o3AXFnHVzpmnJGY5JDZwJAhS5h8RvPrWhnh3XXWfF7NmM2KMx6RwYtDy2JXjsV3SYUTb73JsR54wnwi8q",
@@ -313,14 +353,14 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins, HdWalletSpecs
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletCoins, HdWalletSpecs
 
     ex_key = "yprvAHwhK6RbpuS3dgCYHM5jc2ZvEKd7Bi61u9FVhYMpgMSuZS613T1xxQeKTffhrHY79hZ5PsskBjcc6C2V7DrnsMsNaGDaWev3GLRQRgV7hxF"
 
     hd_wallet_fact = HdWalletFactory(HdWalletCoins.BITCOIN, HdWalletSpecs.BIP49)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("btc_bip49_wallet", ex_key)
     hd_wallet.Generate(address_num = 3)
-    hd_wallet.SaveToFile("my_wallet.txt")
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
 
@@ -328,14 +368,15 @@ Output:
         "wallet_name": "btc_bip49_wallet",
         "spec_name": "BIP-0049",
         "coin_name": "Bitcoin (BTC)",
-        "account_0": {
+        "account_key": {
             "ex_pub": "ypub6Ww3ibxVfGzLrAH1PNcjyAWenMTbbAosGNB6VvmSEgytSER9azLDWCxoJwW7Ke7icmizBMXrzBx9979FfaHxHcrArf3zbeJJJUZPf663zsP",
             "raw_pub": "02f1f347891b20f7568eae3ec9869fbfb67bcab6f358326f10ecc42356bd55939d",
             "ex_priv": "yprvAHwhK6RbpuS3dgCYHM5jc2ZvEKd7Bi61u9FVhYMpgMSuZS613T1xxQeKTffhrHY79hZ5PsskBjcc6C2V7DrnsMsNaGDaWev3GLRQRgV7hxF",
             "raw_priv": "880d51752bda4190607e079588d3f644d96bfa03446bce93cddfda3c4a99c7e6",
             "wif": "5JrCr8UXV86dGBYnpU5UqQ3hmGbq9xmRAxQZCaS126kUgRHWEgf"
         },
-        "change_0": {
+        "change_idx": 0,
+        "change_key": {
             "ex_pub": "ypub6Ynvx7RLNYgWzFGM8aeU43hFNjTh7u5Grrup7Ryu2nKZ1Y8FWKaJZXiUrkJSnMmGVNBoVH1DNDtQ32tR4YFDRSpSUXjjvsiMnCvoPHVWXJP",
             "raw_pub": "0316699a93944c8d45ed4de87240a21a2f08a399b61c2622aa3217864efb0a75c5",
             "ex_priv": "yprvAKoaYbtSYB8DmmBt2Z7TgukWphdCiSMRVdzDK3aHUSna8jo6xnG41jQ11ToPk4SQnE5sau6CYK4od9fyz53mK7huW4JskyMMEmixACuyhhr",
@@ -370,19 +411,18 @@ Output:
         }
     }
 
-
 **Wallet created from address private extended key for Dogecoin**
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletCoins
 
     ex_key = "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw"
 
     hd_wallet_fact = HdWalletFactory(HdWalletCoins.DOGECOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("doge_wallet", ex_key)
     hd_wallet.Generate()
-    hd_wallet.SaveToFile("my_wallet.txt")
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
 
@@ -390,13 +430,15 @@ Output:
         "wallet_name": "doge_wallet",
         "spec_name": "BIP-0044",
         "coin_name": "Dogecoin (DOGE)",
-        "address_0": {
-            "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
-            "raw_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
-            "ex_priv": "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw",
-            "raw_priv": "21f5e16d57b9b70a1625020b59a85fa9342de9c103af3dd9f7b94393a4ac2f46",
-            "wif": "6JPaMAeJjouhb8xPzFzETYCHJAJ9wBoFsCyC1LXFSTcZDmHgy6L",
-            "address": "DBus3bamQjgJULBJtYXpEzDWQRwF5iwxgC"
+        "addresses": {
+            "address_0": {
+                "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
+                "raw_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
+                "ex_priv": "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw",
+                "raw_priv": "21f5e16d57b9b70a1625020b59a85fa9342de9c103af3dd9f7b94393a4ac2f46",
+                "wif": "6JPaMAeJjouhb8xPzFzETYCHJAJ9wBoFsCyC1LXFSTcZDmHgy6L",
+                "address": "DBus3bamQjgJULBJtYXpEzDWQRwF5iwxgC"
+            }
         }
     }
 
@@ -404,14 +446,14 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletCoins
+    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletCoins
 
     ex_key = "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY"
 
     hd_wallet_fact = HdWalletFactory(HdWalletCoins.BITCOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("btc_wo_wallet", ex_key)
     hd_wallet.Generate(address_num = 3)
-    hd_wallet.SaveToFile("my_wallet.txt")
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
 
@@ -419,7 +461,7 @@ Output:
         "wallet_name": "btc_wo_wallet",
         "spec_name": "BIP-0044",
         "coin_name": "Bitcoin (BTC)",
-        "change_0": {
+        "change_key": {
             "ex_pub": "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY",
             "raw_pub": "0386b865b52b753d0a84d09bc20063fab5d8453ec33c215d4019a5801c9c6438b9"
         },
