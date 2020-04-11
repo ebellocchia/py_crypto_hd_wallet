@@ -251,7 +251,8 @@ class HdWallet:
 
         # Add public keys
         key_data["ex_pub"]   = bip_obj.PublicKey()
-        key_data["raw_pub"]  = utils.BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_COMPR_KEY))
+        key_data["raw_compr_pub"]  = utils.BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_COMPR_KEY))
+        key_data["raw_uncompr_pub"]  = utils.BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_UNCOMPR_KEY))
 
         # Add private keys only if not public-only
         if not bip_obj.IsPublicOnly():
