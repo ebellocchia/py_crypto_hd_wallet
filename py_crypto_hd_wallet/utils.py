@@ -27,9 +27,9 @@ def BytesToString(data_bytes):
     """ Convert bytes to string.
 
     Args:
-        data_bytes (str) : data bytes
+        data_bytes (str): Data bytes
 
-    Return (str)
-        Bytes converted to string
+    Returns:
+        str: Bytes converted to string
     """
     return binascii.hexlify(data_bytes).decode("utf-8")
