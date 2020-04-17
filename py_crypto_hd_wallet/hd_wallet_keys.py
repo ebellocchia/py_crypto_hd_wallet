@@ -21,9 +21,9 @@
 
 # Imports
 import json
-from bip_utils       import Bip44PrivKeyTypes, Bip44PubKeyTypes
-from .               import utils
+from bip_utils       import Bip44Levels
 from .hd_wallet_enum import HdWalletKeyTypes
+from .               import utils
 
 
 class HdWalletKeysConst:
@@ -61,40 +61,40 @@ class HdWalletKeys:
         If the Bip object is at address index level, also the address will be computed.
 
         Args:
-            bip_obj (Bip object) : Bip object
+            bip_obj (Bip44Base child object): Bip44Base child object
 
-        Return (HdWalletKeys object)
-            HdWalletKeys object
+        Returns:
+            HdWalletKeys object: HdWalletKeys object
         """
 
         wallet_keys = HdWalletKeys()
 
         # Add public keys
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.EX_PUB, bip_obj.PublicKey())
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_COMPR_PUB, utils.BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_COMPR_KEY)))
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_UNCOMPR_PUB, utils.BytesToString(bip_obj.PublicKey(Bip44PubKeyTypes.RAW_UNCOMPR_KEY)))
+        wallet_keys.__SetKeyData(HdWalletKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
+        wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
 
         # Add private keys only if Bip object is not public-only
         if not bip_obj.IsPublicOnly():
-            wallet_keys.__SetKeyData(HdWalletKeyTypes.EX_PRIV, bip_obj.PrivateKey())
-            wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_PRIV, utils.BytesToString(bip_obj.PrivateKey(Bip44PrivKeyTypes.RAW_KEY)))
+            wallet_keys.__SetKeyData(HdWalletKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
+            wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
             # Add WIF if supported by the coin
-            wif = bip_obj.WalletImportFormat()
+            wif = bip_obj.PrivateKey().ToWif()
             if wif != "":
                 wallet_keys.__SetKeyData(HdWalletKeyTypes.WIF_PRIV, wif)
 
         # Add address if Bip object is at arress index level
-        if bip_obj.IsAddressIndexLevel():
-            wallet_keys.__SetKeyData(HdWalletKeyTypes.ADDRESS, bip_obj.Address())
+        if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
+            wallet_keys.__SetKeyData(HdWalletKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
 
         return wallet_keys
 
     def ToDict(self):
         """ Get keys as a dictionary.
 
-        Returns (dict):
-            Keys as a dictionary
+        Returns:
+            dict: Keys as a dictionary
         """
         return self.m_key_data
 
@@ -102,10 +102,10 @@ class HdWalletKeys:
         """ Get keys as string in JSON format.
 
         Args:
-            json_indent (int, optional) : indent for JSON format, 4 by default
+            json_indent (int, optional): Indent for JSON format, 4 by default
 
-        Returns (str):
-            Keys as string in JSON format
+        Returns:
+            str: Keys as string in JSON format
         """
         return json.dumps(self.ToDict(), indent = json_indent)
 
@@ -113,10 +113,10 @@ class HdWalletKeys:
         """ Get if the key of the specified type is present.
 
         Args:
-            key_type (HdWalletKeyTypes) : key type, shall be of HdWalletKeyTypes enum
+            key_type (HdWalletKeyTypes): Key type, shall be of HdWalletKeyTypes enum
 
-        Returns (bool):
-            True if present, false otherwise
+        Returns:
+            bool: True if present, false otherwise
         """
         if not isinstance(key_type, HdWalletKeyTypes):
             raise TypeError("Key type is not an enumerative of HdWalletKeyTypes")
@@ -128,10 +128,11 @@ class HdWalletKeys:
         """ Get key of the specified type.
 
         Args:
-            key_type (HdWalletKeyTypes) : key type, shall be of HdWalletKeyTypes enum
+            key_type (HdWalletKeyTypes): Key type, shall be of HdWalletKeyTypes enum
 
-        Returns (str or None):
-            Key, None if not found
+        Returns:
+            str: Key string
+            None: If the key type is not found
         """
         if self.HasKey(key_type):
             return self.m_key_data[HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
@@ -146,8 +147,8 @@ class HdWalletKeys:
         """ Set key data.
 
         Args:
-            key_type (HdWalletKeyTypes) : key type, shall be of HdWalletKeyTypes enum
-            key_value (str)             : key value
+            key_type (HdWalletKeyTypes): Key type, shall be of HdWalletKeyTypes enum
+            key_value (str)            : Key value
         """
         dict_key = HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
         self.m_key_data[dict_key] = key_value

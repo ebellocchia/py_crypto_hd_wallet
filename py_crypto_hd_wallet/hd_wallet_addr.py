@@ -21,6 +21,7 @@
 
 # Imports
 import json
+from bip_utils       import Bip44Levels
 from .hd_wallet_keys import HdWalletKeys
 
 
@@ -45,20 +46,20 @@ class HdWalletAddresses:
         self.m_addresses = []
 
     @staticmethod
-    def FromBipObj(bip_obj, addr_num = 1):
+    def FromBipObj(bip_obj, addr_num):
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
         Args:
-            bip_obj (Bip object)     : Bip object
-            addr_num (int, optional) : address number, 1 by default
+            bip_obj (Bip44Base child object): Bip44Base child object
+            addr_num (int)                  : Address number
 
-        Return (HdWalletAddresses object)
-            HdWalletAddresses object
+        Returns:
+            HdWalletAddresses object: HdWalletAddresses object
         """
         addr = HdWalletAddresses()
 
-        if bip_obj.IsAddressIndexLevel():
+        if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
             addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj))
         else:
             for i in range(addr_num):
@@ -70,8 +71,8 @@ class HdWalletAddresses:
     def ToDict(self):
         """ Get addresses as a dictionary.
 
-        Returns (dict):
-            Addresses as a dictionary
+        Returns:
+            dict: Addresses as a dictionary
         """
         addr_dict = {}
 
@@ -85,18 +86,18 @@ class HdWalletAddresses:
         """ Get addresses as string in JSON format.
 
         Args:
-            json_indent (int, optional) : indent for JSON format, 4 by default
+            json_indent (int, optional): Indent for JSON format, 4 by default
 
-        Returns (str):
-            Addresses as string in JSON format
+        Returns:
+            str: Addresses as string in JSON format
         """
         return json.dumps(self.ToDict(), indent = json_indent)
 
     def Count(self):
         """ Get the addresses count.
 
-        Returns (int):
-            Number of addresses
+        Returns:
+            int: Number of addresses
         """
         return len(self.m_addresses)
 
@@ -104,18 +105,18 @@ class HdWalletAddresses:
         """ Get the specified address index.
 
         Args:
-            addr_idx (int) : address index
+            addr_idx (int): Address index
 
-        Returns (HdWalletKeys):
-            HdWalletKeys object
+        Returns:
+            HdWalletKeys object: HdWalletKeys object
         """
         return self.m_addresses[addr_idx]
 
     def __iter__(self):
         """ Get iterator instance.
 
-        Returns (HdWalletAddressesItr object):
-            HdWalletAddressesItr object
+        Returns:
+            HdWalletAddressesItr object: HdWalletAddressesItr object
         """
         return HdWalletAddressesItr(self)
 
@@ -127,7 +128,7 @@ class HdWalletAddressesItr:
         """ Construct class.
 
         Args:
-            hd_wallet_addr (HdWalletAddresses object) : HdWalletAddresses object
+            hd_wallet_addr (HdWalletAddresses object): HdWalletAddresses object
         """
         self.m_addresses = hd_wallet_addr.m_addresses
         self.m_index     = 0
@@ -135,17 +136,19 @@ class HdWalletAddressesItr:
     def __iter__(self):
         """ Get iterator instance.
 
-        Returns (HdWalletAddressesItr object):
-            HdWalletAddressesItr object
+        Returns:
+            HdWalletAddressesItr object: HdWalletAddressesItr object
         """
         return self
 
     def __next__(self):
         """ Get next address.
-        StopIteration is raised when index is out of boundaries.
 
-        Returns (HdWalletKeys object):
-            HdWalletKeys object
+        Returns:
+            HdWalletKeys object: HdWalletKeys object
+
+        Raises:
+            StopIteration: If the index is out of boundaries
         """
         try:
             res = self.m_addresses[self.m_index]

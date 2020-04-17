@@ -21,11 +21,11 @@
 
 # Imports
 import json
-from bip_utils       import Bip44PrivKeyTypes, Bip44PubKeyTypes
-from .               import utils
+from bip_utils       import Bip44Levels
 from .hd_wallet_addr import HdWalletAddresses
 from .hd_wallet_keys import HdWalletKeys
 from .hd_wallet_enum import *
+from .               import utils
 
 
 class HdWalletConst:
@@ -62,11 +62,11 @@ class HdWallet:
         """ Construct class.
 
         Args:
-            wallet_name (str)          : wallet name
-            bip_obj (Bip object)       : BIP object
-            mnemonic (str, optional)   : mnemonic, empty if not specified
-            passphrase (str, optional) : passphrase, empty if not specified
-            seed_bytes (str, optional) : seed_bytes, empty if not specified
+            wallet_name (str)         : Wallet name
+            bip_obj (Bip object)      : BIP object
+            mnemonic (str, optional)  : Mnemonic, empty if not specified
+            passphrase (str, optional): Passphrase, empty if not specified
+            seed_bytes (str, optional): Seed_bytes, empty if not specified
         """
 
         # Initialize members
@@ -80,9 +80,9 @@ class HdWallet:
         """ Generate wallet keys and addresses.
 
         Args:
-            account_idx (int, optional)            : account index, 0 by default
-            change_idx (HdWalletChanges, optional) : change index, must a HdWalletChanges enum, external chain by default
-            addr_num (int, optional)               : number of addresses to be generated, 20 by default
+            account_idx (int, optional)           : Account index, 0 by default
+            change_idx (HdWalletChanges, optional): Change index, must a HdWalletChanges enum, external chain by default
+            addr_num (int, optional)              : Number of addresses to be generated, 20 by default
         """
 
         # Check parameters
@@ -95,26 +95,26 @@ class HdWallet:
         bip_obj = self.m_bip_obj
 
         # Set master keys and derive purpose if correct level
-        if bip_obj.IsMasterLevel():
+        if bip_obj.IsLevel(Bip44Levels.MASTER):
             self.__SetKeys(HdWalletDataTypes.MASTER_KEY, bip_obj)
             bip_obj = bip_obj.Purpose()
         # Set purpose keys and derive coin if correct level
-        if bip_obj.IsPurposeLevel():
+        if bip_obj.IsLevel(Bip44Levels.PURPOSE):
             self.__SetKeys(HdWalletDataTypes.PURPOSE_KEY, bip_obj)
             bip_obj = bip_obj.Coin()
         # Set coin keys and derive account if correct level
-        if bip_obj.IsCoinLevel():
+        if bip_obj.IsLevel(Bip44Levels.COIN):
             self.__SetKeys(HdWalletDataTypes.COIN_KEY, bip_obj)
             self.__SetData(HdWalletDataTypes.ACCOUNT_IDX, account_idx)
             bip_obj = bip_obj.Account(account_idx)
         # Set account keys and derive change if correct level
-        if bip_obj.IsAccountLevel():
+        if bip_obj.IsLevel(Bip44Levels.ACCOUNT):
             self.__SetKeys(HdWalletDataTypes.ACCOUNT_KEY, bip_obj)
             self.__SetData(HdWalletDataTypes.CHANGE_IDX, int(change_idx))
             bip_obj = bip_obj.Change(change_idx.ToBip44Change())
 
         # Set change keys and derive addresses if correct level
-        if bip_obj.IsChangeLevel():
+        if bip_obj.IsLevel(Bip44Levels.CHANGE):
             self.__SetKeys(HdWalletDataTypes.CHANGE_KEY, bip_obj)
             self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, addr_num))
         # In this case, the wallet was created from an address index extended key, so there is only one address to generate
@@ -124,16 +124,16 @@ class HdWallet:
     def IsWatchOnly(self):
         """ Get if the wallet is watch-only.
 
-        Returns (bool):
-            True if watch-only, false otherwise
+        Returns :
+            bool: True if watch-only, false otherwise
         """
         return self.m_bip_obj.IsPublicOnly()
 
     def ToDict(self):
         """ Get wallet data as a dictionary.
 
-        Returns (dict):
-            Wallet data as a dictionary
+        Returns:
+            dict: Wallet data as a dictionary
         """
         wallet_dict = {}
 
@@ -150,10 +150,10 @@ class HdWallet:
         """ Get wallet data as string in JSON format.
 
         Args:
-            json_indent (int, optional) : indent for JSON format, 4 by default
+            json_indent (int, optional): Indent for JSON format, 4 by default
 
-        Returns (str):
-            Wallet data as string in JSON format
+        Returns:
+            str: Wallet data as string in JSON format
         """
         return json.dumps(self.ToDict(), indent = json_indent)
 
@@ -161,10 +161,10 @@ class HdWallet:
         """ Get if the wallet data of the specified type is present.
 
         Args:
-            data_type (HdWalletDataTypes) : data type, shall be of HdWalletDataTypes enum
+            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
 
-        Returns (bool):
-            True if present, false otherwise
+        Returns:
+            bool: True if present, false otherwise
         """
         if not isinstance(data_type, HdWalletDataTypes):
             raise TypeError("Data type is not an enumerative of HdWalletDataTypes")
@@ -176,10 +176,11 @@ class HdWallet:
         """ Get wallet data of the specified type.
 
         Args:
-            data_type (HdWalletDataTypes) : data type, shall be of HdWalletDataTypes enum
+            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
 
         Returns (str, dict or None):
-            Wallet data type, None if not found
+            str or HdWalletKeys or HdWalletAddresses: Wallet data
+            None: If not found
         """
         if self.HasData(data_type):
             return self.m_wallet_data[HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]]
@@ -194,10 +195,10 @@ class HdWallet:
         """ Initialize data.
 
         Args:
-            wallet_name (str) : wallet name
-            mnemonic (str)    : mnemonic
-            passphrase (str)  : passphrase
-            seed_bytes (str)  : seed_bytes
+            wallet_name (str): Wallet name
+            mnemonic (str)   : Mnemonic
+            passphrase (str) : Passphrase
+            seed_bytes (str) : Seed_bytes
         """
 
         # Set wallet name
@@ -205,8 +206,8 @@ class HdWallet:
         # Set specification name
         self.__SetData(HdWalletDataTypes.SPEC_NAME, self.m_bip_obj.SpecName())
         # Set coin name
-        coin_names = self.m_bip_obj.CoinNames()
-        self.__SetData(HdWalletDataTypes.COIN_NAME, "%s (%s)" % (coin_names["name"], coin_names["abbr"]))
+        coin_names = self.m_bip_obj.CoinClass().CoinNames()
+        self.__SetData(HdWalletDataTypes.COIN_NAME, "%s (%s)" % (coin_names.Name(), coin_names.Abbreviation()))
 
         # Set optional data if specified
         if mnemonic != "":
@@ -219,8 +220,8 @@ class HdWallet:
         """ Set wallet data.
 
         Args:
-            data_type (HdWalletDataTypes) : data type, shall be of HdWalletDataTypes enum
-            data_value (str)              : data value
+            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
+            data_value (str)             : Data value
         """
         dict_key = HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]
         self.m_wallet_data[dict_key] = data_value
@@ -229,7 +230,7 @@ class HdWallet:
         """ Add keys to wallet data.
 
         Args:
-            data_type (HdWalletDataTypes) : data type, shall be of HdWalletDataTypes enum
-            bip_obj (Bip object)          : BIP object
+            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
+            bip_obj (Bip object)         : BIP object
         """
         self.__SetData(data_type, HdWalletKeys.FromBipObj(bip_obj))
