@@ -45,8 +45,8 @@ class HdWalletChanges(IntEnum):
     def ToBip44Change(value):
         """ Convert to Bip44Changes type.
 
-        Returns (Bip44Changes):
-            Bip44Changes value
+        Returns:
+            Bip44Changes: Bip44Changes value
         """
         return Bip44Changes(value)
 
@@ -70,8 +70,8 @@ class HdWalletCoins(IntEnum):
     def ToBip44Coin(value):
         """ Convert to Bip44Coins type.
 
-        Returns (Bip44Coins):
-            Bip44Coins value
+        Returns:
+            Bip44Coins: Bip44Coins value
         """
         return Bip44Coins(value)
 

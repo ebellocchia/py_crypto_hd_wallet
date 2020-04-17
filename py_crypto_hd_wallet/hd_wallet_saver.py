@@ -30,7 +30,7 @@ class HdWalletSaver:
         """ Construct class.
 
         Args:
-            hd_wallet (HdWallet) : HdWallet object
+            hd_wallet (HdWallet): HdWallet object
         """
         self.m_hd_wallet = hd_wallet
 
@@ -38,7 +38,7 @@ class HdWalletSaver:
         """ Save wallet to file in JSON format.
 
         Args:
-            file_path (str) : file path
+            file_path (str): File path
         """
         with open(file_path, "w") as f:
             f.write(self.m_hd_wallet.ToJson())

@@ -47,8 +47,12 @@ class HdWalletFactory:
         """ Construct class.
 
         Args:
-            coin_idx (HdWalletCoins, optional) : coin index, must be a HdWalletCoins enum, Bitcoin if not specified
-            spec_idx (HdWalletSpecs, optional) : specification index, must be a HdWalletSpecs enum, BIP44 if not specified
+            coin_idx (HdWalletCoins, optional): Coin index, must be a HdWalletCoins enum, Bitcoin if not specified
+            spec_idx (HdWalletSpecs, optional): Specification index, must be a HdWalletSpecs enum, BIP44 if not specified
+
+        Raised:
+            TypeError: If coin_idx or spec_idx is not of HdWalletCoins or HdWalletSpecs enum
+            ValueError: If the coin is not allowed to derive from the BIP specification
         """
 
         # Check coin type
@@ -69,8 +73,14 @@ class HdWalletFactory:
         """ Create wallet randomly.
 
         Args:
-            wallet_name (str)            : wallet name
-            words_num (HdWalletWordsNum) : words number, must be a HdWalletWordsNum enum
+            wallet_name (str)           : Wallet name
+            words_num (HdWalletWordsNum): Words number, must be a HdWalletWordsNum enum
+
+        Returns:
+            HdWallet object: HdWallet object
+
+        Raises:
+            TypeError: If words number is not of HdWalletWordsNum enum
         """
         if not isinstance(words_num, HdWalletWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletWordsNum")
@@ -83,9 +93,12 @@ class HdWalletFactory:
         """ Create wallet from mnemonic.
 
         Args:
-            wallet_name (str)          : wallet name
-            mnemonic (str)             : mnemonic
-            passphrase (str, optional) : passphrase for protecting mnemonic, empty if not specified
+            wallet_name (str)         : Wallet name
+            mnemonic (str)            : Mnemonic
+            passphrase (str, optional): Passphrase for protecting mnemonic, empty if not specified
+
+        Returns:
+            HdWallet object: HdWallet object
         """
 
         # Generate seed
@@ -104,8 +117,11 @@ class HdWalletFactory:
         """ Create wallet from seed.
 
         Args:
-            wallet_name (str)  : wallet name
-            seed_bytes (bytes) : seed bytes
+            wallet_name (str) : Wallet name
+            seed_bytes (bytes): Seed bytes
+
+        Returns:
+            HdWallet object: HdWallet object
         """
 
         # Create BIP object from seed
@@ -120,8 +136,11 @@ class HdWalletFactory:
         """ Create wallet from extended key.
 
         Args:
-            wallet_name (str) : wallet name
-            exkey_str (str)   : extended key string
+            wallet_name (str): Wallet name
+            exkey_str (str)  : Extended key string
+
+        Returns:
+            HdWallet object: HdWallet object
         """
 
         # Create BIP object from extended key
@@ -134,7 +153,7 @@ class HdWalletFactory:
     def __GetBipClass(self):
         """ Get BIP class.
 
-        Return (Bip object)
-            Bip object
+        Returns:
+            Bip44Base child object: Bip44Base child object
         """
         return HdWalletFactoryConst.SPECS_TO_BIP_CLASS[self.m_spec_idx]
