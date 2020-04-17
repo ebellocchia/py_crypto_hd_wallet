@@ -21,7 +21,7 @@ To install it:
 
         pip install py_crypto_hd_wallet
 
-To run the unit tests:
+To run the tests:
 
 - Without code coverage
 
