@@ -119,7 +119,7 @@ class HdWallet:
             self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, addr_num))
         # In this case, the wallet was created from an address index extended key, so there is only one address to generate
         else:
-            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj))
+            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, 1))
 
     def IsWatchOnly(self):
         """ Get if the wallet is watch-only.
