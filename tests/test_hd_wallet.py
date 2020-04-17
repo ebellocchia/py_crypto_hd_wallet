@@ -33,6 +33,7 @@ from py_crypto_hd_wallet.hd_wallet_addr import HdWalletAddressesConst
 from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeysConst
 from py_crypto_hd_wallet.hd_wallet      import HdWalletConst
 
+
 # Ethereum wallet from seed
 TEST_VECTOR = \
     [
