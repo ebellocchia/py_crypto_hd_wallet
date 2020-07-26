@@ -55,17 +55,21 @@ class HdWalletChanges(IntEnum):
 class HdWalletCoins(IntEnum):
     """ Alias for hiding Bip44Coins. """
 
-    BITCOIN          = Bip44Coins.BITCOIN,
-    LITECOIN         = Bip44Coins.LITECOIN,
-    DOGECOIN         = Bip44Coins.DOGECOIN,
-    DASH             = Bip44Coins.DASH,
-    ETHEREUM         = Bip44Coins.ETHEREUM,
-    RIPPLE           = Bip44Coins.RIPPLE,
+    BITCOIN              = Bip44Coins.BITCOIN,
+    BITCOIN_CASH         = Bip44Coins.BITCOIN_CASH,
+    BITCOIN_SV           = Bip44Coins.BITCOIN_SV,
+    LITECOIN             = Bip44Coins.LITECOIN,
+    DOGECOIN             = Bip44Coins.DOGECOIN,
+    DASH                 = Bip44Coins.DASH,
+    ETHEREUM             = Bip44Coins.ETHEREUM,
+    RIPPLE               = Bip44Coins.RIPPLE,
     # Test nets
-    BITCOIN_TESTNET  = Bip44Coins.BITCOIN_TESTNET,
-    LITECOIN_TESTNET = Bip44Coins.LITECOIN_TESTNET,
-    DOGECOIN_TESTNET = Bip44Coins.DOGECOIN_TESTNET,
-    DASH_TESTNET     = Bip44Coins.DASH_TESTNET,
+    BITCOIN_TESTNET      = Bip44Coins.BITCOIN_TESTNET,
+    BITCOIN_CASH_TESTNET = Bip44Coins.BITCOIN_CASH_TESTNET,
+    BITCOIN_SV_TESTNET   = Bip44Coins.BITCOIN_SV_TESTNET,
+    LITECOIN_TESTNET     = Bip44Coins.LITECOIN_TESTNET,
+    DOGECOIN_TESTNET     = Bip44Coins.DOGECOIN_TESTNET,
+    DASH_TESTNET         = Bip44Coins.DASH_TESTNET,
 
     def ToBip44Coin(value):
         """ Convert to Bip44Coins type.
