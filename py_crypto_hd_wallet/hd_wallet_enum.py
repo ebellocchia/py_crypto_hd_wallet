@@ -63,6 +63,7 @@ class HdWalletCoins(IntEnum):
     DASH                 = Bip44Coins.DASH,
     ETHEREUM             = Bip44Coins.ETHEREUM,
     RIPPLE               = Bip44Coins.RIPPLE,
+    TRON                 = Bip44Coins.TRON,
     # Test nets
     BITCOIN_TESTNET      = Bip44Coins.BITCOIN_TESTNET,
     BITCOIN_CASH_TESTNET = Bip44Coins.BITCOIN_CASH_TESTNET,
