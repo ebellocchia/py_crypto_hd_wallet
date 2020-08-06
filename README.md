@@ -50,6 +50,7 @@ Supported coin enumerative:
 - Dash (and related test net) : *HdWalletCoins.DASH, HdWalletCoins.DASH_TESTNET*
 - Ethereum : *HdWalletCoins.ETHEREUM*
 - Ripple : *HdWalletCoins.RIPPLE*
+- Tron : *HdWalletCoins.TRON*
 
 Supported BIP specification enumerative:
 - BIP-0044 : *HdWalletSpecs.BIP44*
