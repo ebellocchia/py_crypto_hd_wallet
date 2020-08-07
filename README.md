@@ -48,8 +48,11 @@ Supported coin enumerative:
 - Litecoin (and related test net) : *HdWalletCoins.LITECOIN, HdWalletCoins.LITECOIN_TESTNET*
 - Dogecoin (and related test net) : *HdWalletCoins.DOGECOIN, HdWalletCoins.DOGECOIN_TESTNET*
 - Dash (and related test net) : *HdWalletCoins.DASH, HdWalletCoins.DASH_TESTNET*
+- Zcash (and related test net) : *HdWalletCoins.ZCASH, HdWalletCoins.ZCASH_TESTNET*
 - Ethereum : *HdWalletCoins.ETHEREUM*
 - Ripple : *HdWalletCoins.RIPPLE*
+- Cosmos : *HdWalletCoins.COSMOS*
+- Band Protocol : *HdWalletCoins.BAND_PROTOCOL*
 - Tron : *HdWalletCoins.TRON*
 
 Supported BIP specification enumerative:
