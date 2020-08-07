@@ -61,8 +61,11 @@ class HdWalletCoins(IntEnum):
     LITECOIN             = Bip44Coins.LITECOIN,
     DOGECOIN             = Bip44Coins.DOGECOIN,
     DASH                 = Bip44Coins.DASH,
+    ZCASH                = Bip44Coins.ZCASH,
     ETHEREUM             = Bip44Coins.ETHEREUM,
     RIPPLE               = Bip44Coins.RIPPLE,
+    COSMOS               = Bip44Coins.COSMOS,
+    BAND_PROTOCOL        = Bip44Coins.BAND_PROTOCOL,
     TRON                 = Bip44Coins.TRON,
     # Test nets
     BITCOIN_TESTNET      = Bip44Coins.BITCOIN_TESTNET,
@@ -71,7 +74,8 @@ class HdWalletCoins(IntEnum):
     LITECOIN_TESTNET     = Bip44Coins.LITECOIN_TESTNET,
     DOGECOIN_TESTNET     = Bip44Coins.DOGECOIN_TESTNET,
     DASH_TESTNET         = Bip44Coins.DASH_TESTNET,
-
+    ZCASH_TESTNET        = Bip44Coins.ZCASH_TESTNET,
+    
     def ToBip44Coin(value):
         """ Convert to Bip44Coins type.
 
