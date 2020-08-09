@@ -20,7 +20,7 @@
 
 
 # Imports
-from enum      import IntEnum, unique
+from enum      import Enum, IntEnum, auto, unique
 from bip_utils import Bip44Changes, Bip44Coins
 
 
@@ -42,17 +42,17 @@ class HdWalletChanges(IntEnum):
     CHAIN_EXT = Bip44Changes.CHAIN_EXT,
     CHAIN_INT = Bip44Changes.CHAIN_INT,
 
-    def ToBip44Change(value):
+    def ToBip44Change(enum_val):
         """ Convert to Bip44Changes type.
 
         Returns:
             Bip44Changes: Bip44Changes value
         """
-        return Bip44Changes(value)
+        return Bip44Changes(enum_val)
 
 
 @unique
-class HdWalletCoins(IntEnum):
+class HdWalletCoins(Enum):
     """ Alias for hiding Bip44Coins. """
 
     BITCOIN              = Bip44Coins.BITCOIN,
@@ -64,9 +64,12 @@ class HdWalletCoins(IntEnum):
     ZCASH                = Bip44Coins.ZCASH,
     ETHEREUM             = Bip44Coins.ETHEREUM,
     RIPPLE               = Bip44Coins.RIPPLE,
+    TRON                 = Bip44Coins.TRON,
     COSMOS               = Bip44Coins.COSMOS,
     BAND_PROTOCOL        = Bip44Coins.BAND_PROTOCOL,
-    TRON                 = Bip44Coins.TRON,
+    KAVA                 = Bip44Coins.KAVA,
+    IRIS_NET             = Bip44Coins.IRIS_NET,
+    BINANCE_COIN         = Bip44Coins.BINANCE_COIN,
     # Test nets
     BITCOIN_TESTNET      = Bip44Coins.BITCOIN_TESTNET,
     BITCOIN_CASH_TESTNET = Bip44Coins.BITCOIN_CASH_TESTNET,
@@ -75,53 +78,53 @@ class HdWalletCoins(IntEnum):
     DOGECOIN_TESTNET     = Bip44Coins.DOGECOIN_TESTNET,
     DASH_TESTNET         = Bip44Coins.DASH_TESTNET,
     ZCASH_TESTNET        = Bip44Coins.ZCASH_TESTNET,
-    
-    def ToBip44Coin(value):
+
+    def ToBip44Coin(enum_val):
         """ Convert to Bip44Coins type.
 
         Returns:
             Bip44Coins: Bip44Coins value
         """
-        return Bip44Coins(value)
+        return Bip44Coins(enum_val.value[0])
 
 
 @unique
-class HdWalletSpecs(IntEnum):
+class HdWalletSpecs(Enum):
     """ Enumerative for wallet specifications. """
 
-    BIP44 = 0,
-    BIP49 = 1,
-    BIP84 = 2,
+    BIP44 = auto(),
+    BIP49 = auto(),
+    BIP84 = auto(),
 
 
 @unique
-class HdWalletDataTypes(IntEnum):
+class HdWalletDataTypes(Enum):
     """ Enumerative for wallet data types. """
 
-    WALLET_NAME = 0,
-    COIN_NAME   = 1,
-    SPEC_NAME   = 2,
-    MNEMONIC    = 3,
-    PASSPHRASE  = 4,
-    SEED_BYTES  = 5,
-    ACCOUNT_IDX = 6,
-    CHANGE_IDX  = 7,
-    MASTER_KEY  = 8,
-    PURPOSE_KEY = 9,
-    COIN_KEY    = 10,
-    ACCOUNT_KEY = 11,
-    CHANGE_KEY  = 12,
-    ADDRESSES   = 13,
+    WALLET_NAME = auto(),
+    COIN_NAME   = auto(),
+    SPEC_NAME   = auto(),
+    MNEMONIC    = auto(),
+    PASSPHRASE  = auto(),
+    SEED_BYTES  = auto(),
+    ACCOUNT_IDX = auto(),
+    CHANGE_IDX  = auto(),
+    MASTER_KEY  = auto(),
+    PURPOSE_KEY = auto(),
+    COIN_KEY    = auto(),
+    ACCOUNT_KEY = auto(),
+    CHANGE_KEY  = auto(),
+    ADDRESSES   = auto(),
 
 
 @unique
-class HdWalletKeyTypes(IntEnum):
+class HdWalletKeyTypes(Enum):
     """ Enumerative for wallet key types. """
 
-    EX_PRIV         = 0,
-    RAW_PRIV        = 1,
-    WIF_PRIV        = 2,
-    EX_PUB          = 3,
-    RAW_COMPR_PUB   = 4,
-    RAW_UNCOMPR_PUB = 5,
-    ADDRESS         = 6,
+    EX_PRIV         = auto(),
+    RAW_PRIV        = auto(),
+    WIF_PRIV        = auto(),
+    EX_PUB          = auto(),
+    RAW_COMPR_PUB   = auto(),
+    RAW_UNCOMPR_PUB = auto(),
+    ADDRESS         = auto(),
