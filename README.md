@@ -42,18 +42,24 @@ A *HdWalletFactory* class is constructed by specifying the coin and BIP specific
 If no BIP specification is given, BIP-0044 will be used as default.
 
 Supported coin enumerative:
-- Bitcoin (and related test net) : *HdWalletCoins.BITCOIN, HdWalletCoins.BITCOIN_TESTNET*
-- Bitcoin Cash (and related test net) : *HdWalletCoins.BITCOIN_CASH, HdWalletCoins.BITCOIN_CASH_TESTNET*
-- BitcoinSV (and related test net) : *HdWalletCoins.BITCOIN_SV, HdWalletCoins.BITCOIN_SV_TESTNET*
-- Litecoin (and related test net) : *HdWalletCoins.LITECOIN, HdWalletCoins.LITECOIN_TESTNET*
-- Dogecoin (and related test net) : *HdWalletCoins.DOGECOIN, HdWalletCoins.DOGECOIN_TESTNET*
-- Dash (and related test net) : *HdWalletCoins.DASH, HdWalletCoins.DASH_TESTNET*
-- Zcash (and related test net) : *HdWalletCoins.ZCASH, HdWalletCoins.ZCASH_TESTNET*
-- Ethereum : *HdWalletCoins.ETHEREUM*
-- Ripple : *HdWalletCoins.RIPPLE*
-- Cosmos : *HdWalletCoins.COSMOS*
-- Band Protocol : *HdWalletCoins.BAND_PROTOCOL*
-- Tron : *HdWalletCoins.TRON*
+
+|Coin|Main net|Test net|
+|---|---|---|
+|Bitcoin|*HdWalletCoins.BITCOIN*|*HdWalletCoins.BITCOIN_TESTNET*|
+|Bitcoin Cash|*HdWalletCoins.BITCOIN_CASH*|*HdWalletCoins.BITCOIN_CASH_TESTNET*|
+|BitcoinSV|*HdWalletCoins.BITCOIN_SV*|*HdWalletCoins.BITCOIN_SV_TESTNET*|
+|Litecoin|*HdWalletCoins.LITECOIN*|*HdWalletCoins.LITECOIN_TESTNET*|
+|Dogecoin|*HdWalletCoins.DOGECOIN*|*HdWalletCoins.DOGECOIN_TESTNET*|
+|Dash|*HdWalletCoins.DASH*|*HdWalletCoins.DASH_TESTNET*|
+|Zcash|*HdWalletCoins.ZCASH*|*HdWalletCoins.ZCASH_TESTNET*|
+|Ethereum|*HdWalletCoins.ETHEREUM*|-|
+|Ripple|*HdWalletCoins.RIPPLE*|-|
+|Tron|*HdWalletCoins.TRON*|-|
+|Cosmos|*HdWalletCoins.COSMOS*|-|
+|Band Protocol|*HdWalletCoins.BAND_PROTOCOL*|-|
+|Kava|*HdWalletCoins.KAVA*|-|
+|IRISnet|*HdWalletCoins.IRIS_NET*|-|
+|Binance Coin|*HdWalletCoins.BINANCE_COIN*|-|
 
 Supported BIP specification enumerative:
 - BIP-0044 : *HdWalletSpecs.BIP44*
