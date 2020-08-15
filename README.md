@@ -53,8 +53,10 @@ Supported coin enumerative:
 |Dash|*HdWalletCoins.DASH*|*HdWalletCoins.DASH_TESTNET*|
 |Zcash|*HdWalletCoins.ZCASH*|*HdWalletCoins.ZCASH_TESTNET*|
 |Ethereum|*HdWalletCoins.ETHEREUM*|-|
+|Ethereum Classic|*HdWalletCoins.ETHEREUM_CLASSIC*|-|
 |Ripple|*HdWalletCoins.RIPPLE*|-|
 |Tron|*HdWalletCoins.TRON*|-|
+|VeChain|*HdWalletCoins.VECHAIN*|-|
 |Cosmos|*HdWalletCoins.COSMOS*|-|
 |Band Protocol|*HdWalletCoins.BAND_PROTOCOL*|-|
 |Kava|*HdWalletCoins.KAVA*|-|
