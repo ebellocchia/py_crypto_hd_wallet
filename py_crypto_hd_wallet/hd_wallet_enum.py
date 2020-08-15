@@ -55,6 +55,7 @@ class HdWalletChanges(IntEnum):
 class HdWalletCoins(Enum):
     """ Alias for hiding Bip44Coins. """
 
+    # Main nets
     BITCOIN              = Bip44Coins.BITCOIN,
     BITCOIN_CASH         = Bip44Coins.BITCOIN_CASH,
     BITCOIN_SV           = Bip44Coins.BITCOIN_SV,
@@ -63,8 +64,10 @@ class HdWalletCoins(Enum):
     DASH                 = Bip44Coins.DASH,
     ZCASH                = Bip44Coins.ZCASH,
     ETHEREUM             = Bip44Coins.ETHEREUM,
+    ETHEREUM_CLASSIC     = Bip44Coins.ETHEREUM_CLASSIC,
     RIPPLE               = Bip44Coins.RIPPLE,
     TRON                 = Bip44Coins.TRON,
+    VECHAIN              = Bip44Coins.VECHAIN,
     COSMOS               = Bip44Coins.COSMOS,
     BAND_PROTOCOL        = Bip44Coins.BAND_PROTOCOL,
     KAVA                 = Bip44Coins.KAVA,
