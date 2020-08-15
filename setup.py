@@ -32,9 +32,9 @@ setuptools.setup(
     download_url="https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v%s.tar.gz" % version,
     license="MIT",
     test_suite="tests",
-    install_requires = ["bip_utils~=1.4.0"],
+    install_requires = ["bip_utils~=1.5.0"],
     packages=["py_crypto_hd_wallet"],
-    keywords="bitcoin, bitcoin cash, bitcoinsv, litecoin, dogecoin, dash, zcash, ethereum, ripple, tron, cosmos, atom, band protocol, kava, irisnet, binance coin, bnb, wallet, hd-wallet, bip39, bip32, bip44, bip49, bip84, python",
+    keywords="bitcoin, bitcoin cash, bitcoinsv, litecoin, dogecoin, dash, zcash, ethereum, ethereum classic, vechain, ripple, tron, cosmos, atom, band protocol, kava, irisnet, binance coin, bnb, wallet, hd-wallet, bip39, bip32, bip44, bip49, bip84, python",
     platforms = ["any"],
     classifiers=[
         "Programming Language :: Python :: 3",
