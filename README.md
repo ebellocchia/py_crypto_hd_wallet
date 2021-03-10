@@ -61,7 +61,8 @@ Supported coin enumerative:
 |Band Protocol|*HdWalletCoins.BAND_PROTOCOL*|-|
 |Kava|*HdWalletCoins.KAVA*|-|
 |IRISnet|*HdWalletCoins.IRIS_NET*|-|
-|Binance Coin|*HdWalletCoins.BINANCE_COIN*|-|
+|Binance Chain|*HdWalletCoins.BINANCE_CHAIN*|-|
+|Binance Smart Chain|*HdWalletCoins.BINANCE_SMART_CHAIN*|-|
 
 Supported BIP specification enumerative:
 - BIP-0044 : *HdWalletSpecs.BIP44*
