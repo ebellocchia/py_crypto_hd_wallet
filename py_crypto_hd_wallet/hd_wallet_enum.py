@@ -72,7 +72,8 @@ class HdWalletCoins(Enum):
     BAND_PROTOCOL        = Bip44Coins.BAND_PROTOCOL,
     KAVA                 = Bip44Coins.KAVA,
     IRIS_NET             = Bip44Coins.IRIS_NET,
-    BINANCE_COIN         = Bip44Coins.BINANCE_COIN,
+    BINANCE_CHAIN        = Bip44Coins.BINANCE_CHAIN,
+    BINANCE_SMART_CHAIN  = Bip44Coins.BINANCE_SMART_CHAIN,
     # Test nets
     BITCOIN_TESTNET      = Bip44Coins.BITCOIN_TESTNET,
     BITCOIN_CASH_TESTNET = Bip44Coins.BITCOIN_CASH_TESTNET,
