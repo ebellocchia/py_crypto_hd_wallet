@@ -20,7 +20,7 @@
 
 
 # Imports
-from enum      import Enum, IntEnum, auto, unique
+from enum import Enum, IntEnum, auto, unique
 from bip_utils import Bip44Changes, Bip44Coins
 
 
@@ -42,7 +42,7 @@ class HdWalletChanges(IntEnum):
     CHAIN_EXT = Bip44Changes.CHAIN_EXT,
     CHAIN_INT = Bip44Changes.CHAIN_INT,
 
-    def ToBip44Change(enum_val):
+    def ToBip44Change(enum_val: 'HdWalletChanges') -> Bip44Changes:
         """ Convert to Bip44Changes type.
 
         Returns:
@@ -56,34 +56,34 @@ class HdWalletCoins(Enum):
     """ Alias for hiding Bip44Coins. """
 
     # Main nets
-    BITCOIN              = Bip44Coins.BITCOIN,
-    BITCOIN_CASH         = Bip44Coins.BITCOIN_CASH,
-    BITCOIN_SV           = Bip44Coins.BITCOIN_SV,
-    LITECOIN             = Bip44Coins.LITECOIN,
-    DOGECOIN             = Bip44Coins.DOGECOIN,
-    DASH                 = Bip44Coins.DASH,
-    ZCASH                = Bip44Coins.ZCASH,
-    ETHEREUM             = Bip44Coins.ETHEREUM,
-    ETHEREUM_CLASSIC     = Bip44Coins.ETHEREUM_CLASSIC,
-    RIPPLE               = Bip44Coins.RIPPLE,
-    TRON                 = Bip44Coins.TRON,
-    VECHAIN              = Bip44Coins.VECHAIN,
-    COSMOS               = Bip44Coins.COSMOS,
-    BAND_PROTOCOL        = Bip44Coins.BAND_PROTOCOL,
-    KAVA                 = Bip44Coins.KAVA,
-    IRIS_NET             = Bip44Coins.IRIS_NET,
-    BINANCE_CHAIN        = Bip44Coins.BINANCE_CHAIN,
-    BINANCE_SMART_CHAIN  = Bip44Coins.BINANCE_SMART_CHAIN,
+    BITCOIN = Bip44Coins.BITCOIN,
+    BITCOIN_CASH = Bip44Coins.BITCOIN_CASH,
+    BITCOIN_SV = Bip44Coins.BITCOIN_SV,
+    LITECOIN = Bip44Coins.LITECOIN,
+    DOGECOIN = Bip44Coins.DOGECOIN,
+    DASH = Bip44Coins.DASH,
+    ZCASH = Bip44Coins.ZCASH,
+    ETHEREUM = Bip44Coins.ETHEREUM,
+    ETHEREUM_CLASSIC = Bip44Coins.ETHEREUM_CLASSIC,
+    RIPPLE = Bip44Coins.RIPPLE,
+    TRON = Bip44Coins.TRON,
+    VECHAIN = Bip44Coins.VECHAIN,
+    COSMOS = Bip44Coins.COSMOS,
+    BAND_PROTOCOL = Bip44Coins.BAND_PROTOCOL,
+    KAVA = Bip44Coins.KAVA,
+    IRIS_NET = Bip44Coins.IRIS_NET,
+    BINANCE_CHAIN = Bip44Coins.BINANCE_CHAIN,
+    BINANCE_SMART_CHAIN = Bip44Coins.BINANCE_SMART_CHAIN,
     # Test nets
-    BITCOIN_TESTNET      = Bip44Coins.BITCOIN_TESTNET,
+    BITCOIN_TESTNET = Bip44Coins.BITCOIN_TESTNET,
     BITCOIN_CASH_TESTNET = Bip44Coins.BITCOIN_CASH_TESTNET,
-    BITCOIN_SV_TESTNET   = Bip44Coins.BITCOIN_SV_TESTNET,
-    LITECOIN_TESTNET     = Bip44Coins.LITECOIN_TESTNET,
-    DOGECOIN_TESTNET     = Bip44Coins.DOGECOIN_TESTNET,
-    DASH_TESTNET         = Bip44Coins.DASH_TESTNET,
-    ZCASH_TESTNET        = Bip44Coins.ZCASH_TESTNET,
+    BITCOIN_SV_TESTNET = Bip44Coins.BITCOIN_SV_TESTNET,
+    LITECOIN_TESTNET = Bip44Coins.LITECOIN_TESTNET,
+    DOGECOIN_TESTNET = Bip44Coins.DOGECOIN_TESTNET,
+    DASH_TESTNET = Bip44Coins.DASH_TESTNET,
+    ZCASH_TESTNET = Bip44Coins.ZCASH_TESTNET,
 
-    def ToBip44Coin(enum_val):
+    def ToBip44Coin(enum_val: 'HdWalletCoins') -> Bip44Coins:
         """ Convert to Bip44Coins type.
 
         Returns:
@@ -106,29 +106,29 @@ class HdWalletDataTypes(Enum):
     """ Enumerative for wallet data types. """
 
     WALLET_NAME = auto(),
-    COIN_NAME   = auto(),
-    SPEC_NAME   = auto(),
-    MNEMONIC    = auto(),
-    PASSPHRASE  = auto(),
-    SEED_BYTES  = auto(),
+    COIN_NAME = auto(),
+    SPEC_NAME = auto(),
+    MNEMONIC = auto(),
+    PASSPHRASE = auto(),
+    SEED_BYTES = auto(),
     ACCOUNT_IDX = auto(),
-    CHANGE_IDX  = auto(),
-    MASTER_KEY  = auto(),
+    CHANGE_IDX = auto(),
+    MASTER_KEY = auto(),
     PURPOSE_KEY = auto(),
-    COIN_KEY    = auto(),
+    COIN_KEY = auto(),
     ACCOUNT_KEY = auto(),
-    CHANGE_KEY  = auto(),
-    ADDRESSES   = auto(),
+    CHANGE_KEY = auto(),
+    ADDRESSES = auto(),
 
 
 @unique
 class HdWalletKeyTypes(Enum):
     """ Enumerative for wallet key types. """
 
-    EX_PRIV         = auto(),
-    RAW_PRIV        = auto(),
-    WIF_PRIV        = auto(),
-    EX_PUB          = auto(),
-    RAW_COMPR_PUB   = auto(),
+    EX_PRIV = auto(),
+    RAW_PRIV = auto(),
+    WIF_PRIV = auto(),
+    EX_PUB = auto(),
+    RAW_COMPR_PUB = auto(),
     RAW_UNCOMPR_PUB = auto(),
-    ADDRESS         = auto(),
+    ADDRESS = auto(),

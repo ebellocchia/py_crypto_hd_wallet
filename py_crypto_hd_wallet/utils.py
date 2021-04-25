@@ -23,13 +23,17 @@
 import binascii
 
 
-def BytesToString(data_bytes):
-    """ Convert bytes to string.
+class Utils:
+    """  Class container for utility functions. """
 
-    Args:
-        data_bytes (str): Data bytes
+    @staticmethod
+    def BytesToString(data_bytes: bytes) -> str:
+        """ Convert bytes to string.
 
-    Returns:
-        str: Bytes converted to string
-    """
-    return binascii.hexlify(data_bytes).decode("utf-8")
+        Args:
+            data_bytes (bytes): Data bytes
+
+        Returns:
+            str: Bytes converted to string
+        """
+        return binascii.hexlify(data_bytes).decode("utf-8")

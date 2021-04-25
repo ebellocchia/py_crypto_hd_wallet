@@ -21,24 +21,23 @@
 
 # Imports
 import json
-from bip_utils       import Bip44Levels
-from .hd_wallet_enum import HdWalletKeyTypes
-from .               import utils
+from typing import Dict, Optional, Union
+from bip_utils import Bip44Levels, Bip44, Bip49, Bip84
+from py_crypto_hd_wallet.hd_wallet_enum import HdWalletKeyTypes
 
 
 class HdWalletKeysConst:
     """ Class container for HD wallet keys constants. """
 
     # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY = \
-        {
-            HdWalletKeyTypes.EX_PRIV         : "ex_priv",
-            HdWalletKeyTypes.RAW_PRIV        : "raw_priv",
-            HdWalletKeyTypes.WIF_PRIV        : "wif_priv",
-            HdWalletKeyTypes.EX_PUB          : "ex_pub",
-            HdWalletKeyTypes.RAW_COMPR_PUB   : "raw_compr_pub",
-            HdWalletKeyTypes.RAW_UNCOMPR_PUB : "raw_uncompr_pub",
-            HdWalletKeyTypes.ADDRESS         : "address",
+    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
+            HdWalletKeyTypes.EX_PRIV: "ex_priv",
+            HdWalletKeyTypes.RAW_PRIV: "raw_priv",
+            HdWalletKeyTypes.WIF_PRIV: "wif_priv",
+            HdWalletKeyTypes.EX_PUB: "ex_pub",
+            HdWalletKeyTypes.RAW_COMPR_PUB: "raw_compr_pub",
+            HdWalletKeyTypes.RAW_UNCOMPR_PUB: "raw_uncompr_pub",
+            HdWalletKeyTypes.ADDRESS: "address",
         }
 
 
@@ -51,12 +50,12 @@ class HdWalletKeys:
     # Public methods
     #
 
-    def __init__(self):
+    def __init__(self) -> None:
         """ Construct class. """
         self.m_key_data = {}
 
     @staticmethod
-    def FromBipObj(bip_obj):
+    def FromBipObj(bip_obj: Union[Bip44, Bip49, Bip84]) -> 'HdWalletKeys':
         """ Create keys from the specified Bip object.
         If the Bip object is at address index level, also the address will be computed.
 
@@ -90,7 +89,7 @@ class HdWalletKeys:
 
         return wallet_keys
 
-    def ToDict(self):
+    def ToDict(self) -> Dict:
         """ Get keys as a dictionary.
 
         Returns:
@@ -98,7 +97,8 @@ class HdWalletKeys:
         """
         return self.m_key_data
 
-    def ToJson(self, json_indent = 4):
+    def ToJson(self,
+               json_indent: int = 4) -> str:
         """ Get keys as string in JSON format.
 
         Args:
@@ -107,9 +107,10 @@ class HdWalletKeys:
         Returns:
             str: Keys as string in JSON format
         """
-        return json.dumps(self.ToDict(), indent = json_indent)
+        return json.dumps(self.ToDict(), indent=json_indent)
 
-    def HasKey(self, key_type):
+    def HasKey(self,
+               key_type: HdWalletKeyTypes) -> bool:
         """ Get if the key of the specified type is present.
 
         Args:
@@ -124,7 +125,8 @@ class HdWalletKeys:
         dict_key = HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
         return dict_key in self.m_key_data
 
-    def GetKey(self, key_type):
+    def GetKey(self,
+               key_type: HdWalletKeyTypes) -> Optional[str]:
         """ Get key of the specified type.
 
         Args:
@@ -143,7 +145,9 @@ class HdWalletKeys:
     # Private methods
     #
 
-    def __SetKeyData(self, key_type, key_value):
+    def __SetKeyData(self,
+                     key_type: HdWalletKeyTypes,
+                     key_value: str) -> None:
         """ Set key data.
 
         Args:

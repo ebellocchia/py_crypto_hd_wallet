@@ -20,34 +20,36 @@
 
 
 # Imports
+from typing import Dict, Union
 from bip_utils import (
     Bip39MnemonicGenerator, Bip39SeedGenerator,
     Bip44, Bip49, Bip84
 )
-from .hd_wallet_enum import *
-from .hd_wallet      import HdWallet
+from py_crypto_hd_wallet.hd_wallet_enum import *
+from py_crypto_hd_wallet.hd_wallet import HdWallet
 
 
 class HdWalletFactoryConst:
     """ Class container for HD wallet factory constants. """
 
     # Map specifications to BIP class
-    SPECS_TO_BIP_CLASS = \
-        {
-            HdWalletSpecs.BIP44 : Bip44,
-            HdWalletSpecs.BIP49 : Bip49,
-            HdWalletSpecs.BIP84 : Bip84,
+    SPECS_TO_BIP_CLASS: Dict[HdWalletSpecs, Union[Bip44, Bip49, Bip84]] = {
+            HdWalletSpecs.BIP44: Bip44,
+            HdWalletSpecs.BIP49: Bip49,
+            HdWalletSpecs.BIP84: Bip84,
         }
 
 
 class HdWalletFactory:
     """ HD wallet factory class. It allows a HdWallet to be created in different way. """
 
-    def __init__(self, coin_idx, spec_idx = HdWalletSpecs.BIP44):
+    def __init__(self,
+                 coin_idx: HdWalletCoins,
+                 spec_idx: HdWalletSpecs = HdWalletSpecs.BIP44) -> None:
         """ Construct class.
 
         Args:
-            coin_idx (HdWalletCoins, optional): Coin index, must be a HdWalletCoins enum, Bitcoin if not specified
+            coin_idx (HdWalletCoins): Coin index, must be a HdWalletCoins enum
             spec_idx (HdWalletSpecs, optional): Specification index, must be a HdWalletSpecs enum, BIP44 if not specified
 
         Raised:
@@ -66,10 +68,12 @@ class HdWalletFactory:
             raise ValueError("Coin %s is not allowed to derive specification %s" % (coin_idx, spec_idx))
 
         # Initialize members
-        self.m_coin_idx    = coin_idx.ToBip44Coin()
-        self.m_spec_idx    = spec_idx
+        self.m_coin_idx = coin_idx.ToBip44Coin()
+        self.m_spec_idx = spec_idx
 
-    def CreateRandom(self, wallet_name, words_num):
+    def CreateRandom(self,
+                     wallet_name: int,
+                     words_num: HdWalletWordsNum) -> HdWallet:
         """ Create wallet randomly.
 
         Args:
@@ -89,7 +93,10 @@ class HdWalletFactory:
 
         return self.CreateFromMnemonic(wallet_name, mnemonic)
 
-    def CreateFromMnemonic(self, wallet_name, mnemonic, passphrase = ""):
+    def CreateFromMnemonic(self,
+                           wallet_name: str,
+                           mnemonic: str,
+                           passphrase: str = "") -> HdWallet:
         """ Create wallet from mnemonic.
 
         Args:
@@ -107,13 +114,15 @@ class HdWalletFactory:
         bip_obj = self.__GetBipClass().FromSeed(seed_bytes, self.m_coin_idx)
 
         # Create wallet
-        return HdWallet(wallet_name = wallet_name,
-                        bip_obj     = bip_obj,
-                        mnemonic    = mnemonic,
-                        passphrase  = passphrase,
-                        seed_bytes  = seed_bytes)
+        return HdWallet(wallet_name=wallet_name,
+                        bip_obj=bip_obj,
+                        mnemonic=mnemonic,
+                        passphrase=passphrase,
+                        seed_bytes=seed_bytes)
 
-    def CreateFromSeed(self, wallet_name, seed_bytes):
+    def CreateFromSeed(self,
+                       wallet_name: str,
+                       seed_bytes: bytes) -> HdWallet:
         """ Create wallet from seed.
 
         Args:
@@ -128,11 +137,13 @@ class HdWalletFactory:
         bip_obj = self.__GetBipClass().FromSeed(seed_bytes, self.m_coin_idx)
 
         # Create wallet
-        return HdWallet(wallet_name = wallet_name,
-                        bip_obj     = bip_obj,
-                        seed_bytes  = seed_bytes)
+        return HdWallet(wallet_name=wallet_name,
+                        bip_obj=bip_obj,
+                        seed_bytes=seed_bytes)
 
-    def CreateFromExtendedKey(self, wallet_name, exkey_str):
+    def CreateFromExtendedKey(self,
+                              wallet_name: str,
+                              exkey_str: str) -> HdWallet:
         """ Create wallet from extended key.
 
         Args:
@@ -147,10 +158,10 @@ class HdWalletFactory:
         bip_obj = self.__GetBipClass().FromExtendedKey(exkey_str, self.m_coin_idx)
 
         # Create wallet
-        return HdWallet(wallet_name = wallet_name,
-                        bip_obj     = bip_obj)
+        return HdWallet(wallet_name=wallet_name,
+                        bip_obj=bip_obj)
 
-    def __GetBipClass(self):
+    def __GetBipClass(self) -> Union[Bip44, Bip49, Bip84]:
         """ Get BIP class.
 
         Returns:

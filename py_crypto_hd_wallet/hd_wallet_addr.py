@@ -21,15 +21,16 @@
 
 # Imports
 import json
-from bip_utils       import Bip44Levels
-from .hd_wallet_keys import HdWalletKeys
+from typing import Dict, Union
+from bip_utils import Bip44Levels, Bip44, Bip49, Bip84
+from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeys
 
 
 class HdWalletAddressesConst:
     """ Class container for HD wallet addresses constants. """
 
     # Address key for dictionary
-    ADDR_DICT_KEY = "address_%d"
+    ADDR_DICT_KEY: str = "address_%d"
 
 
 class HdWalletAddresses:
@@ -41,12 +42,13 @@ class HdWalletAddresses:
     # Public methods
     #
 
-    def __init__(self):
+    def __init__(self) -> None:
         """ Construct class. """
         self.m_addresses = []
 
     @staticmethod
-    def FromBipObj(bip_obj, addr_num):
+    def FromBipObj(bip_obj: Union[Bip44, Bip49, Bip84],
+                   addr_num: int) -> 'HdWalletAddresses':
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
@@ -68,7 +70,7 @@ class HdWalletAddresses:
 
         return addr
 
-    def ToDict(self):
+    def ToDict(self) -> Dict:
         """ Get addresses as a dictionary.
 
         Returns:
@@ -82,7 +84,8 @@ class HdWalletAddresses:
 
         return addr_dict
 
-    def ToJson(self, json_indent = 4):
+    def ToJson(self,
+               json_indent: int = 4) -> str:
         """ Get addresses as string in JSON format.
 
         Args:
@@ -91,9 +94,9 @@ class HdWalletAddresses:
         Returns:
             str: Addresses as string in JSON format
         """
-        return json.dumps(self.ToDict(), indent = json_indent)
+        return json.dumps(self.ToDict(), indent=json_indent)
 
-    def Count(self):
+    def Count(self) -> int:
         """ Get the addresses count.
 
         Returns:
@@ -101,7 +104,8 @@ class HdWalletAddresses:
         """
         return len(self.m_addresses)
 
-    def __getitem__(self, addr_idx):
+    def __getitem__(self,
+                    addr_idx: int) -> 'HdWalletKeys':
         """ Get the specified address index.
 
         Args:
@@ -112,7 +116,7 @@ class HdWalletAddresses:
         """
         return self.m_addresses[addr_idx]
 
-    def __iter__(self):
+    def __iter__(self) -> 'HdWalletAddressesItr':
         """ Get iterator instance.
 
         Returns:
@@ -124,16 +128,17 @@ class HdWalletAddresses:
 class HdWalletAddressesItr:
     """ HD wallet addresses iterator class. It iterates over all addresses in HdWalletAddresses. """
 
-    def __init__(self, hd_wallet_addr):
+    def __init__(self,
+                 hd_wallet_addr: HdWalletAddresses) -> None:
         """ Construct class.
 
         Args:
             hd_wallet_addr (HdWalletAddresses object): HdWalletAddresses object
         """
         self.m_addresses = hd_wallet_addr.m_addresses
-        self.m_index     = 0
+        self.m_index = 0
 
-    def __iter__(self):
+    def __iter__(self) -> 'HdWalletAddressesItr':
         """ Get iterator instance.
 
         Returns:
@@ -141,7 +146,7 @@ class HdWalletAddressesItr:
         """
         return self
 
-    def __next__(self):
+    def __next__(self) -> HdWalletKeys:
         """ Get next address.
 
         Returns:

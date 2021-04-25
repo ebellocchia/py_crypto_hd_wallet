@@ -19,6 +19,10 @@
 # THE SOFTWARE.
 
 
+# Imports
+from py_crypto_hd_wallet.hd_wallet import HdWallet
+
+
 class HdWalletSaver:
     """ HD wallet class. It basically wraps the bip_utils, allowing to generate a complete wallet. """
 
@@ -26,7 +30,8 @@ class HdWalletSaver:
     # Public methods
     #
 
-    def __init__(self, hd_wallet):
+    def __init__(self,
+                 hd_wallet: HdWallet) -> None:
         """ Construct class.
 
         Args:
@@ -34,7 +39,8 @@ class HdWalletSaver:
         """
         self.m_hd_wallet = hd_wallet
 
-    def SaveToFile(self, file_path):
+    def SaveToFile(self,
+                   file_path: str) -> None:
         """ Save wallet to file in JSON format.
 
         Args:
