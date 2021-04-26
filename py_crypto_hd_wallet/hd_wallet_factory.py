@@ -72,7 +72,7 @@ class HdWalletFactory:
         self.m_spec_idx = spec_idx
 
     def CreateRandom(self,
-                     wallet_name: int,
+                     wallet_name: str,
                      words_num: HdWalletWordsNum) -> HdWallet:
         """ Create wallet randomly.
 
