@@ -63,6 +63,9 @@ Supported coin enumerative:
 |IRISnet|*HdWalletCoins.IRIS_NET*|-|
 |Binance Chain|*HdWalletCoins.BINANCE_CHAIN*|-|
 |Binance Smart Chain|*HdWalletCoins.BINANCE_SMART_CHAIN*|-|
+|Avalanche C-Chain|*HdWalletCoins.AVAX_C_CHAIN*|-|
+|Avalanche X-Chain|*HdWalletCoins.AVAX_X_CHAIN*|-|
+|Avalanche P-Chain|*HdWalletCoins.AVAX_P_CHAIN*|-|
 
 Supported BIP specification enumerative:
 - BIP-0044 : *HdWalletSpecs.BIP44*
