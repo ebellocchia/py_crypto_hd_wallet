@@ -61,6 +61,7 @@ Supported coin enumerative:
 |Band Protocol|*HdWalletCoins.BAND_PROTOCOL*|-|
 |Kava|*HdWalletCoins.KAVA*|-|
 |IRISnet|*HdWalletCoins.IRIS_NET*|-|
+|Terra|*HdWalletCoins.TERRA*|-|
 |Binance Chain|*HdWalletCoins.BINANCE_CHAIN*|-|
 |Binance Smart Chain|*HdWalletCoins.BINANCE_SMART_CHAIN*|-|
 |Avalanche C-Chain|*HdWalletCoins.AVAX_C_CHAIN*|-|
