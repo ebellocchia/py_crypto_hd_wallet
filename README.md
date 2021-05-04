@@ -87,9 +87,9 @@ Supported BIP specification enumerative:
 ### Wallet creation
 
 After a wallet factory is constructed, a wallet can be created in the following ways:
-- randomly by generating a random mnemonic with the specified words number:
+- randomly by generating a random mnemonic with the specified words number and language (if not specified, the default will be English):
 
-        from py_crypto_hd_wallet import HdWalletWordsNum
+        from py_crypto_hd_wallet import HdWalletWordsNum, HdWalletWordsLanguages
 
         # Create randomly by specifying the words number, these are the possible options:
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12)
@@ -97,6 +97,12 @@ After a wallet factory is constructed, a wallet can be created in the following 
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_18)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_21)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_24)
+        # Specifying the language, these are the possible options:
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.ITALIAN)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.FRENCH)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.SPANISH)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.PORTUGUESE)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.CZECH)
 
 - from an already existent mnemonic:
 
