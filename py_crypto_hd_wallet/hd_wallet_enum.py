@@ -21,7 +21,7 @@
 
 # Imports
 from enum import Enum, IntEnum, auto, unique
-from bip_utils import Bip44Changes, Bip44Coins
+from bip_utils import Bip39Languages, Bip44Changes, Bip44Coins
 
 
 @unique
@@ -44,6 +44,9 @@ class HdWalletChanges(IntEnum):
 
     def ToBip44Change(enum_val: 'HdWalletChanges') -> Bip44Changes:
         """ Convert to Bip44Changes type.
+
+        Args:
+            enum_val (HdWalletChanges): Enum value
 
         Returns:
             Bip44Changes: Bip44Changes value
@@ -90,10 +93,46 @@ class HdWalletCoins(Enum):
     def ToBip44Coin(enum_val: 'HdWalletCoins') -> Bip44Coins:
         """ Convert to Bip44Coins type.
 
+        Args:
+            enum_val (HdWalletCoins): Enum value
+
         Returns:
             Bip44Coins: Bip44Coins value
         """
         return Bip44Coins(enum_val.value[0])
+
+
+@unique
+class HdWalletWordsLanguages(Enum):
+    """ Alias for hiding Bip39Languages. """
+
+    ENGLISH = 0,
+    ITALIAN = 1,
+    FRENCH = 2,
+    SPANISH = 3,
+    PORTUGUESE = 4,
+    CZECH = 5,
+
+    def ToBip39Language(enum_val: 'HdWalletWordsLanguages') -> Bip39Languages:
+        """ Convert to Bip39Languages type.
+
+        Args:
+            enum_val (HdWalletWordsLanguages): Enum value
+
+        Returns:
+            Bip39Languages: Bip39Languages value
+        """
+
+        TO_BIP39_LANG = {
+            HdWalletWordsLanguages.ENGLISH: Bip39Languages.ENGLISH,
+            HdWalletWordsLanguages.ITALIAN: Bip39Languages.ITALIAN,
+            HdWalletWordsLanguages.FRENCH: Bip39Languages.FRENCH,
+            HdWalletWordsLanguages.SPANISH: Bip39Languages.SPANISH,
+            HdWalletWordsLanguages.PORTUGUESE: Bip39Languages.PORTUGUESE,
+            HdWalletWordsLanguages.CZECH: Bip39Languages.CZECH,
+        }
+
+        return TO_BIP39_LANG[enum_val]
 
 
 @unique

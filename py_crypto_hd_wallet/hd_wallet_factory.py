@@ -73,12 +73,14 @@ class HdWalletFactory:
 
     def CreateRandom(self,
                      wallet_name: str,
-                     words_num: HdWalletWordsNum) -> HdWallet:
+                     words_num: HdWalletWordsNum,
+                     lang: HdWalletWordsLanguages = HdWalletWordsLanguages.ENGLISH) -> HdWallet:
         """ Create wallet randomly.
 
         Args:
             wallet_name (str)           : Wallet name
             words_num (HdWalletWordsNum): Words number, must be a HdWalletWordsNum enum
+            lang (HdWalletWordsLanguages, optional): Language (default: English)
 
         Returns:
             HdWallet object: HdWallet object
@@ -89,7 +91,7 @@ class HdWalletFactory:
         if not isinstance(words_num, HdWalletWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletWordsNum")
 
-        mnemonic = Bip39MnemonicGenerator.FromWordsNumber(words_num)
+        mnemonic = Bip39MnemonicGenerator(lang.ToBip39Language()).FromWordsNumber(words_num)
 
         return self.CreateFromMnemonic(wallet_name, mnemonic)
 
