@@ -67,6 +67,17 @@ Supported coin enumerative:
 |Avalanche C-Chain|*HdWalletCoins.AVAX_C_CHAIN*|-|
 |Avalanche X-Chain|*HdWalletCoins.AVAX_X_CHAIN*|-|
 |Avalanche P-Chain|*HdWalletCoins.AVAX_P_CHAIN*|-|
+|Polygon|*HdWalletCoins.POLYGON*|-|
+|Fantom Opera|*HdWalletCoins.FANTOM_OPERA*|-|
+|Harmony One (Metamask address)|*HdWalletCoins.HARMONY_ONE_METAMASK*|-|
+|Harmony One (Ethereum address)|*HdWalletCoins.HARMONY_ONE_ETH*|-|
+|Harmony One (Cosmos address)|*HdWalletCoins.HARMONY_ONE_ATOM*|-|
+|Huobi Chain|*HdWalletCoins.HUOBI_CHAIN*|-|
+|OKEx Chain (Ethereum address)|*HdWalletCoins.OKEX_CHAIN_ETH*|-|
+|OKEx Chain (Cosmos address)|*HdWalletCoins.OKEX_CHAIN_ATOM*|-|
+|OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletCoins.OKEX_CHAIN_ATOM_OLD*|-|
+
+Harmony One and OKEx Chain have different formats, see [bip_utils](https://github.com/ebellocchia/bip_utils) description for mroe information.
 
 Supported BIP specification enumerative:
 - BIP-0044 : *HdWalletSpecs.BIP44*
@@ -86,23 +97,44 @@ Supported BIP specification enumerative:
 
 ### Wallet creation
 
-After a wallet factory is constructed, a wallet can be created in the following ways:
-- randomly by generating a random mnemonic with the specified words number and language (if not specified, the default will be English):
+After a wallet factory is constructed, it can be used to create wallets.\
+Supported words number:
+
+|Words number|Enum|
+|---|---|
+|12|*HdWalletWordsNum.WORDS_NUM_12*|
+|15|*HdWalletWordsNum.WORDS_NUM_15*|
+|18|*HdWalletWordsNum.WORDS_NUM_18*|
+|21|*HdWalletWordsNum.WORDS_NUM_21*|
+|24|*HdWalletWordsNum.WORDS_NUM_24*|
+
+Supported languages (if not specified, the default is English):
+
+|Language|Enum|
+|---|---|
+|English|*HdWalletWordsLanguages.ENGLISH*|
+|Italian|*HdWalletWordsLanguages.ITALIAN*|
+|French|*HdWalletWordsLanguages.FRENCH*|
+|Spanish|*HdWalletWordsLanguages.SPANISH*|
+|Portuguese|*HdWalletWordsLanguages.PORTUGUESE*|
+|Czech|*HdWalletWordsLanguages.CZECH*|
+|Chinese (simplified)|*HdWalletWordsLanguages.CHINESE_SIMPLIFIED*|
+|Chinese (traditional)|*HdWalletWordsLanguages.CHINESE_TRADITIONAL*|
+|Korean|*HdWalletWordsLanguages.KOREAN*|
+
+A wallet can be created in the following ways:
+- randomly by generating a random mnemonic with the specified words number and language:
 
         from py_crypto_hd_wallet import HdWalletWordsNum, HdWalletWordsLanguages
 
-        # Create randomly by specifying the words number, these are the possible options:
+        # Create randomly by specifying the words number:
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_15)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_18)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_21)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_24)
-        # Specifying the language, these are the possible options:
+        # Specifying the language (default is English):
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.ITALIAN)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.FRENCH)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.SPANISH)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.PORTUGUESE)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.CZECH)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.KOREAN)
 
 - from an already existent mnemonic:
 
@@ -121,11 +153,11 @@ The extended key should be in the correct format depending on the wallet coin, o
 
         # Create from private extended key
         ex_key = "xprv9s21ZrQH143K4L5D8NLB8rE6XwqsK7hkDLUnVpeMq1t59fZPGU4811A1ih8mPrKisgftXWJZZXAoKdzCcX4WERMXns4s9pDYr54iHs3sSha"
-        hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name",ex_key)
+        hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name", ex_key)
 
         # Create from public extended key, generating a public-only wallet
         ex_key = "xpub661MyMwAqRbcG3PEsG7NDvmtyGb6oMcHY2ExjZJZo7y8LUgEoVTgp9PFZz4iNfaDLTfairQf21r3hP5CGYzboge4EcRNNrdEggpBo2HcJVg"
-        hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name",ex_key)
+        hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name", ex_key)
 
 ### Generating wallet keys and addresses
 
