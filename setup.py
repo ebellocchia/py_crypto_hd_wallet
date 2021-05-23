@@ -1,11 +1,23 @@
 import setuptools
 import re
 
+# File names
+DESCRIPTION_FILE = "README.md"
+KEYWORDS_FILE = "keywords.txt"
+REQUIREMENTS_FILE = "requirements.txt"
 VERSION_FILE = "py_crypto_hd_wallet/_version.py"
 
-with open("README.md", "r") as f:
-    long_description = f.read()
+# Load long description
+def load_long_description():
+    return open(DESCRIPTION_FILE).read()
 
+# Load keywords
+def load_keywords():
+    with open(KEYWORDS_FILE, "r") as fin:
+        return ", ".join([line for line in map(str.strip, fin.read().splitlines())
+                          if len(line) > 0 and not line.startswith('#')])
+
+# Load version
 def load_version():
     version_line = open(VERSION_FILE).read().rstrip()
     vre = re.compile(r'__version__: str = "([^"]+)"')
@@ -16,8 +28,19 @@ def load_version():
     else:
         raise RuntimeError("Cannot find version string in %s" % VERSION_FILE)
 
+# Load requirements
+def load_requirements():
+    with open(REQUIREMENTS_FILE, "r") as fin:
+        return [line for line in map(str.strip, fin.read().splitlines())
+                if len(line) > 0 and not line.startswith('#')]
+
+# Load needed files
+long_description = load_long_description()
+keywords = load_keywords()
+install_requires = load_requirements()
 version = load_version()
 
+# Setup configuration
 setuptools.setup(
     name="py_crypto_hd_wallet",
     version=version,
@@ -32,10 +55,10 @@ setuptools.setup(
     download_url="https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v%s.tar.gz" % version,
     license="MIT",
     test_suite="tests",
-    install_requires = ["bip_utils~=1.10.0"],
+    install_requires=install_requires,
     packages=["py_crypto_hd_wallet"],
-    keywords="bitcoin, bitcoin cash, bitcoinsv, litecoin, dogecoin, dash, zcash, ethereum, ethereum classic, vechain, ripple, tron, cosmos, atom, band protocol, kava, irisnet, terra, binance chain, binance smart chain, bnb, avalanche, avax, wallet, hd-wallet, bip39, bip32, bip44, bip49, bip84, python",
-    platforms = ["any"],
+    keywords=keywords,
+    platforms=["any"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
