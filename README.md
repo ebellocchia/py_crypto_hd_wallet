@@ -77,7 +77,7 @@ Supported coin enumerative:
 |OKEx Chain (Cosmos address)|*HdWalletCoins.OKEX_CHAIN_ATOM*|-|
 |OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletCoins.OKEX_CHAIN_ATOM_OLD*|-|
 
-Harmony One and OKEx Chain have different formats, see [bip_utils](https://github.com/ebellocchia/bip_utils) description for mroe information.
+Harmony One and OKEx Chain have different formats, see [bip_utils](https://github.com/ebellocchia/bip_utils) description for more information.
 
 Supported BIP specification enumerative:
 - BIP-0044 : *HdWalletSpecs.BIP44*
