@@ -81,6 +81,15 @@ class HdWalletCoins(Enum):
     AVAX_C_CHAIN = Bip44Coins.AVAX_C_CHAIN,
     AVAX_X_CHAIN = Bip44Coins.AVAX_X_CHAIN,
     AVAX_P_CHAIN = Bip44Coins.AVAX_P_CHAIN,
+    POLYGON = Bip44Coins.POLYGON,
+    FANTOM_OPERA = Bip44Coins.FANTOM_OPERA,
+    HARMONY_ONE_METAMASK = Bip44Coins.HARMONY_ONE_METAMASK,
+    HARMONY_ONE_ETH = Bip44Coins.HARMONY_ONE_ETH,
+    HARMONY_ONE_ATOM = Bip44Coins.HARMONY_ONE_ATOM,
+    HUOBI_CHAIN = Bip44Coins.HUOBI_CHAIN,
+    OKEX_CHAIN_ETH = Bip44Coins.OKEX_CHAIN_ETH,
+    OKEX_CHAIN_ATOM = Bip44Coins.OKEX_CHAIN_ATOM,
+    OKEX_CHAIN_ATOM_OLD = Bip44Coins.OKEX_CHAIN_ATOM_OLD,
     # Test nets
     BITCOIN_TESTNET = Bip44Coins.BITCOIN_TESTNET,
     BITCOIN_CASH_TESTNET = Bip44Coins.BITCOIN_CASH_TESTNET,
@@ -106,12 +115,15 @@ class HdWalletCoins(Enum):
 class HdWalletWordsLanguages(Enum):
     """ Alias for hiding Bip39Languages. """
 
-    ENGLISH = 0,
-    ITALIAN = 1,
-    FRENCH = 2,
-    SPANISH = 3,
-    PORTUGUESE = 4,
-    CZECH = 5,
+    ENGLISH = auto(),
+    ITALIAN = auto(),
+    FRENCH = auto(),
+    SPANISH = auto(),
+    PORTUGUESE = auto(),
+    CZECH = auto(),
+    CHINESE_SIMPLIFIED = auto(),
+    CHINESE_TRADITIONAL = auto(),
+    KOREAN = auto(),
 
     def ToBip39Language(enum_val: 'HdWalletWordsLanguages') -> Bip39Languages:
         """ Convert to Bip39Languages type.
@@ -130,6 +142,9 @@ class HdWalletWordsLanguages(Enum):
             HdWalletWordsLanguages.SPANISH: Bip39Languages.SPANISH,
             HdWalletWordsLanguages.PORTUGUESE: Bip39Languages.PORTUGUESE,
             HdWalletWordsLanguages.CZECH: Bip39Languages.CZECH,
+            HdWalletWordsLanguages.CHINESE_SIMPLIFIED: Bip39Languages.CHINESE_SIMPLIFIED,
+            HdWalletWordsLanguages.CHINESE_TRADITIONAL: Bip39Languages.CHINESE_TRADITIONAL,
+            HdWalletWordsLanguages.KOREAN: Bip39Languages.KOREAN,
         }
 
         return TO_BIP39_LANG[enum_val]
