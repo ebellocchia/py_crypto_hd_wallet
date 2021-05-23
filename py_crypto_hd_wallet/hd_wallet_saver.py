@@ -46,5 +46,5 @@ class HdWalletSaver:
         Args:
             file_path (str): File path
         """
-        with open(file_path, "w") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(self.m_hd_wallet.ToJson())
