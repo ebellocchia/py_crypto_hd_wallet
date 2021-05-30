@@ -21,7 +21,7 @@
 
 # Imports
 import json
-from typing import Dict, Union
+from typing import Dict, Iterator, Union
 from bip_utils import Bip44Levels, Bip44, Bip49, Bip84
 from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeys
 
@@ -105,7 +105,7 @@ class HdWalletAddresses:
         return len(self.m_addresses)
 
     def __getitem__(self,
-                    addr_idx: int) -> 'HdWalletKeys':
+                    addr_idx: int) -> HdWalletKeys:
         """ Get the specified address index.
 
         Args:
@@ -116,48 +116,10 @@ class HdWalletAddresses:
         """
         return self.m_addresses[addr_idx]
 
-    def __iter__(self) -> 'HdWalletAddressesItr':
-        """ Get iterator instance.
+    def __iter__(self) -> Iterator[HdWalletKeys]:
+        """ Get the iterator to the current element.
 
         Returns:
-            HdWalletAddressesItr object: HdWalletAddressesItr object
+            Iterator object: Iterator to the current element
         """
-        return HdWalletAddressesItr(self)
-
-
-class HdWalletAddressesItr:
-    """ HD wallet addresses iterator class. It iterates over all addresses in HdWalletAddresses. """
-
-    def __init__(self,
-                 hd_wallet_addr: HdWalletAddresses) -> None:
-        """ Construct class.
-
-        Args:
-            hd_wallet_addr (HdWalletAddresses object): HdWalletAddresses object
-        """
-        self.m_addresses = hd_wallet_addr.m_addresses
-        self.m_index = 0
-
-    def __iter__(self) -> 'HdWalletAddressesItr':
-        """ Get iterator instance.
-
-        Returns:
-            HdWalletAddressesItr object: HdWalletAddressesItr object
-        """
-        return self
-
-    def __next__(self) -> HdWalletKeys:
-        """ Get next address.
-
-        Returns:
-            HdWalletKeys object: HdWalletKeys object
-
-        Raises:
-            StopIteration: If the index is out of boundaries
-        """
-        try:
-            res = self.m_addresses[self.m_index]
-            self.m_index += 1
-            return res
-        except IndexError:
-            raise StopIteration
+        yield from self.m_addresses
