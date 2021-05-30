@@ -21,6 +21,7 @@
 
 # Imports
 from enum import Enum, IntEnum, auto, unique
+from typing import Dict
 from bip_utils import Bip39Languages, Bip44Changes, Bip44Coins
 
 
@@ -135,7 +136,7 @@ class HdWalletWordsLanguages(Enum):
             Bip39Languages: Bip39Languages value
         """
 
-        TO_BIP39_LANG = {
+        to_bip39_lang: Dict[HdWalletWordsLanguages, Bip39Languages] = {
             HdWalletWordsLanguages.ENGLISH: Bip39Languages.ENGLISH,
             HdWalletWordsLanguages.ITALIAN: Bip39Languages.ITALIAN,
             HdWalletWordsLanguages.FRENCH: Bip39Languages.FRENCH,
@@ -147,7 +148,7 @@ class HdWalletWordsLanguages(Enum):
             HdWalletWordsLanguages.KOREAN: Bip39Languages.KOREAN,
         }
 
-        return TO_BIP39_LANG[enum_val]
+        return to_bip39_lang[enum_val]
 
 
 @unique
