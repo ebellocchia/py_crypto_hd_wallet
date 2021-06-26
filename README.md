@@ -43,39 +43,49 @@ If no BIP specification is given, BIP-0044 will be used as default.
 
 Supported coin enumerative:
 
-|Coin|Main net|Test net|
+|Coin|Main net enum|Test net enum|
 |---|---|---|
+|Algorand|*HdWalletCoins.ALGORAND*|-|
+|Avalanche C-Chain|*HdWalletCoins.AVAX_C_CHAIN*|-|
+|Avalanche P-Chain|*HdWalletCoins.AVAX_P_CHAIN*|-|
+|Avalanche X-Chain|*HdWalletCoins.AVAX_X_CHAIN*|-|
+|Band Protocol|*HdWalletCoins.BAND_PROTOCOL*|-|
+|Binance Chain|*HdWalletCoins.BINANCE_CHAIN*|-|
+|Binance Smart Chain|*HdWalletCoins.BINANCE_SMART_CHAIN*|-|
 |Bitcoin|*HdWalletCoins.BITCOIN*|*HdWalletCoins.BITCOIN_TESTNET*|
 |Bitcoin Cash|*HdWalletCoins.BITCOIN_CASH*|*HdWalletCoins.BITCOIN_CASH_TESTNET*|
 |BitcoinSV|*HdWalletCoins.BITCOIN_SV*|*HdWalletCoins.BITCOIN_SV_TESTNET*|
-|Litecoin|*HdWalletCoins.LITECOIN*|*HdWalletCoins.LITECOIN_TESTNET*|
-|Dogecoin|*HdWalletCoins.DOGECOIN*|*HdWalletCoins.DOGECOIN_TESTNET*|
+|Cosmos|*HdWalletCoins.COSMOS*|-|
 |Dash|*HdWalletCoins.DASH*|*HdWalletCoins.DASH_TESTNET*|
-|Zcash|*HdWalletCoins.ZCASH*|*HdWalletCoins.ZCASH_TESTNET*|
+|Dogecoin|*HdWalletCoins.DOGECOIN*|*HdWalletCoins.DOGECOIN_TESTNET*|
+|Elrond|*HdWalletCoins.ELROND*|-|
 |Ethereum|*HdWalletCoins.ETHEREUM*|-|
 |Ethereum Classic|*HdWalletCoins.ETHEREUM_CLASSIC*|-|
+|Fantom Opera|*HdWalletCoins.FANTOM_OPERA*|-|
+|Harmony One (Cosmos address)|*HdWalletCoins.HARMONY_ONE_ATOM*|-|
+|Harmony One (Ethereum address)|*HdWalletCoins.HARMONY_ONE_ETH*|-|
+|Harmony One (Metamask address)|*HdWalletCoins.HARMONY_ONE_METAMASK*|-|
+|Huobi Chain|*HdWalletCoins.HUOBI_CHAIN*|-|
+|IRIS Network|*HdWalletCoins.IRIS_NET*|-|
+|Kava|*HdWalletCoins.KAVA*|-|
+|Kusama (ed25519 SLIP-0010)|*HdWalletCoins.KUSAMA_ED25519_SLIP*|-|
+|Litecoin|*HdWalletCoins.LITECOIN*|*HdWalletCoins.LITECOIN_TESTNET*|
+|OKEx Chain (Cosmos address)|*HdWalletCoins.OKEX_CHAIN_ATOM*|-|
+|OKEx Chain (Ethereum address)|*HdWalletCoins.OKEX_CHAIN_ETH*|-|
+|OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletCoins.OKEX_CHAIN_ATOM_OLD*|-|
+|NEO|*HdWalletCoins.NEO*|-|
+|Ontology|*HdWalletCoins.ONTOLOGY*|-|
+|Polkadot (ed25519 SLIP-0010)|*HdWalletCoins.POLKADOT_ED25519_SLIP*|-|
+|Polygon|*HdWalletCoins.POLYGON*|-|
 |Ripple|*HdWalletCoins.RIPPLE*|-|
+|Solana|*HdWalletCoins.SOLANA*|-|
+|Stellar|*HdWalletCoins.STELLAR*|-|
+|Terra|*HdWalletCoins.TERRA*|-|
+|Tezos|*HdWalletCoins.TEZOS*|-|
+|Theta Network|*HdWalletCoins.THETA*|-|
 |Tron|*HdWalletCoins.TRON*|-|
 |VeChain|*HdWalletCoins.VECHAIN*|-|
-|Cosmos|*HdWalletCoins.COSMOS*|-|
-|Band Protocol|*HdWalletCoins.BAND_PROTOCOL*|-|
-|Kava|*HdWalletCoins.KAVA*|-|
-|IRISnet|*HdWalletCoins.IRIS_NET*|-|
-|Terra|*HdWalletCoins.TERRA*|-|
-|Binance Chain|*HdWalletCoins.BINANCE_CHAIN*|-|
-|Binance Smart Chain|*HdWalletCoins.BINANCE_SMART_CHAIN*|-|
-|Avalanche C-Chain|*HdWalletCoins.AVAX_C_CHAIN*|-|
-|Avalanche X-Chain|*HdWalletCoins.AVAX_X_CHAIN*|-|
-|Avalanche P-Chain|*HdWalletCoins.AVAX_P_CHAIN*|-|
-|Polygon|*HdWalletCoins.POLYGON*|-|
-|Fantom Opera|*HdWalletCoins.FANTOM_OPERA*|-|
-|Harmony One (Metamask address)|*HdWalletCoins.HARMONY_ONE_METAMASK*|-|
-|Harmony One (Ethereum address)|*HdWalletCoins.HARMONY_ONE_ETH*|-|
-|Harmony One (Cosmos address)|*HdWalletCoins.HARMONY_ONE_ATOM*|-|
-|Huobi Chain|*HdWalletCoins.HUOBI_CHAIN*|-|
-|OKEx Chain (Ethereum address)|*HdWalletCoins.OKEX_CHAIN_ETH*|-|
-|OKEx Chain (Cosmos address)|*HdWalletCoins.OKEX_CHAIN_ATOM*|-|
-|OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletCoins.OKEX_CHAIN_ATOM_OLD*|-|
+|Zcash|*HdWalletCoins.ZCASH*|*HdWalletCoins.ZCASH_TESTNET*|
 
 Harmony One and OKEx Chain have different formats, see [bip_utils](https://github.com/ebellocchia/bip_utils) description for more information.
 

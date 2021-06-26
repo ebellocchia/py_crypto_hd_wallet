@@ -222,7 +222,7 @@ class HdWallet:
         # Set specification name
         self.__SetData(HdWalletDataTypes.SPEC_NAME, self.m_bip_obj.SpecName())
         # Set coin name
-        coin_names = self.m_bip_obj.CoinClass().CoinNames()
+        coin_names = self.m_bip_obj.CoinConf().CoinNames()
         self.__SetData(HdWalletDataTypes.COIN_NAME, "%s (%s)" % (coin_names.Name(), coin_names.Abbreviation()))
 
         # Set optional data if specified
