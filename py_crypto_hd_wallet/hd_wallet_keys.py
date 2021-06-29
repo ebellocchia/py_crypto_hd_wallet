@@ -83,9 +83,8 @@ class HdWalletKeys:
             if wif != "":
                 wallet_keys.__SetKeyData(HdWalletKeyTypes.WIF_PRIV, wif)
 
-        # Add address if Bip object is at arress index level
-        if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
-            wallet_keys.__SetKeyData(HdWalletKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
+        # Address
+        wallet_keys.__SetKeyData(HdWalletKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
 
         return wallet_keys
 
