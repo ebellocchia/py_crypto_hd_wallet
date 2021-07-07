@@ -62,6 +62,7 @@ Supported coin enumerative:
 |Ethereum|*HdWalletCoins.ETHEREUM*|-|
 |Ethereum Classic|*HdWalletCoins.ETHEREUM_CLASSIC*|-|
 |Fantom Opera|*HdWalletCoins.FANTOM_OPERA*|-|
+|Filecoin|*HdWalletCoins.FILECOIN*|-|
 |Harmony One (Cosmos address)|*HdWalletCoins.HARMONY_ONE_ATOM*|-|
 |Harmony One (Ethereum address)|*HdWalletCoins.HARMONY_ONE_ETH*|-|
 |Harmony One (Metamask address)|*HdWalletCoins.HARMONY_ONE_METAMASK*|-|
@@ -73,6 +74,7 @@ Supported coin enumerative:
 |OKEx Chain (Cosmos address)|*HdWalletCoins.OKEX_CHAIN_ATOM*|-|
 |OKEx Chain (Ethereum address)|*HdWalletCoins.OKEX_CHAIN_ETH*|-|
 |OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletCoins.OKEX_CHAIN_ATOM_OLD*|-|
+|Nano|*HdWalletCoins.NANO*|-|
 |NEO|*HdWalletCoins.NEO*|-|
 |Ontology|*HdWalletCoins.ONTOLOGY*|-|
 |Polkadot (ed25519 SLIP-0010)|*HdWalletCoins.POLKADOT_ED25519_SLIP*|-|
@@ -86,6 +88,7 @@ Supported coin enumerative:
 |Tron|*HdWalletCoins.TRON*|-|
 |VeChain|*HdWalletCoins.VECHAIN*|-|
 |Zcash|*HdWalletCoins.ZCASH*|*HdWalletCoins.ZCASH_TESTNET*|
+|Zilliqa|*HdWalletCoins.ZILLIQA*|-|
 
 Harmony One and OKEx Chain have different formats, see [bip_utils](https://github.com/ebellocchia/bip_utils) description for more information.
 
