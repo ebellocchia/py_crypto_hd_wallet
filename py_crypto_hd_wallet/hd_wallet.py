@@ -84,13 +84,15 @@ class HdWallet:
     def Generate(self,
                  account_idx: int = 0,
                  change_idx: HdWalletChanges = HdWalletChanges.CHAIN_EXT,
-                 addr_num: int = 20) -> None:
+                 addr_num: int = 20,
+                 addr_offset:int = 0) -> None:
         """ Generate wallet keys and addresses.
 
         Args:
             account_idx (int, optional)           : Account index, 0 by default
             change_idx (HdWalletChanges, optional): Change index, must a HdWalletChanges enum, external chain by default
             addr_num (int, optional)              : Number of addresses to be generated, 20 by default
+            addr_offset (int optional)            : Number of addresses offset to be generated, 0 by default
         """
 
         # Check parameters
@@ -124,7 +126,7 @@ class HdWallet:
         # Set change keys and derive addresses if correct level
         if bip_obj.IsLevel(Bip44Levels.CHANGE):
             self.__SetKeys(HdWalletDataTypes.CHANGE_KEY, bip_obj)
-            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, addr_num))
+            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, addr_num, addr_offset))
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
