@@ -48,13 +48,16 @@ class HdWalletAddresses:
 
     @staticmethod
     def FromBipObj(bip_obj: Union[Bip44, Bip49, Bip84],
-                   addr_num: int) -> 'HdWalletAddresses':
+                   addr_num: int,
+                   addr_offset: int) -> 'HdWalletAddresses':
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
         Args:
             bip_obj (Bip44Base child object): Bip44Base child object
             addr_num (int)                  : Address number
+            addr_offset (int)               : Address offset
+
 
         Returns:
             HdWalletAddresses object: HdWalletAddresses object
@@ -65,7 +68,7 @@ class HdWalletAddresses:
             addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj))
         else:
             for i in range(addr_num):
-                bip_obj_addr = bip_obj.AddressIndex(i)
+                bip_obj_addr = bip_obj.AddressIndex(i+addr_offset)
                 addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj_addr))
 
         return addr
