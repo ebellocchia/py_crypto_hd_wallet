@@ -169,7 +169,7 @@ The extended key should be in the correct format depending on the wallet coin, o
         hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name", ex_key)
 
         # Create from public extended key, generating a public-only wallet
-        ex_key = "xpub661MyMwAqRbcG3PEsG7NDvmtyGb6oMcHY2ExjZJZo7y8LUgEoVTgp9PFZz4iNfaDLTfairQf21r3hP5CGYzboge4EcRNNrdEggpBo2HcJVg"
+        ex_key = "xpub6DCoCpSuQZB2jawqnGMEPS63ePKWkwWPH4TU45Q7LPXWuNd8TMtVxRrgjtEshuqpK3mdhaWHPFsBngh5GFZaM6si3yZdUsT8ddYM3PwnATt"
         hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name", ex_key)
 
 ### Generating wallet keys and addresses
