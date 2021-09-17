@@ -68,7 +68,7 @@ class HdWalletAddresses:
             addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj))
         else:
             for i in range(addr_num):
-                bip_obj_addr = bip_obj.AddressIndex(i+addr_offset)
+                bip_obj_addr = bip_obj.AddressIndex(i + addr_offset)
                 addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj_addr))
 
         return addr
