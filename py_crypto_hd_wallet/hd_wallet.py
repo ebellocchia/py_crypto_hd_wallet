@@ -92,7 +92,7 @@ class HdWallet:
             account_idx (int, optional)           : Account index, 0 by default
             change_idx (HdWalletChanges, optional): Change index, must a HdWalletChanges enum, external chain by default
             addr_num (int, optional)              : Number of addresses to be generated, 20 by default
-            addr_offset (int optional)            : Number of addresses offset to be generated, 0 by default
+            addr_offset (int, optional)           : Number of addresses offset to be generated, 0 by default
         """
 
         # Check parameters
@@ -130,7 +130,7 @@ class HdWallet:
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
-            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, 1))
+            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:
         """ Get if the wallet is watch-only.
