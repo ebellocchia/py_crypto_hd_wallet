@@ -22,7 +22,7 @@
 # Imports
 from typing import Dict, Union
 from bip_utils import (
-    Bip39MnemonicGenerator, Bip39SeedGenerator,
+    Bip39Mnemonic, Bip39MnemonicGenerator, Bip39SeedGenerator,
     Bip44, Bip49, Bip84
 )
 from py_crypto_hd_wallet.hd_wallet_enum import *
@@ -93,18 +93,18 @@ class HdWalletFactory:
 
         mnemonic = Bip39MnemonicGenerator(lang.ToBip39Language()).FromWordsNumber(words_num)
 
-        return self.CreateFromMnemonic(wallet_name, mnemonic)
+        return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 
     def CreateFromMnemonic(self,
                            wallet_name: str,
-                           mnemonic: str,
+                           mnemonic: Union[Bip39Mnemonic, str],
                            passphrase: str = "") -> HdWallet:
         """ Create wallet from mnemonic.
 
         Args:
-            wallet_name (str)         : Wallet name
-            mnemonic (str)            : Mnemonic
-            passphrase (str, optional): Passphrase for protecting mnemonic, empty if not specified
+            wallet_name (str)                     : Wallet name
+            mnemonic (Bip39Mnemonic object or str): Mnemonic
+            passphrase (str, optional)            : Passphrase for protecting mnemonic, empty if not specified
 
         Returns:
             HdWallet object: HdWallet object
