@@ -22,7 +22,8 @@
 # Imports
 import json
 from typing import Dict, Optional, Union
-from bip_utils import Bip44Levels, Bip44, Bip49, Bip84
+from bip_utils import Bip44Levels
+from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.hd_wallet_addr import HdWalletAddresses
 from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeys
 from py_crypto_hd_wallet.hd_wallet_enum import *
@@ -60,17 +61,17 @@ class HdWallet:
 
     def __init__(self,
                  wallet_name: str,
-                 bip_obj: Union[Bip44, Bip49, Bip84],
+                 bip_obj: Bip44Base,
                  mnemonic: str = "",
                  passphrase: str = "",
                  seed_bytes: bytes = b"") -> None:
         """ Construct class.
 
         Args:
-            wallet_name (str)         : Wallet name
-            bip_obj (Bip object)      : BIP object
-            mnemonic (str, optional)  : Mnemonic, empty if not specified
-            passphrase (str, optional): Passphrase, empty if not specified
+            wallet_name (str)           : Wallet name
+            bip_obj (Bip44Base object)  : Bip44Base object
+            mnemonic (str, optional)    : Mnemonic, empty if not specified
+            passphrase (str, optional)  : Passphrase, empty if not specified
             seed_bytes (bytes, optional): Seed_bytes, empty if not specified
         """
 
@@ -85,21 +86,23 @@ class HdWallet:
                  account_idx: int = 0,
                  change_idx: HdWalletChanges = HdWalletChanges.CHAIN_EXT,
                  addr_num: int = 20,
-                 addr_offset:int = 0) -> None:
+                 addr_offset: int = 0) -> None:
         """ Generate wallet keys and addresses.
 
         Args:
             account_idx (int, optional)           : Account index, 0 by default
             change_idx (HdWalletChanges, optional): Change index, must a HdWalletChanges enum, external chain by default
             addr_num (int, optional)              : Number of addresses to be generated, 20 by default
-            addr_offset (int, optional)           : Number of addresses offset to be generated, 0 by default
+            addr_offset (int, optional)           : Starting address index, 0 by default
         """
 
         # Check parameters
         if not isinstance(change_idx, HdWalletChanges):
             raise TypeError("Change index is not an enumerative of HdWalletChanges")
         if addr_num < 0:
-            raise ValueError("Address number shall be greater than zero")
+            raise ValueError("Address number shall be greater or equal to zero")
+        if addr_offset < 0:
+            raise ValueError("Address offset shall be greater or equal to zero")
 
         # Save the BIP object
         bip_obj = self.m_bip_obj
@@ -248,7 +251,7 @@ class HdWallet:
 
     def __SetKeys(self,
                   data_type: HdWalletDataTypes,
-                  bip_obj: Union[Bip44, Bip49, Bip84]) -> None:
+                  bip_obj: Bip44Base) -> None:
         """ Add keys to wallet data.
 
         Args:

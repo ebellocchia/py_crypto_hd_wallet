@@ -20,56 +20,39 @@
 
 
 # Imports
-from typing import Dict, Union
+from typing import Type, Union
 from bip_utils import (
     Bip39Mnemonic, Bip39MnemonicGenerator, Bip39SeedGenerator,
     Bip44, Bip49, Bip84
 )
+from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.hd_wallet_enum import *
 from py_crypto_hd_wallet.hd_wallet import HdWallet
-
-
-class HdWalletFactoryConst:
-    """ Class container for HD wallet factory constants. """
-
-    # Map specifications to BIP class
-    SPECS_TO_BIP_CLASS: Dict[HdWalletSpecs, Union[Bip44, Bip49, Bip84]] = {
-            HdWalletSpecs.BIP44: Bip44,
-            HdWalletSpecs.BIP49: Bip49,
-            HdWalletSpecs.BIP84: Bip84,
-        }
 
 
 class HdWalletFactory:
     """ HD wallet factory class. It allows a HdWallet to be created in different way. """
 
     def __init__(self,
-                 coin_idx: HdWalletCoins,
-                 spec_idx: HdWalletSpecs = HdWalletSpecs.BIP44) -> None:
+                 coin_type: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]) -> None:
         """ Construct class.
 
         Args:
-            coin_idx (HdWalletCoins): Coin index, must be a HdWalletCoins enum
-            spec_idx (HdWalletSpecs, optional): Specification index, must be a HdWalletSpecs enum, BIP44 if not specified
+            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins): Coin type
 
         Raised:
-            TypeError: If coin_idx or spec_idx is not of HdWalletCoins or HdWalletSpecs enum
-            ValueError: If the coin is not allowed to derive from the BIP specification
+            TypeError: If coin_type is not one of the accepted enum
         """
 
         # Check coin type
-        if not isinstance(coin_idx, HdWalletCoins):
-            raise TypeError("Coin index is not an enumerative of HdWalletCoins")
-        # Check specification type
-        if not isinstance(spec_idx, HdWalletSpecs):
-            raise TypeError("Spec index is not an enumerative of HdWalletSpecs")
-        # Check if coin is allowed (m_spec_idx must be set)
-        if not HdWalletFactoryConst.SPECS_TO_BIP_CLASS[spec_idx].IsCoinAllowed(coin_idx.ToBip44Coin()):
-            raise ValueError("Coin %s is not allowed to derive specification %s" % (coin_idx, spec_idx))
+        if (not isinstance(coin_type, HdWalletBip44Coins) and
+                not isinstance(coin_type, HdWalletBip49Coins) and
+                not isinstance(coin_type, HdWalletBip84Coins)):
+            raise TypeError("Coin type is not an accepted enumerative")
 
         # Initialize members
-        self.m_coin_idx = coin_idx.ToBip44Coin()
-        self.m_spec_idx = spec_idx
+        self.m_bip_coin = coin_type.ToBipCoin()
+        self.m_bip_cls = self.__GetBipClass(coin_type)
 
     def CreateRandom(self,
                      wallet_name: str,
@@ -113,7 +96,7 @@ class HdWalletFactory:
         # Generate seed
         seed_bytes = Bip39SeedGenerator(mnemonic).Generate(passphrase)
         # Create BIP object from seed
-        bip_obj = self.__GetBipClass().FromSeed(seed_bytes, self.m_coin_idx)
+        bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
 
         # Create wallet
         return HdWallet(wallet_name=wallet_name,
@@ -136,7 +119,7 @@ class HdWalletFactory:
         """
 
         # Create BIP object from seed
-        bip_obj = self.__GetBipClass().FromSeed(seed_bytes, self.m_coin_idx)
+        bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
 
         # Create wallet
         return HdWallet(wallet_name=wallet_name,
@@ -157,16 +140,46 @@ class HdWalletFactory:
         """
 
         # Create BIP object from extended key
-        bip_obj = self.__GetBipClass().FromExtendedKey(exkey_str, self.m_coin_idx)
+        bip_obj = self.m_bip_cls.FromExtendedKey(exkey_str, self.m_bip_coin)
 
         # Create wallet
         return HdWallet(wallet_name=wallet_name,
                         bip_obj=bip_obj)
 
-    def __GetBipClass(self) -> Union[Bip44, Bip49, Bip84]:
-        """ Get BIP class.
+    def CreateFromPrivateKey(self,
+                             wallet_name: str,
+                             priv_key: bytes) -> HdWallet:
+        """ Create wallet from private key.
+
+        Args:
+            wallet_name (str): Wallet name
+            priv_key (bytes) : Private key bytes
 
         Returns:
-            Bip44Base child object: Bip44Base child object
+            HdWallet object: HdWallet object
         """
-        return HdWalletFactoryConst.SPECS_TO_BIP_CLASS[self.m_spec_idx]
+
+        # Create BIP object from private key
+        bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
+
+        # Create wallet
+        return HdWallet(wallet_name=wallet_name,
+                        bip_obj=bip_obj)
+
+    @staticmethod
+    def __GetBipClass(coin_type: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]) -> Type[Bip44Base]:
+        """ Get BIP class from coin type.
+
+        Args:
+            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins): Coin type
+
+        Returns:
+            Bip44Base class: Bip44Base class
+        """
+
+        if type(coin_type) == HdWalletBip44Coins:
+            return Bip44
+        elif type(coin_type) == HdWalletBip49Coins:
+            return Bip49
+        elif type(coin_type) == HdWalletBip84Coins:
+            return Bip84

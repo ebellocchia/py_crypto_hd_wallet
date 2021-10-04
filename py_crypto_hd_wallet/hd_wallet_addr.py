@@ -20,9 +20,11 @@
 
 
 # Imports
+from __future__ import annotations
 import json
-from typing import Dict, Iterator, Union
-from bip_utils import Bip44Levels, Bip44, Bip49, Bip84
+from typing import Dict, Iterator
+from bip_utils import Bip44Levels
+from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeys
 
 
@@ -47,16 +49,16 @@ class HdWalletAddresses:
         self.m_addresses = []
 
     @staticmethod
-    def FromBipObj(bip_obj: Union[Bip44, Bip49, Bip84],
+    def FromBipObj(bip_obj: Bip44Base,
                    addr_num: int,
-                   addr_offset: int) -> 'HdWalletAddresses':
+                   addr_offset: int) -> HdWalletAddresses:
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
         Args:
-            bip_obj (Bip44Base child object): Bip44Base child object
-            addr_num (int)                  : Address number
-            addr_offset (int)               : Address offset
+            bip_obj (Bip44Base object): Bip44Base object
+            addr_num (int)            : Address number
+            addr_offset (int)         : Address offset
 
 
         Returns:

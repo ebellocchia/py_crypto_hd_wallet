@@ -20,9 +20,10 @@
 
 
 # Imports
+from __future__ import annotations
 import json
-from typing import Dict, Optional, Union
-from bip_utils import Bip44Levels, Bip44, Bip49, Bip84
+from typing import Dict, Optional
+from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.hd_wallet_enum import HdWalletKeyTypes
 
 
@@ -55,12 +56,12 @@ class HdWalletKeys:
         self.m_key_data = {}
 
     @staticmethod
-    def FromBipObj(bip_obj: Union[Bip44, Bip49, Bip84]) -> 'HdWalletKeys':
+    def FromBipObj(bip_obj: Bip44Base) -> HdWalletKeys:
         """ Create keys from the specified Bip object.
         If the Bip object is at address index level, also the address will be computed.
 
         Args:
-            bip_obj (Bip44Base child object): Bip44Base child object
+            bip_obj (Bip44Base object): Bip44Base object
 
         Returns:
             HdWalletKeys object: HdWalletKeys object
