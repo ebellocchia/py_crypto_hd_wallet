@@ -34,7 +34,9 @@ class HdWalletFactory:
     """ HD wallet factory class. It allows a HdWallet to be created in different way. """
 
     def __init__(self,
-                 coin_type: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]) -> None:
+                 coin_type: Union[HdWalletBip44Coins,
+                                  HdWalletBip49Coins,
+                                  HdWalletBip84Coins]) -> None:
         """ Construct class.
 
         Args:
@@ -52,7 +54,7 @@ class HdWalletFactory:
 
         # Initialize members
         self.m_bip_coin = coin_type.ToBipCoin()
-        self.m_bip_cls = self.__GetBipClass(coin_type)
+        self.m_bip_cls = self.__BipClassFromCoinType(coin_type)
 
     def CreateRandom(self,
                      wallet_name: str,
@@ -167,7 +169,9 @@ class HdWalletFactory:
                         bip_obj=bip_obj)
 
     @staticmethod
-    def __GetBipClass(coin_type: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]) -> Type[Bip44Base]:
+    def __BipClassFromCoinType(coin_type: Union[HdWalletBip44Coins,
+                                                HdWalletBip49Coins,
+                                                HdWalletBip84Coins]) -> Type[Bip44Base]:
         """ Get BIP class from coin type.
 
         Args:
@@ -176,7 +180,6 @@ class HdWalletFactory:
         Returns:
             Bip44Base class: Bip44Base class
         """
-
         if type(coin_type) == HdWalletBip44Coins:
             return Bip44
         elif type(coin_type) == HdWalletBip49Coins:
