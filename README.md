@@ -229,6 +229,8 @@ from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
         priv_key = binascii.unhexlify(b"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35")
         hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key)
 
+In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
+
 ### Generating wallet keys and addresses
 
 After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method. If you call the method before creating the wallet with the previous methods, a *RuntimeError* exception will, be raised.\
