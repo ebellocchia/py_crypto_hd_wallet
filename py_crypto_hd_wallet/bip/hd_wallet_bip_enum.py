@@ -211,7 +211,7 @@ class HdWalletBipChanges(IntEnum):
     CHAIN_EXT = Bip44Changes.CHAIN_EXT
     CHAIN_INT = Bip44Changes.CHAIN_INT
 
-    def ToBip44Change(enum_val: HdWalletChanges) -> Bip44Changes:
+    def ToBip44Change(enum_val: HdWalletBipChanges) -> Bip44Changes:
         """ Convert to Bip44Changes type.
 
         Args:
