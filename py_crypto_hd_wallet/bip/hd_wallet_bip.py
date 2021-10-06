@@ -171,6 +171,9 @@ class HdWalletBip(HdWalletBase):
 
         Returns:
             bool: True if present, false otherwise
+
+        Raises:
+            TypeError: If data type is not a HdWalletBipDataTypes enum
         """
         if not isinstance(data_type, HdWalletBipDataTypes):
             raise TypeError("Data type is not an enumerative of HdWalletBipDataTypes")
@@ -188,6 +191,9 @@ class HdWalletBip(HdWalletBase):
         Returns (str, dict or None):
             int or str or HdWalletBipKeys or HdWalletBipAddresses: Wallet data
             None: If not found
+
+        Raises:
+            TypeError: If data type is not a HdWalletBipDataTypes enum
         """
         if self.HasData(data_type):
             return self.m_wallet_data[HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]]
