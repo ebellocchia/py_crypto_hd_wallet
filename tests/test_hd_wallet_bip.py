@@ -70,7 +70,7 @@ TEST_VECTOR = [
             "file_path": "test_wallet.txt",
             # No wallet data because it is random
         },
-        # Ethereum wallet, BIP44
+        # Ethereum wallet from mnemonic, BIP44
         {
             # Data for wallet construction
             "wallet_name": "eth_wallet",
@@ -148,7 +148,7 @@ TEST_VECTOR = [
                 }
             },
         },
-        # Ethereum wallet, BIP44
+        # Ethereum wallet from seed, BIP44
         {
             # Data for wallet construction
             "wallet_name": "eth_wallet",
@@ -240,13 +240,13 @@ TEST_VECTOR = [
                 }
             },
         },
-        # Litecoin wallet, BIP84
+        # Litecoin wallet from extended key, BIP84
         {
             # Data for wallet construction
             "wallet_name": "ltc_bip84_wallet",
             "coin": HdWalletBip84Coins.LITECOIN,
             # Data for wallet creation
-            "type": "from_exkey",
+            "type": "from_ex_key",
             "ex_key": "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5",
             # Data for wallet generation
             "acc_idx": 2,
@@ -339,13 +339,13 @@ TEST_VECTOR = [
                 }
             },
         },
-        # Dogecoin wallet, BIP44
+        # Dogecoin wallet from extended key, BIP44
         {
             # Data for wallet construction
             "wallet_name": "doge_wallet",
             "coin": HdWalletBip44Coins.DOGECOIN,
             # Data for wallet creation
-            "type": "from_exkey",
+            "type": "from_ex_key",
             "ex_key": "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw",
             # Data for wallet generation
             "acc_idx": 0,
@@ -373,13 +373,13 @@ TEST_VECTOR = [
                 }
             },
         },
-        # Watch-only Bitcoin wallet, BIP44
+        # Watch-only Bitcoin wallet from extended key, BIP44
         {
             # Data for wallet construction
             "wallet_name": "btc_wo_wallet",
             "coin": HdWalletBip44Coins.BITCOIN,
             # Data for wallet creation
-            "type": "from_exkey",
+            "type": "from_ex_key",
             "ex_key": "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY",
             # Data for wallet generation
             "acc_idx": 0,
@@ -422,13 +422,13 @@ TEST_VECTOR = [
                 }
             },
         },
-        # Bitcoin wallet, BIP49
+        # Bitcoin wallet from private key, BIP49
         {
             # Data for wallet construction
             "wallet_name": "btc_bip49_wallet",
             "coin": HdWalletBip49Coins.BITCOIN,
             # Data for wallet creation
-            "type": "from_privkey",
+            "type": "from_priv_key",
             "priv_key": b"4b03d6fc340455b363f51020ad3ecca4f0850280cf436c70c727923f6db46c3e",
             # Data for wallet generation
             "acc_idx": 0,
@@ -530,7 +530,6 @@ TEST_VECTOR = [
 class HdWalletBipTests(unittest.TestCase):
     # Run all tests in test vector
     def test_vector(self):
-        self.maxDiff = None
         for test in TEST_VECTOR:
             # Construct wallet factory
             hd_wallet_fact = HdWalletBipFactory(test["coin"])
@@ -549,7 +548,8 @@ class HdWalletBipTests(unittest.TestCase):
                 compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.ToDict()["mnemonic"])
                 compare_wallet.Generate(account_idx=test["acc_idx"],
                                         change_idx=test["change_idx"],
-                                        addr_num=test["addr_num"])
+                                        addr_num=test["addr_num"],
+                                        addr_offset=test["addr_off"])
 
                 # Test wallet data
                 self.assertFalse(hd_wallet.IsWatchOnly())
@@ -559,9 +559,9 @@ class HdWalletBipTests(unittest.TestCase):
                     hd_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], test["mnemonic"])
                 elif test["type"] == "from_seed":
                     hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
-                elif test["type"] == "from_exkey":
+                elif test["type"] == "from_ex_key":
                     hd_wallet = hd_wallet_fact.CreateFromExtendedKey(test["wallet_name"], test["ex_key"])
-                elif test["type"] == "from_privkey":
+                elif test["type"] == "from_priv_key":
                     hd_wallet = hd_wallet_fact.CreateFromPrivateKey(test["wallet_name"], binascii.unhexlify(test["priv_key"]))
                 else:
                     raise RuntimeError("Invalid test type")
@@ -609,7 +609,7 @@ class HdWalletBipTests(unittest.TestCase):
         self.assertRaises(ValueError, hd_wallet_fact.CreateFromPrivateKey, "test_wallet", invalid_priv_key)
 
         # Create wallet
-        hd_wallet = hd_wallet_fact.CreateRandom("test_wallet", HdWalletBipWordsNum.WORDS_NUM_12)
+        hd_wallet = hd_wallet_fact.CreateRandom("test_wallet")
 
         # Invalid parameters for Generate
         self.assertRaises(TypeError, hd_wallet.Generate, change_idx=0)
