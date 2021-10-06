@@ -106,7 +106,7 @@ class HdWalletBip(HdWalletBase):
             raise TypeError("Change index is not an enumerative of HdWalletBipChanges")
         if addr_num < 0 or addr_num > Bip32KeyDataConst.KEY_INDEX_MAX_VAL:
             raise ValueError("Address number shall be greater or equal to zero and less than 2^32")
-        if addr_offset < 0 or addr_offset > Bip32KeyDataConst.KEY_INDEX_MAX_VAL:
+        if addr_offset < 0 or ((addr_offset + addr_num) > Bip32KeyDataConst.KEY_INDEX_MAX_VAL):
             raise ValueError("Address offset shall be greater or equal to zero and less than 2^32")
 
         # Save the BIP object
