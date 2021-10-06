@@ -231,7 +231,7 @@ class HdWalletBip(HdWalletBase):
             self.__SetData(HdWalletBipDataTypes.MNEMONIC, mnemonic)
             self.__SetData(HdWalletBipDataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
-            self.__SetData(HdWalletBipDataTypes.SEED_BYTES, Utils.BytesToString(seed_bytes))
+            self.__SetData(HdWalletBipDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
 
     def __SetData(self,
                   data_type: HdWalletBipDataTypes,

@@ -27,13 +27,16 @@ class Utils:
     """  Class container for utility functions. """
 
     @staticmethod
-    def BytesToString(data_bytes: bytes) -> str:
-        """ Convert bytes to string.
+    def BytesToHexString(data_bytes: bytes,
+                         encoding: str = "utf-8") -> str:
+        """ Convert bytes to hex string.
 
         Args:
-            data_bytes (bytes): Data bytes
+            data_bytes (bytes)      : Data bytes
+            encoding (str, optional): Encoding type
 
         Returns:
-            str: Bytes converted to string
+            str: Bytes converted to hex string
         """
-        return binascii.hexlify(data_bytes).decode("utf-8")
+        return binascii.hexlify(data_bytes).decode(encoding)
+
