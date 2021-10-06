@@ -46,7 +46,8 @@ class HdWalletBipAddresses:
 
     def __init__(self) -> None:
         """ Construct class. """
-        self.m_addresses = []
+        self.m_addr = []
+        self.m_addr_off = 0
 
     @staticmethod
     def FromBipObj(bip_obj: Bip44Base,
@@ -66,11 +67,13 @@ class HdWalletBipAddresses:
         addr = HdWalletBipAddresses()
 
         if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
-            addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj))
+            addr.m_addr.append(HdWalletBipKeys.FromBipObj(bip_obj))
         else:
+            addr.m_addr_off = addr_off
+
             for i in range(addr_num):
                 bip_obj_addr = bip_obj.AddressIndex(i + addr_off)
-                addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj_addr))
+                addr.m_addr.append(HdWalletBipKeys.FromBipObj(bip_obj_addr))
 
         return addr
 
@@ -82,8 +85,8 @@ class HdWalletBipAddresses:
         """
         addr_dict = {}
 
-        for i, key in enumerate(self.m_addresses):
-            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + 1)
+        for i, key in enumerate(self.m_addr):
+            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + self.m_addr_off)
             addr_dict[dict_key] = key.ToDict()
 
         return addr_dict
@@ -106,7 +109,7 @@ class HdWalletBipAddresses:
         Returns:
             int: Number of addresses
         """
-        return len(self.m_addresses)
+        return len(self.m_addr)
 
     def __getitem__(self,
                     addr_idx: int) -> HdWalletBipKeys:
@@ -118,7 +121,7 @@ class HdWalletBipAddresses:
         Returns:
             HdWalletBipKeys object: HdWalletBipKeys object
         """
-        return self.m_addresses[addr_idx]
+        return self.m_addr[addr_idx]
 
     def __iter__(self) -> Iterator[HdWalletBipKeys]:
         """ Get the iterator to the current element.
@@ -126,4 +129,4 @@ class HdWalletBipAddresses:
         Returns:
             Iterator object: Iterator to the current element
         """
-        yield from self.m_addresses
+        yield from self.m_addr

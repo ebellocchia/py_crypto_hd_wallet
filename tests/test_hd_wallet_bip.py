@@ -137,7 +137,7 @@ TEST_VECTOR = [
                     "address": "0x1af21bC3e7319984A37fb72f1B900db4De5b1A75",
                 },
                 "address": {
-                    "address_1": {
+                    "address_0": {
                         "ex_pub": "xpub6GkuXeVuFpgwJvJCsRyr1Mq8UEgYa4SrW3GJyPxr232F2xhYJhmY66JiJJ3G8Qsvsmz1n24YUpcmdVuinMj5UdJ2t9oHySr3pftXSiWo2Cq",
                         "raw_compr_pub": "038a3cae97faf3039fa33b404bb7c683d76a3eff6b27fb43989bfd796426915544",
                         "raw_uncompr_pub": "048a3cae97faf3039fa33b404bb7c683d76a3eff6b27fb43989bfd79642691554443f3e7f5a6df2a8af4f552299c85bfc73df7ac7f3616d9a09b9faf0888ea6751",
@@ -213,7 +213,7 @@ TEST_VECTOR = [
                     "address": "0x1af21bC3e7319984A37fb72f1B900db4De5b1A75",
                 },
                 "address": {
-                    "address_1": {
+                    "address_0": {
                         "ex_pub": "xpub6GkuXeVuFpgwJvJCsRyr1Mq8UEgYa4SrW3GJyPxr232F2xhYJhmY66JiJJ3G8Qsvsmz1n24YUpcmdVuinMj5UdJ2t9oHySr3pftXSiWo2Cq",
                         "raw_compr_pub": "038a3cae97faf3039fa33b404bb7c683d76a3eff6b27fb43989bfd796426915544",
                         "raw_uncompr_pub": "048a3cae97faf3039fa33b404bb7c683d76a3eff6b27fb43989bfd79642691554443f3e7f5a6df2a8af4f552299c85bfc73df7ac7f3616d9a09b9faf0888ea6751",
@@ -221,7 +221,7 @@ TEST_VECTOR = [
                         "raw_priv": "7557f64e51895b529b7ee55f8a2922f5824eeed555f22a1220adb276bf3d2ff1",
                         "address": "0x11383e8FBdA76cE9beeeDdE603C903cF3bCCCa7A",
                     },
-                    "address_2": {
+                    "address_1": {
                         "ex_pub": "xpub6GkuXeVuFpgwMoVvA8XSk8KKLzTwCqtEMsrHcCsweZTVoJBSf2in5fNFr6ft5DT3zoBou2nwjfpQCt5UKYEgemr2vGGngzmpj6vcST7bha4",
                         "raw_compr_pub": "03455fe53ad89f784b8dfdc96e95227eb66b51795260fd53f5777acfa09d2706cf",
                         "raw_uncompr_pub": "04455fe53ad89f784b8dfdc96e95227eb66b51795260fd53f5777acfa09d2706cff0b414b5b3d30b5c927743c2964180387c3e6a48c41a25ecfe4484b16ffe5d69",
@@ -229,7 +229,7 @@ TEST_VECTOR = [
                         "raw_priv": "909dcdddcf8542a306ab545586cd1ad0761d1a51db8a9a28e27aafbfb24c0314",
                         "address": "0x225538102464EEa7eF64299813e2f9c5Ee2Ff01e",
                     },
-                    "address_3": {
+                    "address_2": {
                         "ex_pub": "xpub6GkuXeVuFpgwPDf5cqMGC4tAwwEAQfuM7bDkVbT7NyB7dsg8UHbV8YEd32L3CvZ82wpFEM2MqPRBGRro4vL9MnoCi1jW9vBaXNCHCzx8NTq",
                         "raw_compr_pub": "0300ccc5f825b71c4ab346f4b845f51a252a844fcab961b253df35dcbeb45ba4b6",
                         "raw_uncompr_pub": "0400ccc5f825b71c4ab346f4b845f51a252a844fcab961b253df35dcbeb45ba4b6fffaeaf7e2148e73aff118146e88c7612fc85a41aa3ea94a71ae30eddff40d23",
@@ -309,7 +309,7 @@ TEST_VECTOR = [
                     "address": "ltc1qhd4p5y7ycw8jyq3fd25nrs9d6qweewk7cmyuzd",
                 },
                 "address": {
-                    "address_1": {
+                    "address_0": {
                         "ex_pub": "zpub6vTTtJ8jWvYsRr2xkYgxWA7vbUfhpHPZtqRQ7YUc4TMfoWzJLwxFar48oDAgiN6tX4WW9vmqkXafqXi3fq5XJozY8QyFkcougMwVDYJEofN",
                         "raw_compr_pub": "03c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1",
                         "raw_uncompr_pub": "04c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1be8722700b9e957b500970b49b64ed140d7d497ce49efd9b5bf11f61119f0163",
@@ -318,7 +318,7 @@ TEST_VECTOR = [
                         "wif_priv": "T9axDMhDy4riyEcvn8duEfko5jZ2Pxp6V6XFwdm9iz8LwEVdk4u2",
                         "address": "ltc1qeyp9rflupuvw5j5pdyluhqgdxfk092hra6m8jm",
                     },
-                    "address_2": {
+                    "address_1": {
                         "ex_pub": "zpub6vTTtJ8jWvYsU8EMiNdNZBK6WGgzXMb5Y44C6sZ3ppmSVZ1T24DsdeeS7CqUzTVm4orZ5DjBfXCUT4EvdMUriMD3wJZ9T6ReHDsjHc1eKY7",
                         "raw_compr_pub": "039111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f22699",
                         "raw_uncompr_pub": "049111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f2269942508a95ec95c1aece10aa0ec6c375950ed4131a1300bb5970f75aa1a360f871",
@@ -327,7 +327,7 @@ TEST_VECTOR = [
                         "wif_priv": "T7h7fuRWqkAbcwMNbXdoNwW8WF5LKLa83jXHnNiMLowp97eKNpy8",
                         "address": "ltc1q2ksy0gmj2y2zru74nd64zlaq8h30qpz6dstr2s",
                     },
-                    "address_3": {
+                    "address_2": {
                         "ex_pub": "zpub6vTTtJ8jWvYsWueMEngC1icupRsMKEL4yu8qrtJHEHXBrqp1xV3JYKr6L8oiaUzub2Vpzzi2jRxktYYkV16HNveP3GxbfpvdeNfUxUC1ec9",
                         "raw_compr_pub": "0301e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400",
                         "raw_uncompr_pub": "0401e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400ea341d4a8c1f97d46c9e6a8341b2fd81442b5ae8aea988ccf3f5f429d6eb9bd9",
@@ -361,7 +361,7 @@ TEST_VECTOR = [
                 "spec_name": "BIP-0044",
                 "coin_name": "Dogecoin (DOGE)",
                 "address": {
-                    "address_1": {
+                    "address_0": {
                         "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
                         "raw_compr_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
                         "raw_uncompr_pub": "04cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0ef6096bd24259fb59a4338413d1b542eed17d4cce52709e6ec18ec51bb87b164",
@@ -401,19 +401,19 @@ TEST_VECTOR = [
                     "address": "13KE6TffArLh4fVM6uoQzvsYq5vwetJcVM",
                 },
                 "address": {
-                    "address_1": {
+                    "address_0": {
                         "ex_pub": "xpub6Fbrwk4KhC8qnFVXTcR3wRsqiTGkedcSSZKyTqKaxXjFN6rZv3UJYZ4mQtjNYY3gCa181iCHSBWyWst2PFiXBKgLpFVSdcyLbHyAahin8pd",
                         "raw_compr_pub": "03aaeb52dd7494c361049de67cc680e83ebcbbbdbeb13637d92cd845f70308af5e",
                         "raw_uncompr_pub": "04aaeb52dd7494c361049de67cc680e83ebcbbbdbeb13637d92cd845f70308af5e9370164133294e5fd1679672fe7866c307daf97281a28f66dca7cbb52919824f",
                         "address": "1LqBGSKuX5yYUonjxT5qGfpUsXKYYWeabA",
                     },
-                    "address_2": {
+                    "address_1": {
                         "ex_pub": "xpub6Fbrwk4KhC8qpW547rQ6k2d2YBu672sBMtGV1q5duGH7pktZou5ZyuufVAC4rtyM5csX6hCkdPJe2SVZUQ2hAtMNcx3iS7qcnFdGJxmtDNn",
                         "raw_compr_pub": "02dfcaec532010d704860e20ad6aff8cf3477164ffb02f93d45c552dadc70ed24f",
                         "raw_uncompr_pub": "04dfcaec532010d704860e20ad6aff8cf3477164ffb02f93d45c552dadc70ed24f05100e9dc6d05ccd7e8bdade50dabeeed654700fde6134870194a6ccb2a07a5e",
                         "address": "1Ak8PffB2meyfYnbXZR9EGfLfFZVpzJvQP",
                     },
-                    "address_3": {
+                    "address_2": {
                         "ex_pub": "xpub6Fbrwk4KhC8qtGNv4K6ZPPa4CjbLKcXhc6CzA57XMPXVYMjQn3LQUY3G8B9kwKkfiM5KnhL1bTSQaN4EYDgamQeQGu7RjFgqBC1rjTvqwLM",
                         "raw_compr_pub": "0338994349b3a804c44bbec55c2824443ebb9e475dfdad14f4b1a01a97d42751b3",
                         "raw_uncompr_pub": "0438994349b3a804c44bbec55c2824443ebb9e475dfdad14f4b1a01a97d42751b37a93be7a6818b0f5bc5410bb844ba9d417181afae5810c7a222e8fd47a02f6b9",
@@ -492,7 +492,7 @@ TEST_VECTOR = [
                 },
                 "address_off": 20,
                 "address": {
-                    "address_1": {
+                    "address_20": {
                         "ex_pub": "ypub6ad6dUsvsNu2vHGxbQgjZsvoHS73mKvdMjYxsocsY1jr1yWGqdcj32XNfbMEY5LGMCeuhRJvEznVdzz62WsKMyxvmJjuaNgYLkoFFPcKrHY",
                         "raw_compr_pub": "0311706e632f4c208ac7ae9c7b2af93f3adbc39a5b08822c83b7b5f09250b9d216",
                         "raw_uncompr_pub": "0411706e632f4c208ac7ae9c7b2af93f3adbc39a5b08822c83b7b5f09250b9d2160faad2fe80a65c4195d85eebdc6b7ab2114d33c70fdf52be07642f665249aef7",
@@ -501,7 +501,7 @@ TEST_VECTOR = [
                         "wif_priv": "L2KmaQWx6FHDe8ASergwc4ewWH7Gmv7NXLuNZKk5cLACfYWVoXju",
                         "address": "3MkKk236t3YrFndGnsdvk9AiNSK3HYpphc"
                     },
-                    "address_2": {
+                    "address_21": {
                         "ex_pub": "ypub6ad6dUsvsNu2xiTsmtTmiEpBmnTu5NK4Xv7o6bVFtT8rgWU2fkuFGyFdMoc16qV9Z5tKDk16qawZMhiYuVwgwsJYwbGNoZJ4evGuS3tCYkC",
                         "raw_compr_pub": "033c0957bbac822d1f01d214472ecae014326b718361e79ee1dfbf1bc4ffe22b5d",
                         "raw_uncompr_pub": "043c0957bbac822d1f01d214472ecae014326b718361e79ee1dfbf1bc4ffe22b5d58110a3d3235cb20555d2418bfe11ea9914cd816d28e2ac97c0ac5cd3d2cc705",
@@ -510,7 +510,7 @@ TEST_VECTOR = [
                         "wif_priv": "KzpEh28ArjAQFq5WfGXZ3Qgz66uCMWGz9Mpi9FXCyZuQ7Y1nb1QB",
                         "address": "3Kp6eRh31PmHTpQxNNkwEJUybp7HKgC5Xn"
                     },
-                    "address_3": {
+                    "address_22": {
                         "ex_pub": "ypub6ad6dUsvsNu2yEAftvqTEdYkES2S7heAF5DAgpFLf2s4cEkRwYwPr1bSqUNMfyWAo9XnbmSsKb3e4mciZpLeB3GjjTits4mKKPSKSYYHE8t",
                         "raw_compr_pub": "023892a117152ebddbb43e96fea54cb20ac6491757ceeff6bc42ba55856b537160",
                         "raw_uncompr_pub": "043892a117152ebddbb43e96fea54cb20ac6491757ceeff6bc42ba55856b5371606c7e407c8a19ca9e8d5ad37fb594f7ebcd5ccf79bee97426748de90b9feeae42",
@@ -657,7 +657,7 @@ class HdWalletBipTests(unittest.TestCase):
                 self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
             # In case of HdWalletBipAddresses, test also address individually
             elif isinstance(wallet_data, HdWalletBipAddresses):
-                self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data)
+                self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data, ut_wallet.GetData(HdWalletBipDataTypes.ADDRESS_OFF))
             # Otherwise just test the content
             else:
                 self.assertEqual(ref_wallet_dict[dict_key], wallet_data)
@@ -688,7 +688,9 @@ class HdWalletBipTests(unittest.TestCase):
                 self.assertEqual(None, ut_wallet_keys.GetKey(key_type))
 
     # Helper method for testing wallet addresses (HdWalletBipAddresses)
-    def __test_wallet_addresses(self, test_addr_dict, ut_wallet_addr):
+    def __test_wallet_addresses(self, test_addr_dict, ut_wallet_addr, addr_off):
+        addr_off = addr_off or 0
+
         # Test whole addresses as a dictionary
         self.assertEqual(test_addr_dict, ut_wallet_addr.ToDict())
         # Test all addresses as a string in JSON format
@@ -700,7 +702,7 @@ class HdWalletBipTests(unittest.TestCase):
         # Test each address by iterating
         for i, addr in enumerate(ut_wallet_addr):
             # Get current dictionary key
-            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + 1)
+            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + addr_off)
             # Each address is simply a HdWalletBipKeys, so we can use the previous method
             self.__test_wallet_keys(test_addr_dict[dict_key], addr)
             # Test again but accessing via index
