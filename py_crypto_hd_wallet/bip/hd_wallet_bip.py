@@ -20,8 +20,7 @@
 
 
 # Imports
-import json
-from typing import Dict, Optional, Union
+from typing import Any, Dict, Optional, Union
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddresses
@@ -85,18 +84,21 @@ class HdWalletBip(HdWalletBase):
         self.__InitData(wallet_name, mnemonic, passphrase, seed_bytes)
 
     def Generate(self,
-                 account_idx: int = 0,
-                 change_idx: HdWalletBipChanges = HdWalletBipChanges.CHAIN_EXT,
-                 addr_num: int = 20,
-                 addr_offset: int = 0) -> None:
+                 **kwargs: Any) -> None:
         """ Generate wallet keys and addresses.
 
-        Args:
+        Other parameters:
             account_idx (int, optional)              : Account index, 0 by default
             change_idx (HdWalletBipChanges, optional): Change index, must a HdWalletBipChanges enum, external chain by default
             addr_num (int, optional)                 : Number of addresses to be generated, 20 by default
             addr_offset (int, optional)              : Starting address index, 0 by default
         """
+
+        # Get parameters
+        account_idx = kwargs.get("account_idx", 0)
+        change_idx = kwargs.get("change_idx", HdWalletBipChanges.CHAIN_EXT)
+        addr_num = kwargs.get("addr_num", 20)
+        addr_offset = kwargs.get("addr_offset", 0)
 
         # Check parameters
         if not isinstance(change_idx, HdWalletBipChanges):

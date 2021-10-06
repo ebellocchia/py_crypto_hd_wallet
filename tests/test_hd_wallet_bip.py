@@ -539,12 +539,17 @@ class HdWalletBipTests(unittest.TestCase):
             if test["type"] == "random":
                 hd_wallet = hd_wallet_fact.CreateRandom(test["wallet_name"], test["words_num"])
                 # Generate wallet
-                hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"], test["addr_off"])
+                hd_wallet.Generate(account_idx=test["acc_idx"],
+                                   change_idx=test["change_idx"],
+                                   addr_num=test["addr_num"],
+                                   addr_offset=test["addr_off"])
 
                 # Since the wallet is random, in order to check it we create a new wallet from the
                 # random wallet mnemonic. The two wallets shall be identical.
                 compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.ToDict()["mnemonic"])
-                compare_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"])
+                compare_wallet.Generate(account_idx=test["acc_idx"],
+                                        change_idx=test["change_idx"],
+                                        addr_num=test["addr_num"])
 
                 # Test wallet data
                 self.assertFalse(hd_wallet.IsWatchOnly())
@@ -562,7 +567,10 @@ class HdWalletBipTests(unittest.TestCase):
                     raise RuntimeError("Invalid test type")
 
                 # Generate wallet
-                hd_wallet.Generate(test["acc_idx"], test["change_idx"], test["addr_num"], test["addr_off"])
+                hd_wallet.Generate(account_idx=test["acc_idx"],
+                                   change_idx=test["change_idx"],
+                                   addr_num=test["addr_num"],
+                                   addr_offset=test["addr_off"])
 
                 # Test wallet data
                 self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
