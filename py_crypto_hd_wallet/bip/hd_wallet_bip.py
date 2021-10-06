@@ -32,7 +32,7 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletBipConst:
-    """ Class container for HD wallet constants. """
+    """ Class container for HD wallet BIP constants. """
 
     # Map data types to dictionary key
     DATA_TYPE_TO_DICT_KEY: Dict[HdWalletBipDataTypes, str] = {

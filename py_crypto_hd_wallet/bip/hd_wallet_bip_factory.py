@@ -66,15 +66,15 @@ class HdWalletBipFactory:
         """ Create wallet randomly.
 
         Args:
-            wallet_name (str)                       : Wallet name
-            words_num (HdWalletBipWordsNum, optional: Words number (default: 24)
-            lang (HdWalletBipLanguages, optional)   : Language (default: English)
+            wallet_name (str)                        : Wallet name
+            words_num (HdWalletBipWordsNum, optional): Words number (default: 24)
+            lang (HdWalletBipLanguages, optional)    : Language (default: English)
 
         Returns:
             HdWalletBase object: HdWalletBase object
 
         Raises:
-            TypeError: If words number is not of HdWalletBipWordsNum enum
+            TypeError: If words number is not of HdWalletBipWordsNum enum or language is not of HdWalletBipLanguages enum
         """
         if not isinstance(words_num, HdWalletBipWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletBipWordsNum")
@@ -99,13 +99,9 @@ class HdWalletBipFactory:
         Returns:
             HdWalletBase object: HdWalletBase object
         """
-
-        # Generate seed
         seed_bytes = Bip39SeedGenerator(mnemonic).Generate(passphrase)
-        # Create BIP object from seed
         bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
 
-        # Create wallet
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj,
                            mnemonic=mnemonic,
@@ -124,11 +120,8 @@ class HdWalletBipFactory:
         Returns:
             HdWalletBase object: HdWalletBase object
         """
-
-        # Create BIP object from seed
         bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
 
-        # Create wallet
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj,
                            seed_bytes=seed_bytes)
@@ -145,11 +138,8 @@ class HdWalletBipFactory:
         Returns:
             HdWalletBase object: HdWalletBase object
         """
-
-        # Create BIP object from extended key
         bip_obj = self.m_bip_cls.FromExtendedKey(exkey_str, self.m_bip_coin)
 
-        # Create wallet
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
 
@@ -165,11 +155,8 @@ class HdWalletBipFactory:
         Returns:
             HdWalletBase object: HdWalletBase object
         """
-
-        # Create BIP object from private key
         bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
 
-        # Create wallet
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
 
