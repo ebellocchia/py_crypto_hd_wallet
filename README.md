@@ -151,15 +151,15 @@ Supported languages:
 
 |Language|Enum|
 |---|---|
-|English|*HdWalletBipLanguages.ENGLISH*|
-|Italian|*HdWalletBipLanguages.ITALIAN*|
-|French|*HdWalletBipLanguages.FRENCH*|
-|Spanish|*HdWalletBipLanguages.SPANISH*|
-|Portuguese|*HdWalletBipLanguages.PORTUGUESE*|
-|Czech|*HdWalletBipLanguages.CZECH*|
 |Chinese (simplified)|*HdWalletBipLanguages.CHINESE_SIMPLIFIED*|
 |Chinese (traditional)|*HdWalletBipLanguages.CHINESE_TRADITIONAL*|
+|Czech|*HdWalletBipLanguages.CZECH*|
+|English|*HdWalletBipLanguages.ENGLISH*|
+|French|*HdWalletBipLanguages.FRENCH*|
+|Italian|*HdWalletBipLanguages.ITALIAN*|
 |Korean|*HdWalletBipLanguages.KOREAN*|
+|Portuguese|*HdWalletBipLanguages.PORTUGUESE*|
+|Spanish|*HdWalletBipLanguages.SPANISH*|
 
 A wallet can be created in the following ways:
 - Randomly by generating a random mnemonic with the specified words number (default: 24) and language (default: English):
@@ -173,7 +173,7 @@ A wallet can be created in the following ways:
         # Create randomly by specifying the words number (language: English):
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_24)
-        # Specifying the language (default is English):
+        # Specifying the language:
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.ITALIAN)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.CZECH)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.KOREAN)
@@ -233,12 +233,11 @@ In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *
 ### Generating wallet keys and addresses
 
 After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method.\
-For generating a wallet, you can specify the account index, the change index and the number and offset of addresses.\
-If you call the method with no parameters, the default values will be:
-- Account index: 0 (*acc_idx*)
-- Chain: external (*change_idx*)
-- Number of addresses: 20 (*addr_num*)
-- Address offset: 0 (*addr_off*)
+For generating a wallet, you can specify:
+- *acc_idx* : Account index (default value: 0)
+- *change_idx* : Chain: external (default value: HdWalletChanges.CHAIN_EXT)
+- *addr_num* : Number of addresses (default value: 20)
+- *addr_off* : Address offset (default value: 0)
 
 In case a wallet was created from an extended key, only the levels starting for the extended key depth will be generated.\
 The levels are the ones specified by the BIP-0044 specification:
@@ -275,10 +274,11 @@ Supported change index enumerative:
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
+In case of invalid parameters, a *ValueError* exception will be raised.
+
 ### Getting wallet data
 
 After keys and addresses were generated, you can:
-
 - Get the whole data as dictionary:
 
         # Get wallet data as a dictionary
@@ -317,13 +317,13 @@ The possible data types *HdWalletBipDataTypes* are:
 - *HdWalletBipDataTypes.ACCOUNT_KEY* : account keys (*HdWalletBipKeys* object)
 - *HdWalletBipDataTypes.CHANGE_KEY* : change keys (*HdWalletBipKeys* object)
 - *HdWalletBipDataTypes.ADDRESS_OFF* : addresses offset (if different from zero)
-- *HdWalletBipDataTypes.ADDRESS* : addresses (*HdWalletAddresses* object)
+- *HdWalletBipDataTypes.ADDRESS* : addresses (*HdWalletBipAddresses* object)
 
 In case of keys, a *HdWalletBipKeys* object is returned. This object has the following methods:
 - **ToDict()** : return keys as a dictionary
 - **ToJson()** : return keys as a string in JSON format
 - **HasKey(*HdWalletBipKeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletBipKeyTypes*)** : get the specified key if existetn, *None* otherwise
+- **GetKey(*HdWalletBipKeyTypes*)** : get the specified key if existent, *None* otherwise
 
 The possible key types *HdWalletBipKeyTypes* are:
 - *HdWalletBipKeyTypes.EX_PRIV* : private key in extended serialized format
@@ -334,19 +334,20 @@ The possible key types *HdWalletBipKeyTypes* are:
 - *HdWalletBipKeyTypes.RAW_UNCOMPR_PUB* : raw public key in uncompressed format
 - *HdWalletBipKeyTypes.ADDRESS* : address correspondet to the public key
 
-In case of addresses, a *HdWalletAddresses* is returned, This object has the following methods:
+In case of addresses, a *HdWalletBipAddresses* is returned, This object has the following methods:
 - **ToDict()** : return addresses as a dictionary
 - **ToJson()** : return addresses as a string in JSON format
 - **Count()** : get the number of addresses
 - **__getitem__(*addr_idx*)** : get the address at the specified index using operator *[]*
-- **__iter__()** : allows to iterate over all addresses
+- **__iter__()** : allows iterating over all addresses
 
 Each address is of type *HdWalletBipKeys*, so you can access it as a *HdWalletBipKeys* class as previously described.
 
 **Example**
 
-    import binascii
-    from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipDataTypes, HdWalletBipKeyTypes, HdWalletBipFactory
+    from py_crypto_hd_wallet import (
+        HdWalletBip44Coins, HdWalletBipDataTypes, HdWalletBipKeyTypes, HdWalletBipFactory
+    )
 
     # Create factory
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
@@ -370,7 +371,7 @@ Each address is of type *HdWalletBipKeys*, so you can access it as a *HdWalletBi
     print(acc_key.ToJson())
     # Check if a key type is existent
     has_wif = acc_key.HasKey(HdWalletBipKeyTypes.WIF_PRIV)
-    # Get all keys individually
+    # Get keys individually
     ex_priv = acc_key.GetKey(HdWalletBipKeyTypes.EX_PRIV)
     raw_priv = acc_key.GetKey(HdWalletBipKeyTypes.RAW_PRIV)
     wif_priv = acc_key.GetKey(HdWalletBipKeyTypes.WIF_PRIV)
@@ -381,7 +382,7 @@ Each address is of type *HdWalletBipKeys*, so you can access it as a *HdWalletBi
     address = acc_key.GetKey(HdWalletBipKeyTypes.ADDRESS)
 
     # Get wallet addresses
-    addresses = hd_wallet.GetData(HdWalletBipDataTypes.ADDRESSES)
+    addresses = hd_wallet.GetData(HdWalletBipDataTypes.ADDRESS)
     # Get address count
     addr_cnt = addresses.Count()
     # Get a specific address index
@@ -391,13 +392,13 @@ Each address is of type *HdWalletBipKeys*, so you can access it as a *HdWalletBi
     print(addresses[0].ToJson())
     # Iterate over all addresses and print their keys and addresses
     for addr in addresses:
-       print(addr.GetKey(HdWalletBipKeyTypes.EX_PRIV))
-       print(addr.GetKey(HdWalletBipKeyTypes.EX_PUB))
+       print(addr.GetKey(HdWalletBipKeyTypes.RAW_PRIV))
+       print(addr.GetKey(HdWalletBipKeyTypes.RAW_COMPR_PUB))
        print(addr.GetKey(HdWalletBipKeyTypes.ADDRESS))
 
 # Substrate wallet
 
-A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem). It doesn't follow BIPs but it only gnerate a pair of private and public keys depending on the derivation path.
+A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem). It doesn't follow BIPs but it generates a pair of private and public keys depending on the derivation path.
 
 ## Substrate Wallet factory construction
 
@@ -447,15 +448,15 @@ Supported languages:
 
 |Language|Enum|
 |---|---|
-|English|*HdWalletSubstrateLanguages.ENGLISH*|
-|Italian|*HdWalletSubstrateLanguages.ITALIAN*|
-|French|*HdWalletSubstrateLanguages.FRENCH*|
-|Spanish|*HdWalletSubstrateLanguages.SPANISH*|
-|Portuguese|*HdWalletSubstrateLanguages.PORTUGUESE*|
-|Czech|*HdWalletSubstrateLanguages.CZECH*|
 |Chinese (simplified)|*HdWalletSubstrateLanguages.CHINESE_SIMPLIFIED*|
 |Chinese (traditional)|*HdWalletSubstrateLanguages.CHINESE_TRADITIONAL*|
+|Czech|*HdWalletSubstrateLanguages.CZECH*|
+|English|*HdWalletSubstrateLanguages.ENGLISH*|
+|French|*HdWalletSubstrateLanguages.FRENCH*|
+|Italian|*HdWalletSubstrateLanguages.ITALIAN*|
 |Korean|*HdWalletSubstrateLanguages.KOREAN*|
+|Portuguese|*HdWalletSubstrateLanguages.PORTUGUESE*|
+|Spanish|*HdWalletSubstrateLanguages.SPANISH*|
 
 A wallet can be created in the following ways:
 - Randomly by generating a random mnemonic with the specified words number (default: 24) and language (default: English):
@@ -469,7 +470,7 @@ A wallet can be created in the following ways:
         # Create randomly by specifying the words number (language: English):
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_24)
-        # Specifying the language (default is English):
+        # Specifying the language:
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12, HdWalletSubstrateLanguages.ITALIAN)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12, HdWalletSubstrateLanguages.CZECH)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12, HdWalletSubstrateLanguages.KOREAN)
@@ -526,7 +527,7 @@ In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *
 ### Generating wallet keys and addresses
 
 After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method.\
-For generating a wallet, you can specify a substrate derivation path (if not specified, the default apth will be emtpy).\
+For generating a wallet, you can specify a substrate derivation path (if not specified, the default path will be emtpy).\
 
 **Example**
 
@@ -551,7 +552,6 @@ If an invalid path is specified, a *ValueError* exception will be raised.
 ### Getting wallet data
 
 After keys and addresses were generated, you can:
-
 - Get the whole data as dictionary:
 
         # Get wallet data as a dictionary
@@ -588,50 +588,283 @@ In case of keys, a *HdWalletSubstrateKeys* object is returned. This object has t
 - **ToDict()** : return keys as a dictionary
 - **ToJson()** : return keys as a string in JSON format
 - **HasKey(*HdWalletSubstrateKeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletSubstrateKeyTypes*)** : get the specified key if existetn, *None* otherwise
+- **GetKey(*HdWalletSubstrateKeyTypes*)** : get the specified key if existent, *None* otherwise
 
 The possible key types *HdWalletSubstrateKeyTypes* are:
-- *HdWalletBipKeyTypes.PRIV* : private key
-- *HdWalletBipKeyTypes.PUB* : public key
-- *HdWalletBipKeyTypes.ADDRESS* : address correspondet to the public key
+- *HdWalletSubstrateKeyTypes.PRIV* : private key
+- *HdWalletSubstrateKeyTypes.PUB* : public key
+- *HdWalletSubstrateKeyTypes.ADDRESS* : address correspondet to the public key
 
 **Example**
 
-        import binascii
-        from py_crypto_hd_wallet import (
-            HdWalletSubstrateCoins, HdWalletSubstrateDataTypes, HdWalletSubstrateKeyTypes, HdWalletSubstrateFactory
-        )
+    from py_crypto_hd_wallet import (
+        HdWalletSubstrateCoins, HdWalletSubstrateDataTypes, HdWalletSubstrateKeyTypes, HdWalletSubstrateFactory
+    )
+
+    # Create factory
+    hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.KUSAMA)
+    # Create random
+    hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+
+    # Generate with default parameters
+    hd_wallet.Generate()
+
+    # Print wallet
+    print(hd_wallet.ToDict())
+    print(hd_wallet.ToJson())
+
+    # Get wallet and coin names
+    wallet_name = hd_wallet.GetData(HdWalletSubstrateDataTypes.WALLET_NAME)
+    coin_name = hd_wallet.GetData(HdWalletSubstrateDataTypes.COIN_NAME)
+    # Get path
+    has_path = hd_wallet.HasData(HdWalletSubstrateDataTypes.PATH)
+    if has_path:
+        path = hd_wallet.GetData(HdWalletSubstrateDataTypes.PATH)
+
+    # Get wallet keys
+    keys = hd_wallet.GetData(HdWalletSubstrateDataTypes.KEY)
+    # Print keys
+    print(keys.ToDict())
+    print(keys.ToJson())
+    # Get keys individually
+    priv = keys.GetKey(HdWalletSubstrateKeyTypes.PRIV)
+    pub = keys.GetKey(HdWalletSubstrateKeyTypes.PUB)
+    # Get address
+    address = keys.GetKey(HdWalletSubstrateKeyTypes.ADDRESS)
+
+# Monero wallet
+
+A Monero wallet is a wallet based on Monero. It doesn't follow BIPs but it generates the Monero spend/view keys, primary address and subaddresses.
+
+## Monero Wallet factory construction
+
+A Monero wallet is created using the *HdWalletMoneroFactory* class.
+
+**Example**
+
+    from py_crypto_hd_wallet import HdWalletMoneroFactory
+
+    # Create a Monero wallet factory
+    hd_wallet_fact = HdWalletMoneroFactory()
+
+### Wallet creation
+
+After a wallet factory is constructed, it can be used to create wallets.\
+Supported words number:
+
+|Words number|Enum|
+|---|---|
+|12|*HdWalletMoneroWordsNum.WORDS_NUM_12*|
+|13|*HdWalletMoneroWordsNum.WORDS_NUM_13*|
+|24|*HdWalletMoneroWordsNum.WORDS_NUM_24*|
+|25|*HdWalletMoneroWordsNum.WORDS_NUM_25*|
+
+Supported languages:
+
+|Language|Enum|
+|---|---|
+|Chinese (simplified)|*HdWalletMoneroLanguages.CHINESE_SIMPLIFIED*|
+|Dutch|*HdWalletMoneroLanguages.DUTCH*|
+|English|*HdWalletMoneroLanguages.ENGLISH*|
+|French|*HdWalletMoneroLanguages.FRENCH*|
+|German|*HdWalletMoneroLanguages.GERMAN*|
+|Italian|*HdWalletMoneroLanguages.ITALIAN*|
+|Japanese|*HdWalletMoneroLanguages.JAPANESE*|
+|Portuguese|*HdWalletMoneroLanguages.PORTUGUESE*|
+|Spanish|*HdWalletMoneroLanguages.SPANISH*|
+|Russian|*HdWalletMoneroLanguages.RUSSIAN*|
+
+A wallet can be created in the following ways:
+- Randomly by generating a random mnemonic with the specified words number (default: 25) and language (default: English):
+
+        from py_crypto_hd_wallet import HdWalletMoneroWordsNum, HdWalletMoneroLanguages, HdWalletMoneroFactory
 
         # Create factory
-        hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.KUSAMA)
-        # Create random
+        hd_wallet_fact = HdWalletMoneroFactory()
+        # Create randomly (words number: 25, language: English)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+        # Create randomly by specifying the words number (language: English):
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_13)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_24)
+        # Specifying the language:
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_25, HdWalletMoneroLanguages.ITALIAN)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_25, HdWalletMoneroLanguages.DUTCH)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_25, HdWalletMoneroLanguages.PORTUGUESE)
 
-        # Generate with default parameters
-        hd_wallet.Generate()
+- From an already existent mnemonic (language is autoamtically detected):
 
-        # Print wallet
-        print(hd_wallet.ToDict())
-        print(hd_wallet.ToJson())
+        from py_crypto_hd_wallet import HdWalletMoneroFactory
 
-        # Get wallet and coin names
-        wallet_name = hd_wallet.GetData(HdWalletSubstrateDataTypes.WALLET_NAME)
-        coin_name   = hd_wallet.GetData(HdWalletSubstrateDataTypes.COIN_NAME)
-        # Get path
-        has_path = hd_wallet.HasData(HdWalletSubstrateDataTypes.PATH)
-        if has_path:
-            path = hd_wallet.GetData(HdWalletSubstrateDataTypes.PATH)
+        # Create factory
+        hd_wallet_fact = HdWalletMoneroFactory()
 
-        # Get wallet keys
-        keys = hd_wallet.GetData(HdWalletSubstrateDataTypes.KEY)
-        # Print keys in different formats
-        print(keys.ToDict())
-        print(keys.ToJson())
-        # Get keys individually
-        priv = keys.GetKey(HdWalletSubstrateKeyTypes.PRIV)
-        pub = keys.GetKey(HdWalletSubstrateKeyTypes.PUB)
-        # Get address
-        address = keys.GetKey(HdWalletSubstrateKeyTypes.ADDRESS)
+        # Create from mnemonic
+        mnemonic = "vials licks gulp people reorder tulips acquire cool lunar upwards recipe against ambush february shelter textbook annoyed veered getting swagger paradise total dawn duets getting"
+        hd_wallet = hd_wallet_fact.CreateFromMnemonic("my_wallet_name", mnemonic)
+
+- From a seed:
+
+        import binascii
+        from py_crypto_hd_wallet import HdWalletMoneroFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletMoneroFactory()
+
+        # Create from seed
+        seed_bytes = b"b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b"
+        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
+
+- From a private spend key:
+
+        import binascii
+        from py_crypto_hd_wallet import HdWalletMoneroFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletMoneroFactory()
+
+        # Create from private key bytes
+        priv_skey = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
+        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_skey)
+
+- From a watch-only wallet (i.e. from a public spend key and a private view key):
+
+        import binascii
+        from py_crypto_hd_wallet import HdWalletMoneroFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletMoneroFactory()
+
+        # Create from private key bytes
+        priv_vkey = binascii.unhexlify(b"b42c6e744db8c45d1320ba28f79d0a1813b1821358fbf195958de4e19b23aa0b")
+        pub_skey = binascii.unhexlify(b"aa4e7c95a40fc97b98c4801bee5347842ff0740368cfe0ffcba65ad4270dc45b")
+        hd_wallet = hd_wallet_fact.CreateFromWatchOnly("my_wallet_name", priv_vkey, pub_skey)
+
+In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
+
+### Generating wallet keys and addresses
+
+After a wallet is created, you can generate keys and subaddresses by simply calling the *Generate* method.\
+For generating a wallet, you can specify:
+- *acc_idx* : Account index (default value: 0)
+- *subaddr_num* : Subaddress number (default value: 0)
+- *subaddr_off* : Subaddress offset (default value: 0)
+
+**Example**
+
+    import binascii
+    from py_crypto_hd_wallet import HdWalletMoneroFactory
+
+    # Create factory
+    hd_wallet_fact = HdWalletMoneroFactory()
+    # Create random
+    hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+
+    # Generate with default parameters
+    hd_wallet.Generate()
+    # Specify parameters (it'll generate subaddresses from index 10 to 15 for account 1)
+    hd_wallet.Generate(acc_idx=1, subaddr_num=5, subaddr_off=10)
+    # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
+    is_wo = hd_wallet.IsWatchOnly()
+
+In case of invalid parameters, a *ValueError* exception will be raised.
+
+### Getting wallet data
+
+After keys and addresses were generated, you can:
+- Get the whole data as dictionary:
+
+        # Get wallet data as a dictionary
+        wallet_data = hd_wallet.ToDict()
+
+- Get the whole data as a string in JSON format:
+
+        # Get wallet data as a string in JSON format
+        wallet_data = hd_wallet.ToJson()
+
+- Save data to a file in JSON format using the *HdWalletSaver* class, to store the generated keys and addresses:
+
+        # Save wallet data to file
+        HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+- Get a specific data, see the next paragraph
+
+### Getting specific wallet data
+
+For getting specific data, the following methods of *HdWalletMonero* can be used:
+- **GetData(*HdWalletMoneroDataTypes*)** : return the specified data type if existent, *None* otherwise
+- **HasData(*HdWalletMoneroDataTypes*)** : return if the specified data type is existent
+
+The possible data types *HdWalletMoneroDataTypes* are:
+- *HdWalletMoneroDataTypes.WALLET_NAME* : wallet name
+- *HdWalletMoneroDataTypes.COIN_NAME* : coin name
+- *HdWalletMoneroDataTypes.MNEMONIC* : mnemonic
+- *HdWalletMoneroDataTypes.SEED_BYTES* : seed bytes
+- *HdWalletMoneroDataTypes.KEY* : generated keys (*HdWalletMoneroKeys* object)
+- *HdWalletMoneroDataTypes.ACCOUNT_IDX* : account index
+- *HdWalletMoneroDataTypes.SUBADDRESS_OFF* : subaddresses offset
+- *HdWalletMoneroDataTypes.SUBADDRESS* : subaddresses (*HdWalletMoneroSubaddresses* object)
+
+In case of keys, a *HdWalletMoneroKeys* object is returned. This object has the following methods:
+- **ToDict()** : return keys as a dictionary
+- **ToJson()** : return keys as a string in JSON format
+- **HasKey(*HdWalletMoneroKeyTypes*)** : get if the specified key type is existent
+- **GetKey(*HdWalletMoneroKeyTypes*)** : get the specified key if existent, *None* otherwise
+
+The possible key types *HdWalletMoneroKeyTypes* are:
+- *HdWalletMoneroKeyTypes.PRIV_SPEND* : private spend key
+- *HdWalletMoneroKeyTypes.PRIV_VIEW* : private view key
+- *HdWalletMoneroKeyTypes.PUB_SPEND* : public spend key
+- *HdWalletMoneroKeyTypes.PUB_VIEW* : public view key
+- *HdWalletMoneroKeyTypes.PRIMARY_ADDRESS* : primary address
+
+In case of subaddresses, a *HdWalletMoneroSubaddresses* is returned, This object has the following methods:
+- **ToDict()** : return addresses as a dictionary
+- **ToJson()** : return addresses as a string in JSON format
+- **Count()** : get the number of addresses
+- **__getitem__(*addr_idx*)** : get the address at the specified index using operator *[]*
+- **__iter__()** : allows to iterate over all addresses
+
+Each subaddress is a string.
+
+**Example**
+
+    from py_crypto_hd_wallet import HdWalletMoneroDataTypes, HdWalletMoneroKeyTypes, HdWalletMoneroFactory
+
+    # Create factory
+    hd_wallet_fact = HdWalletMoneroFactory()
+    # Create random
+    hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+
+    # Generate with default parameters
+    hd_wallet.Generate(subaddr_num=5)
+
+    # Print wallet
+    print(hd_wallet.ToDict())
+    print(hd_wallet.ToJson())
+
+    # Get wallet, coin name and mnemonic
+    wallet_name = hd_wallet.GetData(HdWalletMoneroDataTypes.WALLET_NAME)
+    coin_name = hd_wallet.GetData(HdWalletMoneroDataTypes.COIN_NAME)
+    mnemonic = hd_wallet.GetData(HdWalletMoneroDataTypes.MNEMONIC)
+
+    # Get wallet keys
+    keys = hd_wallet.GetData(HdWalletMoneroDataTypes.KEY)
+    # Print keys
+    print(keys.ToDict())
+    print(keys.ToJson())
+    # Get keys individually
+    priv_skey = keys.GetKey(HdWalletMoneroKeyTypes.PRIV_SPEND)
+    priv_vkey = keys.GetKey(HdWalletMoneroKeyTypes.PRIV_VIEW)
+    pub_skey = keys.GetKey(HdWalletMoneroKeyTypes.PUB_SPEND)
+    pub_vkey = keys.GetKey(HdWalletMoneroKeyTypes.PUB_VIEW)
+    # Get primary address
+    prim_addr = keys.GetKey(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS)
+
+    # Get subaddresses
+    subaddresses = hd_wallet.GetData(HdWalletMoneroDataTypes.SUBADDRESS)
+    # Print them
+    for subaddr in subaddresses:
+        print(subaddr)
 
 # Some examples of wallet JSON outputs
 
@@ -974,7 +1207,9 @@ Output:
         }
     }
 
-**Wallet created from private keys for Bitcoin, using BIP-0084 specification**
+Private key is not present since it's a watch-only wallet.
+
+**Wallet created from private key for Bitcoin, using BIP-0084 specification**
 
 Code:
 
@@ -1101,6 +1336,34 @@ Output:
         }
     }
 
+**Wallet created from seed for Polkadot, custom derivation path**
+
+Code:
+
+    import binascii
+    from py_crypto_hd_wallet import HdWalletSubstrateFactory, HdWalletSaver, HdWalletSubstrateCoins
+
+    seed = binascii.unhexlify(b"4ed8d4b17698ddeaa1f1559f152f87b5d472f725ca86d341bd0276f1b61197e21dd5a391f9f5ed7340ff4d4513aab9cce44f9497a5e7ed85fd818876b6eb402e")
+
+    hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
+    hd_wallet = hd_wallet_fact.CreateFromSeed("dot_wallet", seed)
+    hd_wallet.Generate(path="//polkadot/0")
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+Output:
+
+    {
+        "wallet_name": "dot_wallet",
+        "coin_name": "Polkadot (DOT)",
+        "seed_bytes": "4ed8d4b17698ddeaa1f1559f152f87b5d472f725ca86d341bd0276f1b61197e21dd5a391f9f5ed7340ff4d4513aab9cce44f9497a5e7ed85fd818876b6eb402e",
+        "path": "//polkadot/0",
+        "key": {
+            "pub": "c2cb78846562cdbf41fcd022f38316e050829010e4805a2658b8e0a59eb3312b",
+            "priv": "78d4d9285d2c5b951b9cd593ddb8498b91af52f7161cede47d44a8076cd0560c891fec3ef070f9588a07ef4cf524874183fe1161693ee55221c9d39747cd45fd",
+            "address": "15QQjX54qES39Qp8cGuNrmNQn6sPH9Zon2kc91PK49gyWiZN"
+        }
+    }
+
 **Wallet created from private key for Kusama, default derivation path**
 
 Code:
@@ -1141,7 +1404,6 @@ Code:
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
-
 Output:
 
     {
@@ -1153,38 +1415,162 @@ Output:
         }
     }
 
-**Wallet created from seed for Polkadot, custom derivation path**
+Private key is not present since it's a watch-only wallet.
+
+## Monero wallet
+
+**Random wallet with 25 words passphrase**
 
 Code:
 
-        import binascii
-        from py_crypto_hd_wallet import HdWalletSubstrateFactory, HdWalletSaver, HdWalletSubstrateCoins
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
 
-        seed = binascii.unhexlify(b"4ed8d4b17698ddeaa1f1559f152f87b5d472f725ca86d341bd0276f1b61197e21dd5a391f9f5ed7340ff4d4513aab9cce44f9497a5e7ed85fd818876b6eb402e")
+    hd_wallet_fact = HdWalletMoneroFactory()
+    hd_wallet = hd_wallet_fact.CreateRandom("xmr_wallet", HdWalletMoneroWordsNum.WORDS_NUM_25)
+    hd_wallet.Generate(subaddr_num=1)
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
-        hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
-        hd_wallet = hd_wallet_fact.CreateFromSeed("dot_wallet", seed)
-        hd_wallet.Generate(path="//polkadot/0")
-        HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+Output:
+
+        {
+            "wallet_name": "dot_wallet",
+            "coin_name": "Monero (XMR)",
+            "mnemonic": "owls cocoa vinegar drinks nitrogen soil smuggled drowning oyster unveil aglow zebra stylishly ocean session lemon twice obtains wrist efficient jingle gifts rebel rays twice",
+            "seed_bytes": "750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff",
+            "key": {
+                "pub_spend": "45f2bb77d2dea75c646426cf53f60fa3643e8e81d3483164515d1443426cc2eb",
+                "pub_view": "9a70f63e2577e9b4009668eab719ed47b9b0ec1dcdb049e12132b6cc0f917dc0",
+                "priv_view": "1d1e00a550d109847c6c9d6ba56db2ceb1708b399b584477273f7052d5469605",
+                "priv_spend": "92a449563b5f650f5ccbb7dedd1f78bf6d29ac2a6df1b4b61caaac34737fd20f",
+                "primary_address": "44GrHFcfnTGGTKYCueJxCWUL6yUPjmVQCHnD6fZVns5BgQeXXL6i896X7FNQUzfAEQCzptzFY7uGtef3KF5vPRQgNfT1Lfx"
+            },
+            "account_idx": 0,
+            "subaddress_off": 0,
+            "subaddress": {
+                "subaddress_0": "44GrHFcfnTGGTKYCueJxCWUL6yUPjmVQCHnD6fZVns5BgQeXXL6i896X7FNQUzfAEQCzptzFY7uGtef3KF5vPRQgNfT1Lfx"
+            }
+        }
+
+Please note that, in Monero, the subaddress zero for account zero is equal to the primary address.
+
+**Wallet created from seed**
+
+Code:
+
+    import binascii
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+
+    seed = binascii.unhexlify(b"750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff")
+
+    hd_wallet_fact = HdWalletMoneroFactory()
+    hd_wallet = hd_wallet_fact.CreateFromSeed("xmr_wallet", seed)
+    hd_wallet.Generate(subaddr_num=5)
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
 
     {
-        "wallet_name": "dot_wallet",
-        "coin_name": "Polkadot (DOT)",
-        "seed_bytes": "4ed8d4b17698ddeaa1f1559f152f87b5d472f725ca86d341bd0276f1b61197e21dd5a391f9f5ed7340ff4d4513aab9cce44f9497a5e7ed85fd818876b6eb402e",
-        "path": "//polkadot/0",
+        "wallet_name": "xmr_wallet",
+        "coin_name": "Monero (XMR)",
+        "seed_bytes": "750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff",
         "key": {
-            "pub": "c2cb78846562cdbf41fcd022f38316e050829010e4805a2658b8e0a59eb3312b",
-            "priv": "78d4d9285d2c5b951b9cd593ddb8498b91af52f7161cede47d44a8076cd0560c891fec3ef070f9588a07ef4cf524874183fe1161693ee55221c9d39747cd45fd",
-            "address": "15QQjX54qES39Qp8cGuNrmNQn6sPH9Zon2kc91PK49gyWiZN"
+            "pub_spend": "45f2bb77d2dea75c646426cf53f60fa3643e8e81d3483164515d1443426cc2eb",
+            "pub_view": "9a70f63e2577e9b4009668eab719ed47b9b0ec1dcdb049e12132b6cc0f917dc0",
+            "priv_view": "1d1e00a550d109847c6c9d6ba56db2ceb1708b399b584477273f7052d5469605",
+            "priv_spend": "92a449563b5f650f5ccbb7dedd1f78bf6d29ac2a6df1b4b61caaac34737fd20f",
+            "primary_address": "44GrHFcfnTGGTKYCueJxCWUL6yUPjmVQCHnD6fZVns5BgQeXXL6i896X7FNQUzfAEQCzptzFY7uGtef3KF5vPRQgNfT1Lfx"
+        },
+        "account_idx": 0,
+        "subaddress_off": 0,
+        "subaddress": {
+            "subaddress_0": "44GrHFcfnTGGTKYCueJxCWUL6yUPjmVQCHnD6fZVns5BgQeXXL6i896X7FNQUzfAEQCzptzFY7uGtef3KF5vPRQgNfT1Lfx",
+            "subaddress_1": "86crx3s8hDhZQ3c13vfZwF9oGKLyuKdn7QhuqvcuZnKHhanHDgHUhsMUeQz1jk833i3hnpynESNfqiabCgTBehCfQpn8bD5",
+            "subaddress_2": "8Byd9XBBE7X1Jj5t34uBD1CjarNGDka2VLvJyy3jqLZrN1UzFSsfmxg2rUTDTvbeekJ1PtFq9TFNzeZJZVgPquYq3Aa4LEU",
+            "subaddress_3": "86RpxYK3orREYLJ3HQ3wTdKtKXMDPKUgy72UPtQtcxmQabCZgytMaFWdcthiSAWgkDZR4gLfSSVWwVsXvUwDGdiaGVhCqwN",
+            "subaddress_4": "85HDFodcKsSh6QhjT2Co7uF68gmzc7MY4Cr9S2zMbxFP8zhSJjodwSPGqeQUTjjP5cNCbDMA8dp5ienHUVoQUBzTTfXxmp4"
         }
     }
+
+**Wallet created from private spend key**
+
+Code:
+
+    import binascii
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+
+    priv_skey = binascii.unhexlify(b"83bb85465f189b9328c8cadf0c75260500fbcc9ccd0c5b8d3783934741a9720d")
+
+    hd_wallet_fact = HdWalletMoneroFactory()
+    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("xmr_wallet", priv_skey)
+    hd_wallet.Generate(acc_idx=1, subaddr_num=5, subaddr_off=10)
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+Output:
+
+    {
+        "wallet_name": "xmr_wallet",
+        "coin_name": "Monero (XMR)",
+        "key": {
+            "pub_spend": "aa4e7c95a40fc97b98c4801bee5347842ff0740368cfe0ffcba65ad4270dc45b",
+            "pub_view": "8af4a1601edb665007c9e53cdf697e928c208fc2935c5aec6d3c0ff9c12dc2a6",
+            "priv_view": "b42c6e744db8c45d1320ba28f79d0a1813b1821358fbf195958de4e19b23aa0b",
+            "priv_spend": "83bb85465f189b9328c8cadf0c75260500fbcc9ccd0c5b8d3783934741a9720d",
+            "primary_address": "485S2N68Hw6Mg3WbxzsTXLP7PAAJVEqXmjnY8wEPhwQwGK5dQ46sdW5EPPw1sqnJbXRWhCX9zdcKjgYdqa7WMAGhKoBhm5U"
+        },
+        "account_idx": 1,
+        "subaddress_off": 10,
+        "subaddress": {
+            "subaddress_10": "83rh8zuusGk63rvU5W5wTebazhftLXpeXZf6PTpQYKeRbUtS4ktzZriPwrSpUtdtX493FbWHH9kMi7P9cWa6GBCMVTdcDsM",
+            "subaddress_11": "88SygFB7UkCeeqhwaNbWFehjAvzkedfAnNXjxiHQbTGaeL5b4ay9B3CSMkXcnanTBxf7591QZP8jyQMR4NHZMsuF2xwrTJq",
+            "subaddress_12": "85Ut4jCHcs8MmnSRi6wWZAbLLPx2RBUPdWQn281xpRqP8Zqcqp9Jjpg4jZHHpdaJ9xgR6QCES9s1ZHiPFbP7kENJ1hPNaCr",
+            "subaddress_13": "89paxedM4qm8mMeaiJtXYZ7EB11E2gvj8f5h7zXQehAsLvxT4Dmcry3gBgQso5etdNd4PXwMMoqV32mKCLWJS3418TM27cs",
+            "subaddress_14": "89VHTz6RDWnUkFexCTaSLgNTYSyj6MyHyixw3hcvbqEJ7B7os5mBGhE3GyG87V2WdxGcDi8f8psHa3cjSdociBaxGUrdjha"
+        }
+    }
+
+**Wallet created from watch-only (i.e. private view key and public spend key)**
+
+Code:
+
+    import binascii
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+
+    priv_vkey = binascii.unhexlify(b"f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f")
+    pub_skey = binascii.unhexlify(b"d1a7da825fcf942f42e5b8669375888d27f58360c7ab10a00e820ddc1030ce8e")
+
+    hd_wallet_fact = HdWalletMoneroFactory()
+    hd_wallet = hd_wallet_fact.CreateFromWatchOnly("xmr_wallet", priv_vkey, pub_skey)
+    hd_wallet.Generate(subaddr_num=5)
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+Output:
+
+    {
+        "wallet_name": "xmr_wallet",
+        "coin_name": "Monero (XMR)",
+        "key": {
+            "pub_spend": "d1a7da825fcf942f42e5b8669375888d27f58360c7ab10a00e820ddc1030ce8e",
+            "pub_view": "200c4944454c440b4b87e1581e7ccffe42c0068b415f39abfa75954ffa451133",
+            "priv_view": "f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f",
+            "primary_address": "49ZvGRse9Ky8uVemEbKhLBQcPfxkRrbeXTmkWic1iZrmQmnxUL9Rbr32taQrh25jZxjXeZscqKb28VmQX4hLiQ3A6oq7HQs"
+        },
+        "account_idx": 0,
+        "subaddress_off": 0,
+        "subaddress": {
+            "subaddress_0": "49ZvGRse9Ky8uVemEbKhLBQcPfxkRrbeXTmkWic1iZrmQmnxUL9Rbr32taQrh25jZxjXeZscqKb28VmQX4hLiQ3A6oq7HQs",
+            "subaddress_1": "8BVqbTDCaG54Xwpo52D8PX1WhjpaudXUSE7VkWUNRJFhZE8FC9PKM29SQV3bPxv17aFx9DvGSgan6DJLp8g3JYgMR2piiFG",
+            "subaddress_2": "8BZYacr46ix3XzREG4C9n9D7osXHioD5HTM6JqgjzuZDd2zWGVytk5m3d4BVq9Up1obVrMGMf76MeRhb4G8ft2cq93zh1o6",
+            "subaddress_3": "87W9arnJDcgh39z6SHzquDYK1fk3xCBVqJYhgCrNp3ArcEkybv6j2scF7AMTa31WyGSBSA6WNkjBQahidUSpC5dT3JJgpGq",
+            "subaddress_4": "88kBtkZqpX8AB7EorzdVYaHcSzRyrtBCB9cwBzVJ1opeiQEhrS5TGsr5sDqBFEKuqeUhmi3cEthpRRpgJWeNzwRMQhUQSho"
+        }
+    }
+
+Private spend key is not present since it's a watch-only wallet.
 
 # Buy me a coffee
 
 You know, I'm italian and I love drinking coffee (especially while coding :D). So, if you'd like to buy me one:
-- BTC: bc1qxr3camglhmrcl5uhs2m5hmaxmrxf47krs3fzpm
+- BTC: bc1qq4r9cglwzd6f2hzxvdkucmdejvr9h8me5hy0k8
 - ETH: 0xf84e4898E5E10bf1fBe9ffA3EEC845e82e364b5B (both ERC20 and BEP20 tokens are fine)
 
 Thank you very much for your support.
