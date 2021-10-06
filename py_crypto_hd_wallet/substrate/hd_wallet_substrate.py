@@ -21,7 +21,7 @@
 
 # Imports
 from typing import Any, Dict, Optional, Union
-from bip_utils import SubstratePathError, Substrate
+from bip_utils import SubstrateKeyError, SubstratePathError, Substrate
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_keys import HdWalletSubstrateKeys
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import *
@@ -89,7 +89,7 @@ class HdWalletSubstrate(HdWalletBase):
         try:
             substrate_obj = self.m_substrate_obj.DerivePath(path)
             self.__SetKeys(HdWalletSubstrateDataTypes.KEY, substrate_obj)
-        except SubstratePathError as ex:
+        except (SubstrateKeyError, SubstratePathError) as ex:
             raise ValueError(f"Invalid path: {path}") from ex
 
     def IsWatchOnly(self) -> bool:
