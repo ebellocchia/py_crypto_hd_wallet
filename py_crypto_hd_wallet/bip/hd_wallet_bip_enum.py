@@ -23,18 +23,18 @@
 from __future__ import annotations
 from enum import Enum, IntEnum, auto, unique
 from typing import Dict
-from bip_utils import Bip39Languages, Bip44Changes, Bip44Coins, Bip49Coins, Bip84Coins
+from bip_utils import Bip39WordsNum, Bip39Languages, Bip44Changes, Bip44Coins, Bip49Coins, Bip84Coins
 
 
 @unique
 class HdWalletBipWordsNum(IntEnum):
-    """ Words number enumeratives. """
+    """ Alias for hiding Bip39WordsNum. """
 
-    WORDS_NUM_12 = 12
-    WORDS_NUM_15 = 15
-    WORDS_NUM_18 = 18
-    WORDS_NUM_21 = 21
-    WORDS_NUM_24 = 24
+    WORDS_NUM_12 = Bip39WordsNum.WORDS_NUM_12
+    WORDS_NUM_15 = Bip39WordsNum.WORDS_NUM_15
+    WORDS_NUM_18 = Bip39WordsNum.WORDS_NUM_18
+    WORDS_NUM_21 = Bip39WordsNum.WORDS_NUM_21
+    WORDS_NUM_24 = Bip39WordsNum.WORDS_NUM_24
 
 
 @unique
