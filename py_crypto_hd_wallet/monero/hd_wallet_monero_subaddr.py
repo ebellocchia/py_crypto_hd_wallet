@@ -23,21 +23,20 @@
 from __future__ import annotations
 import json
 from typing import Dict, Iterator
-from bip_utils import Bip44Levels
-from bip_utils.bip.bip44_base import Bip44Base
+from bip_utils import Monero
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 
 
-class HdWalletBipAddressesConst:
-    """ Class container for HD wallet BIP addresses constants. """
+class HdWalletMoneroSubddressesConst:
+    """ Class container for HD wallet Monero subaddresses constants. """
 
     # Address key for dictionary
-    ADDR_DICT_KEY: str = "address_{:d}"
+    ADDR_DICT_KEY: str = "subaddress_{:d}"
 
 
-class HdWalletBipAddresses:
-    """ HD wallet BIP addresses class. It creates addresses from a Bip object and store them.
-    Addresses can be got individually, as dictionary or in JSON format.
+class HdWalletMoneroSubddresses:
+    """ HD wallet Monero subaddresses class. It creates subaddresses from a Monero object and store them.
+    Subaddresses can be got individually, as dictionary or in JSON format.
     """
 
     #
@@ -46,24 +45,26 @@ class HdWalletBipAddresses:
 
     def __init__(self) -> None:
         """ Construct class. """
-        self.m_addresses = []
+        self.m_subaddresses = []
 
     @staticmethod
-    def FromBipObj(bip_obj: Bip44Base,
-                   addr_num: int,
-                   addr_off: int) -> HdWalletBipAddresses:
+    def FromMoneroObj(monero_obj: Monero,
+                      account_idx: int,
+                      subaddr_num: int,
+                      subaddr_offset: int) -> HdWalletMoneroSubddresses:
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
         Args:
-            bip_obj (Bip44Base object): Bip44Base object
-            addr_num (int)            : Address number
-            addr_off (int)            : Starting address index
+            monero_obj (Monero object): Monero object
+            account_idx (int)         : Account index
+            subaddr_num (int)         : Subaddress number
+            subaddr_offset (int)      : Starting subaddress index
 
         Returns:
-            HdWalletBipAddresses object: HdWalletBipAddresses object
+            HdWalletMoneroSubddresses object: HdWalletMoneroSubddresses object
         """
-        addr = HdWalletBipAddresses()
+        addr = HdWalletMoneroSubddresses()
 
         if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
             addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj))
@@ -83,7 +84,7 @@ class HdWalletBipAddresses:
         addr_dict = {}
 
         for i, key in enumerate(self.m_addresses):
-            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + 1)
+            dict_key = HdWalletMoneroSubddressesConst.ADDR_DICT_KEY.format(i + 1)
             addr_dict[dict_key] = key.ToDict()
 
         return addr_dict
