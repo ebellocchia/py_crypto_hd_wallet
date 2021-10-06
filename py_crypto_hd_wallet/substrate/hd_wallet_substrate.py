@@ -108,7 +108,7 @@ class HdWalletSubstrate(HdWalletBase):
         """
         wallet_dict = {}
 
-        # Convert to dictionary the instances of HdWalletSubstrateKeys classes
+        # Build dictionary
         for key, value in self.m_wallet_data.items():
             if isinstance(value, HdWalletSubstrateKeys):
                 wallet_dict[key] = value.ToDict()

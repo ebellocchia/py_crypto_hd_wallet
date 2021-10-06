@@ -163,9 +163,9 @@ class HdWalletBip(HdWalletBase):
         """
         wallet_dict = {}
 
-        # Convert to dictionary the instances of HdWalletBipKeys or HdWalletBipAddresses classes
+        # Build dictionary
         for key, value in self.m_wallet_data.items():
-            if isinstance(value, HdWalletBipKeys) or isinstance(value, HdWalletBipAddresses):
+            if isinstance(value, (HdWalletBipKeys, HdWalletBipAddresses)):
                 wallet_dict[key] = value.ToDict()
             else:
                 wallet_dict[key] = value
