@@ -118,6 +118,9 @@ class HdWalletBipKeys:
 
         Returns:
             bool: True if present, false otherwise
+
+        Raises:
+            TypeError: If key type is not a HdWalletBipKeyTypes enum
         """
         if not isinstance(key_type, HdWalletBipKeyTypes):
             raise TypeError("Key type is not an enumerative of HdWalletBipKeyTypes")
@@ -135,6 +138,9 @@ class HdWalletBipKeys:
         Returns:
             str: Key string
             None: If the key type is not found
+
+        Raises:
+            TypeError: If key type is not a HdWalletBipKeyTypes enum
         """
         if self.HasKey(key_type):
             return self.m_key_data[HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
