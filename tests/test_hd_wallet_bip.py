@@ -582,6 +582,24 @@ class HdWalletBipTests(unittest.TestCase):
         self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", 12)
         self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", HdWalletBipWordsNum.WORDS_NUM_12, 0)
 
+        # Invalid parameter for CreateFromMnemonic
+        invalid_mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon any"
+        self.assertRaises(ValueError, hd_wallet_fact.CreateFromMnemonic, "test_wallet", invalid_mnemonic)
+        invalid_mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon notexistent about"
+        self.assertRaises(ValueError, hd_wallet_fact.CreateFromMnemonic, "test_wallet", invalid_mnemonic)
+
+        # Invalid parameter for CreateFromSeed
+        invalid_seed = binascii.unhexlify(b"000102030405060708090a0b0c0d0e")
+        self.assertRaises(ValueError, hd_wallet_fact.CreateFromSeed, "test_wallet", invalid_seed)
+
+        # Invalid parameter for CreateFromExtendedKey
+        invalid_ex_key = "xprv9s21ZrQH143K3GJpoapnV8SFfukcVBSfeCficPSGfubmSFDxo1kuHnListey6gETHL1FYgFnbGTHGh6bsXjp3w31igA2CuxhgLyGu6pvL45"
+        self.assertRaises(ValueError, hd_wallet_fact.CreateFromExtendedKey, "test_wallet", invalid_ex_key)
+
+        # Invalid parameter for CreateFromPrivateKey
+        invalid_priv_key = binascii.unhexlify(b"6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
+        self.assertRaises(ValueError, hd_wallet_fact.CreateFromPrivateKey, "test_wallet", invalid_priv_key)
+
         # Create wallet
         hd_wallet = hd_wallet_fact.CreateRandom("test_wallet", HdWalletBipWordsNum.WORDS_NUM_12)
 

@@ -22,7 +22,8 @@
 # Imports
 from typing import Type, Union
 from bip_utils import (
-    Bip39MnemonicGenerator, Bip39SeedGenerator, Bip44, Bip49, Bip84
+    Bip39ChecksumError, Bip39MnemonicGenerator, Bip39SeedGenerator,
+    Bip32KeyError, Bip44, Bip49, Bip84
 )
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
@@ -74,7 +75,7 @@ class HdWalletBipFactory:
             HdWalletBase object: HdWalletBase object
 
         Raises:
-            TypeError: If words number is not of HdWalletBipWordsNum enum or language is not of HdWalletBipLanguages enum
+            TypeError: If words number is not a HdWalletBipWordsNum enum or language is not a HdWalletBipLanguages enum
         """
         if not isinstance(words_num, HdWalletBipWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletBipWordsNum")
@@ -98,8 +99,15 @@ class HdWalletBipFactory:
 
         Returns:
             HdWalletBase object: HdWalletBase object
+
+        Raises:
+            ValueError: If the mnemonic is not valid
         """
-        seed_bytes = Bip39SeedGenerator(mnemonic).Generate(passphrase)
+        try:
+            seed_bytes = Bip39SeedGenerator(mnemonic).Generate(passphrase)
+        except (ValueError, Bip39ChecksumError) as ex:
+            raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
+
         bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
 
         return HdWalletBip(wallet_name=wallet_name,
@@ -119,6 +127,9 @@ class HdWalletBipFactory:
 
         Returns:
             HdWalletBase object: HdWalletBase object
+
+        Raises:
+            ValueError: If the seed is not valid
         """
         bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
 
@@ -128,17 +139,23 @@ class HdWalletBipFactory:
 
     def CreateFromExtendedKey(self,
                               wallet_name: str,
-                              exkey_str: str) -> HdWalletBase:
+                              ex_key_str: str) -> HdWalletBase:
         """ Create wallet from extended key.
 
         Args:
             wallet_name (str): Wallet name
-            exkey_str (str)  : Extended key string
+            ex_key_str (str) : Extended key string
 
         Returns:
             HdWalletBase object: HdWalletBase object
+
+        Raises:
+            ValueError: If the extended key is not valid
         """
-        bip_obj = self.m_bip_cls.FromExtendedKey(exkey_str, self.m_bip_coin)
+        try:
+            bip_obj = self.m_bip_cls.FromExtendedKey(ex_key_str, self.m_bip_coin)
+        except Bip32KeyError as ex:
+            raise ValueError(f"Invalid extended key: {ex_key_str}") from ex
 
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
@@ -154,8 +171,14 @@ class HdWalletBipFactory:
 
         Returns:
             HdWalletBase object: HdWalletBase object
+
+        Raises:
+            ValueError: If the private key is not valid
         """
-        bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
+        try:
+            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
+        except Bip32KeyError as ex:
+            raise ValueError(f"Invalid private key: {priv_key.hex()}") from ex
 
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
