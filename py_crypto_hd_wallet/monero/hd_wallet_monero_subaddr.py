@@ -24,17 +24,16 @@ from __future__ import annotations
 import json
 from typing import Dict, Iterator
 from bip_utils import Monero
-from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 
 
-class HdWalletMoneroSubddressesConst:
+class HdWalletMoneroSubaddressesConst:
     """ Class container for HD wallet Monero subaddresses constants. """
 
-    # Address key for dictionary
-    ADDR_DICT_KEY: str = "subaddress_{:d}"
+    # Subaddress key for dictionary
+    SUBADDR_DICT_KEY: str = "subaddress_{:d}"
 
 
-class HdWalletMoneroSubddresses:
+class HdWalletMoneroSubaddresses:
     """ HD wallet Monero subaddresses class. It creates subaddresses from a Monero object and store them.
     Subaddresses can be got individually, as dictionary or in JSON format.
     """
@@ -45,33 +44,32 @@ class HdWalletMoneroSubddresses:
 
     def __init__(self) -> None:
         """ Construct class. """
-        self.m_subaddresses = []
+        self.m_subaddr = []
+        self.m_subaddr_off = 0
 
     @staticmethod
     def FromMoneroObj(monero_obj: Monero,
-                      account_idx: int,
+                      acc_idx: int,
                       subaddr_num: int,
-                      subaddr_offset: int) -> HdWalletMoneroSubddresses:
+                      subaddr_off: int) -> HdWalletMoneroSubaddresses:
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
         Args:
             monero_obj (Monero object): Monero object
-            account_idx (int)         : Account index
+            acc_idx (int)         : Account index
             subaddr_num (int)         : Subaddress number
-            subaddr_offset (int)      : Starting subaddress index
+            subaddr_off (int)         : Starting subaddress index
 
         Returns:
-            HdWalletMoneroSubddresses object: HdWalletMoneroSubddresses object
+            HdWalletMoneroSubaddresses object: HdWalletMoneroSubaddresses object
         """
-        addr = HdWalletMoneroSubddresses()
+        addr = HdWalletMoneroSubaddresses()
+        addr.m_subaddr_off = subaddr_off
 
-        if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
-            addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj))
-        else:
-            for i in range(addr_num):
-                bip_obj_addr = bip_obj.AddressIndex(i + addr_off)
-                addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj_addr))
+        for i in range(subaddr_num):
+            subaddr = monero_obj.SubAddress(i + subaddr_off, acc_idx)
+            addr.m_subaddr.append(subaddr)
 
         return addr
 
@@ -83,9 +81,9 @@ class HdWalletMoneroSubddresses:
         """
         addr_dict = {}
 
-        for i, key in enumerate(self.m_addresses):
-            dict_key = HdWalletMoneroSubddressesConst.ADDR_DICT_KEY.format(i + 1)
-            addr_dict[dict_key] = key.ToDict()
+        for i, subaddr in enumerate(self.m_subaddr):
+            dict_key = HdWalletMoneroSubaddressesConst.SUBADDR_DICT_KEY.format(i + self.m_subaddr_off)
+            addr_dict[dict_key] = subaddr
 
         return addr_dict
 
@@ -107,24 +105,24 @@ class HdWalletMoneroSubddresses:
         Returns:
             int: Number of addresses
         """
-        return len(self.m_addresses)
+        return len(self.m_subaddr)
 
     def __getitem__(self,
-                    addr_idx: int) -> HdWalletBipKeys:
-        """ Get the specified address index.
+                    subaddr_idx: int) -> str:
+        """ Get the specified subaddress index.
 
         Args:
-            addr_idx (int): Address index
+            subaddr_idx (int): Subaddress index
 
         Returns:
-            HdWalletBipKeys object: HdWalletBipKeys object
+            str: Subaddress
         """
-        return self.m_addresses[addr_idx]
+        return self.m_subaddr[subaddr_idx]
 
-    def __iter__(self) -> Iterator[HdWalletBipKeys]:
+    def __iter__(self) -> Iterator[str]:
         """ Get the iterator to the current element.
 
         Returns:
             Iterator object: Iterator to the current element
         """
-        yield from self.m_addresses
+        yield from self.m_subaddr
