@@ -22,8 +22,7 @@
 # Imports
 from typing import Type, Union
 from bip_utils import (
-    Bip39Mnemonic, Bip39MnemonicGenerator, Bip39SeedGenerator,
-    Bip44, Bip49, Bip84
+    Bip39MnemonicGenerator, Bip39SeedGenerator, Bip44, Bip49, Bip84
 )
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
