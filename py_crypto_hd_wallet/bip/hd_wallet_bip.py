@@ -27,6 +27,7 @@ from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddresses
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import *
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
 
 
@@ -52,7 +53,7 @@ class HdWalletBipConst:
         }
 
 
-class HdWalletBip:
+class HdWalletBip(HdWalletBase):
     """ HD wallet BIP class.
     It basically wraps the bip_utils, allowing to generate a complete wallet based on BIP specifications. """
 
