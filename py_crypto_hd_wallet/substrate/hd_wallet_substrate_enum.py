@@ -20,7 +20,6 @@
 
 
 # Imports
-from __future__ import annotations
 from enum import Enum, auto, unique
 from bip_utils import SubstrateCoins
 from py_crypto_hd_wallet.bip import HdWalletBipWordsNum, HdWalletBipLanguages

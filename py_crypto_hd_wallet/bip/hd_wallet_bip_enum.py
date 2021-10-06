@@ -20,9 +20,7 @@
 
 
 # Imports
-from __future__ import annotations
-from enum import Enum, IntEnum, auto, unique
-from typing import Dict
+from enum import Enum, auto, unique
 from bip_utils import Bip39WordsNum, Bip39Languages, Bip44Changes, Bip44Coins, Bip49Coins, Bip84Coins
 
 
