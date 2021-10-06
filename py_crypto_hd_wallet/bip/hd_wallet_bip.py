@@ -49,7 +49,8 @@ class HdWalletBipConst:
             HdWalletBipDataTypes.COIN_KEY: "coin_key",
             HdWalletBipDataTypes.ACCOUNT_KEY: "account_key",
             HdWalletBipDataTypes.CHANGE_KEY: "change_key",
-            HdWalletBipDataTypes.ADDRESSES: "addresses",
+            HdWalletBipDataTypes.ADDRESS_OFF: "address_off",
+            HdWalletBipDataTypes.ADDRESS: "address",
         }
 
 
@@ -89,24 +90,24 @@ class HdWalletBip(HdWalletBase):
         """ Generate wallet keys and addresses.
 
         Other parameters:
-            account_idx (int, optional)              : Account index (default: 0)
+            acc_idx (int, optional)                  : Account index (default: 0)
             change_idx (HdWalletBipChanges, optional): Change index (default: external)
             addr_num (int, optional)                 : Number of addresses to be generated (default: 20)
-            addr_offset (int, optional)              : Starting address index (default: 0)
+            addr_off (int, optional)                 : Starting address index (default: 0)
         """
 
         # Get parameters
-        account_idx = kwargs.get("account_idx", 0)
+        acc_idx = kwargs.get("acc_idx", 0)
         change_idx = kwargs.get("change_idx", HdWalletBipChanges.CHAIN_EXT)
         addr_num = kwargs.get("addr_num", 20)
-        addr_offset = kwargs.get("addr_offset", 0)
+        addr_off = kwargs.get("addr_off", 0)
 
         # Check parameters
         if not isinstance(change_idx, HdWalletBipChanges):
             raise TypeError("Change index is not an enumerative of HdWalletBipChanges")
         if addr_num < 0 or addr_num > Bip32KeyDataConst.KEY_INDEX_MAX_VAL:
             raise ValueError("Address number shall be greater or equal to zero and less than 2^32")
-        if addr_offset < 0 or ((addr_offset + addr_num) > Bip32KeyDataConst.KEY_INDEX_MAX_VAL):
+        if addr_off < 0 or ((addr_off + addr_num) > Bip32KeyDataConst.KEY_INDEX_MAX_VAL):
             raise ValueError("Address offset shall be greater or equal to zero and less than 2^32")
 
         # Save the BIP object
@@ -123,8 +124,8 @@ class HdWalletBip(HdWalletBase):
         # Set coin keys and derive account if correct level
         if bip_obj.IsLevel(Bip44Levels.COIN):
             self.__SetKeys(HdWalletBipDataTypes.COIN_KEY, bip_obj)
-            self.__SetData(HdWalletBipDataTypes.ACCOUNT_IDX, account_idx)
-            bip_obj = bip_obj.Account(account_idx)
+            self.__SetData(HdWalletBipDataTypes.ACCOUNT_IDX, acc_idx)
+            bip_obj = bip_obj.Account(acc_idx)
         # Set account keys and derive change if correct level
         if bip_obj.IsLevel(Bip44Levels.ACCOUNT):
             self.__SetKeys(HdWalletBipDataTypes.ACCOUNT_KEY, bip_obj)
@@ -134,12 +135,16 @@ class HdWalletBip(HdWalletBase):
         # Set change keys and derive addresses if correct level
         if bip_obj.IsLevel(Bip44Levels.CHANGE):
             self.__SetKeys(HdWalletBipDataTypes.CHANGE_KEY, bip_obj)
-            self.__SetData(HdWalletBipDataTypes.ADDRESSES,
-                           HdWalletBipAddresses.FromBipObj(bip_obj, addr_num, addr_offset))
+
+            if addr_off != 0:
+                self.__SetData(HdWalletBipDataTypes.ADDRESS_OFF, addr_off)
+
+            self.__SetData(HdWalletBipDataTypes.ADDRESS,
+                           HdWalletBipAddresses.FromBipObj(bip_obj, addr_num, addr_off))
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
-            self.__SetData(HdWalletBipDataTypes.ADDRESSES,
+            self.__SetData(HdWalletBipDataTypes.ADDRESS,
                            HdWalletBipAddresses.FromBipObj(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:

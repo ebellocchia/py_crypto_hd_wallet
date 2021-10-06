@@ -136,7 +136,7 @@ TEST_VECTOR = [
                     "raw_priv": "5cc8571103db0bec90c0ae91020c17145a2d61bc1d391a14f4d2c8ae878c86b1",
                     "address": "0x1af21bC3e7319984A37fb72f1B900db4De5b1A75",
                 },
-                "addresses": {
+                "address": {
                     "address_1": {
                         "ex_pub": "xpub6GkuXeVuFpgwJvJCsRyr1Mq8UEgYa4SrW3GJyPxr232F2xhYJhmY66JiJJ3G8Qsvsmz1n24YUpcmdVuinMj5UdJ2t9oHySr3pftXSiWo2Cq",
                         "raw_compr_pub": "038a3cae97faf3039fa33b404bb7c683d76a3eff6b27fb43989bfd796426915544",
@@ -212,7 +212,7 @@ TEST_VECTOR = [
                     "raw_priv": "5cc8571103db0bec90c0ae91020c17145a2d61bc1d391a14f4d2c8ae878c86b1",
                     "address": "0x1af21bC3e7319984A37fb72f1B900db4De5b1A75",
                 },
-                "addresses": {
+                "address": {
                     "address_1": {
                         "ex_pub": "xpub6GkuXeVuFpgwJvJCsRyr1Mq8UEgYa4SrW3GJyPxr232F2xhYJhmY66JiJJ3G8Qsvsmz1n24YUpcmdVuinMj5UdJ2t9oHySr3pftXSiWo2Cq",
                         "raw_compr_pub": "038a3cae97faf3039fa33b404bb7c683d76a3eff6b27fb43989bfd796426915544",
@@ -308,7 +308,7 @@ TEST_VECTOR = [
                     "wif_priv": "T3vNVL8tKAdziuDYACQagqzj21hSQXoHcg6TePTn2wQ2Mkn9QMm2",
                     "address": "ltc1qhd4p5y7ycw8jyq3fd25nrs9d6qweewk7cmyuzd",
                 },
-                "addresses": {
+                "address": {
                     "address_1": {
                         "ex_pub": "zpub6vTTtJ8jWvYsRr2xkYgxWA7vbUfhpHPZtqRQ7YUc4TMfoWzJLwxFar48oDAgiN6tX4WW9vmqkXafqXi3fq5XJozY8QyFkcougMwVDYJEofN",
                         "raw_compr_pub": "03c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1",
@@ -360,7 +360,7 @@ TEST_VECTOR = [
                 "wallet_name": "doge_wallet",
                 "spec_name": "BIP-0044",
                 "coin_name": "Dogecoin (DOGE)",
-                "addresses": {
+                "address": {
                     "address_1": {
                         "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
                         "raw_compr_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
@@ -400,7 +400,7 @@ TEST_VECTOR = [
                     "raw_uncompr_pub": "0486b865b52b753d0a84d09bc20063fab5d8453ec33c215d4019a5801c9c6438b917770b2782e29a9ecc6edb67cd1f0fbf05ec4c1236884b6d686d6be3b1588abb",
                     "address": "13KE6TffArLh4fVM6uoQzvsYq5vwetJcVM",
                 },
-                "addresses": {
+                "address": {
                     "address_1": {
                         "ex_pub": "xpub6Fbrwk4KhC8qnFVXTcR3wRsqiTGkedcSSZKyTqKaxXjFN6rZv3UJYZ4mQtjNYY3gCa181iCHSBWyWst2PFiXBKgLpFVSdcyLbHyAahin8pd",
                         "raw_compr_pub": "03aaeb52dd7494c361049de67cc680e83ebcbbbdbeb13637d92cd845f70308af5e",
@@ -490,7 +490,8 @@ TEST_VECTOR = [
                     "wif_priv": "Kxz4Ur2Skxiyi8wDaqXERKYEZvyaGHeXwdUW5ejPVZWqyvCbDRqc",
                     "address": "35R5fx7vUVpEkALPQ1nDzgzYjJER7ekv3s"
                 },
-                "addresses": {
+                "address_off": 20,
+                "address": {
                     "address_1": {
                         "ex_pub": "ypub6ad6dUsvsNu2vHGxbQgjZsvoHS73mKvdMjYxsocsY1jr1yWGqdcj32XNfbMEY5LGMCeuhRJvEznVdzz62WsKMyxvmJjuaNgYLkoFFPcKrHY",
                         "raw_compr_pub": "0311706e632f4c208ac7ae9c7b2af93f3adbc39a5b08822c83b7b5f09250b9d216",
@@ -530,6 +531,8 @@ TEST_VECTOR = [
 class HdWalletBipTests(unittest.TestCase):
     # Run all tests in test vector
     def test_vector(self):
+        self.maxDiff = None
+
         for test in TEST_VECTOR:
             # Construct wallet factory
             hd_wallet_fact = HdWalletBipFactory(test["coin"])
@@ -538,18 +541,18 @@ class HdWalletBipTests(unittest.TestCase):
             if test["type"] == "random":
                 hd_wallet = hd_wallet_fact.CreateRandom(test["wallet_name"], test["words_num"])
                 # Generate wallet
-                hd_wallet.Generate(account_idx=test["acc_idx"],
+                hd_wallet.Generate(acc_idx=test["acc_idx"],
                                    change_idx=test["change_idx"],
                                    addr_num=test["addr_num"],
-                                   addr_offset=test["addr_off"])
+                                   addr_off=test["addr_off"])
 
                 # Since the wallet is random, in order to check it we create a new wallet from the
                 # random wallet mnemonic. The two wallets shall be identical.
                 compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.ToDict()["mnemonic"])
-                compare_wallet.Generate(account_idx=test["acc_idx"],
+                compare_wallet.Generate(acc_idx=test["acc_idx"],
                                         change_idx=test["change_idx"],
                                         addr_num=test["addr_num"],
-                                        addr_offset=test["addr_off"])
+                                        addr_off=test["addr_off"])
 
                 # Test wallet data
                 self.assertFalse(hd_wallet.IsWatchOnly())
@@ -567,10 +570,10 @@ class HdWalletBipTests(unittest.TestCase):
                     raise RuntimeError("Invalid test type")
 
                 # Generate wallet
-                hd_wallet.Generate(account_idx=test["acc_idx"],
+                hd_wallet.Generate(acc_idx=test["acc_idx"],
                                    change_idx=test["change_idx"],
                                    addr_num=test["addr_num"],
-                                   addr_offset=test["addr_off"])
+                                   addr_off=test["addr_off"])
 
                 # Test wallet data
                 self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
@@ -615,9 +618,9 @@ class HdWalletBipTests(unittest.TestCase):
         self.assertRaises(TypeError, hd_wallet.Generate, change_idx=0)
         self.assertRaises(ValueError, hd_wallet.Generate, addr_num=-1)
         self.assertRaises(ValueError, hd_wallet.Generate, addr_num=2**32)
-        self.assertRaises(ValueError, hd_wallet.Generate, addr_offset=-1)
-        self.assertRaises(ValueError, hd_wallet.Generate, addr_offset=2**32)
-        self.assertRaises(ValueError, hd_wallet.Generate, addr_num=2, addr_offset=2**32-2)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_off=-1)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_off=2**32)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_num=2, addr_off=2**32-2)
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)

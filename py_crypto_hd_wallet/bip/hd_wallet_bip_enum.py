@@ -56,7 +56,8 @@ class HdWalletBipDataTypes(HdWalletDataTypes):
     COIN_KEY = auto()
     ACCOUNT_KEY = auto()
     CHANGE_KEY = auto()
-    ADDRESSES = auto()
+    ADDRESS_OFF = auto()
+    ADDRESS = auto()
 
 
 @unique
