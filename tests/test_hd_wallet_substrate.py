@@ -25,8 +25,9 @@ import json
 import os
 import unittest
 from py_crypto_hd_wallet import (
-    HdWalletSubstrateFactory, HdWalletSaver, HdWalletSubstrateKeys, HdWalletSubstrateCoins,
-    HdWalletSubstrateWordsNum, HdWalletSubstrateDataTypes, HdWalletSubstrateKeyTypes
+    HdWalletSaver, HdWalletSubstrateFactory, HdWalletSubstrateCoins,
+    HdWalletSubstrateWordsNum, HdWalletSubstrateDataTypes, HdWalletSubstrateKeyTypes,
+    HdWalletSubstrateKeys
 )
 # Just for testing
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_keys import HdWalletSubstrateKeysConst
@@ -172,6 +173,8 @@ TEST_VECTOR = [
 class HdWalletSubstrateTests(unittest.TestCase):
     # Run all tests in test vector
     def test_vector(self):
+        self.maxDiff = None
+
         for test in TEST_VECTOR:
             # Construct wallet factory
             hd_wallet_fact = HdWalletSubstrateFactory(test["coin"])
@@ -249,7 +252,7 @@ class HdWalletSubstrateTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-        # Invalid parameter for HdWalletBipKeys
+        # Invalid parameter for HdWalletSubstrateKeys
         self.assertRaises(TypeError, HdWalletSubstrateKeys().HasKey, 0)
         self.assertRaises(TypeError, HdWalletSubstrateKeys().GetKey, 0)
 

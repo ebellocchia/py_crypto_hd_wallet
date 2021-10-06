@@ -25,9 +25,10 @@ import json
 import os
 import unittest
 from py_crypto_hd_wallet import (
-    HdWalletBipFactory, HdWalletSaver, HdWalletBipKeys, HdWalletBipAddresses,
+    HdWalletSaver, HdWalletBipFactory,
     HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins,
-    HdWalletBipWordsNum, HdWalletBipDataTypes, HdWalletBipKeyTypes
+    HdWalletBipWordsNum, HdWalletBipDataTypes, HdWalletBipKeyTypes,
+    HdWalletBipKeys, HdWalletBipAddresses
 )
 # Just for testing
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddressesConst
