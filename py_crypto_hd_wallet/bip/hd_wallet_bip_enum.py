@@ -27,7 +27,7 @@ from bip_utils import Bip39Languages, Bip44Changes, Bip44Coins, Bip49Coins, Bip8
 
 
 @unique
-class HdWalletWordsNum(IntEnum):
+class HdWalletBipWordsNum(IntEnum):
     """ Words number enumeratives. """
 
     WORDS_NUM_12 = 12
@@ -38,22 +38,42 @@ class HdWalletWordsNum(IntEnum):
 
 
 @unique
-class HdWalletChanges(IntEnum):
-    """ Alias for hiding Bip44Changes. """
+class HdWalletBipLanguages(Enum):
+    """ Alias for hiding Bip39Languages. """
 
-    CHAIN_EXT = Bip44Changes.CHAIN_EXT
-    CHAIN_INT = Bip44Changes.CHAIN_INT
+    ENGLISH = auto()
+    ITALIAN = auto()
+    FRENCH = auto()
+    SPANISH = auto()
+    PORTUGUESE = auto()
+    CZECH = auto()
+    CHINESE_SIMPLIFIED = auto()
+    CHINESE_TRADITIONAL = auto()
+    KOREAN = auto()
 
-    def ToBip44Change(enum_val: HdWalletChanges) -> Bip44Changes:
-        """ Convert to Bip44Changes type.
+    def ToBipLanguage(enum_val: HdWalletBipLanguages) -> Bip39Languages:
+        """ Convert to Bip39Languages type.
 
         Args:
-            enum_val (HdWalletChanges): Enum value
+            enum_val (HdWalletWordsLanguages): Enum value
 
         Returns:
-            Bip44Changes: Bip44Changes value
+            Bip39Languages: Bip39Languages value
         """
-        return Bip44Changes(enum_val)
+
+        to_bip39_lang: Dict[HdWalletBipLanguages, Bip39Languages] = {
+            HdWalletBipLanguages.ENGLISH: Bip39Languages.ENGLISH,
+            HdWalletBipLanguages.ITALIAN: Bip39Languages.ITALIAN,
+            HdWalletBipLanguages.FRENCH: Bip39Languages.FRENCH,
+            HdWalletBipLanguages.SPANISH: Bip39Languages.SPANISH,
+            HdWalletBipLanguages.PORTUGUESE: Bip39Languages.PORTUGUESE,
+            HdWalletBipLanguages.CZECH: Bip39Languages.CZECH,
+            HdWalletBipLanguages.CHINESE_SIMPLIFIED: Bip39Languages.CHINESE_SIMPLIFIED,
+            HdWalletBipLanguages.CHINESE_TRADITIONAL: Bip39Languages.CHINESE_TRADITIONAL,
+            HdWalletBipLanguages.KOREAN: Bip39Languages.KOREAN,
+        }
+
+        return to_bip39_lang[enum_val]
 
 
 @unique
@@ -185,47 +205,27 @@ class HdWalletBip84Coins(Enum):
 
 
 @unique
-class HdWalletWordsLanguages(Enum):
-    """ Alias for hiding Bip39Languages. """
+class HdWalletBipChanges(IntEnum):
+    """ Alias for hiding Bip44Changes. """
 
-    ENGLISH = auto()
-    ITALIAN = auto()
-    FRENCH = auto()
-    SPANISH = auto()
-    PORTUGUESE = auto()
-    CZECH = auto()
-    CHINESE_SIMPLIFIED = auto()
-    CHINESE_TRADITIONAL = auto()
-    KOREAN = auto()
+    CHAIN_EXT = Bip44Changes.CHAIN_EXT
+    CHAIN_INT = Bip44Changes.CHAIN_INT
 
-    def ToBip39Language(enum_val: HdWalletWordsLanguages) -> Bip39Languages:
-        """ Convert to Bip39Languages type.
+    def ToBip44Change(enum_val: HdWalletChanges) -> Bip44Changes:
+        """ Convert to Bip44Changes type.
 
         Args:
-            enum_val (HdWalletWordsLanguages): Enum value
+            enum_val (HdWalletChanges): Enum value
 
         Returns:
-            Bip39Languages: Bip39Languages value
+            Bip44Changes: Bip44Changes value
         """
-
-        to_bip39_lang: Dict[HdWalletWordsLanguages, Bip39Languages] = {
-            HdWalletWordsLanguages.ENGLISH: Bip39Languages.ENGLISH,
-            HdWalletWordsLanguages.ITALIAN: Bip39Languages.ITALIAN,
-            HdWalletWordsLanguages.FRENCH: Bip39Languages.FRENCH,
-            HdWalletWordsLanguages.SPANISH: Bip39Languages.SPANISH,
-            HdWalletWordsLanguages.PORTUGUESE: Bip39Languages.PORTUGUESE,
-            HdWalletWordsLanguages.CZECH: Bip39Languages.CZECH,
-            HdWalletWordsLanguages.CHINESE_SIMPLIFIED: Bip39Languages.CHINESE_SIMPLIFIED,
-            HdWalletWordsLanguages.CHINESE_TRADITIONAL: Bip39Languages.CHINESE_TRADITIONAL,
-            HdWalletWordsLanguages.KOREAN: Bip39Languages.KOREAN,
-        }
-
-        return to_bip39_lang[enum_val]
+        return Bip44Changes(enum_val)
 
 
 @unique
-class HdWalletDataTypes(Enum):
-    """ Enumerative for wallet data types. """
+class HdWalletBipDataTypes(Enum):
+    """ Enumerative for wallet BIP data types. """
 
     WALLET_NAME = auto()
     COIN_NAME = auto()
@@ -244,8 +244,8 @@ class HdWalletDataTypes(Enum):
 
 
 @unique
-class HdWalletKeyTypes(Enum):
-    """ Enumerative for wallet key types. """
+class HdWalletBipKeyTypes(Enum):
+    """ Enumerative for wallet BIP key types. """
 
     EX_PRIV = auto()
     RAW_PRIV = auto()

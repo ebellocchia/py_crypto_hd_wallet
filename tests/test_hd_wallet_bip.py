@@ -25,14 +25,14 @@ import json
 import os
 import unittest
 from py_crypto_hd_wallet import (
-    HdWalletFactory, HdWalletSaver, HdWalletKeys, HdWalletAddresses,
-    HdWalletChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins,
-    HdWalletWordsNum, HdWalletDataTypes, HdWalletKeyTypes
+    HdWalletBipFactory, HdWalletSaver, HdWalletBipKeys, HdWalletBipAddresses,
+    HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins,
+    HdWalletBipWordsNum, HdWalletBipDataTypes, HdWalletBipKeyTypes
 )
 # Just for testing
-from py_crypto_hd_wallet.hd_wallet_addr import HdWalletAddressesConst
-from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeysConst
-from py_crypto_hd_wallet.hd_wallet import HdWalletConst
+from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddressesConst
+from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeysConst
+from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBipConst
 
 # Test vector
 TEST_VECTOR = [
@@ -43,10 +43,10 @@ TEST_VECTOR = [
             "coin": HdWalletBip44Coins.BITCOIN,
             # Data for wallet creation
             "type": "random",
-            "words_num": HdWalletWordsNum.WORDS_NUM_24,
+            "words_num": HdWalletBipWordsNum.WORDS_NUM_24,
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 1,
             "addr_off": 0,
             # Data for saving to file
@@ -60,10 +60,10 @@ TEST_VECTOR = [
             "coin": HdWalletBip44Coins.BITCOIN,
             # Data for wallet creation
             "type": "random",
-            "words_num": HdWalletWordsNum.WORDS_NUM_12,
+            "words_num": HdWalletBipWordsNum.WORDS_NUM_12,
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 1,
             "addr_off": 0,
             # Data for saving to file
@@ -80,7 +80,7 @@ TEST_VECTOR = [
             "mnemonic": "scale tourist mobile heavy adult invite barely rib iron hover clap used swear group torch inside turn gold test rookie dog pet fuel process",
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 1,
             "addr_off": 0,
             # Data for saving to file
@@ -158,7 +158,7 @@ TEST_VECTOR = [
             "seed": "eed77707306437d996d5adf59e125b9c37a330c6f5d4de471171708b81cdf592c4fa5d8eee244fff8b0518abe5c57e14a09edf4042d0687ea39ad23dcb5f06af",
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 3,
             "addr_off": 0,
             # Data for saving to file
@@ -250,7 +250,7 @@ TEST_VECTOR = [
             "ex_key": "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5",
             # Data for wallet generation
             "acc_idx": 2,
-            "change_idx": HdWalletChanges.CHAIN_INT,
+            "change_idx": HdWalletBipChanges.CHAIN_INT,
             "addr_num": 3,
             "addr_off": 0,
             # Data for saving to file
@@ -349,7 +349,7 @@ TEST_VECTOR = [
             "ex_key": "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw",
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 1,
             "addr_off": 0,
             # Data for saving to file
@@ -383,7 +383,7 @@ TEST_VECTOR = [
             "ex_key": "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY",
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 3,
             "addr_off": 0,
             # Data for saving to file
@@ -432,7 +432,7 @@ TEST_VECTOR = [
             "priv_key": b"4b03d6fc340455b363f51020ad3ecca4f0850280cf436c70c727923f6db46c3e",
             # Data for wallet generation
             "acc_idx": 0,
-            "change_idx": HdWalletChanges.CHAIN_EXT,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
             "addr_num": 3,
             "addr_off": 20,
             # Data for saving to file
@@ -527,13 +527,13 @@ TEST_VECTOR = [
 #
 # Tests
 #
-class HdWalletTests(unittest.TestCase):
+class HdWalletBipTests(unittest.TestCase):
     # Run all tests in test vector
     def test_vector(self):
         self.maxDiff = None
         for test in TEST_VECTOR:
             # Construct wallet factory
-            hd_wallet_fact = HdWalletFactory(test["coin"])
+            hd_wallet_fact = HdWalletBipFactory(test["coin"])
 
             # Create wallet depending on type
             if test["type"] == "random":
@@ -574,15 +574,16 @@ class HdWalletTests(unittest.TestCase):
     # Test invalid parameters
     def test_invalid_params(self):
         # Invalid parameters during construction
-        self.assertRaises(TypeError, HdWalletFactory, 0)
+        self.assertRaises(TypeError, HdWalletBipFactory, 0)
 
         # Construct a wallet factory
-        hd_wallet_fact = HdWalletFactory(HdWalletBip44Coins.BITCOIN)
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
         # Invalid parameter for CreateRandom
         self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", 12)
+        self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", HdWalletBipWordsNum.WORDS_NUM_12, 0)
 
         # Create wallet
-        hd_wallet = hd_wallet_fact.CreateRandom("test_wallet", HdWalletWordsNum.WORDS_NUM_12)
+        hd_wallet = hd_wallet_fact.CreateRandom("test_wallet", HdWalletBipWordsNum.WORDS_NUM_12)
 
         # Invalid parameters for Generate
         self.assertRaises(TypeError, hd_wallet.Generate, change_idx=0)
@@ -591,9 +592,9 @@ class HdWalletTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-        # Invalid parameter for HdWalletKeys
-        self.assertRaises(TypeError, HdWalletKeys().HasKey, 0)
-        self.assertRaises(TypeError, HdWalletKeys().GetKey, 0)
+        # Invalid parameter for HdWalletBipKeys
+        self.assertRaises(TypeError, HdWalletBipKeys().HasKey, 0)
+        self.assertRaises(TypeError, HdWalletBipKeys().GetKey, 0)
 
     #
     # Helper methods
@@ -604,13 +605,13 @@ class HdWalletTests(unittest.TestCase):
         # Check the whole data as a dictionary
         self.assertEqual(ref_wallet_dict, ut_wallet.ToDict())
         # Test each single data type
-        for data_type in HdWalletDataTypes:
+        for data_type in HdWalletBipDataTypes:
             self.__test_wallet_data_type(data_type, ref_wallet_dict, ut_wallet)
 
     # Helper method for testing a wallet data type
     def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
         # Get dictionary key
-        dict_key = HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]
 
         # If data type is present in the reference wallet, check it
         if dict_key in ref_wallet_dict:
@@ -619,11 +620,11 @@ class HdWalletTests(unittest.TestCase):
             # Get specific data
             wallet_data = ut_wallet.GetData(data_type)
 
-            # In case of HdWalletKeys, test also keys individually
-            if isinstance(wallet_data, HdWalletKeys):
+            # In case of HdWalletBipKeys, test also keys individually
+            if isinstance(wallet_data, HdWalletBipKeys):
                 self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
-            # In case of HdWalletAddresses, test also address individually
-            elif isinstance(wallet_data, HdWalletAddresses):
+            # In case of HdWalletBipAddresses, test also address individually
+            elif isinstance(wallet_data, HdWalletBipAddresses):
                 self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data)
             # Otherwise just test the content
             else:
@@ -633,7 +634,7 @@ class HdWalletTests(unittest.TestCase):
             self.assertFalse(ut_wallet.HasData(data_type))
             self.assertEqual(None, ut_wallet.GetData(data_type))
 
-    # Helper method for testing wallet keys (HdWalletKeys)
+    # Helper method for testing wallet keys (HdWalletBipKeys)
     def __test_wallet_keys(self, ref_keys_dict, ut_wallet_keys):
         # Test all keys as a dictionary
         self.assertEqual(ref_keys_dict, ut_wallet_keys.ToDict())
@@ -641,9 +642,9 @@ class HdWalletTests(unittest.TestCase):
         self.assertEqual(json.dumps(ref_keys_dict, indent=4), ut_wallet_keys.ToJson())
 
         # Get and test each key type
-        for key_type in HdWalletKeyTypes:
+        for key_type in HdWalletBipKeyTypes:
             # Get current dictionary key
-            dict_key = HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+            dict_key = HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
 
             # If key type is present in the reference keys, check it
             if dict_key in ref_keys_dict:
@@ -654,7 +655,7 @@ class HdWalletTests(unittest.TestCase):
                 self.assertFalse(ut_wallet_keys.HasKey(key_type))
                 self.assertEqual(None, ut_wallet_keys.GetKey(key_type))
 
-    # Helper method for testing wallet addresses (HdWalletAddresses)
+    # Helper method for testing wallet addresses (HdWalletBipAddresses)
     def __test_wallet_addresses(self, test_addr_dict, ut_wallet_addr):
         # Test whole addresses as a dictionary
         self.assertEqual(test_addr_dict, ut_wallet_addr.ToDict())
@@ -667,8 +668,8 @@ class HdWalletTests(unittest.TestCase):
         # Test each address by iterating
         for i, addr in enumerate(ut_wallet_addr):
             # Get current dictionary key
-            dict_key = HdWalletAddressesConst.ADDR_DICT_KEY % (i + 1)
-            # Each address is simply a HdWalletKeys, so we can use the previous method
+            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + 1)
+            # Each address is simply a HdWalletBipKeys, so we can use the previous method
             self.__test_wallet_keys(test_addr_dict[dict_key], addr)
             # Test again but accessing via index
             self.__test_wallet_keys(test_addr_dict[dict_key], ut_wallet_addr[i])

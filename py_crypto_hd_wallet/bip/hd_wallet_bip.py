@@ -24,36 +24,37 @@ import json
 from typing import Dict, Optional, Union
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip44_base import Bip44Base
-from py_crypto_hd_wallet.hd_wallet_addr import HdWalletAddresses
-from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeys
-from py_crypto_hd_wallet.hd_wallet_enum import *
+from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddresses
+from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
+from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import *
 from py_crypto_hd_wallet.utils import Utils
 
 
-class HdWalletConst:
+class HdWalletBipConst:
     """ Class container for HD wallet constants. """
 
     # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
-            HdWalletDataTypes.WALLET_NAME: "wallet_name",
-            HdWalletDataTypes.COIN_NAME: "coin_name",
-            HdWalletDataTypes.SPEC_NAME: "spec_name",
-            HdWalletDataTypes.MNEMONIC: "mnemonic",
-            HdWalletDataTypes.PASSPHRASE: "passphrase",
-            HdWalletDataTypes.SEED_BYTES: "seed_bytes",
-            HdWalletDataTypes.ACCOUNT_IDX: "account_idx",
-            HdWalletDataTypes.CHANGE_IDX: "change_idx",
-            HdWalletDataTypes.MASTER_KEY: "master_key",
-            HdWalletDataTypes.PURPOSE_KEY: "purpose_key",
-            HdWalletDataTypes.COIN_KEY: "coin_key",
-            HdWalletDataTypes.ACCOUNT_KEY: "account_key",
-            HdWalletDataTypes.CHANGE_KEY: "change_key",
-            HdWalletDataTypes.ADDRESSES: "addresses",
+    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletBipDataTypes, str] = {
+            HdWalletBipDataTypes.WALLET_NAME: "wallet_name",
+            HdWalletBipDataTypes.COIN_NAME: "coin_name",
+            HdWalletBipDataTypes.SPEC_NAME: "spec_name",
+            HdWalletBipDataTypes.MNEMONIC: "mnemonic",
+            HdWalletBipDataTypes.PASSPHRASE: "passphrase",
+            HdWalletBipDataTypes.SEED_BYTES: "seed_bytes",
+            HdWalletBipDataTypes.ACCOUNT_IDX: "account_idx",
+            HdWalletBipDataTypes.CHANGE_IDX: "change_idx",
+            HdWalletBipDataTypes.MASTER_KEY: "master_key",
+            HdWalletBipDataTypes.PURPOSE_KEY: "purpose_key",
+            HdWalletBipDataTypes.COIN_KEY: "coin_key",
+            HdWalletBipDataTypes.ACCOUNT_KEY: "account_key",
+            HdWalletBipDataTypes.CHANGE_KEY: "change_key",
+            HdWalletBipDataTypes.ADDRESSES: "addresses",
         }
 
 
-class HdWallet:
-    """ HD wallet class. It basically wraps the bip_utils, allowing to generate a complete wallet. """
+class HdWalletBip:
+    """ HD wallet BIP class.
+    It basically wraps the bip_utils, allowing to generate a complete wallet based on BIP specifications. """
 
     #
     # Public methods
@@ -84,21 +85,21 @@ class HdWallet:
 
     def Generate(self,
                  account_idx: int = 0,
-                 change_idx: HdWalletChanges = HdWalletChanges.CHAIN_EXT,
+                 change_idx: HdWalletBipChanges = HdWalletBipChanges.CHAIN_EXT,
                  addr_num: int = 20,
                  addr_offset: int = 0) -> None:
         """ Generate wallet keys and addresses.
 
         Args:
-            account_idx (int, optional)           : Account index, 0 by default
-            change_idx (HdWalletChanges, optional): Change index, must a HdWalletChanges enum, external chain by default
-            addr_num (int, optional)              : Number of addresses to be generated, 20 by default
-            addr_offset (int, optional)           : Starting address index, 0 by default
+            account_idx (int, optional)              : Account index, 0 by default
+            change_idx (HdWalletBipChanges, optional): Change index, must a HdWalletBipChanges enum, external chain by default
+            addr_num (int, optional)                 : Number of addresses to be generated, 20 by default
+            addr_offset (int, optional)              : Starting address index, 0 by default
         """
 
         # Check parameters
-        if not isinstance(change_idx, HdWalletChanges):
-            raise TypeError("Change index is not an enumerative of HdWalletChanges")
+        if not isinstance(change_idx, HdWalletBipChanges):
+            raise TypeError("Change index is not an enumerative of HdWalletBipChanges")
         if addr_num < 0:
             raise ValueError("Address number shall be greater or equal to zero")
         if addr_offset < 0:
@@ -109,31 +110,31 @@ class HdWallet:
 
         # Set master keys and derive purpose if correct level
         if bip_obj.IsLevel(Bip44Levels.MASTER):
-            self.__SetKeys(HdWalletDataTypes.MASTER_KEY, bip_obj)
+            self.__SetKeys(HdWalletBipDataTypes.MASTER_KEY, bip_obj)
             bip_obj = bip_obj.Purpose()
         # Set purpose keys and derive coin if correct level
         if bip_obj.IsLevel(Bip44Levels.PURPOSE):
-            self.__SetKeys(HdWalletDataTypes.PURPOSE_KEY, bip_obj)
+            self.__SetKeys(HdWalletBipDataTypes.PURPOSE_KEY, bip_obj)
             bip_obj = bip_obj.Coin()
         # Set coin keys and derive account if correct level
         if bip_obj.IsLevel(Bip44Levels.COIN):
-            self.__SetKeys(HdWalletDataTypes.COIN_KEY, bip_obj)
-            self.__SetData(HdWalletDataTypes.ACCOUNT_IDX, account_idx)
+            self.__SetKeys(HdWalletBipDataTypes.COIN_KEY, bip_obj)
+            self.__SetData(HdWalletBipDataTypes.ACCOUNT_IDX, account_idx)
             bip_obj = bip_obj.Account(account_idx)
         # Set account keys and derive change if correct level
         if bip_obj.IsLevel(Bip44Levels.ACCOUNT):
-            self.__SetKeys(HdWalletDataTypes.ACCOUNT_KEY, bip_obj)
-            self.__SetData(HdWalletDataTypes.CHANGE_IDX, int(change_idx))
+            self.__SetKeys(HdWalletBipDataTypes.ACCOUNT_KEY, bip_obj)
+            self.__SetData(HdWalletBipDataTypes.CHANGE_IDX, int(change_idx))
             bip_obj = bip_obj.Change(change_idx.ToBip44Change())
 
         # Set change keys and derive addresses if correct level
         if bip_obj.IsLevel(Bip44Levels.CHANGE):
-            self.__SetKeys(HdWalletDataTypes.CHANGE_KEY, bip_obj)
-            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, addr_num, addr_offset))
+            self.__SetKeys(HdWalletBipDataTypes.CHANGE_KEY, bip_obj)
+            self.__SetData(HdWalletBipDataTypes.ADDRESSES, HdWalletBipAddresses.FromBipObj(bip_obj, addr_num, addr_offset))
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
-            self.__SetData(HdWalletDataTypes.ADDRESSES, HdWalletAddresses.FromBipObj(bip_obj, 1, 0))
+            self.__SetData(HdWalletBipDataTypes.ADDRESSES, HdWalletBipAddresses.FromBipObj(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:
         """ Get if the wallet is watch-only.
@@ -151,9 +152,9 @@ class HdWallet:
         """
         wallet_dict = {}
 
-        # Convert to dictionary the instances of HdWalletKeys or HdWalletAddresses classes
+        # Convert to dictionary the instances of HdWalletBipKeys or HdWalletBipAddresses classes
         for key, value in self.m_wallet_data.items():
-            if isinstance(value, HdWalletKeys) or isinstance(value, HdWalletAddresses):
+            if isinstance(value, HdWalletBipKeys) or isinstance(value, HdWalletBipAddresses):
                 wallet_dict[key] = value.ToDict()
             else:
                 wallet_dict[key] = value
@@ -173,34 +174,34 @@ class HdWallet:
         return json.dumps(self.ToDict(), indent=json_indent)
 
     def HasData(self,
-                data_type: HdWalletDataTypes) -> bool:
+                data_type: HdWalletBipDataTypes) -> bool:
         """ Get if the wallet data of the specified type is present.
 
         Args:
-            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
+            data_type (HdWalletBipDataTypes): Data type
 
         Returns:
             bool: True if present, false otherwise
         """
-        if not isinstance(data_type, HdWalletDataTypes):
-            raise TypeError("Data type is not an enumerative of HdWalletDataTypes")
+        if not isinstance(data_type, HdWalletBipDataTypes):
+            raise TypeError("Data type is not an enumerative of HdWalletBipDataTypes")
 
-        dict_key = HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]
         return dict_key in self.m_wallet_data
 
     def GetData(self,
-                data_type: HdWalletDataTypes) -> Optional[Union[int, str, HdWalletKeys, HdWalletAddresses]]:
+                data_type: HdWalletBipDataTypes) -> Optional[Union[int, str, HdWalletBipKeys, HdWalletBipAddresses]]:
         """ Get wallet data of the specified type.
 
         Args:
-            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
+            data_type (HdWalletBipDataTypes): Data type
 
         Returns (str, dict or None):
-            int or str or HdWalletKeys or HdWalletAddresses: Wallet data
+            int or str or HdWalletBipKeys or HdWalletBipAddresses: Wallet data
             None: If not found
         """
         if self.HasData(data_type):
-            return self.m_wallet_data[HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]]
+            return self.m_wallet_data[HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]]
         else:
             return None
 
@@ -223,39 +224,39 @@ class HdWallet:
         """
 
         # Set wallet name
-        self.__SetData(HdWalletDataTypes.WALLET_NAME, wallet_name)
+        self.__SetData(HdWalletBipDataTypes.WALLET_NAME, wallet_name)
         # Set specification name
-        self.__SetData(HdWalletDataTypes.SPEC_NAME, self.m_bip_obj.SpecName())
+        self.__SetData(HdWalletBipDataTypes.SPEC_NAME, self.m_bip_obj.SpecName())
         # Set coin name
         coin_names = self.m_bip_obj.CoinConf().CoinNames()
-        self.__SetData(HdWalletDataTypes.COIN_NAME, "%s (%s)" % (coin_names.Name(), coin_names.Abbreviation()))
+        self.__SetData(HdWalletBipDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self.__SetData(HdWalletDataTypes.MNEMONIC, mnemonic)
-            self.__SetData(HdWalletDataTypes.PASSPHRASE, passphrase)
+            self.__SetData(HdWalletBipDataTypes.MNEMONIC, mnemonic)
+            self.__SetData(HdWalletBipDataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
-            self.__SetData(HdWalletDataTypes.SEED_BYTES, Utils.BytesToString(seed_bytes))
+            self.__SetData(HdWalletBipDataTypes.SEED_BYTES, Utils.BytesToString(seed_bytes))
 
     def __SetData(self,
-                  data_type: HdWalletDataTypes,
-                  data_value: Union[int, str, HdWalletKeys, HdWalletAddresses]) -> None:
+                  data_type: HdWalletBipDataTypes,
+                  data_value: Union[int, str, HdWalletBipKeys, HdWalletBipAddresses]) -> None:
         """ Set wallet data.
 
         Args:
-            data_type (HdWalletDataTypes)                               : Data type, shall be of HdWalletDataTypes enum
-            data_value (int or str or HdWalletKeys or HdWalletAddresses): Data value
+            data_type (HdWalletBipDataTypes)                                  : Data type
+            data_value (int or str or HdWalletBipKeys or HdWalletBipAddresses): Data value
         """
-        dict_key = HdWalletConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]
         self.m_wallet_data[dict_key] = data_value
 
     def __SetKeys(self,
-                  data_type: HdWalletDataTypes,
+                  data_type: HdWalletBipDataTypes,
                   bip_obj: Bip44Base) -> None:
         """ Add keys to wallet data.
 
         Args:
-            data_type (HdWalletDataTypes): Data type, shall be of HdWalletDataTypes enum
-            bip_obj (Bip object)         : BIP object
+            data_type (HdWalletBipDataTypes): Data type
+            bip_obj (Bip object)            : BIP object
         """
-        self.__SetData(data_type, HdWalletKeys.FromBipObj(bip_obj))
+        self.__SetData(data_type, HdWalletBipKeys.FromBipObj(bip_obj))

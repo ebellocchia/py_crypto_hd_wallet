@@ -20,22 +20,22 @@
 
 
 # Imports
-from py_crypto_hd_wallet.hd_wallet import HdWallet
+from py_crypto_hd_wallet.common.hd_wallet_base import HdWalletBase
 
 
 class HdWalletSaver:
-    """ HD wallet class. It basically wraps the bip_utils, allowing to generate a complete wallet. """
+    """ HD wallet saver class. It saves a wallet to file. """
 
     #
     # Public methods
     #
 
     def __init__(self,
-                 hd_wallet: HdWallet) -> None:
+                 hd_wallet: HdWalletBase) -> None:
         """ Construct class.
 
         Args:
-            hd_wallet (HdWallet): HdWallet object
+            hd_wallet (HdWalletBase object): HdWalletBase object
         """
         self.m_hd_wallet = hd_wallet
 

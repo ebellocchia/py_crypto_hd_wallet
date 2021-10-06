@@ -25,18 +25,18 @@ import json
 from typing import Dict, Iterator
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip44_base import Bip44Base
-from py_crypto_hd_wallet.hd_wallet_keys import HdWalletKeys
+from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 
 
-class HdWalletAddressesConst:
-    """ Class container for HD wallet addresses constants. """
+class HdWalletBipAddressesConst:
+    """ Class container for HD wallet BIP addresses constants. """
 
     # Address key for dictionary
-    ADDR_DICT_KEY: str = "address_%d"
+    ADDR_DICT_KEY: str = "address_{:d}"
 
 
-class HdWalletAddresses:
-    """ HD wallet addresses class. It creates addresses from a Bip object and store them.
+class HdWalletBipAddresses:
+    """ HD wallet BIP addresses class. It creates addresses from a Bip object and store them.
     Addresses can be got individually, as dictionary or in JSON format.
     """
 
@@ -51,7 +51,7 @@ class HdWalletAddresses:
     @staticmethod
     def FromBipObj(bip_obj: Bip44Base,
                    addr_num: int,
-                   addr_offset: int) -> HdWalletAddresses:
+                   addr_offset: int) -> HdWalletBipAddresses:
         """ Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
@@ -62,16 +62,16 @@ class HdWalletAddresses:
 
 
         Returns:
-            HdWalletAddresses object: HdWalletAddresses object
+            HdWalletBipAddresses object: HdWalletBipAddresses object
         """
-        addr = HdWalletAddresses()
+        addr = HdWalletBipAddresses()
 
         if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
-            addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj))
+            addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj))
         else:
             for i in range(addr_num):
                 bip_obj_addr = bip_obj.AddressIndex(i + addr_offset)
-                addr.m_addresses.append(HdWalletKeys.FromBipObj(bip_obj_addr))
+                addr.m_addresses.append(HdWalletBipKeys.FromBipObj(bip_obj_addr))
 
         return addr
 
@@ -84,7 +84,7 @@ class HdWalletAddresses:
         addr_dict = {}
 
         for i, key in enumerate(self.m_addresses):
-            dict_key = HdWalletAddressesConst.ADDR_DICT_KEY % (i + 1)
+            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + 1)
             addr_dict[dict_key] = key.ToDict()
 
         return addr_dict
@@ -110,18 +110,18 @@ class HdWalletAddresses:
         return len(self.m_addresses)
 
     def __getitem__(self,
-                    addr_idx: int) -> HdWalletKeys:
+                    addr_idx: int) -> HdWalletBipKeys:
         """ Get the specified address index.
 
         Args:
             addr_idx (int): Address index
 
         Returns:
-            HdWalletKeys object: HdWalletKeys object
+            HdWalletBipKeys object: HdWalletBipKeys object
         """
         return self.m_addresses[addr_idx]
 
-    def __iter__(self) -> Iterator[HdWalletKeys]:
+    def __iter__(self) -> Iterator[HdWalletBipKeys]:
         """ Get the iterator to the current element.
 
         Returns:

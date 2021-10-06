@@ -24,26 +24,26 @@ from __future__ import annotations
 import json
 from typing import Dict, Optional
 from bip_utils.bip.bip44_base import Bip44Base
-from py_crypto_hd_wallet.hd_wallet_enum import HdWalletKeyTypes
+from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import HdWalletBipKeyTypes
 
 
-class HdWalletKeysConst:
+class HdWalletBipKeysConst:
     """ Class container for HD wallet keys constants. """
 
     # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-            HdWalletKeyTypes.EX_PRIV: "ex_priv",
-            HdWalletKeyTypes.RAW_PRIV: "raw_priv",
-            HdWalletKeyTypes.WIF_PRIV: "wif_priv",
-            HdWalletKeyTypes.EX_PUB: "ex_pub",
-            HdWalletKeyTypes.RAW_COMPR_PUB: "raw_compr_pub",
-            HdWalletKeyTypes.RAW_UNCOMPR_PUB: "raw_uncompr_pub",
-            HdWalletKeyTypes.ADDRESS: "address",
+    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletBipKeyTypes, str] = {
+            HdWalletBipKeyTypes.EX_PRIV: "ex_priv",
+            HdWalletBipKeyTypes.RAW_PRIV: "raw_priv",
+            HdWalletBipKeyTypes.WIF_PRIV: "wif_priv",
+            HdWalletBipKeyTypes.EX_PUB: "ex_pub",
+            HdWalletBipKeyTypes.RAW_COMPR_PUB: "raw_compr_pub",
+            HdWalletBipKeyTypes.RAW_UNCOMPR_PUB: "raw_uncompr_pub",
+            HdWalletBipKeyTypes.ADDRESS: "address",
         }
 
 
-class HdWalletKeys:
-    """ HD wallet keys class. It creates keys from a Bip object and store them.
+class HdWalletBipKeys:
+    """ HD wallet BIP keys class. It creates keys from a Bip object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 
@@ -56,7 +56,7 @@ class HdWalletKeys:
         self.m_key_data = {}
 
     @staticmethod
-    def FromBipObj(bip_obj: Bip44Base) -> HdWalletKeys:
+    def FromBipObj(bip_obj: Bip44Base) -> HdWalletBipKeys:
         """ Create keys from the specified Bip object.
         If the Bip object is at address index level, also the address will be computed.
 
@@ -64,28 +64,28 @@ class HdWalletKeys:
             bip_obj (Bip44Base object): Bip44Base object
 
         Returns:
-            HdWalletKeys object: HdWalletKeys object
+            HdWalletBipKeys object: HdWalletBipKeys object
         """
 
-        wallet_keys = HdWalletKeys()
+        wallet_keys = HdWalletBipKeys()
 
         # Add public keys
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
+        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
+        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
 
         # Add private keys only if Bip object is not public-only
         if not bip_obj.IsPublicOnly():
-            wallet_keys.__SetKeyData(HdWalletKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
-            wallet_keys.__SetKeyData(HdWalletKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
+            wallet_keys.__SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
+            wallet_keys.__SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
             # Add WIF if supported by the coin
             wif = bip_obj.PrivateKey().ToWif()
             if wif != "":
-                wallet_keys.__SetKeyData(HdWalletKeyTypes.WIF_PRIV, wif)
+                wallet_keys.__SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)
 
         # Address
-        wallet_keys.__SetKeyData(HdWalletKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
+        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
 
         return wallet_keys
 
@@ -110,34 +110,34 @@ class HdWalletKeys:
         return json.dumps(self.ToDict(), indent=json_indent)
 
     def HasKey(self,
-               key_type: HdWalletKeyTypes) -> bool:
+               key_type: HdWalletBipKeyTypes) -> bool:
         """ Get if the key of the specified type is present.
 
         Args:
-            key_type (HdWalletKeyTypes): Key type, shall be of HdWalletKeyTypes enum
+            key_type (HdWalletBipKeyTypes): Key type, shall be of HdWalletBipKeyTypes enum
 
         Returns:
             bool: True if present, false otherwise
         """
-        if not isinstance(key_type, HdWalletKeyTypes):
-            raise TypeError("Key type is not an enumerative of HdWalletKeyTypes")
+        if not isinstance(key_type, HdWalletBipKeyTypes):
+            raise TypeError("Key type is not an enumerative of HdWalletBipKeyTypes")
 
-        dict_key = HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+        dict_key = HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
         return dict_key in self.m_key_data
 
     def GetKey(self,
-               key_type: HdWalletKeyTypes) -> Optional[str]:
+               key_type: HdWalletBipKeyTypes) -> Optional[str]:
         """ Get key of the specified type.
 
         Args:
-            key_type (HdWalletKeyTypes): Key type, shall be of HdWalletKeyTypes enum
+            key_type (HdWalletBipKeyTypes): Key type, shall be of HdWalletBipKeyTypes enum
 
         Returns:
             str: Key string
             None: If the key type is not found
         """
         if self.HasKey(key_type):
-            return self.m_key_data[HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
+            return self.m_key_data[HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
         else:
             return None
 
@@ -146,13 +146,13 @@ class HdWalletKeys:
     #
 
     def __SetKeyData(self,
-                     key_type: HdWalletKeyTypes,
+                     key_type: HdWalletBipKeyTypes,
                      key_value: str) -> None:
         """ Set key data.
 
         Args:
-            key_type (HdWalletKeyTypes): Key type, shall be of HdWalletKeyTypes enum
-            key_value (str)            : Key value
+            key_type (HdWalletBipKeyTypes): Key type, shall be of HdWalletBipKeyTypes enum
+            key_value (str)               : Key value
         """
-        dict_key = HdWalletKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+        dict_key = HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
         self.m_key_data[dict_key] = key_value
