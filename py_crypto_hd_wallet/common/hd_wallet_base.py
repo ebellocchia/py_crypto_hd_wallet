@@ -24,11 +24,7 @@ import json
 from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Any, Dict, Optional
-
-
-class HdWalletDataTypes(Enum):
-    """ Base enum for wallet data types. """
-    pass
+from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
 
 
 class HdWalletBase(ABC):

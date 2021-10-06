@@ -6,5 +6,5 @@ from py_crypto_hd_wallet.bip import *
 from py_crypto_hd_wallet.monero import *
 # Substrate
 from py_crypto_hd_wallet.substrate import *
-# Common
-from py_crypto_hd_wallet.common import HdWalletSaver
+# Saver
+from py_crypto_hd_wallet.saver import HdWalletSaver

@@ -20,7 +20,7 @@
 
 
 # Imports
-from py_crypto_hd_wallet.common.hd_wallet_base import HdWalletBase
+from py_crypto_hd_wallet.common import HdWalletBase
 
 
 class HdWalletSaver:
