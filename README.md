@@ -702,7 +702,7 @@ Output:
             "address": "0x48D98a099F363209F74F7553817eCDd4EBE9aaDe"
         },
         "address": {
-            "address_1": {
+            "address_0": {
                 "ex_pub": "xpub6FzbKqUUYaWZh2L38Vr6Q3uMvMCE2NW1PVkNDqp2wTxuPb6pevWLHh1eUqNPnJfQj8Js8hqh4RkpfUMaWER2BhK1D7XgJF8UgHQGkcFc9LQ",
                 "raw_compr_pub": "020adc5bcba7b3164b300f93f7dc2321133f5f6b89cf88c7633351339190959d2a",
                 "raw_uncompr_pub": "040adc5bcba7b3164b300f93f7dc2321133f5f6b89cf88c7633351339190959d2ad74a1bdb34512cfbe5fde914e35710d073718abb2862800276dfb127f995b984",
@@ -710,7 +710,7 @@ Output:
                 "raw_priv": "b556f7f4fec0d14afde9cccfbb9d34e4d8975b13871ea4255af67c187edb9d30",
                 "address": "0x8FFc6Fb7c5E51804cA98778aF328ba6F9E199f92"
             },
-            "address_2": {
+            "address_1": {
                 "ex_pub": "xpub6FzbKqUUYaWZjRArBfKHkhDwL4o21qbr5aHQzzSNAz158DY24MLmhhLb5Nv1Tazi3WNm5j6TriqAbKR1533JiDdkYKEWXmvq5inzyWScM67",
                 "raw_compr_pub": "028844fb8d680c592022a6bb9c54e0cd4348b51b477013fac88230039abacf776a",
                 "raw_uncompr_pub": "048844fb8d680c592022a6bb9c54e0cd4348b51b477013fac88230039abacf776ac615527dc34c503d8c10e79296112c1257686c9305c2717f7405f87ed7f8de64",
@@ -718,7 +718,7 @@ Output:
                 "raw_priv": "4b5c580a53ff96e075a3f3b6ba46c1856eea88ffb85e89e5b21c55b07bf1137c",
                 "address": "0xD786d267253aA2f8efE470298063391FFD0fAa9a"
             },
-            "address_3": {
+            "address_2": {
                 "ex_pub": "xpub6FzbKqUUYaWZnfEQAifW4qGCxymzgZjAE87V7aCQoeJxFvm1PWxzSKtzJgEByRH1Vr53jRSgGosxm2WRFBsgcLHn1jb6U8KKCgYNL83TUMg",
                 "raw_compr_pub": "0277fecd6b17ad589b0583bc983a69244b8ea0a96a31e1e7f1f66c03cd356e750c",
                 "raw_uncompr_pub": "0477fecd6b17ad589b0583bc983a69244b8ea0a96a31e1e7f1f66c03cd356e750cac5f4c0ca11403d6063f3fc1d0096b3cae59f4772c4074dd9673022dcbe44634",
@@ -796,7 +796,7 @@ Output:
             "address": "ltc1qhd4p5y7ycw8jyq3fd25nrs9d6qweewk7cmyuzd"
         },
         "address": {
-            "address_1": {
+            "address_0": {
                 "ex_pub": "zpub6vTTtJ8jWvYsRr2xkYgxWA7vbUfhpHPZtqRQ7YUc4TMfoWzJLwxFar48oDAgiN6tX4WW9vmqkXafqXi3fq5XJozY8QyFkcougMwVDYJEofN",
                 "raw_compr_pub": "03c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1",
                 "raw_uncompr_pub": "04c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1be8722700b9e957b500970b49b64ed140d7d497ce49efd9b5bf11f61119f0163",
@@ -805,7 +805,7 @@ Output:
                 "wif_priv": "T9axDMhDy4riyEcvn8duEfko5jZ2Pxp6V6XFwdm9iz8LwEVdk4u2",
                 "address": "ltc1qeyp9rflupuvw5j5pdyluhqgdxfk092hra6m8jm"
             },
-            "address_2": {
+            "address_1": {
                 "ex_pub": "zpub6vTTtJ8jWvYsU8EMiNdNZBK6WGgzXMb5Y44C6sZ3ppmSVZ1T24DsdeeS7CqUzTVm4orZ5DjBfXCUT4EvdMUriMD3wJZ9T6ReHDsjHc1eKY7",
                 "raw_compr_pub": "039111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f22699",
                 "raw_uncompr_pub": "049111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f2269942508a95ec95c1aece10aa0ec6c375950ed4131a1300bb5970f75aa1a360f871",
@@ -814,7 +814,7 @@ Output:
                 "wif_priv": "T7h7fuRWqkAbcwMNbXdoNwW8WF5LKLa83jXHnNiMLowp97eKNpy8",
                 "address": "ltc1q2ksy0gmj2y2zru74nd64zlaq8h30qpz6dstr2s"
             },
-            "address_3": {
+            "address_2": {
                 "ex_pub": "zpub6vTTtJ8jWvYsWueMEngC1icupRsMKEL4yu8qrtJHEHXBrqp1xV3JYKr6L8oiaUzub2Vpzzi2jRxktYYkV16HNveP3GxbfpvdeNfUxUC1ec9",
                 "raw_compr_pub": "0301e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400",
                 "raw_uncompr_pub": "0401e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400ea341d4a8c1f97d46c9e6a8341b2fd81442b5ae8aea988ccf3f5f429d6eb9bd9",
@@ -865,7 +865,7 @@ Output:
             "address": "3DcywsCrTfiQnxbiHDhm9sXsrhGE1P4ehg"
         },
         "address": {
-            "address_1": {
+            "address_0": {
                 "ex_pub": "ypub6bWfB6tKVSQKayURFLcsaLjRvEzA92ZNFQpJioiTvN4BLucHrr5btBLpeBDjuV2mGb2wXWL1taoBNWf9xNgjHrPWkhSxxfrDGiciopL6N6E",
                 "raw_compr_pub": "039b3b694b8fc5b5e07fb069c783cac754f5d38c3e08bed1960e31fdb1dda35c24",
                 "raw_uncompr_pub": "049b3b694b8fc5b5e07fb069c783cac754f5d38c3e08bed1960e31fdb1dda35c2449bdd1f0ae7d37a04991d4f5927efd359c13189437d9eae0faf7d003ffd04c89",
@@ -874,7 +874,7 @@ Output:
                 "wif_priv": "KyvHbRLNXfXaHuZb3QRaeqA5wovkjg4RuUpFGCxdH5UWc1Foih9o",
                 "address": "37VucYSaXLCAsxYyAPfbSi9eh4iEcbShgf"
             },
-            "address_2": {
+            "address_1": {
                 "ex_pub": "ypub6bWfB6tKVSQKcyzhDuvtgHqpp14CDMfkba7pG9W9WdCh5Y2Mmktq7rUu8EqXX3fQ6wvHKEXQUkGiXaTtFaraxa9FxsCPJF9qEWDi4HkXs8p",
                 "raw_compr_pub": "022a421fa4a65a87d1c3e4238155d85f7bd2c5bb87632f331b5722f110586aa198",
                 "raw_uncompr_pub": "042a421fa4a65a87d1c3e4238155d85f7bd2c5bb87632f331b5722f110586aa19885dc3cfdbc32b6050392ab66f99f67cc15fedb517df58070d022c9d7bc840804",
@@ -883,7 +883,7 @@ Output:
                 "wif_priv": "KyaMvgopkPDQMQUx2w9a8AiEtA7A84hYzASJWGQiKZ8AJUEj77iV",
                 "address": "3LtMnn87fqUeHBUG414p9CWwnoV6E2pNKS"
             },
-            "address_3": {
+            "address_2": {
                 "ex_pub": "ypub6bWfB6tKVSQKezmwEg4FKD6EZmrm1oEd1ydxdRGKd89KyyWmrHar3ATQV2vXNDtXPUZBkaR7zgRKiCqkQwLgxXKLcnBQF8Cmr7jFd8YUnSb",
                 "raw_compr_pub": "02fdbd244eebd701270478af75ebb8894b963d61f2f686e366a626cb200ba13e45",
                 "raw_uncompr_pub": "04fdbd244eebd701270478af75ebb8894b963d61f2f686e366a626cb200ba13e4504fa4141a7e6ba896cbc25c37b6b26d0ca2bea07a44f33609874faffabbfd35e",
@@ -915,7 +915,7 @@ Output:
         "spec_name": "BIP-0044",
         "coin_name": "Dogecoin (DOGE)",
         "address": {
-            "address_1": {
+            "address_0": {
                 "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
                 "raw_compr_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
                 "raw_uncompr_pub": "cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0ef6096bd24259fb59a4338413d1b542eed17d4cce52709e6ec18ec51bb87b164",
@@ -953,19 +953,19 @@ Output:
             "address": "bitcoincash:qqvk926cp5ksw8zaskz78f66ty2kfjr0aytjfqg3mv"
         },
         "address": {
-            "address_1": {
+            "address_0": {
                 "ex_pub": "xpub6Fbrwk4KhC8qnFVXTcR3wRsqiTGkedcSSZKyTqKaxXjFN6rZv3UJYZ4mQtjNYY3gCa181iCHSBWyWst2PFiXBKgLpFVSdcyLbHyAahin8pd",
                 "raw_compr_pub": "03aaeb52dd7494c361049de67cc680e83ebcbbbdbeb13637d92cd845f70308af5e",
                 "raw_uncompr_pub": "04aaeb52dd7494c361049de67cc680e83ebcbbbdbeb13637d92cd845f70308af5e9370164133294e5fd1679672fe7866c307daf97281a28f66dca7cbb52919824f",
                 "address": "bitcoincash:qrvcdmgpk73zyfd8pmdl9wnuld36zh9n4gms8s0u59"
             },
-            "address_2": {
+            "address_1": {
                 "ex_pub": "xpub6Fbrwk4KhC8qpW547rQ6k2d2YBu672sBMtGV1q5duGH7pktZou5ZyuufVAC4rtyM5csX6hCkdPJe2SVZUQ2hAtMNcx3iS7qcnFdGJxmtDNn",
                 "raw_compr_pub": "02dfcaec532010d704860e20ad6aff8cf3477164ffb02f93d45c552dadc70ed24f",
                 "raw_uncompr_pub": "04dfcaec532010d704860e20ad6aff8cf3477164ffb02f93d45c552dadc70ed24f05100e9dc6d05ccd7e8bdade50dabeeed654700fde6134870194a6ccb2a07a5e",
                 "address": "bitcoincash:qp4wzvqu73x22ft4r5tk8tz0aufdz9fescwtpcmhc7"
             },
-            "address_3": {
+            "address_2": {
                 "ex_pub": "xpub6Fbrwk4KhC8qtGNv4K6ZPPa4CjbLKcXhc6CzA57XMPXVYMjQn3LQUY3G8B9kwKkfiM5KnhL1bTSQaN4EYDgamQeQGu7RjFgqBC1rjTvqwLM",
                 "raw_compr_pub": "0338994349b3a804c44bbec55c2824443ebb9e475dfdad14f4b1a01a97d42751b3",
                 "raw_uncompr_pub": "0438994349b3a804c44bbec55c2824443ebb9e475dfdad14f4b1a01a97d42751b37a93be7a6818b0f5bc5410bb844ba9d417181afae5810c7a222e8fd47a02f6b9",
@@ -1043,7 +1043,7 @@ Output:
         },
         "address_off": 10,
         "address": {
-            "address_1": {
+            "address_10": {
                 "ex_pub": "zpub6uWUdQwoERPop18hkcif6wtzEgkX59TfDqGP6mefV8q4Vs4o9jrHo2nZLmNzjcHwiQB6ApGXWwdBj992G4PfGnSLbvVTYKP1Zi4j2XasXR9",
                 "raw_compr_pub": "02eda660ac51ac06632362b3c32b002404e72f94896d3cfbae8a8a2fe50f628436",
                 "raw_uncompr_pub": "04eda660ac51ac06632362b3c32b002404e72f94896d3cfbae8a8a2fe50f628436a28ea94ee2370be26a108af8a0ec9c71c43d79fa26d2e0675f81de43daded4b0",
@@ -1052,7 +1052,7 @@ Output:
                 "wif_priv": "L3cX2PujELmCHDUaeLMX5sc4JU3kuRogKWfgxNiVAVUUkWuf8HpW",
                 "address": "bc1qfa50sz7cdx8kdyrtnr9n9lawxdsg8r0ndaed3m"
             },
-            "address_2": {
+            "address_11": {
                 "ex_pub": "zpub6uWUdQwoERPosBJL8VNUGsxetVoUWwLx9ueSKqdQ4tj4WKDZPx756bD3Vch5zZtagf33a9hR3N447mdbZSKc4Q5Qqv6UnDNHJBvekoYb83L",
                 "raw_compr_pub": "021e6c3f7a88c521920fa4e8a1ff156b31632c6cef49e1334f08f176ff2386b1df",
                 "raw_uncompr_pub": "041e6c3f7a88c521920fa4e8a1ff156b31632c6cef49e1334f08f176ff2386b1dfbcb01b7e1029de03493c36724d0fc2a3107254b6cf0a011013147c760057e8a4",
@@ -1061,7 +1061,7 @@ Output:
                 "wif_priv": "Kwd7VEJx26UB3kqbaoJfhKU3J2BW6QewCjfuvXddA2PKJBv4ixX1",
                 "address": "bc1q29dz6dmey6nkv3ky87grsuza5fljl9rwh9nda3"
             },
-            "address_3": {
+            "address_12": {
                 "ex_pub": "zpub6uWUdQwoERPowGc9VGNoCQEXvhGBZTTGThm3FGQV6mxNvYGEU5yLLHuwB8k7LwBvLs4JC3tnnfTMCdkiA9WnjEsW7LEjzRB7qBaC81NC9Ja",
                 "raw_compr_pub": "038cc8faddc9d6da9aeded9dafa0055d675ba166b1dd7e491e9db312c22f2795cf",
                 "raw_uncompr_pub": "048cc8faddc9d6da9aeded9dafa0055d675ba166b1dd7e491e9db312c22f2795cf8548459cc0901b6275b81a4c66fc03a84020a65ceebdc37b6e32675ad4aa6791",
