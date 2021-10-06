@@ -24,8 +24,8 @@ from typing import Any, Dict, Optional, Union
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddresses
-from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import *
+from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
 
@@ -133,11 +133,13 @@ class HdWalletBip(HdWalletBase):
         # Set change keys and derive addresses if correct level
         if bip_obj.IsLevel(Bip44Levels.CHANGE):
             self.__SetKeys(HdWalletBipDataTypes.CHANGE_KEY, bip_obj)
-            self.__SetData(HdWalletBipDataTypes.ADDRESSES, HdWalletBipAddresses.FromBipObj(bip_obj, addr_num, addr_offset))
+            self.__SetData(HdWalletBipDataTypes.ADDRESSES,
+                           HdWalletBipAddresses.FromBipObj(bip_obj, addr_num, addr_offset))
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
-            self.__SetData(HdWalletBipDataTypes.ADDRESSES, HdWalletBipAddresses.FromBipObj(bip_obj, 1, 0))
+            self.__SetData(HdWalletBipDataTypes.ADDRESSES,
+                           HdWalletBipAddresses.FromBipObj(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:
         """ Get if the wallet is watch-only.
