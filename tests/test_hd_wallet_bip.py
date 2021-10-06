@@ -614,7 +614,9 @@ class HdWalletBipTests(unittest.TestCase):
         # Invalid parameters for Generate
         self.assertRaises(TypeError, hd_wallet.Generate, change_idx=0)
         self.assertRaises(ValueError, hd_wallet.Generate, addr_num=-1)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_num=2**32)
         self.assertRaises(ValueError, hd_wallet.Generate, addr_offset=-1)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_offset=2**32)
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)

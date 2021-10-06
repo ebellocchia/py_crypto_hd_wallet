@@ -22,6 +22,7 @@
 # Imports
 from typing import Any, Dict, Optional, Union
 from bip_utils import Bip44Levels
+from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddresses
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import *
@@ -103,10 +104,10 @@ class HdWalletBip(HdWalletBase):
         # Check parameters
         if not isinstance(change_idx, HdWalletBipChanges):
             raise TypeError("Change index is not an enumerative of HdWalletBipChanges")
-        if addr_num < 0:
-            raise ValueError("Address number shall be greater or equal to zero")
-        if addr_offset < 0:
-            raise ValueError("Address offset shall be greater or equal to zero")
+        if addr_num < 0 or addr_num > Bip32KeyDataConst.KEY_INDEX_MAX_VAL:
+            raise ValueError("Address number shall be greater or equal to zero and less than 2^32")
+        if addr_offset < 0 or addr_offset > Bip32KeyDataConst.KEY_INDEX_MAX_VAL:
+            raise ValueError("Address offset shall be greater or equal to zero and less than 2^32")
 
         # Save the BIP object
         bip_obj = self.m_bip_obj
