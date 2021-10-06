@@ -28,7 +28,7 @@ from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubst
 
 
 class HdWalletSubstrateKeysConst:
-    """ Class container for HD wallet keys constants. """
+    """ Class container for HD wallet Substrate keys constants. """
 
     # Map key types to dictionary key
     KEY_TYPE_TO_DICT_KEY: Dict[HdWalletSubstrateKeyTypes, str] = {
@@ -39,7 +39,7 @@ class HdWalletSubstrateKeysConst:
 
 
 class HdWalletSubstrateKeys:
-    """ HD wallet BIP keys class. It creates keys from a Bip object and store them.
+    """ HD wallet Substrate keys class. It creates keys from a Substrate object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 
@@ -52,9 +52,8 @@ class HdWalletSubstrateKeys:
         self.m_key_data = {}
 
     @staticmethod
-    def FromBipObj(substrate_obj: Substrate) -> HdWalletSubstrateKeys:
-        """ Create keys from the specified Bip object.
-        If the Bip object is at address index level, also the address will be computed.
+    def FromSubstrateObj(substrate_obj: Substrate) -> HdWalletSubstrateKeys:
+        """ Create keys from the specified Substrate object.
 
         Args:
             substrate_obj (Substrate object): Substrate object

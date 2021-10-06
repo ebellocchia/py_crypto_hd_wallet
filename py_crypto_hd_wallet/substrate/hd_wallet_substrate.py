@@ -201,4 +201,4 @@ class HdWalletSubstrate(HdWalletBase):
             data_type (HdWalletSubstrateDataTypes): Data type
             substrate_obj (Substrate object)      : Substrate object
         """
-        self.__SetData(data_type, HdWalletSubstrateKeys.FromBipObj(substrate_obj))
+        self.__SetData(data_type, HdWalletSubstrateKeys.FromSubstrateObj(substrate_obj))

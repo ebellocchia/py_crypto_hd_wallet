@@ -28,7 +28,7 @@ from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import HdWalletBipKeyTypes
 
 
 class HdWalletBipKeysConst:
-    """ Class container for HD wallet keys constants. """
+    """ Class container for HD wallet BIP keys constants. """
 
     # Map key types to dictionary key
     KEY_TYPE_TO_DICT_KEY: Dict[HdWalletBipKeyTypes, str] = {
@@ -58,7 +58,6 @@ class HdWalletBipKeys:
     @staticmethod
     def FromBipObj(bip_obj: Bip44Base) -> HdWalletBipKeys:
         """ Create keys from the specified Bip object.
-        If the Bip object is at address index level, also the address will be computed.
 
         Args:
             bip_obj (Bip44Base object): Bip44Base object
