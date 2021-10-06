@@ -21,7 +21,7 @@
 
 # Imports
 from typing import Any, Dict, Optional, Union
-from bip_utils import Monero
+from bip_utils import Bip44MoneroEd25519Slip, Monero
 from bip_utils.monero.monero import MoneroConst
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import *
@@ -32,9 +32,6 @@ from py_crypto_hd_wallet.utils import Utils
 
 class HdWalletMoneroConst:
     """ Class container for HD wallet Monero constants. """
-
-    # Coin name
-    COIN_NAME: str = "Monero (XMR)"
 
     # Map data types to dictionary key
     DATA_TYPE_TO_DICT_KEY: Dict[HdWalletMoneroDataTypes, str] = {
@@ -197,7 +194,8 @@ class HdWalletMonero(HdWalletBase):
         # Set wallet name
         self.__SetData(HdWalletMoneroDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
-        self.__SetData(HdWalletMoneroDataTypes.COIN_NAME, HdWalletMoneroConst.COIN_NAME)
+        coin_names = Bip44MoneroEd25519Slip.CoinNames()
+        self.__SetData(HdWalletMoneroDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
