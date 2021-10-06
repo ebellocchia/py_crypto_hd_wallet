@@ -58,7 +58,7 @@ class HdWalletBipFactory:
             raise TypeError("Coin type is not an accepted enumerative")
 
         # Initialize members
-        self.m_bip_coin = coin_type.ToBipCoin()
+        self.m_bip_coin = coin_type
         self.m_bip_cls = self.__BipClassFromCoinType(coin_type)
 
     def CreateRandom(self,
@@ -83,7 +83,7 @@ class HdWalletBipFactory:
         elif not isinstance(lang, HdWalletBipLanguages):
             raise TypeError("Language is not an enumerative of HdWalletBipLanguages")
 
-        mnemonic = Bip39MnemonicGenerator(lang.ToBipLanguage()).FromWordsNumber(words_num)
+        mnemonic = Bip39MnemonicGenerator(lang).FromWordsNumber(words_num)
 
         return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 

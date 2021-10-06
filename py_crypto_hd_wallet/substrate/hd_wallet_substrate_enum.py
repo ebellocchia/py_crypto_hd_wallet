@@ -26,41 +26,12 @@ from bip_utils import SubstrateCoins
 from py_crypto_hd_wallet.bip import HdWalletBipWordsNum, HdWalletBipLanguages
 
 
-""" Alias for HdWalletBipWordsNum. """
+# Alias for HdWalletBipWordsNum
 HdWalletSubstrateWordsNum = HdWalletBipWordsNum
 # Alias for HdWalletBipLanguages
 HdWalletSubstrateLanguages = HdWalletBipLanguages
-
-
-@unique
-class HdWalletSubstrateCoins(Enum):
-    """ Alias for hiding SubstrateCoins. """
-
-    ACALA = SubstrateCoins.ACALA
-    BIFROST = SubstrateCoins.BIFROST
-    CHAINX = SubstrateCoins.CHAINX
-    EDGEWARE = SubstrateCoins.EDGEWARE
-    GENERIC = SubstrateCoins.GENERIC
-    KARURA = SubstrateCoins.KARURA
-    KUSAMA = SubstrateCoins.KUSAMA
-    MOONBEAM = SubstrateCoins.MOONBEAM
-    MOONRIVER = SubstrateCoins.MOONRIVER
-    PHALA = SubstrateCoins.PHALA
-    PLASM = SubstrateCoins.PLASM
-    POLKADOT = SubstrateCoins.POLKADOT
-    SORA = SubstrateCoins.SORA
-    STAFI = SubstrateCoins.STAFI
-
-    def ToSubstrateCoin(enum_val: HdWalletSubstrateCoins) -> SubstrateCoins:
-        """ Convert to SubstrateCoins type.
-
-        Args:
-            enum_val (HdWalletSubstrateCoins): Enum value
-
-        Returns:
-            SubstrateCoins: SubstrateCoins value
-        """
-        return SubstrateCoins(enum_val.value)
+# Alias for SubstrateCoins
+HdWalletSubstrateCoins = SubstrateCoins
 
 
 @unique

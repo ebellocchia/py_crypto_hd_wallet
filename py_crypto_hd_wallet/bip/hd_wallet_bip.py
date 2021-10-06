@@ -128,7 +128,7 @@ class HdWalletBip(HdWalletBase):
         if bip_obj.IsLevel(Bip44Levels.ACCOUNT):
             self.__SetKeys(HdWalletBipDataTypes.ACCOUNT_KEY, bip_obj)
             self.__SetData(HdWalletBipDataTypes.CHANGE_IDX, int(change_idx))
-            bip_obj = bip_obj.Change(change_idx.ToBip44Change())
+            bip_obj = bip_obj.Change(change_idx)
 
         # Set change keys and derive addresses if correct level
         if bip_obj.IsLevel(Bip44Levels.CHANGE):

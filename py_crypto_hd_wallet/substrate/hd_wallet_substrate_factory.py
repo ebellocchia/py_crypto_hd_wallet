@@ -51,7 +51,7 @@ class HdWalletSubstrateFactory:
             raise TypeError("Coin type is not an enumerative of HdWalletSubstrateCoins")
 
         # Initialize members
-        self.m_substrate_coin = coin_type.ToSubstrateCoin()
+        self.m_substrate_coin = coin_type
 
     def CreateRandom(self,
                      wallet_name: str,
@@ -75,7 +75,7 @@ class HdWalletSubstrateFactory:
         elif not isinstance(lang, HdWalletSubstrateLanguages):
             raise TypeError("Language is not an enumerative of HdWalletSubstrateLanguages")
 
-        mnemonic = Bip39MnemonicGenerator(lang.ToBipLanguage()).FromWordsNumber(words_num)
+        mnemonic = Bip39MnemonicGenerator(lang).FromWordsNumber(words_num)
 
         return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 
