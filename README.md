@@ -235,9 +235,10 @@ In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *
 After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method.\
 For generating a wallet, you can specify the account index, the change index and the number and offset of addresses.\
 If you call the method with no parameters, the default values will be:
-- Account index 0
-- External chain
-- 20 addresses
+- Account index: 0 (*acc_idx*)
+- Chain: external (*change_idx*)
+- Number of addresses: 20 (*addr_num*)
+- Address offset: 0 (*addr_off*)
 
 In case a wallet was created from an extended key, only the levels starting for the extended key depth will be generated.\
 The levels are the ones specified by the BIP-0044 specification:
@@ -270,7 +271,7 @@ Supported change index enumerative:
     # Generate with default parameters
     hd_wallet.Generate()
     # Specify parameters (it'll generate addresses from index 10 to 15)
-    hd_wallet.Generate(account_idx=1, change_idx=HdWalletBipChanges.CHAIN_EXT, addr_num=5, addr_offset=10)
+    hd_wallet.Generate(acc_idx=1, change_idx=HdWalletBipChanges.CHAIN_EXT, addr_num=5, addr_off=10)
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
@@ -315,7 +316,8 @@ The possible data types *HdWalletBipDataTypes* are:
 - *HdWalletBipDataTypes.COIN_KEY* : coin keys (*HdWalletBipKeys* object)
 - *HdWalletBipDataTypes.ACCOUNT_KEY* : account keys (*HdWalletBipKeys* object)
 - *HdWalletBipDataTypes.CHANGE_KEY* : change keys (*HdWalletBipKeys* object)
-- *HdWalletBipDataTypes.ADDRESSES* : addresses (*HdWalletAddresses* object)
+- *HdWalletBipDataTypes.ADDRESS_OFF* : addresses offset (if different from zero)
+- *HdWalletBipDataTypes.ADDRESS* : addresses (*HdWalletAddresses* object)
 
 In case of keys, a *HdWalletBipKeys* object is returned. This object has the following methods:
 - **ToDict()** : return keys as a dictionary
@@ -699,7 +701,7 @@ Output:
             "raw_priv": "a18de84141509372130f15abd34ec72b999e42a686bc298306cab994615c2281",
             "address": "0x48D98a099F363209F74F7553817eCDd4EBE9aaDe"
         },
-        "addresses": {
+        "address": {
             "address_1": {
                 "ex_pub": "xpub6FzbKqUUYaWZh2L38Vr6Q3uMvMCE2NW1PVkNDqp2wTxuPb6pevWLHh1eUqNPnJfQj8Js8hqh4RkpfUMaWER2BhK1D7XgJF8UgHQGkcFc9LQ",
                 "raw_compr_pub": "020adc5bcba7b3164b300f93f7dc2321133f5f6b89cf88c7633351339190959d2a",
@@ -793,7 +795,7 @@ Output:
             "wif_priv": "T3vNVL8tKAdziuDYACQagqzj21hSQXoHcg6TePTn2wQ2Mkn9QMm2",
             "address": "ltc1qhd4p5y7ycw8jyq3fd25nrs9d6qweewk7cmyuzd"
         },
-        "addresses": {
+        "address": {
             "address_1": {
                 "ex_pub": "zpub6vTTtJ8jWvYsRr2xkYgxWA7vbUfhpHPZtqRQ7YUc4TMfoWzJLwxFar48oDAgiN6tX4WW9vmqkXafqXi3fq5XJozY8QyFkcougMwVDYJEofN",
                 "raw_compr_pub": "03c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1",
@@ -862,7 +864,7 @@ Output:
             "wif_priv": "Kz4UPE5L4iBCRy2ngXw3yyVvWQYvEKmSu8YCquFa8tzMtbc6giqt",
             "address": "3DcywsCrTfiQnxbiHDhm9sXsrhGE1P4ehg"
         },
-        "addresses": {
+        "address": {
             "address_1": {
                 "ex_pub": "ypub6bWfB6tKVSQKayURFLcsaLjRvEzA92ZNFQpJioiTvN4BLucHrr5btBLpeBDjuV2mGb2wXWL1taoBNWf9xNgjHrPWkhSxxfrDGiciopL6N6E",
                 "raw_compr_pub": "039b3b694b8fc5b5e07fb069c783cac754f5d38c3e08bed1960e31fdb1dda35c24",
@@ -912,7 +914,7 @@ Output:
         "wallet_name": "doge_wallet",
         "spec_name": "BIP-0044",
         "coin_name": "Dogecoin (DOGE)",
-        "addresses": {
+        "address": {
             "address_1": {
                 "ex_pub": "dgub8waqP8q2HTvxt8XdLNNr5wzm5GzfZWkkCyq2uF3EDctUZs6xztwbGGZd5Nx7kEg4QaPK6kQYTMXnx4kBmrYAogxfCD6ETtwvvYPDfW2edcB",
                 "raw_compr_pub": "02cc6b0dc33aabcf3a23643e5e2919a80c50fb3dd2129ce409bbc5f0d4643d05e0",
@@ -950,7 +952,7 @@ Output:
             "raw_uncompr_pub": "0486b865b52b753d0a84d09bc20063fab5d8453ec33c215d4019a5801c9c6438b917770b2782e29a9ecc6edb67cd1f0fbf05ec4c1236884b6d686d6be3b1588abb",
             "address": "bitcoincash:qqvk926cp5ksw8zaskz78f66ty2kfjr0aytjfqg3mv"
         },
-        "addresses": {
+        "address": {
             "address_1": {
                 "ex_pub": "xpub6Fbrwk4KhC8qnFVXTcR3wRsqiTGkedcSSZKyTqKaxXjFN6rZv3UJYZ4mQtjNYY3gCa181iCHSBWyWst2PFiXBKgLpFVSdcyLbHyAahin8pd",
                 "raw_compr_pub": "03aaeb52dd7494c361049de67cc680e83ebcbbbdbeb13637d92cd845f70308af5e",
@@ -983,7 +985,7 @@ Code:
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip84Coins.BITCOIN)
     hd_wallet = hd_wallet_fact.CreateFromPrivateKey("btc_wallet", priv_key)
-    hd_wallet.Generate(addr_num=3, addr_offset=10)
+    hd_wallet.Generate(addr_num=3, addr_off=10)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
@@ -1039,7 +1041,8 @@ Output:
             "wif_priv": "KxNX2qx3yUGpJg4gc4JV6sU8zJV9Lsdp3esorpa7PofECj2JgbSW",
             "address": "bc1q8fhr4zkup8vjnakjsu8p6y9nshcax5r6275zw7"
         },
-        "addresses": {
+        "address_off": 10,
+        "address": {
             "address_1": {
                 "ex_pub": "zpub6uWUdQwoERPop18hkcif6wtzEgkX59TfDqGP6mefV8q4Vs4o9jrHo2nZLmNzjcHwiQB6ApGXWwdBj992G4PfGnSLbvVTYKP1Zi4j2XasXR9",
                 "raw_compr_pub": "02eda660ac51ac06632362b3c32b002404e72f94896d3cfbae8a8a2fe50f628436",
