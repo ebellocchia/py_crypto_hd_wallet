@@ -32,6 +32,7 @@ from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
 )
 from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBip
 from py_crypto_hd_wallet.common import HdWalletBase
+from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletBipFactory:
@@ -178,7 +179,7 @@ class HdWalletBipFactory:
         try:
             bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
         except Bip32KeyError as ex:
-            raise ValueError(f"Invalid private key: {priv_key.hex()}") from ex
+            raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key)}") from ex
 
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
