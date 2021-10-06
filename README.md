@@ -4,12 +4,12 @@
 [![codecov](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet/branch/master/graph/badge.svg)](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/ebellocchia/py_crypto_hd_wallet/master/LICENSE)
 
-## Introduction
+# Introduction
 
 This package contains a very basic implementation of a HD (Hierarchical Deterministic) wallet based on my [bip_utils](https://github.com/ebellocchia/bip_utils) library. It is basically a nice wrapper for the [bip_utils](https://github.com/ebellocchia/bip_utils) library for generating the mnemonic, seed, public/private keys and addresses.\
 The supported coins are the same of the [bip_utils](https://github.com/ebellocchia/bip_utils) library, so check the related page.
 
-## Install the package
+# Install the package
 
 The package requires Python 3, it is not compatible with Python 2.
 To install it:
@@ -44,12 +44,14 @@ To run the tests:
 
             coverage html
 
-## Usage
+# BIP wallet
 
-### Wallet factory construction
+A BIP wallet is a wallet based on BIP-0044, BIP-0049 and BIP-0084 specifications.
 
-A wallet is created using the *HdWalletFactory* class.\
-A *HdWalletFactory* class is simply constructed by specifying the desired coin. After the construction, the factory can be used to create wallets with the specified coin.
+## BIP Wallet factory construction
+
+A BIP wallet is created using the *HdWalletBipFactory* class.\
+A *HdWalletBipFactory* class is simply constructed by specifying the desired coin. After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
 
@@ -125,12 +127,12 @@ Harmony One and OKEx Chain have different formats, see [bip_utils](https://githu
 
 **Example**
 
-    from py_crypto_hd_wallet import HdWalletFactory, HdWalletCoins
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletBip44Coins, HdWalletBip49Coins
 
     # Create a BIP-0044 Bitcoin wallet factory
-    hd_wallet_fact = HdWalletFactory(HdWalletBip44Coins.BITCOIN)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
     # Create a BIP-0049 Litecoin wallet factory
-    hd_wallet_fact = HdWalletFactory(HdWalletBip49Coins.LITECOIN)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip49Coins.LITECOIN)
 
 ### Wallet creation
 
@@ -139,41 +141,49 @@ Supported words number:
 
 |Words number|Enum|
 |---|---|
-|12|*HdWalletWordsNum.WORDS_NUM_12*|
-|15|*HdWalletWordsNum.WORDS_NUM_15*|
-|18|*HdWalletWordsNum.WORDS_NUM_18*|
-|21|*HdWalletWordsNum.WORDS_NUM_21*|
-|24|*HdWalletWordsNum.WORDS_NUM_24*|
+|12|*HdWalletBipWordsNum.WORDS_NUM_12*|
+|15|*HdWalletBipWordsNum.WORDS_NUM_15*|
+|18|*HdWalletBipWordsNum.WORDS_NUM_18*|
+|21|*HdWalletBipWordsNum.WORDS_NUM_21*|
+|24|*HdWalletBipWordsNum.WORDS_NUM_24*|
 
-Supported languages (if not specified, the default is English):
+Supported languages:
 
 |Language|Enum|
 |---|---|
-|English|*HdWalletWordsLanguages.ENGLISH*|
-|Italian|*HdWalletWordsLanguages.ITALIAN*|
-|French|*HdWalletWordsLanguages.FRENCH*|
-|Spanish|*HdWalletWordsLanguages.SPANISH*|
-|Portuguese|*HdWalletWordsLanguages.PORTUGUESE*|
-|Czech|*HdWalletWordsLanguages.CZECH*|
-|Chinese (simplified)|*HdWalletWordsLanguages.CHINESE_SIMPLIFIED*|
-|Chinese (traditional)|*HdWalletWordsLanguages.CHINESE_TRADITIONAL*|
-|Korean|*HdWalletWordsLanguages.KOREAN*|
+|English|*HdWalletBipLanguages.ENGLISH*|
+|Italian|*HdWalletBipLanguages.ITALIAN*|
+|French|*HdWalletBipLanguages.FRENCH*|
+|Spanish|*HdWalletBipLanguages.SPANISH*|
+|Portuguese|*HdWalletBipLanguages.PORTUGUESE*|
+|Czech|*HdWalletBipLanguages.CZECH*|
+|Chinese (simplified)|*HdWalletBipLanguages.CHINESE_SIMPLIFIED*|
+|Chinese (traditional)|*HdWalletBipLanguages.CHINESE_TRADITIONAL*|
+|Korean|*HdWalletBipLanguages.KOREAN*|
 
 A wallet can be created in the following ways:
-- randomly by generating a random mnemonic with the specified words number and language:
+- randomly by generating a random mnemonic with the specified words number (default: 24) and language (default: English):
 
-        from py_crypto_hd_wallet import HdWalletWordsNum, HdWalletWordsLanguages
+        from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipWordsNum, HdWalletBipLanguages, HdWalletBipFactory
 
-        # Create randomly by specifying the words number:
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_24)
+        # Create factory
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
+        # Create randomly (words number: 24, language: English)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+        # Create randomly by specifying the words number (language: English):
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_24)
         # Specifying the language (default is English):
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.ITALIAN)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.CZECH)
-        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletWordsNum.WORDS_NUM_12, HdWalletWordsLanguages.KOREAN)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.ITALIAN)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.CZECH)
+        hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.KOREAN)
 
 - from an already existent mnemonic:
+
+        from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
 
         # Create from mnemonic
         mnemonic = "garbage fossil patrol shadow put morning miss chapter sister undo nation dignity"
@@ -181,12 +191,23 @@ A wallet can be created in the following ways:
 
 - from a seed:
 
+        import binascii
+        from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
+
         # Create from seed
         seed_bytes = b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4"
         hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
 
 - from a key in extended format.
 The extended key should be in the correct format depending on the wallet coin, otherwise a *ValueError* exception will be raised:
+
+from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
 
         # Create from private extended key
         ex_key = "xprv9s21ZrQH143K4L5D8NLB8rE6XwqsK7hkDLUnVpeMq1t59fZPGU4811A1ih8mPrKisgftXWJZZXAoKdzCcX4WERMXns4s9pDYr54iHs3sSha"
@@ -197,6 +218,12 @@ The extended key should be in the correct format depending on the wallet coin, o
         hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name", ex_key)
 
 - from private key bytes:
+
+        import binascii
+        from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
 
         # Create from private key bytes
         priv_key = binascii.unhexlify(b"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35")
@@ -231,10 +258,18 @@ Supported change index enumerative:
 
 **Example**
 
+    import binascii
+    from py_crypto_hd_wallet import HdWalletBip44Coins,HdWalletBipChanges, HdWalletBipFactory
+
+    # Create factory
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
+    # Create random
+    hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+
     # Generate with default parameters
     hd_wallet.Generate()
     # Specify parameters (it'll generate addresses from index 10 to 15)
-    hd_wallet.Generate(account_idx=1, change_idx=HdWalletChanges.CHAIN_EXT, addr_num=5, addr_offset=10)
+    hd_wallet.Generate(account_idx=1, change_idx=HdWalletBipChanges.CHAIN_EXT, addr_num=5, addr_offset=10)
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
@@ -242,59 +277,59 @@ Supported change index enumerative:
 
 After keys and addresses were generated, you can:
 
-- get the whole data as dictionary:
+- Get the whole data as dictionary:
 
         # Get wallet data as a dictionary
         wallet_data = hd_wallet.ToDict()
 
-- get the whole data as a string in JSON format:
+- Get the whole data as a string in JSON format:
 
         # Get wallet data as a string in JSON format
         wallet_data = hd_wallet.ToJson()
 
-- save data to a file in JSON format by means of the *HdWalletSaver* class, to store the generated keys and addresses:
+- Save data to a file in JSON format using the *HdWalletSaver* class, to store the generated keys and addresses:
 
         # Save wallet data to file
         HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
-- get a specific data, see the next paragraph
+- Get a specific data, see the next paragraph
 
 ### Getting specific wallet data
 
 For getting specific data, the following methods of *HdWallet* can be used:
-- **GetData(*HdWalletDataTypes*)** : return the specified data type if existent, *None* otherwise
-- **HasData(*HdWalletDataTypes*)** : check if the specified data type is existent
+- **GetData(*HdWalletBipDataTypes*)** : return the specified data type if existent, *None* otherwise
+- **HasData(*HdWalletBipDataTypes*)** : check if the specified data type is existent
 
-The possible data types *HdWalletDataTypes* are:
-- *HdWalletDataTypes.WALLET_NAME* : wallet name
-- *HdWalletDataTypes.COIN_NAME* : coin name
-- *HdWalletDataTypes.SPEC_NAME* : specification name
-- *HdWalletDataTypes.MNEMONIC* : mnemonic
-- *HdWalletDataTypes.PASSPHRASE* : passphrase
-- *HdWalletDataTypes.SEED_BYTES* : seed bytes
-- *HdWalletDataTypes.ACCOUNT_IDX* : account index
-- *HdWalletDataTypes.CHANGE_IDX* : change index
-- *HdWalletDataTypes.MASTER_KEY* : master keys
-- *HdWalletDataTypes.PURPOSE_KEY* : purpose keys
-- *HdWalletDataTypes.COIN_KEY* : coin keys
-- *HdWalletDataTypes.ACCOUNT_KEY* : account keys
-- *HdWalletDataTypes.CHANGE_KEY* : change keys
-- *HdWalletDataTypes.ADDRESSES* : addresses
+The possible data types *HdWalletBipDataTypes* are:
+- *HdWalletBipDataTypes.WALLET_NAME* : wallet name
+- *HdWalletBipDataTypes.COIN_NAME* : coin name
+- *HdWalletBipDataTypes.SPEC_NAME* : specification name
+- *HdWalletBipDataTypes.MNEMONIC* : mnemonic
+- *HdWalletBipDataTypes.PASSPHRASE* : passphrase
+- *HdWalletBipDataTypes.SEED_BYTES* : seed bytes
+- *HdWalletBipDataTypes.ACCOUNT_IDX* : account index
+- *HdWalletBipDataTypes.CHANGE_IDX* : change index
+- *HdWalletBipDataTypes.MASTER_KEY* : master keys
+- *HdWalletBipDataTypes.PURPOSE_KEY* : purpose keys
+- *HdWalletBipDataTypes.COIN_KEY* : coin keys
+- *HdWalletBipDataTypes.ACCOUNT_KEY* : account keys
+- *HdWalletBipDataTypes.CHANGE_KEY* : change keys
+- *HdWalletBipDataTypes.ADDRESSES* : addresses
 
-In case of keys, a *HdWalletKeys* object is returned. This object has the following methods:
+In case of keys, a *HdWalletBipKeys* object is returned. This object has the following methods:
 - **ToDict()** : return keys as a dictionary
 - **ToJson()** : return keys as a string in JSON format
-- **HasKey(*HdWalletKeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletKeyTypes*)** : get the specified key if existetn, *None* otherwise
+- **HasKey(*HdWalletBipKeyTypes*)** : get if the specified key type is existent
+- **GetKey(*HdWalletBipKeyTypes*)** : get the specified key if existetn, *None* otherwise
 
-The possible key types *HdWalletKeyTypes* are:
-- *HdWalletKeyTypes.EX_PRIV* : private key in extended serialized format
-- *HdWalletKeyTypes.RAW_PRIV* : raw private key
-- *HdWalletKeyTypes.WIF_PRIV* : private key in WIF format, if supported by the coin
-- *HdWalletKeyTypes.EX_PUB* : public key in extended serialized format
-- *HdWalletKeyTypes.RAW_COMPR_PUB* : raw public key in compressed format
-- *HdWalletKeyTypes.RAW_UNCOMPR_PUB* : raw public key in uncompressed format
-- *HdWalletKeyTypes.ADDRESS* : address correspondet to the public key, only for *HdWalletDataTypes.ADDRESSES*
+The possible key types *HdWalletBipKeyTypes* are:
+- *HdWalletBipKeyTypes.EX_PRIV* : private key in extended serialized format
+- *HdWalletBipKeyTypes.RAW_PRIV* : raw private key
+- *HdWalletBipKeyTypes.WIF_PRIV* : private key in WIF format, if supported by the coin
+- *HdWalletBipKeyTypes.EX_PUB* : public key in extended serialized format
+- *HdWalletBipKeyTypes.RAW_COMPR_PUB* : raw public key in compressed format
+- *HdWalletBipKeyTypes.RAW_UNCOMPR_PUB* : raw public key in uncompressed format
+- *HdWalletBipKeyTypes.ADDRESS* : address correspondet to the public key, only for *HdWalletBipDataTypes.ADDRESSES*
 
 In case of addresses, a *HdWalletAddresses* is returned, This object has the following methods:
 - **ToDict()** : return addresses as a dictionary
@@ -303,38 +338,47 @@ In case of addresses, a *HdWalletAddresses* is returned, This object has the fol
 - **__getitem__(*addr_idx*)** : get the address at the specified index using operator *[]*
 - **__iter__()** : allows to iterate over all addresses
 
-Each address is of type *HdWalletKeys*, so you can access it as a *HdWalletKeys* class as previously described.
+Each address is of type *HdWalletBipKeys*, so you can access it as a *HdWalletBipKeys* class as previously described.
 
-**Examples**
+**Example**
 
-    py_crypto_hd_wallet import HdWalletDataTypes
+    import binascii
+    from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipDataTypes, HdWalletBipKeyTypes, HdWalletBipFactory
+
+    # Create factory
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
+    # Create random
+    hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
+
+    # Generate with default parameters
+    hd_wallet.Generate()
 
     # Get wallet, coin and specification names
-    wallet_name = hd_wallet.GetData(HdWalletDataTypes.WALLET_NAME)
-    coin_name   = hd_wallet.GetData(HdWalletDataTypes.COIN_NAME)
-    spec_name   = hd_wallet.GetData(HdWalletDataTypes.SPEC_NAME)
+    wallet_name = hd_wallet.GetData(HdWalletBipDataTypes.WALLET_NAME)
+    coin_name   = hd_wallet.GetData(HdWalletBipDataTypes.COIN_NAME)
+    spec_name   = hd_wallet.GetData(HdWalletBipDataTypes.SPEC_NAME)
     # Get wallet account index
-    acc_idx = hd_wallet.GetData(HdWalletDataTypes.ACCOUNT_IDX)
+    acc_idx = hd_wallet.GetData(HdWalletBipDataTypes.ACCOUNT_IDX)
 
     # Get wallet account keys
-    acc_key = hd_wallet.GetData(HdWalletDataTypes.ACCOUNT_KEY)
+    acc_key = hd_wallet.GetData(HdWalletBipDataTypes.ACCOUNT_KEY)
     # Print keys in different formats
     print(acc_key.ToDict())
     print(acc_key.ToJson())
     # Check if a key type is existent
-    has_wif = acc_key.HasKey(HdWalletKeyTypes.WIF_PRIV)
+    has_wif = acc_key.HasKey(HdWalletBipKeyTypes.WIF_PRIV)
     # Get all keys individually
-    ex_priv = acc_key.GetKey(HdWalletKeyTypes.EX_PRIV)
-    raw_priv = acc_key.GetKey(HdWalletKeyTypes.RAW_PRIV)
-    wif_priv = acc_key.GetKey(HdWalletKeyTypes.WIF_PRIV)
-    ex_pub = acc_key.GetKey(HdWalletKeyTypes.EX_PUB)
-    raw_compr_pub = acc_key.GetKey(HdWalletKeyTypes.RAW_COMPR_PUB)
-    raw_uncompr_pub = acc_key.GetKey(HdWalletKeyTypes.RAW_UNCOMPR_PUB)
+    ex_priv = acc_key.GetKey(HdWalletBipKeyTypes.EX_PRIV)
+    raw_priv = acc_key.GetKey(HdWalletBipKeyTypes.RAW_PRIV)
+    wif_priv = acc_key.GetKey(HdWalletBipKeyTypes.WIF_PRIV)
+    ex_pub = acc_key.GetKey(HdWalletBipKeyTypes.EX_PUB)
+    raw_compr_pub = acc_key.GetKey(HdWalletBipKeyTypes.RAW_COMPR_PUB)
+    raw_uncompr_pub = acc_key.GetKey(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB)
     # Getting address returns None because it's an account level
-    address = acc_key.GetKey(HdWalletKeyTypes.ADDRESS)
+    address = acc_key.GetKey(HdWalletBipKeyTypes.ADDRESS)
 
     # Get wallet addresses
-    addresses = hd_wallet.GetData(HdWalletDataTypes.ADDRESSES)
+    addresses = hd_wallet.GetData(HdWalletBipDataTypes.ADDRESSES)
     # Get address count
     addr_cnt = addresses.Count()
     # Get a specific address index
@@ -344,11 +388,13 @@ Each address is of type *HdWalletKeys*, so you can access it as a *HdWalletKeys*
     print(addresses[0].ToJson())
     # Iterate over all addresses and print their keys and addresses
     for addr in addresses:
-        print(addr.GetKey(HdWalletKeyTypes.EX_PRIV))
-        print(addr.GetKey(HdWalletKeyTypes.EX_PUB))
-        print(addr.GetKey(HdWalletKeyTypes.ADDRESS))
+       print(addr.GetKey(HdWalletBipKeyTypes.EX_PRIV))
+       print(addr.GetKey(HdWalletBipKeyTypes.EX_PUB))
+       print(addr.GetKey(HdWalletBipKeyTypes.ADDRESS))
 
-### Some examples of wallet JSON outputs
+# Some examples of wallet JSON outputs
+
+## BIP wallet
 
 **NOTE:** to limit the output size in the examples, the addresses number is limited to 3
 
@@ -356,10 +402,10 @@ Each address is of type *HdWalletKeys*, so you can access it as a *HdWalletKeys*
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletBip44Coins, HdWalletWordsNum
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip44Coins, HdWalletBipWordsNum
 
-    hd_wallet_fact = HdWalletFactory(HdWalletBip44Coins.ETHEREUM)
-    hd_wallet = hd_wallet_fact.CreateRandom("eth_wallet", HdWalletWordsNum.WORDS_NUM_24)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.ETHEREUM)
+    hd_wallet = hd_wallet_fact.CreateRandom("eth_wallet", HdWalletBipWordsNum.WORDS_NUM_24)
     hd_wallet.Generate(addr_num=3)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -373,7 +419,7 @@ Output:
         "passphrase": "",
         "seed_bytes": "879f3e4b9f355e7d05057b28394b8ab4f09f205608ef77a5e3edb80363113e9a2c6ec80c63e12546bbaca5f27c824fa0bc90328445c68d98c8f05005b7c3ca1e",
         "master_key": {
-            "ex_pub": "xpub661MyMwAqRbcEdD1WAbD35uepJ9XoXNPTLd6HGKaqVYLG72NxUqQwGc6EwHSgHeUX1KL529WoCZ1mayuuAd68zJBF1B6R1f4PLPsP54r6uK",
+    "ex_pub": "xpub661MyMwAqRbcEdD1WAbD35uepJ9XoXNPTLd6HGKaqVYLG72NxUqQwGc6EwHSgHeUX1KL529WoCZ1mayuuAd68zJBF1B6R1f4PLPsP54r6uK",
             "raw_compr_pub": "0210b9a089821e19e6e697ffe43bf4510af5afad7308cc5c09600d989e9485eaaf",
             "raw_uncompr_pub": "0410b9a089821e19e6e697ffe43bf4510af5afad7308cc5c09600d989e9485eaafb0e81d049f23d171b22a43ba7e342508876e32bedbc03a8391fc743ec7762ad0",
             "ex_priv": "xprv9s21ZrQH143K298YQ94CfwxvGGK3Q4eY67hVUsuyHA1MPJhEQwXAPUHcPhqrAHE9mKVoZAd2MtPGVSQg9mieEyce8RWe5DjAjRiUoaWVYSF",
@@ -446,13 +492,13 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletBip84Coins, HdWalletChanges
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip84Coins, HdWalletBipChanges
 
     ex_key = "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5"
 
-    hd_wallet_fact = HdWalletFactory(HdWalletBip84Coins.LITECOIN)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip84Coins.LITECOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("ltc_bip84_wallet", ex_key)
-    hd_wallet.Generate(account_idx=2, change_idx=HdWalletChanges.CHAIN_INT, addr_num=3)
+    hd_wallet.Generate(account_idx=2, change_idx=HdWalletBipChanges.CHAIN_INT, addr_num=3)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
@@ -543,11 +589,11 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletBip49Coins
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip49Coins
 
     ex_key = "yprvAHwhK6RbpuS3dgCYHM5jc2ZvEKd7Bi61u9FVhYMpgMSuZS613T1xxQeKTffhrHY79hZ5PsskBjcc6C2V7DrnsMsNaGDaWev3GLRQRgV7hxF"
 
-    hd_wallet_fact = HdWalletFactory(HdWalletBip49Coins.BITCOIN)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip49Coins.BITCOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("btc_bip49_wallet", ex_key)
     hd_wallet.Generate(addr_num = 3)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -612,11 +658,11 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletBip44Coins
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip44Coins
 
     ex_key = "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw"
 
-    hd_wallet_fact = HdWalletFactory(HdWalletBip44Coins.DOGECOIN)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.DOGECOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("doge_wallet", ex_key)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -644,11 +690,11 @@ Output:
 
 Code:
 
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletBip44Coins
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip44Coins
 
     ex_key = "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY"
 
-    hd_wallet_fact = HdWalletFactory(HdWalletBip44Coins.BITCOIN_CASH)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN_CASH)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("bch_wo_wallet", ex_key)
     hd_wallet.Generate(addr_num = 3)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -692,11 +738,11 @@ Output:
 Code:
 
     import binascii
-    from py_crypto_hd_wallet import HdWallet, HdWalletFactory, HdWalletSaver, HdWalletBip44Coins
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip84Coins
 
     priv_key = binascii.unhexlify(b"3c6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
 
-    hd_wallet_fact = HdWalletFactory(HdWalletBip84Coins.BITCOIN)
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip84Coins.BITCOIN)
     hd_wallet = hd_wallet_fact.CreateFromPrivateKey("btc_wallet", priv_key)
     hd_wallet.Generate(addr_num=3,addr_offset=10)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
