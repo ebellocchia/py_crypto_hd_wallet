@@ -162,18 +162,6 @@ class HdWalletBip(HdWalletBase):
 
         return wallet_dict
 
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """ Get wallet data as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Wallet data as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
-
     def HasData(self,
                 data_type: HdWalletBipDataTypes) -> bool:
         """ Get if the wallet data of the specified type is present.
