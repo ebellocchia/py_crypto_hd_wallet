@@ -118,34 +118,42 @@ class HdWalletSubstrate(HdWalletBase):
         return wallet_dict
 
     def HasData(self,
-                data_type: HdWalletSubstrateDataTypes) -> bool:
+                data_type: HdWalletDataTypes) -> bool:
         """ Get if the wallet data of the specified type is present.
 
         Args:
-            data_type (HdWalletSubstrateDataTypes): Data type
+            data_type (HdWalletDataTypes): Data type
 
         Returns:
             bool: True if present, false otherwise
+
+        Raises:
+            TypeError: If data type is not of the correct enumerative type
         """
         if not isinstance(data_type, HdWalletSubstrateDataTypes):
             raise TypeError("Data type is not an enumerative of HdWalletSubstrateDataTypes")
 
-        dict_key = HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[HdWalletSubstrateDataTypes(data_type)]
         return dict_key in self.m_wallet_data
 
     def GetData(self,
-                data_type: HdWalletSubstrateDataTypes) -> Optional[Union[int, str, HdWalletSubstrateKeys]]:
+                data_type: HdWalletDataTypes) -> Optional[Any]:
         """ Get wallet data of the specified type.
 
         Args:
-            data_type (HdWalletSubstrateDataTypes): Data type
+            data_type (HdWalletDataTypes): Data type
 
-        Returns (str, dict or None):
-            int or str or HdWalletSubstrateKeys: Wallet data
+        Returns:
+            Any: Wallet data (it depends on the specific data)
             None: If not found
+
+        Raises:
+            TypeError: If data type is not of the correct enumerative type
         """
         if self.HasData(data_type):
-            return self.m_wallet_data[HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[data_type]]
+            return self.m_wallet_data[
+                HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[HdWalletSubstrateDataTypes(data_type)]
+            ]
         else:
             return None
 

@@ -26,7 +26,7 @@ from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddresses
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import *
-from py_crypto_hd_wallet.common import HdWalletBase
+from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
 
 
@@ -88,10 +88,10 @@ class HdWalletBip(HdWalletBase):
         """ Generate wallet keys and addresses.
 
         Other parameters:
-            account_idx (int, optional)              : Account index, 0 by default
-            change_idx (HdWalletBipChanges, optional): Change index, must a HdWalletBipChanges enum, external chain by default
-            addr_num (int, optional)                 : Number of addresses to be generated, 20 by default
-            addr_offset (int, optional)              : Starting address index, 0 by default
+            account_idx (int, optional)              : Account index (default: 0)
+            change_idx (HdWalletBipChanges, optional): Change index (default: external)
+            addr_num (int, optional)                 : Number of addresses to be generated (default: 20)
+            addr_offset (int, optional)              : Starting address index (default: 0)
         """
 
         # Get parameters
@@ -165,40 +165,42 @@ class HdWalletBip(HdWalletBase):
         return wallet_dict
 
     def HasData(self,
-                data_type: HdWalletBipDataTypes) -> bool:
+                data_type: HdWalletDataTypes) -> bool:
         """ Get if the wallet data of the specified type is present.
 
         Args:
-            data_type (HdWalletBipDataTypes): Data type
+            data_type (HdWalletDataTypes): Data type
 
         Returns:
             bool: True if present, false otherwise
 
         Raises:
-            TypeError: If data type is not a HdWalletBipDataTypes enum
+            TypeError: If data type is not of the correct enumerative type
         """
         if not isinstance(data_type, HdWalletBipDataTypes):
             raise TypeError("Data type is not an enumerative of HdWalletBipDataTypes")
 
-        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[HdWalletBipDataTypes(data_type)]
         return dict_key in self.m_wallet_data
 
     def GetData(self,
-                data_type: HdWalletBipDataTypes) -> Optional[Union[int, str, HdWalletBipKeys, HdWalletBipAddresses]]:
+                data_type: HdWalletDataTypes) -> Optional[Any]:
         """ Get wallet data of the specified type.
 
         Args:
-            data_type (HdWalletBipDataTypes): Data type
+            data_type (HdWalletDataTypes): Data type
 
-        Returns (str, dict or None):
-            int or str or HdWalletBipKeys or HdWalletBipAddresses: Wallet data
+        Returns:
+            Any: Wallet data (it depends on the specific data)
             None: If not found
 
         Raises:
-            TypeError: If data type is not a HdWalletBipDataTypes enum
+            TypeError: If data type is not of the correct enumerative type
         """
         if self.HasData(data_type):
-            return self.m_wallet_data[HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]]
+            return self.m_wallet_data[
+                HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[HdWalletBipDataTypes(data_type)]
+            ]
         else:
             return None
 

@@ -23,6 +23,7 @@
 from enum import Enum, auto, unique
 from bip_utils import SubstrateCoins
 from py_crypto_hd_wallet.bip import HdWalletBipWordsNum, HdWalletBipLanguages
+from py_crypto_hd_wallet.common import HdWalletDataTypes
 
 
 # Alias for HdWalletBipWordsNum
@@ -34,7 +35,7 @@ HdWalletSubstrateCoins = SubstrateCoins
 
 
 @unique
-class HdWalletSubstrateDataTypes(Enum):
+class HdWalletSubstrateDataTypes(HdWalletDataTypes):
     """ Enumerative for wallet Substrate data types. """
 
     WALLET_NAME = auto()

@@ -22,7 +22,13 @@
 # Imports
 import json
 from abc import ABC, abstractmethod
-from typing import Any, Dict
+from enum import Enum
+from typing import Any, Dict, Optional
+
+
+class HdWalletDataTypes(Enum):
+    """ Base enum for wallet data types. """
+    pass
 
 
 class HdWalletBase(ABC):
@@ -57,6 +63,39 @@ class HdWalletBase(ABC):
 
         Returns:
             dict: Wallet data as a dictionary
+        """
+        pass
+
+    @abstractmethod
+    def HasData(self,
+                data_type: HdWalletDataTypes) -> bool:
+        """ Get if the wallet data of the specified type is present.
+
+        Args:
+            data_type (HdWalletDataTypes): Data type
+
+        Returns:
+            bool: True if present, false otherwise
+
+        Raises:
+            TypeError: If data type is not of the correct enumerative type
+        """
+        pass
+
+    @abstractmethod
+    def GetData(self,
+                data_type: HdWalletDataTypes) -> Optional[Any]:
+        """ Get wallet data of the specified type.
+
+        Args:
+            data_type (HdWalletDataTypes): Data type
+
+        Returns:
+            Any: Wallet data (it depends on the specific data)
+            None: If not found
+
+        Raises:
+            TypeError: If data type is not of the correct enumerative type
         """
         pass
 
