@@ -580,7 +580,7 @@ The possible data types *HdWalletSubstrateDataTypes* are:
 - *HdWalletSubstrateDataTypes.PASSPHRASE* : passphrase
 - *HdWalletSubstrateDataTypes.SEED_BYTES* : seed bytes
 - *HdWalletSubstrateDataTypes.PATH* : derivation path, if any
-- *HdWalletSubstrateDataTypes.KEY* : generated keys and address
+- *HdWalletSubstrateDataTypes.KEY* : generated keys and address (*HdWalletSubstrateKeys* object)
 
 In case of keys, a *HdWalletSubstrateKeys* object is returned. This object has the following methods:
 - **ToDict()** : return keys as a dictionary
