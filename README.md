@@ -421,14 +421,12 @@ Supported coin enumerative:
 |Sora|*HdWalletSubstrateCoins.SORA*|
 |Stafi|*HdWalletSubstrateCoins.STAFI*|
 
-
 **Example**
 
     from py_crypto_hd_wallet import HdWalletSubstrateFactory, HdWalletSubstrateCoins
 
     # Create a substrate wallet factory
     hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
-
 
 ### Wallet creation
 
@@ -1136,7 +1134,7 @@ Code:
     pub_key = binascii.unhexlify(b"5244eb2b8a9f975c603485c5a76eeec41fdad88aa6ef204b7c56691940ad1671")
 
     hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.ACALA)
-    hd_wallet = hd_wallet_fact.CreateFromPublicKey("acala_wallet", pub_key)
+    hd_wallet = hd_wallet_fact.CreateFromPublicKey("aca_wallet", pub_key)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -1144,7 +1142,7 @@ Code:
 Output:
 
     {
-        "wallet_name": "acala_wallet",
+        "wallet_name": "aca_wallet",
         "coin_name": "Acala (ACA)",
         "key": {
             "pub": "5244eb2b8a9f975c603485c5a76eeec41fdad88aa6ef204b7c56691940ad1671",
