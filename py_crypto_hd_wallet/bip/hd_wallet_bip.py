@@ -58,6 +58,9 @@ class HdWalletBip(HdWalletBase):
     """ HD wallet BIP class.
     It basically wraps the bip_utils, allowing to generate a complete wallet based on BIP specifications. """
 
+    m_bip_obj: Bip44Base
+    m_wallet_data: Dict[str, Any]
+
     #
     # Public methods
     #
@@ -155,7 +158,7 @@ class HdWalletBip(HdWalletBase):
         """
         return self.m_bip_obj.IsPublicOnly()
 
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, Any]:
         """ Get wallet data as a dictionary.
 
         Returns:

@@ -22,7 +22,6 @@
 # Imports
 import json
 from abc import ABC, abstractmethod
-from enum import Enum
 from typing import Any, Dict, Optional
 from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
 
@@ -54,7 +53,7 @@ class HdWalletBase(ABC):
         pass
 
     @abstractmethod
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, Any]:
         """ Get wallet data as a dictionary.
 
         Returns:

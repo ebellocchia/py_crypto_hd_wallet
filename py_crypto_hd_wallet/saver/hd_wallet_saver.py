@@ -26,6 +26,8 @@ from py_crypto_hd_wallet.common import HdWalletBase
 class HdWalletSaver:
     """ HD wallet saver class. It saves a wallet to file. """
 
+    m_hd_wallet: HdWalletBase
+
     #
     # Public methods
     #

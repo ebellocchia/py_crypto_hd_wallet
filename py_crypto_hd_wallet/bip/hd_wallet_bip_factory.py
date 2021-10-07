@@ -38,6 +38,9 @@ from py_crypto_hd_wallet.utils import Utils
 class HdWalletBipFactory:
     """ HD wallet BIP factory class. It allows a HdWalletBip to be created in different way. """
 
+    m_bip_coin: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]
+    m_bip_cls: Type[Bip44Base]
+
     def __init__(self,
                  coin_type: Union[HdWalletBip44Coins,
                                   HdWalletBip49Coins,
@@ -50,14 +53,6 @@ class HdWalletBipFactory:
         Raised:
             TypeError: If coin_type is not one of the accepted enum
         """
-
-        # Check coin type
-        if (not isinstance(coin_type, HdWalletBip44Coins) and
-                not isinstance(coin_type, HdWalletBip49Coins) and
-                not isinstance(coin_type, HdWalletBip84Coins)):
-            raise TypeError("Coin type is not an accepted enumerative")
-
-        # Initialize members
         self.m_bip_coin = coin_type
         self.m_bip_cls = self.__BipClassFromCoinType(coin_type)
 
@@ -202,3 +197,5 @@ class HdWalletBipFactory:
             return Bip49
         elif type(coin_type) == HdWalletBip84Coins:
             return Bip84
+
+        raise TypeError("Coin type is not an accepted enumerative")

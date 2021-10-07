@@ -47,6 +47,8 @@ class HdWalletBipKeys:
     Keys can be got individually, as dictionary or in JSON format.
     """
 
+    m_key_data: Dict[str, str]
+
     #
     # Public methods
     #
@@ -88,7 +90,7 @@ class HdWalletBipKeys:
 
         return wallet_keys
 
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, str]:
         """ Get keys as a dictionary.
 
         Returns:

@@ -35,6 +35,8 @@ from py_crypto_hd_wallet.utils import Utils
 class HdWalletSubstrateFactory:
     """ HD wallet Substrate factory class. It allows a HdWalletSubstrate to be created in different way. """
 
+    m_substrate_coin: HdWalletSubstrateCoins
+
     def __init__(self,
                  coin_type: HdWalletSubstrateCoins) -> None:
         """ Construct class.

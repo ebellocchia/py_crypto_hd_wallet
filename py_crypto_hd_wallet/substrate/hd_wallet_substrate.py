@@ -47,6 +47,9 @@ class HdWalletSubstrate(HdWalletBase):
     """ HD wallet Substrate class.
     It basically wraps the bip_utils, allowing to generate a complete Substrate wallet. """
 
+    m_substrate_obj: Substrate
+    m_wallet_data: Dict[str, Any]
+
     #
     # Public methods
     #
@@ -100,7 +103,7 @@ class HdWalletSubstrate(HdWalletBase):
         """
         return self.m_substrate_obj.IsPublicOnly()
 
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, Any]:
         """ Get wallet data as a dictionary.
 
         Returns:

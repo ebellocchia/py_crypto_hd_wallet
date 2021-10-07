@@ -50,6 +50,9 @@ class HdWalletMonero(HdWalletBase):
     """ HD wallet Monero class.
     It basically wraps the bip_utils, allowing to generate a complete Monero wallet. """
 
+    m_monero_obj: Monero
+    m_wallet_data: Dict[str, Any]
+
     #
     # Public methods
     #
@@ -118,7 +121,7 @@ class HdWalletMonero(HdWalletBase):
         """
         return self.m_monero_obj.IsWatchOnly()
 
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, Any]:
         """ Get wallet data as a dictionary.
 
         Returns:

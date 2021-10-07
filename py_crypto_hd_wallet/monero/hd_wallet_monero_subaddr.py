@@ -22,7 +22,7 @@
 # Imports
 from __future__ import annotations
 import json
-from typing import Dict, Iterator
+from typing import Dict, Iterator, List
 from bip_utils import Monero
 
 
@@ -37,6 +37,9 @@ class HdWalletMoneroSubaddresses:
     """ HD wallet Monero subaddresses class. It creates subaddresses from a Monero object and store them.
     Subaddresses can be got individually, as dictionary or in JSON format.
     """
+
+    m_subaddr: List[str]
+    m_subaddr_off: int
 
     #
     # Public methods
@@ -73,7 +76,7 @@ class HdWalletMoneroSubaddresses:
 
         return addr
 
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, str]:
         """ Get addresses as a dictionary.
 
         Returns:

@@ -22,7 +22,7 @@
 # Imports
 from __future__ import annotations
 import json
-from typing import Dict, Iterator
+from typing import Dict, Iterator, List
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
@@ -39,6 +39,9 @@ class HdWalletBipAddresses:
     """ HD wallet BIP addresses class. It creates addresses from a Bip object and store them.
     Addresses can be got individually, as dictionary or in JSON format.
     """
+
+    m_addr: List[HdWalletBipKeys]
+    m_addr_off: int
 
     #
     # Public methods
@@ -77,7 +80,7 @@ class HdWalletBipAddresses:
 
         return addr
 
-    def ToDict(self) -> Dict:
+    def ToDict(self) -> Dict[str, Dict[str, str]]:
         """ Get addresses as a dictionary.
 
         Returns:
