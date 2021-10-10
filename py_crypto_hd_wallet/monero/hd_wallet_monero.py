@@ -22,7 +22,7 @@
 # Imports
 from typing import Any, Dict, Optional, Union
 from bip_utils import Bip44MoneroEd25519Slip, Monero
-from bip_utils.monero.monero import MoneroConst
+from bip_utils.monero.monero_subaddr import MoneroSubaddressConst
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import *
 from py_crypto_hd_wallet.monero.hd_wallet_monero_keys import HdWalletMoneroKeys
@@ -94,9 +94,9 @@ class HdWalletMonero(HdWalletBase):
         # Check parameters
         if acc_idx < 0:
             raise ValueError("Account index shall be greater than zero")
-        if subaddr_num < 0 or subaddr_num > MoneroConst.SUBADDR_MAX_IDX:
+        if subaddr_num < 0 or subaddr_num > MoneroSubaddressConst.SUBADDR_MAX_IDX:
             raise ValueError("Subaddress number shall be greater or equal to zero and less than 2^32")
-        if subaddr_off < 0 or ((subaddr_off + subaddr_num) > MoneroConst.SUBADDR_MAX_IDX):
+        if subaddr_off < 0 or ((subaddr_off + subaddr_num) > MoneroSubaddressConst.SUBADDR_MAX_IDX):
             raise ValueError("Subaddress offset shall be greater or equal to zero and less than 2^32")
 
         # Set keys

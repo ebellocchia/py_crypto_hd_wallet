@@ -71,7 +71,7 @@ class HdWalletMoneroSubaddresses:
         addr.m_subaddr_off = subaddr_off
 
         for i in range(subaddr_num):
-            subaddr = monero_obj.SubAddress(i + subaddr_off, acc_idx)
+            subaddr = monero_obj.Subaddress(i + subaddr_off, acc_idx)
             addr.m_subaddr.append(subaddr)
 
         return addr
