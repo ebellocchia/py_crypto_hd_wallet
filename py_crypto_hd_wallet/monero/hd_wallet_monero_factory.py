@@ -25,7 +25,7 @@ from bip_utils import (
     MoneroKeyError, Monero
 )
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import (
-    HdWalletMoneroWordsNum, HdWalletMoneroLanguages
+    HdWalletMoneroWordsNum, HdWalletMoneroLanguages, HdWalletMoneroCoins
 )
 from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMonero
 from py_crypto_hd_wallet.common import HdWalletBase
@@ -35,15 +35,28 @@ from py_crypto_hd_wallet.utils import Utils
 class HdWalletMoneroFactory:
     """ HD wallet Monero factory class. It allows a HdWalletMonero to be created in different way. """
 
-    def __init__(self) -> None:
-        """ Construct class.
-        The class does not have any member, but the constructor is kept to maintain the same syntax
-        of the other factories (e.g. Factory().CreateRandom(...)).
-        """
-        pass
+    m_monero_coin: HdWalletMoneroCoins
 
-    @staticmethod
-    def CreateRandom(wallet_name: str,
+    def __init__(self,
+                 coin_type: HdWalletMoneroCoins = HdWalletMoneroCoins.MONERO_MAINNET) -> None:
+        """ Construct class.
+
+        Args:
+            coin_type (HdWalletMoneroCoins, optional): Coin type (default: main net)
+
+        Raised:
+            TypeError: If coin_type is not one a HdWalletMoneroCoins enum
+        """
+
+        # Check coin type
+        if not isinstance(coin_type, HdWalletMoneroCoins):
+            raise TypeError("Coin type is not an enumerative of HdWalletMoneroCoins")
+
+        # Initialize members
+        self.m_monero_coin = coin_type
+
+    def CreateRandom(self,
+                     wallet_name: str,
                      words_num: HdWalletMoneroWordsNum = HdWalletMoneroWordsNum.WORDS_NUM_25,
                      lang: HdWalletMoneroLanguages = HdWalletMoneroLanguages.ENGLISH) -> HdWalletBase:
         """ Create wallet randomly.
@@ -66,10 +79,10 @@ class HdWalletMoneroFactory:
 
         mnemonic = MoneroMnemonicGenerator(lang).FromWordsNumber(words_num)
 
-        return HdWalletMoneroFactory.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
+        return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 
-    @staticmethod
-    def CreateFromMnemonic(wallet_name: str,
+    def CreateFromMnemonic(self,
+                           wallet_name: str,
                            mnemonic: str) -> HdWalletBase:
         """ Create wallet from mnemonic.
 
@@ -88,15 +101,15 @@ class HdWalletMoneroFactory:
         except (ValueError, MoneroChecksumError) as ex:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
-        monero_obj = Monero.FromSeed(seed_bytes)
+        monero_obj = Monero.FromSeed(seed_bytes, self.m_monero_coin)
 
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj,
                               mnemonic=mnemonic,
                               seed_bytes=seed_bytes)
 
-    @staticmethod
-    def CreateFromSeed(wallet_name: str,
+    def CreateFromSeed(self,
+                       wallet_name: str,
                        seed_bytes: bytes) -> HdWalletBase:
         """ Create wallet from seed.
 
@@ -110,14 +123,14 @@ class HdWalletMoneroFactory:
         Raises:
             ValueError: If the seed is not valid
         """
-        monero_obj = Monero.FromSeed(seed_bytes)
+        monero_obj = Monero.FromSeed(seed_bytes, self.m_monero_coin)
 
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj,
                               seed_bytes=seed_bytes)
 
-    @staticmethod
-    def CreateFromPrivateKey(wallet_name: str,
+    def CreateFromPrivateKey(self,
+                             wallet_name: str,
                              priv_skey: bytes) -> HdWalletBase:
         """ Create wallet from private spend key.
 
@@ -132,15 +145,15 @@ class HdWalletMoneroFactory:
             ValueError: If the private key is not valid
         """
         try:
-            monero_obj = Monero.FromPrivateSpendKey(priv_skey)
+            monero_obj = Monero.FromPrivateSpendKey(priv_skey, self.m_monero_coin)
         except MoneroKeyError as ex:
             raise ValueError(f"Invalid private spend key: {Utils.BytesToHexString(priv_skey)}") from ex
 
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj)
 
-    @staticmethod
-    def CreateFromWatchOnly(wallet_name: str,
+    def CreateFromWatchOnly(self,
+                            wallet_name: str,
                             priv_vkey: bytes,
                             pub_skey: bytes) -> HdWalletBase:
         """ Create wallet from private view key and public spend key (i.e. watch-only wallet).
@@ -157,7 +170,7 @@ class HdWalletMoneroFactory:
             ValueError: If the public key is not valid
         """
         try:
-            monero_obj = Monero.FromWatchOnly(priv_vkey, pub_skey)
+            monero_obj = Monero.FromWatchOnly(priv_vkey, pub_skey, self.m_monero_coin)
         except MoneroKeyError as ex:
             raise ValueError(f"Invalid keys for watch-only wallet") from ex
 

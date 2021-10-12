@@ -21,7 +21,7 @@
 
 # Imports
 from typing import Any, Dict, Optional, Union
-from bip_utils import Bip44MoneroEd25519Slip, Monero
+from bip_utils import Monero
 from bip_utils.monero.monero_subaddr import MoneroSubaddressConst
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import *
@@ -92,8 +92,8 @@ class HdWalletMonero(HdWalletBase):
         subaddr_off = kwargs.get("subaddr_off", 0)
 
         # Check parameters
-        if acc_idx < 0:
-            raise ValueError("Account index shall be greater than zero")
+        if acc_idx < 0 or acc_idx > MoneroSubaddressConst.SUBADDR_MAX_IDX:
+            raise ValueError("Account index shall be greater or equal to zero and less than 2^32")
         if subaddr_num < 0 or subaddr_num > MoneroSubaddressConst.SUBADDR_MAX_IDX:
             raise ValueError("Subaddress number shall be greater or equal to zero and less than 2^32")
         if subaddr_off < 0 or ((subaddr_off + subaddr_num) > MoneroSubaddressConst.SUBADDR_MAX_IDX):
@@ -197,7 +197,7 @@ class HdWalletMonero(HdWalletBase):
         # Set wallet name
         self.__SetData(HdWalletMoneroDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
-        coin_names = Bip44MoneroEd25519Slip.CoinNames()
+        coin_names = self.m_monero_obj.CoinConf().CoinNames()
         self.__SetData(HdWalletMoneroDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified

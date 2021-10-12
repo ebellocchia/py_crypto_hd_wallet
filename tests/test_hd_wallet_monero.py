@@ -25,7 +25,7 @@ import json
 import os
 import unittest
 from py_crypto_hd_wallet import (
-    HdWalletSaver, HdWalletMoneroFactory,
+    HdWalletSaver, HdWalletMoneroFactory, HdWalletMoneroCoins,
     HdWalletMoneroWordsNum, HdWalletMoneroDataTypes, HdWalletMoneroKeyTypes,
     HdWalletMoneroKeys, HdWalletMoneroSubaddresses
 )
@@ -40,6 +40,7 @@ TEST_VECTOR = [
         {
             # Data for wallet construction
             "wallet_name": "xmr_wallet",
+            "coin": HdWalletMoneroCoins.MONERO_MAINNET,
             # Data for wallet creation
             "type": "random",
             "words_num": HdWalletMoneroWordsNum.WORDS_NUM_25,
@@ -55,6 +56,7 @@ TEST_VECTOR = [
         {
             # Data for wallet construction
             "wallet_name": "xmr_wallet",
+            "coin": HdWalletMoneroCoins.MONERO_MAINNET,
             # Data for wallet creation
             "type": "random",
             "words_num": HdWalletMoneroWordsNum.WORDS_NUM_13,
@@ -70,6 +72,7 @@ TEST_VECTOR = [
         {
             # Data for wallet construction
             "wallet_name": "xmr_wallet",
+            "coin": HdWalletMoneroCoins.MONERO_MAINNET,
             # Data for wallet creation
             "type": "mnemonic",
             "mnemonic": "larve wacht ommegaand budget puppy bombarde stoven kilsdonk stijf epileer bachelor klus tukje teisman eeneiig kluif vrucht opel galvlieg ugandees zworen afzijdig fornuis giraal fornuis",
@@ -105,6 +108,7 @@ TEST_VECTOR = [
         {
             # Data for wallet construction
             "wallet_name": "xmr_wallet",
+            "coin": HdWalletMoneroCoins.MONERO_MAINNET,
             # Data for wallet creation
             "type": "from_seed",
             "seed": "b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b",
@@ -139,6 +143,7 @@ TEST_VECTOR = [
         {
             # Data for wallet construction
             "wallet_name": "xmr_wallet",
+            "coin": HdWalletMoneroCoins.MONERO_MAINNET,
             # Data for wallet creation
             "type": "from_priv_skey",
             "priv_skey": "b6514a29ff612189af1bba250606bb5b1e7846fe8f31a91fc0beb393cddb6101",
@@ -173,6 +178,7 @@ TEST_VECTOR = [
         {
             # Data for wallet construction
             "wallet_name": "xmr_wallet",
+            "coin": HdWalletMoneroCoins.MONERO_MAINNET,
             # Data for wallet creation
             "type": "from_wo",
             "priv_vkey": "f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f",
@@ -218,7 +224,7 @@ class HdWalletMoneroTests(unittest.TestCase):
 
         for test in TEST_VECTOR:
             # Construct wallet factory
-            hd_wallet_fact = HdWalletMoneroFactory()
+            hd_wallet_fact = HdWalletMoneroFactory(test["coin"])
 
             # Create wallet depending on type
             if test["type"] == "random":
@@ -289,6 +295,7 @@ class HdWalletMoneroTests(unittest.TestCase):
 
         # Invalid parameters for Generate
         self.assertRaises(ValueError, hd_wallet.Generate, acc_idx=-1)
+        self.assertRaises(ValueError, hd_wallet.Generate, acc_idx=2**32)
         self.assertRaises(ValueError, hd_wallet.Generate, subaddr_num=-1)
         self.assertRaises(ValueError, hd_wallet.Generate, subaddr_num=2**32)
         self.assertRaises(ValueError, hd_wallet.Generate, subaddr_off=-1)

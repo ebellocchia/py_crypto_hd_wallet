@@ -21,7 +21,7 @@
 
 # Imports
 from enum import Enum, auto, unique
-from bip_utils import MoneroWordsNum, MoneroLanguages
+from bip_utils import MoneroWordsNum, MoneroLanguages, MoneroCoins
 from py_crypto_hd_wallet.common import HdWalletDataTypes
 
 
@@ -29,6 +29,8 @@ from py_crypto_hd_wallet.common import HdWalletDataTypes
 HdWalletMoneroWordsNum = MoneroWordsNum
 # Alias for MoneroLanguages
 HdWalletMoneroLanguages = MoneroLanguages
+# Alias for MoneroCoins
+HdWalletMoneroCoins = MoneroCoins
 
 
 @unique
