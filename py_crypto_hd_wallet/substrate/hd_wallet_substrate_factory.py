@@ -70,7 +70,8 @@ class HdWalletSubstrateFactory:
             HdWalletBase object: HdWalletBase object
 
         Raises:
-            TypeError: If words number is not a HdWalletSubstrateWordsNum enum or language is not a HdWalletSubstrateLanguages enum
+            TypeError: If words number is not a HdWalletSubstrateWordsNum enum or
+                       language is not a HdWalletSubstrateLanguages enum
         """
         if not isinstance(words_num, HdWalletSubstrateWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletSubstrateWordsNum")

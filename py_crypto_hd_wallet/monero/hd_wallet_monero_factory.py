@@ -70,7 +70,8 @@ class HdWalletMoneroFactory:
             HdWalletBase object: HdWalletBase object
 
         Raises:
-            TypeError: If words number is not a HdWalletMoneroWordsNum enum or language is not a HdWalletMoneroLanguages enum
+            TypeError: If words number is not a HdWalletMoneroWordsNum enum or
+                       language is not a HdWalletMoneroLanguages enum
         """
         if not isinstance(words_num, HdWalletMoneroWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletMoneroWordsNum")
