@@ -1,51 +1,42 @@
-import setuptools
+import os
 import re
-
-
-# File names
-DESCRIPTION_FILE = "README.md"
-KEYWORDS_FILE = "keywords.txt"
-REQUIREMENTS_FILE = "requirements.txt"
-VERSION_FILE = "py_crypto_hd_wallet/_version.py"
+import setuptools
 
 
 # Load long description
-def load_long_description():
-    return open(DESCRIPTION_FILE).read()
+def load_long_description(desc_file):
+    return open(desc_file).read()
 
 
 # Load keywords
-def load_keywords():
-    with open(KEYWORDS_FILE, "r") as fin:
+def load_keywords(keywords_file):
+    with open(keywords_file, "r") as fin:
         return ", ".join([line for line in map(str.strip, fin.read().splitlines())
-                          if len(line) > 0 and not line.startswith('#')])
+                          if len(line) > 0 and not line.startswith("#")])
 
 
 # Load version
-def load_version():
-    version_line = open(VERSION_FILE).read().rstrip()
+def load_version(*path_parts):
+    version_file = os.path.join(*path_parts)
+    version_line = open(os.path.join(*path_parts)).read().rstrip()
     vre = re.compile(r'__version__: str = "([^"]+)"')
     matches = vre.findall(version_line)
 
     if matches and len(matches) > 0:
         return matches[0]
     else:
-        raise RuntimeError(f"Cannot find version string in {VERSION_FILE}")
+        raise RuntimeError(f"Cannot find version string in {version_file}")
 
 
 # Load requirements
-def load_requirements():
-    with open(REQUIREMENTS_FILE, "r") as fin:
+def load_requirements(req_file):
+    with open(req_file, "r") as fin:
         return [line for line in map(str.strip, fin.read().splitlines())
-                if len(line) > 0 and not line.startswith('#')]
+                if len(line) > 0 and not line.startswith("#")]
 
 
 # Load needed files
-long_description = load_long_description()
-keywords = load_keywords()
-install_requires = load_requirements()
-version = load_version()
-
+version = load_version("py_crypto_hd_wallet", "_version.py")
 
 # Setup configuration
 setuptools.setup(
@@ -56,15 +47,15 @@ setuptools.setup(
     maintainer="Emanuele Bellocchia",
     maintainer_email="ebellocchia@gmail.com",
     description="HD (Hierarchical Deterministic) wallet for cryptocurrencies based on bip_utils library",
-    long_description=long_description,
+    long_description=load_long_description("README.md"),
     long_description_content_type="text/markdown",
     url="https://github.com/ebellocchia/py_crypto_hd_wallet",
     download_url="https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v%s.tar.gz" % version,
     license="MIT",
     test_suite="tests",
-    install_requires=install_requires,
-    packages=["py_crypto_hd_wallet"],
-    keywords=keywords,
+    install_requires=load_requirements("requirements.txt"),
+    packages=setuptools.find_packages(exclude=["tests"]),
+    keywords=load_keywords("keywords.txt"),
     platforms=["any"],
     classifiers=[
         "Programming Language :: Python :: 3",
