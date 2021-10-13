@@ -17,32 +17,27 @@ To install it:
 
         python setup.py install
 
-- Using pip, from this directory (local):
+- Using *pip*, from this directory (local):
 
         pip install .
 
-- Using pip, from PyPI:
+- Using *pip*, from PyPI:
 
         pip install py_crypto_hd_wallet
 
-To run the tests:
+To run tests:
 
-- Without code coverage
+    python -m unittest discover
 
-        python -m unittest discover
+Or you can install *tox*:
 
-- With code coverage and report:
+    pip install tox
 
-        pip install coverage
-        coverage run -m unittest discover
+And then simply run *tox*:
 
-    - Get report:
+   tox
 
-            coverage report
-
-    - Get HTML report:
-
-            coverage html
+To run tests and get the code coverage and report.
 
 # BIP wallet
 
@@ -638,14 +633,25 @@ A Monero wallet is a wallet based on Monero. It doesn't follow BIPs but it gener
 
 ## Monero Wallet factory construction
 
-A Monero wallet is created using the *HdWalletMoneroFactory* class.
+A Monero wallet is created using the *HdWalletMoneroFactory* class.\
+A *HdWalletMoneroFactory* class is simply constructed by specifying the desired coin. After the construction, the factory can be used to create wallets with the specified coin.
+
+Supported coin enumerative:
+
+|Coin|Enum|
+|---|---|
+|Monero main net|*HdWalletMoneroCoins.MONERO_MAINNET*|
+|Monero stage net|*HdWalletMoneroCoins.MONERO_STAGENET*|
+|Monero test net|*HdWalletMoneroCoins.MONERO_TESTNET*|
 
 **Example**
 
-    from py_crypto_hd_wallet import HdWalletMoneroFactory
+    from py_crypto_hd_wallet import HdWalletMoneroCoins, HdWalletMoneroFactory
 
-    # Create a Monero wallet factory
+    # Create a Monero wallet factory with default parameter (i.e. Monero main net)
     hd_wallet_fact = HdWalletMoneroFactory()
+    # Create a Monero wallet factory by specifying the coin
+    hd_wallet_fact = HdWalletMoneroFactory(HdWalletMoneroCoins.MONERO_TESTNET)
 
 ### Wallet creation
 
@@ -1433,7 +1439,7 @@ Code:
 Output:
 
         {
-            "wallet_name": "dot_wallet",
+            "wallet_name": "xmr_wallet",
             "coin_name": "Monero (XMR)",
             "mnemonic": "owls cocoa vinegar drinks nitrogen soil smuggled drowning oyster unveil aglow zebra stylishly ocean session lemon twice obtains wrist efficient jingle gifts rebel rays twice",
             "seed_bytes": "750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff",
@@ -1566,6 +1572,39 @@ Output:
     }
 
 Private spend key is not present since it's a watch-only wallet.
+
+**Wallet created with 25 words passphrase for test net**
+
+Code:
+
+    from py_crypto_hd_wallet import HdWalletMoneroCoins, HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+
+    hd_wallet_fact = HdWalletMoneroFactory(HdWalletMoneroCoins.MONERO_TESTNET)
+    hd_wallet = hd_wallet_fact.CreateRandom("xmr_wallet", HdWalletMoneroWordsNum.WORDS_NUM_25)
+    hd_wallet.Generate(subaddr_num=1)
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+Output:
+
+    {
+        "wallet_name": "xmr_wallet",
+        "coin_name": "Monero (XMR)",
+        "mnemonic": "knee dying runway digit siren howls vapidly bamboo wept river cinema lucky square whipped sarcasm titans navy younger arbitrary bested nylon rekindle mobile oven mobile",
+        "seed_bytes": "14258c832ec5349d342b7cdf1717a05bb98451c87e691b6eeb3e727d39217417",
+        "key": {
+            "pub_spend": "78738b65395e2d1ee944118ca768f5117bf532cf0980d81472148e65c585cad0",
+            "pub_view": "80fbfae46f62676f5cef29366b779ed7297ae9157763712870d4580a25fdd65b",
+            "priv_view": "717bfb673ce97ec493dea3ecb7dc4a6299f63c0e3cf347bc88e7b04bffddd50f",
+            "priv_spend": "27519626146222455e8e843c391dc146b98451c87e691b6eeb3e727d39217407",
+            "primary_address": "9wjPwR79ADJ6AstGz17pxL3vctSfyVhNP4RMCJ5LxSAubskQt56LLfQKdMvrCEjpgmczLnuB93ZFv7mKu7kRVvKFBKzsWvL"
+        },
+        "account_idx": 0,
+        "subaddress_off": 0,
+        "subaddress": {
+            "subaddress_0": "9wjPwR79ADJ6AstGz17pxL3vctSfyVhNP4RMCJ5LxSAubskQt56LLfQKdMvrCEjpgmczLnuB93ZFv7mKu7kRVvKFBKzsWvL",
+            "subaddress_1": "Bg1ABAbNJy5AnzkJw7h2sSckemwpGUdqaHRf8uDPELwFeGQ66B7bzSzUSNxVS4f5RyC21mDByVX4HWWUMtysPFJZ3E7o4AM"
+        }
+    }
 
 # Buy me a coffee
 
