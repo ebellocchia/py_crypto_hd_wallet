@@ -6,7 +6,9 @@
 
 # Introduction
 
-This package contains a very basic implementation of a HD (Hierarchical Deterministic) wallet based on my [bip_utils](https://github.com/ebellocchia/bip_utils) library. It is basically a nice wrapper for the [bip_utils](https://github.com/ebellocchia/bip_utils) library for generating the mnemonic, seed, public/private keys and addresses.\
+This package contains a very basic implementation of a HD (Hierarchical Deterministic) wallet based on my [bip_utils](https://github.com/ebellocchia/bip_utils) library.
+It is basically a nice wrapper for the [bip_utils](https://github.com/ebellocchia/bip_utils) library for generating mnemonics, seeds, public/private keys and addresses.
+Therefore, it has no network functionalities.\
 The supported coins are the same of the [bip_utils](https://github.com/ebellocchia/bip_utils) library, so check the related page.
 
 # Install the package
