@@ -18,13 +18,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for saving wallets to file."""
 
 # Imports
 from py_crypto_hd_wallet.common import HdWalletBase
 
 
 class HdWalletSaver:
-    """ HD wallet saver class. It saves a wallet to file. """
+    """
+    HD wallet saver class.
+    It saves a wallet to file.
+    """
 
     m_hd_wallet: HdWalletBase
 
@@ -34,7 +38,8 @@ class HdWalletSaver:
 
     def __init__(self,
                  hd_wallet: HdWalletBase) -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             hd_wallet (HdWalletBase object): HdWalletBase object
@@ -43,7 +48,8 @@ class HdWalletSaver:
 
     def SaveToFile(self,
                    file_path: str) -> None:
-        """ Save wallet to file in JSON format.
+        """
+        Save wallet to file in JSON format.
 
         Args:
             file_path (str): File path

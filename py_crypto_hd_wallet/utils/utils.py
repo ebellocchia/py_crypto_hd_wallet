@@ -18,18 +18,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with some utility functions."""
 
 # Imports
 import binascii
 
 
 class Utils:
-    """  Class container for utility functions. """
+    """Class container for utility functions."""
 
     @staticmethod
     def BytesToHexString(data_bytes: bytes,
                          encoding: str = "utf-8") -> str:
-        """ Convert bytes to hex string.
+        """
+        Convert bytes to hex string.
 
         Args:
             data_bytes (bytes)      : Data bytes
@@ -39,4 +41,3 @@ class Utils:
             str: Bytes converted to hex string
         """
         return binascii.hexlify(data_bytes).decode(encoding)
-

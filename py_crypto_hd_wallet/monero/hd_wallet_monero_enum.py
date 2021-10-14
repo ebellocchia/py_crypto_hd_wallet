@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with enums for Monero wallets."""
 
 # Imports
 from enum import Enum, auto, unique
@@ -35,7 +36,7 @@ HdWalletMoneroCoins = MoneroCoins
 
 @unique
 class HdWalletMoneroDataTypes(HdWalletDataTypes):
-    """ Enumerative for wallet Monero data types. """
+    """Enumerative for wallet Monero data types."""
 
     WALLET_NAME = auto()
     COIN_NAME = auto()
@@ -49,7 +50,7 @@ class HdWalletMoneroDataTypes(HdWalletDataTypes):
 
 @unique
 class HdWalletMoneroKeyTypes(Enum):
-    """ Enumerative for wallet Monero key types. """
+    """Enumerative for wallet Monero key types."""
 
     PRIV_SPEND = auto()
     PRIV_VIEW = auto()

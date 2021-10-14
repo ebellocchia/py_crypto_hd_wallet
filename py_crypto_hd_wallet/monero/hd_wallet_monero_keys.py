@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with helper class for storing Monero keys."""
 
 # Imports
 from __future__ import annotations
@@ -28,20 +29,22 @@ from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import HdWalletMoneroKeyTy
 
 
 class HdWalletMoneroKeysConst:
-    """ Class container for HD wallet Monero keys constants. """
+    """Class container for HD wallet Monero keys constants."""
 
     # Map key types to dictionary key
     KEY_TYPE_TO_DICT_KEY: Dict[HdWalletMoneroKeyTypes, str] = {
-            HdWalletMoneroKeyTypes.PRIV_SPEND: "priv_spend",
-            HdWalletMoneroKeyTypes.PRIV_VIEW: "priv_view",
-            HdWalletMoneroKeyTypes.PUB_SPEND: "pub_spend",
-            HdWalletMoneroKeyTypes.PUB_VIEW: "pub_view",
-            HdWalletMoneroKeyTypes.PRIMARY_ADDRESS: "primary_address",
-        }
+        HdWalletMoneroKeyTypes.PRIV_SPEND: "priv_spend",
+        HdWalletMoneroKeyTypes.PRIV_VIEW: "priv_view",
+        HdWalletMoneroKeyTypes.PUB_SPEND: "pub_spend",
+        HdWalletMoneroKeyTypes.PUB_VIEW: "pub_view",
+        HdWalletMoneroKeyTypes.PRIMARY_ADDRESS: "primary_address",
+    }
 
 
 class HdWalletMoneroKeys:
-    """ HD wallet Monero keys class. It creates keys from a Monero object and store them.
+    """
+    HD wallet Monero keys class.
+    It creates keys from a Monero object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 
@@ -52,12 +55,14 @@ class HdWalletMoneroKeys:
     #
 
     def __init__(self) -> None:
-        """ Construct class. """
+        """Construct class."""
         self.m_key_data = {}
 
-    @staticmethod
-    def FromMoneroObj(monero_obj: Monero) -> HdWalletMoneroKeys:
-        """ Create keys from the specified Monero object.
+    @classmethod
+    def FromMoneroObj(cls,
+                      monero_obj: Monero) -> HdWalletMoneroKeys:
+        """
+        Create keys from the specified Monero object.
 
         Args:
             monero_obj (Monero object): Monero object
@@ -66,7 +71,7 @@ class HdWalletMoneroKeys:
             HdWalletMoneroKeys object: HdWalletMoneroKeys object
         """
 
-        wallet_keys = HdWalletMoneroKeys()
+        wallet_keys = cls()
 
         # Add public key
         wallet_keys.__SetKeyData(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
@@ -83,7 +88,8 @@ class HdWalletMoneroKeys:
         return wallet_keys
 
     def ToDict(self) -> Dict[str, str]:
-        """ Get keys as a dictionary.
+        """
+        Get keys as a dictionary.
 
         Returns:
             dict: Keys as a dictionary
@@ -92,7 +98,8 @@ class HdWalletMoneroKeys:
 
     def ToJson(self,
                json_indent: int = 4) -> str:
-        """ Get keys as string in JSON format.
+        """
+        Get keys as string in JSON format.
 
         Args:
             json_indent (int, optional): Indent for JSON format, 4 by default
@@ -104,7 +111,8 @@ class HdWalletMoneroKeys:
 
     def HasKey(self,
                key_type: HdWalletMoneroKeyTypes) -> bool:
-        """ Get if the key of the specified type is present.
+        """
+        Get if the key of the specified type is present.
 
         Args:
             key_type (HdWalletMoneroKeyTypes): Key type, shall be of HdWalletMoneroKeyTypes enum
@@ -120,7 +128,8 @@ class HdWalletMoneroKeys:
 
     def GetKey(self,
                key_type: HdWalletMoneroKeyTypes) -> Optional[str]:
-        """ Get key of the specified type.
+        """
+        Get key of the specified type.
 
         Args:
             key_type (HdWalletMoneroKeyTypes): Key type, shall be of HdWalletMoneroKeyTypes enum
@@ -131,8 +140,8 @@ class HdWalletMoneroKeys:
         """
         if self.HasKey(key_type):
             return self.m_key_data[HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
-        else:
-            return None
+
+        return None
 
     #
     # Private methods
@@ -141,7 +150,8 @@ class HdWalletMoneroKeys:
     def __SetKeyData(self,
                      key_type: HdWalletMoneroKeyTypes,
                      key_value: str) -> None:
-        """ Set key data.
+        """
+        Set key data.
 
         Args:
             key_type (HdWalletMoneroKeyTypes): Key type, shall be of HdWalletMoneroKeyTypes enum

@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for generating Monero wallets."""
 
 # Imports
 from typing import Any, Dict, Optional, Union
@@ -31,24 +32,26 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletMoneroConst:
-    """ Class container for HD wallet Monero constants. """
+    """Class container for HD wallet Monero constants."""
 
     # Map data types to dictionary key
     DATA_TYPE_TO_DICT_KEY: Dict[HdWalletMoneroDataTypes, str] = {
-            HdWalletMoneroDataTypes.WALLET_NAME: "wallet_name",
-            HdWalletMoneroDataTypes.COIN_NAME: "coin_name",
-            HdWalletMoneroDataTypes.MNEMONIC: "mnemonic",
-            HdWalletMoneroDataTypes.SEED_BYTES: "seed_bytes",
-            HdWalletMoneroDataTypes.KEY: "key",
-            HdWalletMoneroDataTypes.ACCOUNT_IDX: "account_idx",
-            HdWalletMoneroDataTypes.SUBADDRESS_OFF: "subaddress_off",
-            HdWalletMoneroDataTypes.SUBADDRESS: "subaddress",
-        }
+        HdWalletMoneroDataTypes.WALLET_NAME: "wallet_name",
+        HdWalletMoneroDataTypes.COIN_NAME: "coin_name",
+        HdWalletMoneroDataTypes.MNEMONIC: "mnemonic",
+        HdWalletMoneroDataTypes.SEED_BYTES: "seed_bytes",
+        HdWalletMoneroDataTypes.KEY: "key",
+        HdWalletMoneroDataTypes.ACCOUNT_IDX: "account_idx",
+        HdWalletMoneroDataTypes.SUBADDRESS_OFF: "subaddress_off",
+        HdWalletMoneroDataTypes.SUBADDRESS: "subaddress",
+    }
 
 
 class HdWalletMonero(HdWalletBase):
-    """ HD wallet Monero class.
-    It basically wraps the bip_utils, allowing to generate a complete Monero wallet. """
+    """
+    HD wallet Monero class.
+    It basically wraps the bip_utils, allowing to generate a complete Monero wallet.
+    """
 
     m_monero_obj: Monero
     m_wallet_data: Dict[str, Any]
@@ -62,7 +65,8 @@ class HdWalletMonero(HdWalletBase):
                  monero_obj: Monero,
                  mnemonic: str = "",
                  seed_bytes: bytes = b"") -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             wallet_name (str)           : Wallet name
@@ -80,9 +84,10 @@ class HdWalletMonero(HdWalletBase):
 
     def Generate(self,
                  **kwargs: Any) -> None:
-        """ Generate wallet keys and addresses.
+        """
+        Generate wallet keys and addresses.
 
-        Other parameters:
+        Other Parameters:
             acc_idx (int, optional): Account index (default: 0)
             subaddr_num (int, optional): Subaddress number (default: 0)
             subaddr_off (int, optional): Starting subaddress index (default: 0)
@@ -114,7 +119,8 @@ class HdWalletMonero(HdWalletBase):
                                                                     subaddr_off))
 
     def IsWatchOnly(self) -> bool:
-        """ Get if the wallet is watch-only.
+        """
+        Get if the wallet is watch-only.
 
         Returns :
             bool: True if watch-only, false otherwise
@@ -122,7 +128,8 @@ class HdWalletMonero(HdWalletBase):
         return self.m_monero_obj.IsWatchOnly()
 
     def ToDict(self) -> Dict[str, Any]:
-        """ Get wallet data as a dictionary.
+        """
+        Get wallet data as a dictionary.
 
         Returns:
             dict: Wallet data as a dictionary
@@ -140,7 +147,8 @@ class HdWalletMonero(HdWalletBase):
 
     def HasData(self,
                 data_type: HdWalletDataTypes) -> bool:
-        """ Get if the wallet data of the specified type is present.
+        """
+        Get if the wallet data of the specified type is present.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -159,7 +167,8 @@ class HdWalletMonero(HdWalletBase):
 
     def GetData(self,
                 data_type: HdWalletDataTypes) -> Optional[Any]:
-        """ Get wallet data of the specified type.
+        """
+        Get wallet data of the specified type.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -175,8 +184,8 @@ class HdWalletMonero(HdWalletBase):
             return self.m_wallet_data[
                 HdWalletMoneroConst.DATA_TYPE_TO_DICT_KEY[HdWalletMoneroDataTypes(data_type)]
             ]
-        else:
-            return None
+
+        return None
 
     #
     # Private methods
@@ -186,7 +195,8 @@ class HdWalletMonero(HdWalletBase):
                    wallet_name: str,
                    mnemonic: str,
                    seed_bytes: bytes) -> None:
-        """ Initialize data.
+        """
+        Initialize data.
 
         Args:
             wallet_name (str): Wallet name
@@ -209,7 +219,8 @@ class HdWalletMonero(HdWalletBase):
     def __SetData(self,
                   data_type: HdWalletMoneroDataTypes,
                   data_value: Union[int, str, HdWalletMoneroKeys, HdWalletMoneroSubaddresses]) -> None:
-        """ Set wallet data.
+        """
+        Set wallet data.
 
         Args:
             data_type (HdWalletMoneroDataTypes)                                        : Data type
@@ -221,7 +232,8 @@ class HdWalletMonero(HdWalletBase):
     def __SetKeys(self,
                   data_type: HdWalletMoneroDataTypes,
                   monero_obj: Monero) -> None:
-        """ Add keys to wallet data.
+        """
+        Add keys to wallet data.
 
         Args:
             data_type (HdWalletMoneroDataTypes): Data type

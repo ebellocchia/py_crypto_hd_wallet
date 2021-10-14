@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for generating Substrate wallets."""
 
 # Imports
 from typing import Any, Dict, Optional, Union
@@ -29,23 +30,25 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletSubstrateConst:
-    """ Class container for HD wallet Substrate constants. """
+    """Class container for HD wallet Substrate constants."""
 
     # Map data types to dictionary key
     DATA_TYPE_TO_DICT_KEY: Dict[HdWalletSubstrateDataTypes, str] = {
-            HdWalletSubstrateDataTypes.WALLET_NAME: "wallet_name",
-            HdWalletSubstrateDataTypes.COIN_NAME: "coin_name",
-            HdWalletSubstrateDataTypes.MNEMONIC: "mnemonic",
-            HdWalletSubstrateDataTypes.PASSPHRASE: "passphrase",
-            HdWalletSubstrateDataTypes.SEED_BYTES: "seed_bytes",
-            HdWalletSubstrateDataTypes.PATH: "path",
-            HdWalletSubstrateDataTypes.KEY: "key",
-        }
+        HdWalletSubstrateDataTypes.WALLET_NAME: "wallet_name",
+        HdWalletSubstrateDataTypes.COIN_NAME: "coin_name",
+        HdWalletSubstrateDataTypes.MNEMONIC: "mnemonic",
+        HdWalletSubstrateDataTypes.PASSPHRASE: "passphrase",
+        HdWalletSubstrateDataTypes.SEED_BYTES: "seed_bytes",
+        HdWalletSubstrateDataTypes.PATH: "path",
+        HdWalletSubstrateDataTypes.KEY: "key",
+    }
 
 
 class HdWalletSubstrate(HdWalletBase):
-    """ HD wallet Substrate class.
-    It basically wraps the bip_utils, allowing to generate a complete Substrate wallet. """
+    """
+    HD wallet Substrate class.
+    It basically wraps the bip_utils, allowing to generate a complete Substrate wallet.
+    """
 
     m_substrate_obj: Substrate
     m_wallet_data: Dict[str, Any]
@@ -60,7 +63,8 @@ class HdWalletSubstrate(HdWalletBase):
                  mnemonic: str = "",
                  passphrase: str = "",
                  seed_bytes: bytes = b"") -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             wallet_name (str)               : Wallet name
@@ -79,9 +83,10 @@ class HdWalletSubstrate(HdWalletBase):
 
     def Generate(self,
                  **kwargs: Any) -> None:
-        """ Generate wallet keys and addresses.
+        """
+        Generate wallet keys and addresses.
 
-        Other parameters:
+        Other Parameters:
             path (str, optional): Derivation path (default: empty)
         """
         path = kwargs.get("path", "")
@@ -96,7 +101,8 @@ class HdWalletSubstrate(HdWalletBase):
             raise ValueError(f"Invalid path: {path}") from ex
 
     def IsWatchOnly(self) -> bool:
-        """ Get if the wallet is watch-only.
+        """
+        Get if the wallet is watch-only.
 
         Returns :
             bool: True if watch-only, false otherwise
@@ -104,7 +110,8 @@ class HdWalletSubstrate(HdWalletBase):
         return self.m_substrate_obj.IsPublicOnly()
 
     def ToDict(self) -> Dict[str, Any]:
-        """ Get wallet data as a dictionary.
+        """
+        Get wallet data as a dictionary.
 
         Returns:
             dict: Wallet data as a dictionary
@@ -122,7 +129,8 @@ class HdWalletSubstrate(HdWalletBase):
 
     def HasData(self,
                 data_type: HdWalletDataTypes) -> bool:
-        """ Get if the wallet data of the specified type is present.
+        """
+        Get if the wallet data of the specified type is present.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -141,7 +149,8 @@ class HdWalletSubstrate(HdWalletBase):
 
     def GetData(self,
                 data_type: HdWalletDataTypes) -> Optional[Any]:
-        """ Get wallet data of the specified type.
+        """
+        Get wallet data of the specified type.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -157,8 +166,8 @@ class HdWalletSubstrate(HdWalletBase):
             return self.m_wallet_data[
                 HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[HdWalletSubstrateDataTypes(data_type)]
             ]
-        else:
-            return None
+
+        return None
 
     #
     # Private methods
@@ -169,7 +178,8 @@ class HdWalletSubstrate(HdWalletBase):
                    mnemonic: str,
                    passphrase: str,
                    seed_bytes: bytes) -> None:
-        """ Initialize data.
+        """
+        Initialize data.
 
         Args:
             wallet_name (str): Wallet name
@@ -194,7 +204,8 @@ class HdWalletSubstrate(HdWalletBase):
     def __SetData(self,
                   data_type: HdWalletSubstrateDataTypes,
                   data_value: Union[int, str, HdWalletSubstrateKeys]) -> None:
-        """ Set wallet data.
+        """
+        Set wallet data.
 
         Args:
             data_type (HdWalletSubstrateDataTypes)          : Data type
@@ -206,7 +217,8 @@ class HdWalletSubstrate(HdWalletBase):
     def __SetKeys(self,
                   data_type: HdWalletSubstrateDataTypes,
                   substrate_obj: Substrate) -> None:
-        """ Add keys to wallet data.
+        """
+        Add keys to wallet data.
 
         Args:
             data_type (HdWalletSubstrateDataTypes): Data type

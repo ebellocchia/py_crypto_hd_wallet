@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with base class for wallet generators."""
 
 # Imports
 import json
@@ -27,7 +28,7 @@ from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
 
 
 class HdWalletBase(ABC):
-    """ HD wallet base class. """
+    """HD wallet base class."""
 
     #
     # Public methods
@@ -36,35 +37,36 @@ class HdWalletBase(ABC):
     @abstractmethod
     def Generate(self,
                  **kwargs: Any) -> None:
-        """ Generate wallet keys and addresses.
+        """
+        Generate wallet keys and addresses.
 
         Args:
             **kwargs: Arbitrary arguments depending on the wallet type
         """
-        pass
 
     @abstractmethod
     def IsWatchOnly(self) -> bool:
-        """ Get if the wallet is watch-only.
+        """
+        Get if the wallet is watch-only.
 
         Returns :
             bool: True if watch-only, false otherwise
         """
-        pass
 
     @abstractmethod
     def ToDict(self) -> Dict[str, Any]:
-        """ Get wallet data as a dictionary.
+        """
+        Get wallet data as a dictionary.
 
         Returns:
             dict: Wallet data as a dictionary
         """
-        pass
 
     @abstractmethod
     def HasData(self,
                 data_type: HdWalletDataTypes) -> bool:
-        """ Get if the wallet data of the specified type is present.
+        """
+        Get if the wallet data of the specified type is present.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -75,12 +77,12 @@ class HdWalletBase(ABC):
         Raises:
             TypeError: If data type is not of the correct enumerative type
         """
-        pass
 
     @abstractmethod
     def GetData(self,
                 data_type: HdWalletDataTypes) -> Optional[Any]:
-        """ Get wallet data of the specified type.
+        """
+        Get wallet data of the specified type.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -92,11 +94,11 @@ class HdWalletBase(ABC):
         Raises:
             TypeError: If data type is not of the correct enumerative type
         """
-        pass
 
     def ToJson(self,
                json_indent: int = 4) -> str:
-        """ Get wallet data as string in JSON format.
+        """
+        Get wallet data as string in JSON format.
 
         Args:
             json_indent (int, optional): Indent for JSON format, 4 by default

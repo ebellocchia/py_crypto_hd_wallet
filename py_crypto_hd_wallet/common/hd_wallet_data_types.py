@@ -18,11 +18,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for generic wallet data types enum."""
 
 # Imports
 from enum import Enum
 
 
 class HdWalletDataTypes(Enum):
-    """ Base enum for wallet data types. """
-    pass
+    """Base enum for wallet data types."""

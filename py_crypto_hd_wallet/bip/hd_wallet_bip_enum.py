@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with enums for BIP wallets."""
 
 # Imports
 from enum import Enum, auto, unique
@@ -41,7 +42,7 @@ HdWalletBipChanges = Bip44Changes
 
 @unique
 class HdWalletBipDataTypes(HdWalletDataTypes):
-    """ Enumerative for wallet BIP data types. """
+    """Enumerative for wallet BIP data types."""
 
     WALLET_NAME = auto()
     COIN_NAME = auto()
@@ -62,7 +63,7 @@ class HdWalletBipDataTypes(HdWalletDataTypes):
 
 @unique
 class HdWalletBipKeyTypes(Enum):
-    """ Enumerative for wallet BIP key types. """
+    """Enumerative for wallet BIP key types."""
 
     EX_PRIV = auto()
     RAW_PRIV = auto()

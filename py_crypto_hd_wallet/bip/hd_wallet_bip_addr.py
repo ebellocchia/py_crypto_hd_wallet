@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with helper class for storing BIP addresses."""
 
 # Imports
 from __future__ import annotations
@@ -29,14 +30,15 @@ from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 
 
 class HdWalletBipAddressesConst:
-    """ Class container for HD wallet BIP addresses constants. """
+    """Class container for HD wallet BIP addresses constants."""
 
     # Address key for dictionary
     ADDR_DICT_KEY: str = "address_{:d}"
 
 
 class HdWalletBipAddresses:
-    """ HD wallet BIP addresses class. It creates addresses from a Bip object and store them.
+    """
+    HD wallet BIP addresses class. It creates addresses from a Bip object and store them.
     Addresses can be got individually, as dictionary or in JSON format.
     """
 
@@ -48,7 +50,7 @@ class HdWalletBipAddresses:
     #
 
     def __init__(self) -> None:
-        """ Construct class. """
+        """Construct class."""
         self.m_addr = []
         self.m_addr_off = 0
 
@@ -56,7 +58,8 @@ class HdWalletBipAddresses:
     def FromBipObj(bip_obj: Bip44Base,
                    addr_num: int,
                    addr_off: int) -> HdWalletBipAddresses:
-        """ Create addresses from the specified Bip object.
+        """
+        Create addresses from the specified Bip object.
         If the Bip object is at address index level, only one address will be computed.
 
         Args:
@@ -81,7 +84,8 @@ class HdWalletBipAddresses:
         return addr
 
     def ToDict(self) -> Dict[str, Dict[str, str]]:
-        """ Get addresses as a dictionary.
+        """
+        Get addresses as a dictionary.
 
         Returns:
             dict: Addresses as a dictionary
@@ -96,7 +100,8 @@ class HdWalletBipAddresses:
 
     def ToJson(self,
                json_indent: int = 4) -> str:
-        """ Get addresses as string in JSON format.
+        """
+        Get addresses as string in JSON format.
 
         Args:
             json_indent (int, optional): Indent for JSON format, 4 by default
@@ -107,7 +112,8 @@ class HdWalletBipAddresses:
         return json.dumps(self.ToDict(), indent=json_indent)
 
     def Count(self) -> int:
-        """ Get the addresses count.
+        """
+        Get the addresses count.
 
         Returns:
             int: Number of addresses
@@ -116,7 +122,8 @@ class HdWalletBipAddresses:
 
     def __getitem__(self,
                     addr_idx: int) -> HdWalletBipKeys:
-        """ Get the specified address index.
+        """
+        Get the specified address index.
 
         Args:
             addr_idx (int): Address index
@@ -127,7 +134,8 @@ class HdWalletBipAddresses:
         return self.m_addr[addr_idx]
 
     def __iter__(self) -> Iterator[HdWalletBipKeys]:
-        """ Get the iterator to the current element.
+        """
+        Get the iterator to the current element.
 
         Returns:
             Iterator object: Iterator to the current element

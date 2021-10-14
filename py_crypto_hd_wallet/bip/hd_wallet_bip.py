@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for generating wallets based on BIP specifications."""
 
 # Imports
 from typing import Any, Dict, Optional, Union
@@ -32,31 +33,33 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletBipConst:
-    """ Class container for HD wallet BIP constants. """
+    """Class container for HD wallet BIP constants."""
 
     # Map data types to dictionary key
     DATA_TYPE_TO_DICT_KEY: Dict[HdWalletBipDataTypes, str] = {
-            HdWalletBipDataTypes.WALLET_NAME: "wallet_name",
-            HdWalletBipDataTypes.COIN_NAME: "coin_name",
-            HdWalletBipDataTypes.SPEC_NAME: "spec_name",
-            HdWalletBipDataTypes.MNEMONIC: "mnemonic",
-            HdWalletBipDataTypes.PASSPHRASE: "passphrase",
-            HdWalletBipDataTypes.SEED_BYTES: "seed_bytes",
-            HdWalletBipDataTypes.ACCOUNT_IDX: "account_idx",
-            HdWalletBipDataTypes.CHANGE_IDX: "change_idx",
-            HdWalletBipDataTypes.MASTER_KEY: "master_key",
-            HdWalletBipDataTypes.PURPOSE_KEY: "purpose_key",
-            HdWalletBipDataTypes.COIN_KEY: "coin_key",
-            HdWalletBipDataTypes.ACCOUNT_KEY: "account_key",
-            HdWalletBipDataTypes.CHANGE_KEY: "change_key",
-            HdWalletBipDataTypes.ADDRESS_OFF: "address_off",
-            HdWalletBipDataTypes.ADDRESS: "address",
-        }
+        HdWalletBipDataTypes.WALLET_NAME: "wallet_name",
+        HdWalletBipDataTypes.COIN_NAME: "coin_name",
+        HdWalletBipDataTypes.SPEC_NAME: "spec_name",
+        HdWalletBipDataTypes.MNEMONIC: "mnemonic",
+        HdWalletBipDataTypes.PASSPHRASE: "passphrase",
+        HdWalletBipDataTypes.SEED_BYTES: "seed_bytes",
+        HdWalletBipDataTypes.ACCOUNT_IDX: "account_idx",
+        HdWalletBipDataTypes.CHANGE_IDX: "change_idx",
+        HdWalletBipDataTypes.MASTER_KEY: "master_key",
+        HdWalletBipDataTypes.PURPOSE_KEY: "purpose_key",
+        HdWalletBipDataTypes.COIN_KEY: "coin_key",
+        HdWalletBipDataTypes.ACCOUNT_KEY: "account_key",
+        HdWalletBipDataTypes.CHANGE_KEY: "change_key",
+        HdWalletBipDataTypes.ADDRESS_OFF: "address_off",
+        HdWalletBipDataTypes.ADDRESS: "address",
+    }
 
 
 class HdWalletBip(HdWalletBase):
-    """ HD wallet BIP class.
-    It basically wraps the bip_utils, allowing to generate a complete wallet based on BIP specifications. """
+    """
+    HD wallet BIP class.
+    It basically wraps the bip_utils, allowing to generate a complete wallet based on BIP specifications.
+    """
 
     m_bip_obj: Bip44Base
     m_wallet_data: Dict[str, Any]
@@ -71,7 +74,8 @@ class HdWalletBip(HdWalletBase):
                  mnemonic: str = "",
                  passphrase: str = "",
                  seed_bytes: bytes = b"") -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             wallet_name (str)           : Wallet name
@@ -90,9 +94,10 @@ class HdWalletBip(HdWalletBase):
 
     def Generate(self,
                  **kwargs: Any) -> None:
-        """ Generate wallet keys and addresses.
+        """
+        Generate wallet keys and addresses.
 
-        Other parameters:
+        Other Parameters:
             acc_idx (int, optional)                  : Account index (default: 0)
             change_idx (HdWalletBipChanges, optional): Change index (default: external)
             addr_num (int, optional)                 : Number of addresses to be generated (default: 20)
@@ -151,7 +156,8 @@ class HdWalletBip(HdWalletBase):
                            HdWalletBipAddresses.FromBipObj(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:
-        """ Get if the wallet is watch-only.
+        """
+        Get if the wallet is watch-only.
 
         Returns :
             bool: True if watch-only, false otherwise
@@ -159,7 +165,8 @@ class HdWalletBip(HdWalletBase):
         return self.m_bip_obj.IsPublicOnly()
 
     def ToDict(self) -> Dict[str, Any]:
-        """ Get wallet data as a dictionary.
+        """
+        Get wallet data as a dictionary.
 
         Returns:
             dict: Wallet data as a dictionary
@@ -177,7 +184,8 @@ class HdWalletBip(HdWalletBase):
 
     def HasData(self,
                 data_type: HdWalletDataTypes) -> bool:
-        """ Get if the wallet data of the specified type is present.
+        """
+        Get if the wallet data of the specified type is present.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -196,7 +204,8 @@ class HdWalletBip(HdWalletBase):
 
     def GetData(self,
                 data_type: HdWalletDataTypes) -> Optional[Any]:
-        """ Get wallet data of the specified type.
+        """
+        Get wallet data of the specified type.
 
         Args:
             data_type (HdWalletDataTypes): Data type
@@ -212,8 +221,8 @@ class HdWalletBip(HdWalletBase):
             return self.m_wallet_data[
                 HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[HdWalletBipDataTypes(data_type)]
             ]
-        else:
-            return None
+
+        return None
 
     #
     # Private methods
@@ -224,7 +233,8 @@ class HdWalletBip(HdWalletBase):
                    mnemonic: str,
                    passphrase: str,
                    seed_bytes: bytes) -> None:
-        """ Initialize data.
+        """
+        Initialize data.
 
         Args:
             wallet_name (str): Wallet name
@@ -251,7 +261,8 @@ class HdWalletBip(HdWalletBase):
     def __SetData(self,
                   data_type: HdWalletBipDataTypes,
                   data_value: Union[int, str, HdWalletBipKeys, HdWalletBipAddresses]) -> None:
-        """ Set wallet data.
+        """
+        Set wallet data.
 
         Args:
             data_type (HdWalletBipDataTypes)                                  : Data type
@@ -263,7 +274,8 @@ class HdWalletBip(HdWalletBase):
     def __SetKeys(self,
                   data_type: HdWalletBipDataTypes,
                   bip_obj: Bip44Base) -> None:
-        """ Add keys to wallet data.
+        """
+        Add keys to wallet data.
 
         Args:
             data_type (HdWalletBipDataTypes): Data type

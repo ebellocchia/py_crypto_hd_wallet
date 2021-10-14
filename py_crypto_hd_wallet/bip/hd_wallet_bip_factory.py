@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for creating wallet generators based on BIP specifications."""
 
 # Imports
 from typing import Type, Union
@@ -36,7 +37,10 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletBipFactory:
-    """ HD wallet BIP factory class. It allows a HdWalletBip to be created in different way. """
+    """
+    HD wallet BIP factory class.
+    It allows a HdWalletBip to be created in different way.
+    """
 
     m_bip_coin: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]
     m_bip_cls: Type[Bip44Base]
@@ -45,7 +49,8 @@ class HdWalletBipFactory:
                  coin_type: Union[HdWalletBip44Coins,
                                   HdWalletBip49Coins,
                                   HdWalletBip84Coins]) -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins): Coin type
@@ -60,7 +65,8 @@ class HdWalletBipFactory:
                      wallet_name: str,
                      words_num: HdWalletBipWordsNum = HdWalletBipWordsNum.WORDS_NUM_24,
                      lang: HdWalletBipLanguages = HdWalletBipLanguages.ENGLISH) -> HdWalletBase:
-        """ Create wallet randomly.
+        """
+        Create wallet randomly.
 
         Args:
             wallet_name (str)                        : Wallet name
@@ -75,7 +81,7 @@ class HdWalletBipFactory:
         """
         if not isinstance(words_num, HdWalletBipWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletBipWordsNum")
-        elif not isinstance(lang, HdWalletBipLanguages):
+        if not isinstance(lang, HdWalletBipLanguages):
             raise TypeError("Language is not an enumerative of HdWalletBipLanguages")
 
         mnemonic = Bip39MnemonicGenerator(lang).FromWordsNumber(words_num)
@@ -86,7 +92,8 @@ class HdWalletBipFactory:
                            wallet_name: str,
                            mnemonic: str,
                            passphrase: str = "") -> HdWalletBase:
-        """ Create wallet from mnemonic.
+        """
+        Create wallet from mnemonic.
 
         Args:
             wallet_name (str)         : Wallet name
@@ -115,7 +122,8 @@ class HdWalletBipFactory:
     def CreateFromSeed(self,
                        wallet_name: str,
                        seed_bytes: bytes) -> HdWalletBase:
-        """ Create wallet from seed.
+        """
+        Create wallet from seed.
 
         Args:
             wallet_name (str) : Wallet name
@@ -136,7 +144,8 @@ class HdWalletBipFactory:
     def CreateFromExtendedKey(self,
                               wallet_name: str,
                               ex_key_str: str) -> HdWalletBase:
-        """ Create wallet from extended key.
+        """
+        Create wallet from extended key.
 
         Args:
             wallet_name (str): Wallet name
@@ -159,7 +168,8 @@ class HdWalletBipFactory:
     def CreateFromPrivateKey(self,
                              wallet_name: str,
                              priv_key: bytes) -> HdWalletBase:
-        """ Create wallet from private key.
+        """
+        Create wallet from private key.
 
         Args:
             wallet_name (str): Wallet name
@@ -183,7 +193,8 @@ class HdWalletBipFactory:
     def __BipClassFromCoinType(coin_type: Union[HdWalletBip44Coins,
                                                 HdWalletBip49Coins,
                                                 HdWalletBip84Coins]) -> Type[Bip44Base]:
-        """ Get BIP class from coin type.
+        """
+        Get BIP class from coin type.
 
         Args:
             coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins): Coin type
@@ -191,11 +202,11 @@ class HdWalletBipFactory:
         Returns:
             Bip44Base class: Bip44Base class
         """
-        if type(coin_type) == HdWalletBip44Coins:
+        if isinstance(coin_type, HdWalletBip44Coins):
             return Bip44
-        elif type(coin_type) == HdWalletBip49Coins:
+        if isinstance(coin_type, HdWalletBip49Coins):
             return Bip49
-        elif type(coin_type) == HdWalletBip84Coins:
+        if isinstance(coin_type, HdWalletBip84Coins):
             return Bip84
 
         raise TypeError("Coin type is not an accepted enumerative")

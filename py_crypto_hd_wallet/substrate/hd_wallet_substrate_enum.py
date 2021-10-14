@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with enums for Substrate wallets."""
 
 # Imports
 from enum import Enum, auto, unique
@@ -36,7 +37,7 @@ HdWalletSubstrateCoins = SubstrateCoins
 
 @unique
 class HdWalletSubstrateDataTypes(HdWalletDataTypes):
-    """ Enumerative for wallet Substrate data types. """
+    """Enumerative for wallet Substrate data types."""
 
     WALLET_NAME = auto()
     COIN_NAME = auto()
@@ -49,7 +50,7 @@ class HdWalletSubstrateDataTypes(HdWalletDataTypes):
 
 @unique
 class HdWalletSubstrateKeyTypes(Enum):
-    """ Enumerative for wallet Substrate key types. """
+    """Enumerative for wallet Substrate key types."""
 
     PRIV = auto()
     PUB = auto()

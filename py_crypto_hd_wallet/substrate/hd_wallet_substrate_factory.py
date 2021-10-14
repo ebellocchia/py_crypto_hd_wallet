@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for creating Substrate wallet generators."""
 
 # Imports
 from bip_utils import (
@@ -33,13 +34,17 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletSubstrateFactory:
-    """ HD wallet Substrate factory class. It allows a HdWalletSubstrate to be created in different way. """
+    """
+    HD wallet Substrate factory class.
+    It allows a HdWalletSubstrate to be created in different way.
+    """
 
     m_substrate_coin: HdWalletSubstrateCoins
 
     def __init__(self,
                  coin_type: HdWalletSubstrateCoins) -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             coin_type (HdWalletSubstrateCoins): Coin type
@@ -59,7 +64,8 @@ class HdWalletSubstrateFactory:
                      wallet_name: str,
                      words_num: HdWalletSubstrateWordsNum = HdWalletSubstrateWordsNum.WORDS_NUM_24,
                      lang: HdWalletSubstrateLanguages = HdWalletSubstrateLanguages.ENGLISH) -> HdWalletBase:
-        """ Create wallet randomly.
+        """
+        Create wallet randomly.
 
         Args:
             wallet_name (str)                              : Wallet name
@@ -75,7 +81,7 @@ class HdWalletSubstrateFactory:
         """
         if not isinstance(words_num, HdWalletSubstrateWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletSubstrateWordsNum")
-        elif not isinstance(lang, HdWalletSubstrateLanguages):
+        if not isinstance(lang, HdWalletSubstrateLanguages):
             raise TypeError("Language is not an enumerative of HdWalletSubstrateLanguages")
 
         mnemonic = Bip39MnemonicGenerator(lang).FromWordsNumber(words_num)
@@ -86,7 +92,8 @@ class HdWalletSubstrateFactory:
                            wallet_name: str,
                            mnemonic: str,
                            passphrase: str = "") -> HdWalletBase:
-        """ Create wallet from mnemonic.
+        """
+        Create wallet from mnemonic.
 
         Args:
             wallet_name (str)         : Wallet name
@@ -115,7 +122,8 @@ class HdWalletSubstrateFactory:
     def CreateFromSeed(self,
                        wallet_name: str,
                        seed_bytes: bytes) -> HdWalletBase:
-        """ Create wallet from seed.
+        """
+        Create wallet from seed.
 
         Args:
             wallet_name (str) : Wallet name
@@ -136,7 +144,8 @@ class HdWalletSubstrateFactory:
     def CreateFromPrivateKey(self,
                              wallet_name: str,
                              priv_key: bytes) -> HdWalletBase:
-        """ Create wallet from private key.
+        """
+        Create wallet from private key.
 
         Args:
             wallet_name (str): Wallet name
@@ -159,7 +168,8 @@ class HdWalletSubstrateFactory:
     def CreateFromPublicKey(self,
                             wallet_name: str,
                             pub_key: bytes) -> HdWalletBase:
-        """ Create wallet from public key.
+        """
+        Create wallet from public key.
 
         Args:
             wallet_name (str): Wallet name

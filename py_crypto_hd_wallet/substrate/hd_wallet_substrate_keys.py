@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module with helper class for storing Substrate keys."""
 
 # Imports
 from __future__ import annotations
@@ -28,18 +29,20 @@ from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubst
 
 
 class HdWalletSubstrateKeysConst:
-    """ Class container for HD wallet Substrate keys constants. """
+    """Class container for HD wallet Substrate keys constants."""
 
     # Map key types to dictionary key
     KEY_TYPE_TO_DICT_KEY: Dict[HdWalletSubstrateKeyTypes, str] = {
-            HdWalletSubstrateKeyTypes.PRIV: "priv",
-            HdWalletSubstrateKeyTypes.PUB: "pub",
-            HdWalletSubstrateKeyTypes.ADDRESS: "address",
-        }
+        HdWalletSubstrateKeyTypes.PRIV: "priv",
+        HdWalletSubstrateKeyTypes.PUB: "pub",
+        HdWalletSubstrateKeyTypes.ADDRESS: "address",
+    }
 
 
 class HdWalletSubstrateKeys:
-    """ HD wallet Substrate keys class. It creates keys from a Substrate object and store them.
+    """
+    HD wallet Substrate keys class.
+    It creates keys from a Substrate object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 
@@ -50,12 +53,14 @@ class HdWalletSubstrateKeys:
     #
 
     def __init__(self) -> None:
-        """ Construct class. """
+        """Construct class."""
         self.m_key_data = {}
 
-    @staticmethod
-    def FromSubstrateObj(substrate_obj: Substrate) -> HdWalletSubstrateKeys:
-        """ Create keys from the specified Substrate object.
+    @classmethod
+    def FromSubstrateObj(cls,
+                         substrate_obj: Substrate) -> HdWalletSubstrateKeys:
+        """
+        Create keys from the specified Substrate object.
 
         Args:
             substrate_obj (Substrate object): Substrate object
@@ -64,7 +69,7 @@ class HdWalletSubstrateKeys:
             HdWalletSubstrateKeys object: HdWalletSubstrateKeys object
         """
 
-        wallet_keys = HdWalletSubstrateKeys()
+        wallet_keys = cls()
 
         # Add public key
         wallet_keys.__SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
@@ -79,7 +84,8 @@ class HdWalletSubstrateKeys:
         return wallet_keys
 
     def ToDict(self) -> Dict[str, str]:
-        """ Get keys as a dictionary.
+        """
+        Get keys as a dictionary.
 
         Returns:
             dict: Keys as a dictionary
@@ -88,7 +94,8 @@ class HdWalletSubstrateKeys:
 
     def ToJson(self,
                json_indent: int = 4) -> str:
-        """ Get keys as string in JSON format.
+        """
+        Get keys as string in JSON format.
 
         Args:
             json_indent (int, optional): Indent for JSON format, 4 by default
@@ -100,7 +107,8 @@ class HdWalletSubstrateKeys:
 
     def HasKey(self,
                key_type: HdWalletSubstrateKeyTypes) -> bool:
-        """ Get if the key of the specified type is present.
+        """
+        Get if the key of the specified type is present.
 
         Args:
             key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum
@@ -116,7 +124,8 @@ class HdWalletSubstrateKeys:
 
     def GetKey(self,
                key_type: HdWalletSubstrateKeyTypes) -> Optional[str]:
-        """ Get key of the specified type.
+        """
+        Get key of the specified type.
 
         Args:
             key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum
@@ -127,8 +136,8 @@ class HdWalletSubstrateKeys:
         """
         if self.HasKey(key_type):
             return self.m_key_data[HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
-        else:
-            return None
+
+        return None
 
     #
     # Private methods
@@ -137,7 +146,8 @@ class HdWalletSubstrateKeys:
     def __SetKeyData(self,
                      key_type: HdWalletSubstrateKeyTypes,
                      key_value: str) -> None:
-        """ Set key data.
+        """
+        Set key data.
 
         Args:
             key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum

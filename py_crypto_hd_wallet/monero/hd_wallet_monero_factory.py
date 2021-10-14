@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Module for creating Monero wallet generators."""
 
 # Imports
 from bip_utils import (
@@ -33,13 +34,17 @@ from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletMoneroFactory:
-    """ HD wallet Monero factory class. It allows a HdWalletMonero to be created in different way. """
+    """
+    HD wallet Monero factory class.
+    It allows a HdWalletMonero to be created in different way.
+    """
 
     m_monero_coin: HdWalletMoneroCoins
 
     def __init__(self,
                  coin_type: HdWalletMoneroCoins = HdWalletMoneroCoins.MONERO_MAINNET) -> None:
-        """ Construct class.
+        """
+        Construct class.
 
         Args:
             coin_type (HdWalletMoneroCoins, optional): Coin type (default: main net)
@@ -59,7 +64,8 @@ class HdWalletMoneroFactory:
                      wallet_name: str,
                      words_num: HdWalletMoneroWordsNum = HdWalletMoneroWordsNum.WORDS_NUM_25,
                      lang: HdWalletMoneroLanguages = HdWalletMoneroLanguages.ENGLISH) -> HdWalletBase:
-        """ Create wallet randomly.
+        """
+        Create wallet randomly.
 
         Args:
             wallet_name (str)                           : Wallet name
@@ -75,7 +81,7 @@ class HdWalletMoneroFactory:
         """
         if not isinstance(words_num, HdWalletMoneroWordsNum):
             raise TypeError("Words number is not an enumerative of HdWalletMoneroWordsNum")
-        elif not isinstance(lang, HdWalletMoneroLanguages):
+        if not isinstance(lang, HdWalletMoneroLanguages):
             raise TypeError("Language is not an enumerative of HdWalletMoneroLanguages")
 
         mnemonic = MoneroMnemonicGenerator(lang).FromWordsNumber(words_num)
@@ -85,7 +91,8 @@ class HdWalletMoneroFactory:
     def CreateFromMnemonic(self,
                            wallet_name: str,
                            mnemonic: str) -> HdWalletBase:
-        """ Create wallet from mnemonic.
+        """
+        Create wallet from mnemonic.
 
         Args:
             wallet_name (str): Wallet name
@@ -112,7 +119,8 @@ class HdWalletMoneroFactory:
     def CreateFromSeed(self,
                        wallet_name: str,
                        seed_bytes: bytes) -> HdWalletBase:
-        """ Create wallet from seed.
+        """
+        Create wallet from seed.
 
         Args:
             wallet_name (str) : Wallet name
@@ -133,7 +141,8 @@ class HdWalletMoneroFactory:
     def CreateFromPrivateKey(self,
                              wallet_name: str,
                              priv_skey: bytes) -> HdWalletBase:
-        """ Create wallet from private spend key.
+        """
+        Create wallet from private spend key.
 
         Args:
             wallet_name (str): Wallet name
@@ -157,7 +166,8 @@ class HdWalletMoneroFactory:
                             wallet_name: str,
                             priv_vkey: bytes,
                             pub_skey: bytes) -> HdWalletBase:
-        """ Create wallet from private view key and public spend key (i.e. watch-only wallet).
+        """
+        Create wallet from private view key and public spend key (i.e. watch-only wallet).
 
         Args:
             wallet_name (str): Wallet name
@@ -173,7 +183,7 @@ class HdWalletMoneroFactory:
         try:
             monero_obj = Monero.FromWatchOnly(priv_vkey, pub_skey, self.m_monero_coin)
         except MoneroKeyError as ex:
-            raise ValueError(f"Invalid keys for watch-only wallet") from ex
+            raise ValueError("Invalid keys for watch-only wallet") from ex
 
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj)
