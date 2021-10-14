@@ -3,7 +3,11 @@ test-warnings: false
 doc-warnings: true
 member-warnings: true
 
+ignore-paths:
+  - tests
+
 ignore-patterns:
+  - setup.py
   - _version.py
 
 # pylint configuration
