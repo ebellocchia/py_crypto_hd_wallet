@@ -56,44 +56,16 @@ class HdWalletBipKeys:
     # Public methods
     #
 
-    def __init__(self) -> None:
-        """Construct class."""
-        self.m_key_data = {}
-
-    @classmethod
-    def FromBipObj(cls,
-                   bip_obj: Bip44Base) -> HdWalletBipKeys:
+    def __init__(self,
+                 bip_obj: Bip44Base) -> None:
         """
-        Create keys from the specified Bip object.
+        Construct class.
 
         Args:
             bip_obj (Bip44Base object): Bip44Base object
-
-        Returns:
-            HdWalletBipKeys object: HdWalletBipKeys object
         """
-
-        wallet_keys = cls()
-
-        # Add public keys
-        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
-        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
-        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
-
-        # Add private keys only if Bip object is not public-only
-        if not bip_obj.IsPublicOnly():
-            wallet_keys.__SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
-            wallet_keys.__SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
-
-            # Add WIF if supported by the coin
-            wif = bip_obj.PrivateKey().ToWif()
-            if wif != "":
-                wallet_keys.__SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)
-
-        # Address
-        wallet_keys.__SetKeyData(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
-
-        return wallet_keys
+        self.m_key_data = {}
+        self.__FromBipObj(bip_obj)
 
     def ToDict(self) -> Dict[str, str]:
         """
@@ -157,9 +129,32 @@ class HdWalletBipKeys:
 
         return None
 
-    #
-    # Private methods
-    #
+    def __FromBipObj(self,
+                     bip_obj: Bip44Base) -> None:
+        """
+        Create keys from the specified Bip object.
+
+        Args:
+            bip_obj (Bip44Base object): Bip44Base object
+        """
+
+        # Add public keys
+        self.__SetKeyData(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
+        self.__SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        self.__SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
+
+        # Add private keys only if Bip object is not public-only
+        if not bip_obj.IsPublicOnly():
+            self.__SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
+            self.__SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
+
+            # Add WIF if supported by the coin
+            wif = bip_obj.PrivateKey().ToWif()
+            if wif != "":
+                self.__SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)
+
+        # Address
+        self.__SetKeyData(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
 
     def __SetKeyData(self,
                      key_type: HdWalletBipKeyTypes,

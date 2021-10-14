@@ -49,39 +49,21 @@ class HdWalletBipAddresses:
     # Public methods
     #
 
-    def __init__(self) -> None:
-        """Construct class."""
-        self.m_addr = []
-        self.m_addr_off = 0
-
-    @staticmethod
-    def FromBipObj(bip_obj: Bip44Base,
-                   addr_num: int,
-                   addr_off: int) -> HdWalletBipAddresses:
+    def __init__(self,
+                 bip_obj: Bip44Base,
+                 addr_num: int,
+                 addr_off: int) -> None:
         """
-        Create addresses from the specified Bip object.
-        If the Bip object is at address index level, only one address will be computed.
+        Construct class.
 
         Args:
             bip_obj (Bip44Base object): Bip44Base object
             addr_num (int)            : Address number
             addr_off (int)            : Starting address index
-
-        Returns:
-            HdWalletBipAddresses object: HdWalletBipAddresses object
         """
-        addr = HdWalletBipAddresses()
-
-        if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
-            addr.m_addr.append(HdWalletBipKeys.FromBipObj(bip_obj))
-        else:
-            addr.m_addr_off = addr_off
-
-            for i in range(addr_num):
-                bip_obj_addr = bip_obj.AddressIndex(i + addr_off)
-                addr.m_addr.append(HdWalletBipKeys.FromBipObj(bip_obj_addr))
-
-        return addr
+        self.m_addr = []
+        self.m_addr_off = addr_off
+        self.__FromBipObj(bip_obj, addr_num, addr_off)
 
     def ToDict(self) -> Dict[str, Dict[str, str]]:
         """
@@ -141,3 +123,25 @@ class HdWalletBipAddresses:
             Iterator object: Iterator to the current element
         """
         yield from self.m_addr
+
+    def __FromBipObj(self,
+                     bip_obj: Bip44Base,
+                     addr_num: int,
+                     addr_off: int) -> None:
+        """
+        Create addresses from the specified Bip object.
+        If the Bip object is at address index level, only one address will be computed.
+
+        Args:
+            bip_obj (Bip44Base object): Bip44Base object
+            addr_num (int)            : Address number
+            addr_off (int)            : Starting address index
+        """
+
+        # Only 1 address if address level
+        if bip_obj.IsLevel(Bip44Levels.ADDRESS_INDEX):
+            self.m_addr.append(HdWalletBipKeys(bip_obj))
+        else:
+            for i in range(addr_num):
+                bip_obj_addr = bip_obj.AddressIndex(i + addr_off)
+                self.m_addr.append(HdWalletBipKeys(bip_obj_addr))

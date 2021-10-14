@@ -48,37 +48,23 @@ class HdWalletMoneroSubaddresses:
     # Public methods
     #
 
-    def __init__(self) -> None:
-        """Construct class."""
-        self.m_subaddr = []
-        self.m_subaddr_off = 0
-
-    @staticmethod
-    def FromMoneroObj(monero_obj: Monero,
-                      acc_idx: int,
-                      subaddr_num: int,
-                      subaddr_off: int) -> HdWalletMoneroSubaddresses:
+    def __init__(self,
+                 monero_obj: Monero,
+                 acc_idx: int,
+                 subaddr_num: int,
+                 subaddr_off: int) -> None:
         """
-        Create addresses from the specified Bip object.
-        If the Bip object is at address index level, only one address will be computed.
+        Construct class.
 
         Args:
             monero_obj (Monero object): Monero object
-            acc_idx (int)         : Account index
+            acc_idx (int)             : Account index
             subaddr_num (int)         : Subaddress number
             subaddr_off (int)         : Starting subaddress index
-
-        Returns:
-            HdWalletMoneroSubaddresses object: HdWalletMoneroSubaddresses object
         """
-        addr = HdWalletMoneroSubaddresses()
-        addr.m_subaddr_off = subaddr_off
-
-        for i in range(subaddr_num):
-            subaddr = monero_obj.Subaddress(i + subaddr_off, acc_idx)
-            addr.m_subaddr.append(subaddr)
-
-        return addr
+        self.m_subaddr = []
+        self.m_subaddr_off = subaddr_off
+        self.__FromMoneroObj(monero_obj, acc_idx, subaddr_num, subaddr_off)
 
     def ToDict(self) -> Dict[str, str]:
         """
@@ -138,3 +124,22 @@ class HdWalletMoneroSubaddresses:
             Iterator object: Iterator to the current element
         """
         yield from self.m_subaddr
+
+    def __FromMoneroObj(self,
+                        monero_obj: Monero,
+                        acc_idx: int,
+                        subaddr_num: int,
+                        subaddr_off: int) -> None:
+        """
+        Create addresses from the specified Bip object.
+        If the Bip object is at address index level, only one address will be computed.
+
+        Args:
+            monero_obj (Monero object): Monero object
+            acc_idx (int)             : Account index
+            subaddr_num (int)         : Subaddress number
+            subaddr_off (int)         : Starting subaddress index
+        """
+        for i in range(subaddr_num):
+            subaddr = monero_obj.Subaddress(i + subaddr_off, acc_idx)
+            self.m_subaddr.append(subaddr)

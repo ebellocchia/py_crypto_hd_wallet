@@ -252,9 +252,6 @@ class HdWalletSubstrateTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-        # Invalid parameter for HdWalletSubstrateKeys
-        self.assertRaises(TypeError, HdWalletSubstrateKeys().HasKey, 0)
-        self.assertRaises(TypeError, HdWalletSubstrateKeys().GetKey, 0)
 
     #
     # Helper methods

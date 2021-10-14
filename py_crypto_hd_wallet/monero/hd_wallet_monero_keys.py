@@ -54,38 +54,16 @@ class HdWalletMoneroKeys:
     # Public methods
     #
 
-    def __init__(self) -> None:
-        """Construct class."""
-        self.m_key_data = {}
-
-    @classmethod
-    def FromMoneroObj(cls,
-                      monero_obj: Monero) -> HdWalletMoneroKeys:
+    def __init__(self,
+                 monero_obj: Monero) -> None:
         """
-        Create keys from the specified Monero object.
+        Construct class.
 
         Args:
             monero_obj (Monero object): Monero object
-
-        Returns:
-            HdWalletMoneroKeys object: HdWalletMoneroKeys object
         """
-
-        wallet_keys = cls()
-
-        # Add public key
-        wallet_keys.__SetKeyData(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
-        wallet_keys.__SetKeyData(HdWalletMoneroKeyTypes.PUB_VIEW, monero_obj.PublicViewKey().RawCompressed().ToHex())
-        wallet_keys.__SetKeyData(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
-
-        # Add private spend key only if Monero object is not watch-only
-        if not monero_obj.IsWatchOnly():
-            wallet_keys.__SetKeyData(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
-
-        # Address
-        wallet_keys.__SetKeyData(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS, monero_obj.PrimaryAddress())
-
-        return wallet_keys
+        self.m_key_data = {}
+        self.__FromMoneroObj(monero_obj)
 
     def ToDict(self) -> Dict[str, str]:
         """
@@ -143,9 +121,26 @@ class HdWalletMoneroKeys:
 
         return None
 
-    #
-    # Private methods
-    #
+    def __FromMoneroObj(self,
+                        monero_obj: Monero) -> None:
+        """
+        Create keys from the specified Monero object.
+
+        Args:
+            monero_obj (Monero object): Monero object
+        """
+
+        # Add public key
+        self.__SetKeyData(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
+        self.__SetKeyData(HdWalletMoneroKeyTypes.PUB_VIEW, monero_obj.PublicViewKey().RawCompressed().ToHex())
+        self.__SetKeyData(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
+
+        # Add private spend key only if Monero object is not watch-only
+        if not monero_obj.IsWatchOnly():
+            self.__SetKeyData(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
+
+        # Address
+        self.__SetKeyData(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS, monero_obj.PrimaryAddress())
 
     def __SetKeyData(self,
                      key_type: HdWalletMoneroKeyTypes,

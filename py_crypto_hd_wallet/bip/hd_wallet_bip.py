@@ -148,12 +148,12 @@ class HdWalletBip(HdWalletBase):
                 self.__SetData(HdWalletBipDataTypes.ADDRESS_OFF, addr_off)
 
             self.__SetData(HdWalletBipDataTypes.ADDRESS,
-                           HdWalletBipAddresses.FromBipObj(bip_obj, addr_num, addr_off))
+                           HdWalletBipAddresses(bip_obj, addr_num, addr_off))
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
             self.__SetData(HdWalletBipDataTypes.ADDRESS,
-                           HdWalletBipAddresses.FromBipObj(bip_obj, 1, 0))
+                           HdWalletBipAddresses(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -281,4 +281,4 @@ class HdWalletBip(HdWalletBase):
             data_type (HdWalletBipDataTypes): Data type
             bip_obj (Bip object)            : BIP object
         """
-        self.__SetData(data_type, HdWalletBipKeys.FromBipObj(bip_obj))
+        self.__SetData(data_type, HdWalletBipKeys(bip_obj))

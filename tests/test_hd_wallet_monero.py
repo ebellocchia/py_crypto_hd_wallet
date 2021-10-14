@@ -304,9 +304,6 @@ class HdWalletMoneroTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-        # Invalid parameter for HdWalletMoneroKeys
-        self.assertRaises(TypeError, HdWalletMoneroKeys().HasKey, 0)
-        self.assertRaises(TypeError, HdWalletMoneroKeys().GetKey, 0)
 
     #
     # Helper methods

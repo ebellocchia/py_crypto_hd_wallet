@@ -625,9 +625,6 @@ class HdWalletBipTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-        # Invalid parameter for HdWalletBipKeys
-        self.assertRaises(TypeError, HdWalletBipKeys().HasKey, 0)
-        self.assertRaises(TypeError, HdWalletBipKeys().GetKey, 0)
 
     #
     # Helper methods

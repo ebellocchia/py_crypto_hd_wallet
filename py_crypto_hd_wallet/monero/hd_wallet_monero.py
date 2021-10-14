@@ -113,10 +113,10 @@ class HdWalletMonero(HdWalletBase):
             self.__SetData(HdWalletMoneroDataTypes.SUBADDRESS_OFF, subaddr_off)
             # Set subaddresses
             self.__SetData(HdWalletMoneroDataTypes.SUBADDRESS,
-                           HdWalletMoneroSubaddresses.FromMoneroObj(self.m_monero_obj,
-                                                                    acc_idx,
-                                                                    subaddr_num,
-                                                                    subaddr_off))
+                           HdWalletMoneroSubaddresses(self.m_monero_obj,
+                                                      acc_idx,
+                                                      subaddr_num,
+                                                      subaddr_off))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -239,4 +239,4 @@ class HdWalletMonero(HdWalletBase):
             data_type (HdWalletMoneroDataTypes): Data type
             monero_obj (Monero object)         : Monero object
         """
-        self.__SetData(data_type, HdWalletMoneroKeys.FromMoneroObj(monero_obj))
+        self.__SetData(data_type, HdWalletMoneroKeys(monero_obj))

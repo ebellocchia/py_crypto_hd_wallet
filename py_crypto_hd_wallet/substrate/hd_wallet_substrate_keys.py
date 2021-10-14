@@ -52,36 +52,16 @@ class HdWalletSubstrateKeys:
     # Public methods
     #
 
-    def __init__(self) -> None:
-        """Construct class."""
-        self.m_key_data = {}
-
-    @classmethod
-    def FromSubstrateObj(cls,
-                         substrate_obj: Substrate) -> HdWalletSubstrateKeys:
+    def __init__(self,
+                 substrate_obj: Substrate) -> None:
         """
-        Create keys from the specified Substrate object.
+        Construct class.
 
         Args:
             substrate_obj (Substrate object): Substrate object
-
-        Returns:
-            HdWalletSubstrateKeys object: HdWalletSubstrateKeys object
         """
-
-        wallet_keys = cls()
-
-        # Add public key
-        wallet_keys.__SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
-
-        # Add private key only if Substrate object is not public-only
-        if not substrate_obj.IsPublicOnly():
-            wallet_keys.__SetKeyData(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
-
-        # Address
-        wallet_keys.__SetKeyData(HdWalletSubstrateKeyTypes.ADDRESS, substrate_obj.PublicKey().ToAddress())
-
-        return wallet_keys
+        self.m_key_data = {}
+        self.__FromSubstrateObj(substrate_obj)
 
     def ToDict(self) -> Dict[str, str]:
         """
@@ -139,9 +119,24 @@ class HdWalletSubstrateKeys:
 
         return None
 
-    #
-    # Private methods
-    #
+    def __FromSubstrateObj(self,
+                           substrate_obj: Substrate) -> None:
+        """
+        Create keys from the specified Substrate object.
+
+        Args:
+            substrate_obj (Substrate object): Substrate object
+        """
+
+        # Add public key
+        self.__SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
+
+        # Add private key only if Substrate object is not public-only
+        if not substrate_obj.IsPublicOnly():
+            self.__SetKeyData(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
+
+        # Address
+        self.__SetKeyData(HdWalletSubstrateKeyTypes.ADDRESS, substrate_obj.PublicKey().ToAddress())
 
     def __SetKeyData(self,
                      key_type: HdWalletSubstrateKeyTypes,
@@ -151,7 +146,7 @@ class HdWalletSubstrateKeys:
 
         Args:
             key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum
-            key_value (str)               : Key value
+            key_value (str)                     : Key value
         """
         dict_key = HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
         self.m_key_data[dict_key] = key_value
