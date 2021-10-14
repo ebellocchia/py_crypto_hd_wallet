@@ -24,8 +24,8 @@ def load_version(*path_parts):
 
     if matches and len(matches) > 0:
         return matches[0]
-    else:
-        raise RuntimeError(f"Cannot find version string in {version_file}")
+
+    raise RuntimeError(f"Cannot find version string in {version_file}")
 
 
 # Load requirements
