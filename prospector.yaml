@@ -15,9 +15,6 @@ pylint:
   disable:
     - invalid-name
     - missing-module-docstring
-    - super-init-not-called
-    - unused-wildcard-import
-    - wildcard-import
   options:
     max-line-length: 120
 
