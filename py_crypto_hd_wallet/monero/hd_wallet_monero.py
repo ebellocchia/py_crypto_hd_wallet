@@ -25,7 +25,7 @@ from typing import Any, Dict, Optional, Union
 from bip_utils import Monero
 from bip_utils.monero.monero_subaddr import MoneroSubaddressConst
 from py_crypto_hd_wallet.common import HdWalletBase
-from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import *
+from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import HdWalletMoneroDataTypes, HdWalletDataTypes
 from py_crypto_hd_wallet.monero.hd_wallet_monero_keys import HdWalletMoneroKeys
 from py_crypto_hd_wallet.monero.hd_wallet_monero_subaddr import HdWalletMoneroSubaddresses
 from py_crypto_hd_wallet.utils import Utils
