@@ -67,10 +67,12 @@ Supported coin enumerative:
 |Binance Smart Chain|*HdWalletBip44Coins.BINANCE_SMART_CHAIN*|-|
 |Bitcoin|*HdWalletBip44Coins.BITCOIN*|*HdWalletBip44Coins.BITCOIN_TESTNET*|
 |Bitcoin Cash|*HdWalletBip44Coins.BITCOIN_CASH*|*HdWalletBip44Coins.BITCOIN_CASH_TESTNET*|
+|Bitcoin Cash SLP|*HdWalletBip44Coins.BITCOIN_CASH_SLP*|*HdWalletBip44Coins.BITCOIN_CASH_SLP_TESTNET*|
 |BitcoinSV|*HdWalletBip44Coins.BITCOIN_SV*|*HdWalletBip44Coins.BITCOIN_SV_TESTNET*|
 |Cosmos|*HdWalletBip44Coins.COSMOS*|-|
 |Dash|*HdWalletBip44Coins.DASH*|*HdWalletBip44Coins.DASH_TESTNET*|
 |Dogecoin|*HdWalletBip44Coins.DOGECOIN*|*HdWalletBip44Coins.DOGECOIN_TESTNET*|
+|eCash|*HdWalletBip44Coins.ECASH*|*HdWalletBip44Coins.ECASH_TESTNET*|
 |Elrond|*HdWalletBip44Coins.ELROND*|-|
 |EOS|*HdWalletBip44Coins.EOS*|-|
 |Ethereum|*HdWalletBip44Coins.ETHEREUM*|-|
@@ -112,9 +114,11 @@ Harmony One and OKEx Chain have different formats, see [bip_utils](https://githu
 |---|---|---|
 |Bitcoin|*HdWalletBip49Coins.BITCOIN*|*HdWalletBip49Coins.BITCOIN_TESTNET*|
 |Bitcoin Cash|*HdWalletBip49Coins.BITCOIN_CASH*|*HdWalletBip49Coins.BITCOIN_CASH_TESTNET*|
+|Bitcoin Cash SLP|*HdWalletBip49Coins.BITCOIN_CASH_SLP*|*HdWalletBip49Coins.BITCOIN_CASH_SLP_TESTNET*|
 |BitcoinSV|*HdWalletBip49Coins.BITCOIN_SV*|*HdWalletBip49Coins.BITCOIN_SV_TESTNET*|
 |Dash|*HdWalletBip49Coins.DASH*|*HdWalletBip49Coins.DASH_TESTNET*|
 |Dogecoin|*HdWalletBip49Coins.DOGECOIN*|*HdWalletBip49Coins.DOGECOIN_TESTNET*|
+|eCash|*HdWalletBip49Coins.ECASH*|*HdWalletBip49Coins.ECASH_TESTNET*|
 |Litecoin|*HdWalletBip49Coins.LITECOIN*|*HdWalletBip49Coins.LITECOIN_TESTNET*|
 
 **BIP-0084**
