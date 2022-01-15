@@ -52,6 +52,8 @@ monero
 okex chain
 ontology
 nano
+near
+near protocol
 neo
 polygon
 ripple
