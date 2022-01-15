@@ -91,6 +91,7 @@ Supported coin enumerative:
 |OKEx Chain (Ethereum address)|*HdWalletBip44Coins.OKEX_CHAIN_ETH*|-|
 |OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletBip44Coins.OKEX_CHAIN_ATOM_OLD*|-|
 |Nano|*HdWalletBip44Coins.NANO*|-|
+|Near Protocol|*HdWalletBip44Coins.NEAR_PROTOCOL*|-|
 |NEO|*HdWalletBip44Coins.NEO*|-|
 |Ontology|*HdWalletBip44Coins.ONTOLOGY*|-|
 |Polkadot (ed25519 SLIP-0010)|*HdWalletBip44Coins.POLKADOT_ED25519_SLIP*|-|
