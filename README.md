@@ -58,6 +58,7 @@ Supported coin enumerative:
 
 |Coin|Main net enum|Test net enum|
 |---|---|---|
+|Akash Network|*HdWalletBip44Coins.AKASH_NETWORK*|-|
 |Algorand|*HdWalletBip44Coins.ALGORAND*|-|
 |Avalanche C-Chain|*HdWalletBip44Coins.AVAX_C_CHAIN*|-|
 |Avalanche P-Chain|*HdWalletBip44Coins.AVAX_P_CHAIN*|-|
@@ -69,6 +70,9 @@ Supported coin enumerative:
 |Bitcoin Cash|*HdWalletBip44Coins.BITCOIN_CASH*|*HdWalletBip44Coins.BITCOIN_CASH_TESTNET*|
 |Bitcoin Cash SLP|*HdWalletBip44Coins.BITCOIN_CASH_SLP*|*HdWalletBip44Coins.BITCOIN_CASH_SLP_TESTNET*|
 |BitcoinSV|*HdWalletBip44Coins.BITCOIN_SV*|*HdWalletBip44Coins.BITCOIN_SV_TESTNET*|
+|Celo|*HdWalletBip44Coins.CELO*|-|
+|Certik|*HdWalletBip44Coins.CERTIK*|-|
+|Chihuahua|*HdWalletBip44Coins.CHIHUAHUA*|-|
 |Cosmos|*HdWalletBip44Coins.COSMOS*|-|
 |Dash|*HdWalletBip44Coins.DASH*|*HdWalletBip44Coins.DASH_TESTNET*|
 |Dogecoin|*HdWalletBip44Coins.DOGECOIN*|*HdWalletBip44Coins.DOGECOIN_TESTNET*|
@@ -87,16 +91,19 @@ Supported coin enumerative:
 |Kava|*HdWalletBip44Coins.KAVA*|-|
 |Kusama (ed25519 SLIP-0010)|*HdWalletBip44Coins.KUSAMA_ED25519_SLIP*|-|
 |Litecoin|*HdWalletBip44Coins.LITECOIN*|*HdWalletBip44Coins.LITECOIN_TESTNET*|
-|OKEx Chain (Cosmos address)|*HdWalletBip44Coins.OKEX_CHAIN_ATOM*|-|
-|OKEx Chain (Ethereum address)|*HdWalletBip44Coins.OKEX_CHAIN_ETH*|-|
-|OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletBip44Coins.OKEX_CHAIN_ATOM_OLD*|-|
 |Nano|*HdWalletBip44Coins.NANO*|-|
 |Near Protocol|*HdWalletBip44Coins.NEAR_PROTOCOL*|-|
 |NEO|*HdWalletBip44Coins.NEO*|-|
+|OKEx Chain (Cosmos address)|*HdWalletBip44Coins.OKEX_CHAIN_ATOM*|-|
+|OKEx Chain (Ethereum address)|*HdWalletBip44Coins.OKEX_CHAIN_ETH*|-|
+|OKEx Chain (Old Cosmos address before mainnet upgrade)|*HdWalletBip44Coins.OKEX_CHAIN_ATOM_OLD*|-|
 |Ontology|*HdWalletBip44Coins.ONTOLOGY*|-|
+|Osmosis|*HdWalletBip44Coins.OSMOSIS*|-|
 |Polkadot (ed25519 SLIP-0010)|*HdWalletBip44Coins.POLKADOT_ED25519_SLIP*|-|
 |Polygon|*HdWalletBip44Coins.POLYGON*|-|
 |Ripple|*HdWalletBip44Coins.RIPPLE*|-|
+|Secret Network (old path)|*HdWalletBip44Coins.SECRET_NETWORK_OLD*|-|
+|Secret Network (new path)|*HdWalletBip44Coins.SECRET_NETWORK_NEW*|-|
 |Solana|*HdWalletBip44Coins.SOLANA*|-|
 |Stellar|*HdWalletBip44Coins.STELLAR*|-|
 |Terra|*HdWalletBip44Coins.TERRA*|-|
@@ -104,6 +111,7 @@ Supported coin enumerative:
 |Theta Network|*HdWalletBip44Coins.THETA*|-|
 |Tron|*HdWalletBip44Coins.TRON*|-|
 |VeChain|*HdWalletBip44Coins.VECHAIN*|-|
+|Verge|*HdWalletBip44Coins.VERGE*|-|
 |Zcash|*HdWalletBip44Coins.ZCASH*|*HdWalletBip44Coins.ZCASH_TESTNET*|
 |Zilliqa|*HdWalletBip44Coins.ZILLIQA*|-|
 
