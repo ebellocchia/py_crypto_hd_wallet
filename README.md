@@ -1625,6 +1625,10 @@ Output:
         }
     }
 
+## Documentation
+
+The library documentation is available at [py-crypto-hd-wallet.readthedocs.io](https://py-crypto-hd-wallet.readthedocs.io).
+
 # Buy me a coffee
 
 You know, I'm italian and I love drinking coffee (especially while coding :D). So, if you'd like to buy me one:
