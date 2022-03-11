@@ -29,6 +29,8 @@ To install it:
 
         pip install py_crypto_hd_wallet
 
+**NOTE:** if you are using an Apple M1, please make sure to update *coincurve* (required by *bip_utils*) to version 17.0.0 otherwise it won't work.
+
 To run tests:
 
     python -m unittest discover
