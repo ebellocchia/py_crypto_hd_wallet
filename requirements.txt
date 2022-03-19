@@ -1,1 +1,1 @@
-bip_utils~=2.0
+bip_utils~=2.3
