@@ -23,13 +23,13 @@
 # Imports
 from typing import Type, Union
 from bip_utils import (
-    Bip39ChecksumError, Bip39MnemonicGenerator, Bip39SeedGenerator,
-    Bip32KeyError, Bip44, Bip49, Bip84
+    MnemonicChecksumError, Bip39MnemonicGenerator, Bip39SeedGenerator,
+    Bip32KeyError, Bip44, Bip49, Bip84, Bip86
 )
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
     HdWalletBipWordsNum, HdWalletBipLanguages,
-    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins,
+    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins
 )
 from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBip
 from py_crypto_hd_wallet.common import HdWalletBase
@@ -108,7 +108,7 @@ class HdWalletBipFactory:
         """
         try:
             seed_bytes = Bip39SeedGenerator(mnemonic).Generate(passphrase)
-        except (ValueError, Bip39ChecksumError) as ex:
+        except (ValueError, MnemonicChecksumError) as ex:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         bip_obj = self.m_bip_cls.FromSeed(seed_bytes, self.m_bip_coin)
@@ -192,12 +192,13 @@ class HdWalletBipFactory:
     @staticmethod
     def __BipClassFromCoinType(coin_type: Union[HdWalletBip44Coins,
                                                 HdWalletBip49Coins,
-                                                HdWalletBip84Coins]) -> Type[Bip44Base]:
+                                                HdWalletBip84Coins,
+                                                HdWalletBip86Coins]) -> Type[Bip44Base]:
         """
         Get BIP class from coin type.
 
         Args:
-            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins): Coin type
+            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins): Coin type
 
         Returns:
             Bip44Base class: Bip44Base class
@@ -208,5 +209,7 @@ class HdWalletBipFactory:
             return Bip49
         if isinstance(coin_type, HdWalletBip84Coins):
             return Bip84
+        if isinstance(coin_type, HdWalletBip86Coins):
+            return Bip86
 
         raise TypeError("Coin type is not an accepted enumerative")

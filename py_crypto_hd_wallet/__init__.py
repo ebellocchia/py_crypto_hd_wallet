@@ -3,7 +3,7 @@ from py_crypto_hd_wallet._version import __version__
 # Bip
 from py_crypto_hd_wallet.bip import (
     HdWalletBipWordsNum, HdWalletBipLanguages,
-    HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins,
+    HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins,
     HdWalletBipDataTypes, HdWalletBipKeyTypes,
     HdWalletBipFactory, HdWalletBipAddresses, HdWalletBipKeys, HdWalletBip
 )

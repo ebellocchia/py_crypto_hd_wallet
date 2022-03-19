@@ -1,6 +1,6 @@
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
     HdWalletBipWordsNum, HdWalletBipLanguages,
-    HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins,
+    HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins,
     HdWalletBipDataTypes, HdWalletBipKeyTypes
 )
 from py_crypto_hd_wallet.bip.hd_wallet_bip_factory import HdWalletBipFactory

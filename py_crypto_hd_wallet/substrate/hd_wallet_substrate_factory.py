@@ -22,7 +22,7 @@
 
 # Imports
 from bip_utils import (
-    Bip39ChecksumError, Bip39MnemonicGenerator, SubstrateBip39SeedGenerator,
+    MnemonicChecksumError, Bip39MnemonicGenerator, SubstrateBip39SeedGenerator,
     SubstrateKeyError, Substrate
 )
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import (
@@ -108,7 +108,7 @@ class HdWalletSubstrateFactory:
         """
         try:
             seed_bytes = SubstrateBip39SeedGenerator(mnemonic).Generate(passphrase)
-        except (ValueError, Bip39ChecksumError) as ex:
+        except (ValueError, MnemonicChecksumError) as ex:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         substrate_obj = Substrate.FromSeed(seed_bytes, self.m_substrate_coin)

@@ -22,7 +22,7 @@
 
 # Imports
 from bip_utils import (
-    MoneroChecksumError, MoneroMnemonicGenerator, MoneroSeedGenerator,
+    MnemonicChecksumError, MoneroMnemonicGenerator, MoneroSeedGenerator,
     MoneroKeyError, Monero
 )
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import (
@@ -106,7 +106,7 @@ class HdWalletMoneroFactory:
         """
         try:
             seed_bytes = MoneroSeedGenerator(mnemonic).Generate()
-        except (ValueError, MoneroChecksumError) as ex:
+        except (ValueError, MnemonicChecksumError) as ex:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         monero_obj = Monero.FromSeed(seed_bytes, self.m_monero_coin)
