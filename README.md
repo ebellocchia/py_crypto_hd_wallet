@@ -143,7 +143,7 @@ Harmony One and OKEx Chain have different formats, see [bip_utils](https://githu
 
 |Coin|Main net enum|Test net enum|
 |---|---|---|
-|Bitcoin|*HdWalletBip84Coins.BITCOIN*|*HdWalletBip84Coins.BITCOIN_TESTNET*|
+|Bitcoin|*HdWalletBip86Coins.BITCOIN*|*HdWalletBip86Coins.BITCOIN_TESTNET*|
 
 **Example**
 
