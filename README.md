@@ -139,6 +139,12 @@ Harmony One and OKEx Chain have different formats, see [bip_utils](https://githu
 |Bitcoin|*HdWalletBip84Coins.BITCOIN*|*HdWalletBip84Coins.BITCOIN_TESTNET*|
 |Litecoin|*HdWalletBip84Coins.LITECOIN*|*HdWalletBip84Coins.LITECOIN_TESTNET*|
 
+**BIP-0086**
+
+|Coin|Main net enum|Test net enum|
+|---|---|---|
+|Bitcoin|*HdWalletBip84Coins.BITCOIN*|*HdWalletBip84Coins.BITCOIN_TESTNET*|
+
 **Example**
 
     from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletBip44Coins, HdWalletBip49Coins
