@@ -17,6 +17,7 @@ bip44
 bip49
 bip84
 bech32
+bech32m
 segwit
 substrate
 
