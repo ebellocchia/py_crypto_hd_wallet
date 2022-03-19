@@ -87,7 +87,7 @@ TEST_VECTOR = [
                     "pub": "203e2ac99c05dc1360f3a2432c293a30569a3831bbaa6a4f178cf3c75e18d715",
                     "priv": "8573709bc1b7d61f6a5b01e4a63881f1503cf0c46207963b690a995aee6eea09a49b26ef776797911b391db8b5471c6fdf8e2e2c941ee9c0ef0a49509e5a70cf",
                     "address": "DJbWySPXSM837ferg9FpYQybvhxgmurotyjyGg4v28TJHvo"
-                }
+                },
             },
         },
         # Kusama wallet from seed
@@ -112,7 +112,7 @@ TEST_VECTOR = [
                     "pub": "203e2ac99c05dc1360f3a2432c293a30569a3831bbaa6a4f178cf3c75e18d715",
                     "priv": "8573709bc1b7d61f6a5b01e4a63881f1503cf0c46207963b690a995aee6eea09a49b26ef776797911b391db8b5471c6fdf8e2e2c941ee9c0ef0a49509e5a70cf",
                     "address": "DJbWySPXSM837ferg9FpYQybvhxgmurotyjyGg4v28TJHvo"
-                }
+                },
             },
         },
         # Stafi wallet from private key
@@ -137,7 +137,7 @@ TEST_VECTOR = [
                     "pub": "8e5ddbca145bbaa4dcc187c78e260699c688ed02db008a072d8e71583448c824",
                     "priv": "0e0738281192a4a612acba366135fc3a48497d846e55fa030f9317ed3f8a3c08fb70d7be4189d02360117fe012d73a86fabb513876b8fe426f5545a8caf65154",
                     "address": "33xrrNCZqY1988H69cYuRBube4mUe52Y9gwNbwFyCVpzWkXr"
-                }
+                },
             },
         },
         # Acala wallet from public key
@@ -161,7 +161,7 @@ TEST_VECTOR = [
                 "key": {
                     "pub": "0801443cbad82b28ac8dd0dae0d0dd50cc092a58a51ce36be7cf6668a617012b",
                     "address": "2146Lxmt1eG2qiWjGhmqEqsyEQyCPGpmBZD5rZ5jmpwALxkH"
-                }
+                },
             },
         },
     ]

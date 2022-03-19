@@ -101,7 +101,7 @@ TEST_VECTOR = [
                 "subaddress": {
                     "subaddress_0": "4767t6KFgNoY7e4jXRC3DmGQ3Ki27RABc4NZzLmTG33K6i6GiKNbX9JZgLFDaECmKZ22ackBrGhBrHHYAcd2XcWXLv3r2ih",
                     "subaddress_1": "86FFAhMwNRba5Nb4Vr37M7dH3SN8wvv6uFFqSoE2q9ErTMbFyz9dMzmGxMp5E6fRb3FsedWQnRN5rc5WaD3RoiEFDbcX1ru"
-                }
+                },
             },
         },
         # Wallet from seed
@@ -136,7 +136,7 @@ TEST_VECTOR = [
                 "subaddress": {
                     "subaddress_0": "4767t6KFgNoY7e4jXRC3DmGQ3Ki27RABc4NZzLmTG33K6i6GiKNbX9JZgLFDaECmKZ22ackBrGhBrHHYAcd2XcWXLv3r2ih",
                     "subaddress_1": "86FFAhMwNRba5Nb4Vr37M7dH3SN8wvv6uFFqSoE2q9ErTMbFyz9dMzmGxMp5E6fRb3FsedWQnRN5rc5WaD3RoiEFDbcX1ru"
-                }
+                },
             },
         },
         # Wallet from private spend key
@@ -171,7 +171,7 @@ TEST_VECTOR = [
                     "subaddress_10": "87zy3M97QwECu2fe76yYTfbwwGVh2tJqaKVMmQmhbxoC4XvMF97C9WtUTXrmoatNyNPTJzGvi922FAZxP9QzYi4EK3CDuEM",
                     "subaddress_11": "8BE3uVP89PuBSW94gkcPogGZRNSEkzNkk7ax87G5qmDXJg9ywhMDPABZSzHDggBcDTdJuJHNxEe78cK9rK3hexMu1KXEzau",
                     "subaddress_12": "86ge33hzHn6bLFXYhPxiRW8tr2qc1jBaUWi8GPGAMc9aNwosqS4SxXLMVLkWAxq9DtNy2C8t3gRieSz5P9vVHcx5MWhjWvy"
-                }
+                },
             },
         },
         # Wallet from watch-only
@@ -208,7 +208,7 @@ TEST_VECTOR = [
                     "subaddress_2": "8BZYacr46ix3XzREG4C9n9D7osXHioD5HTM6JqgjzuZDd2zWGVytk5m3d4BVq9Up1obVrMGMf76MeRhb4G8ft2cq93zh1o6",
                     "subaddress_3": "87W9arnJDcgh39z6SHzquDYK1fk3xCBVqJYhgCrNp3ArcEkybv6j2scF7AMTa31WyGSBSA6WNkjBQahidUSpC5dT3JJgpGq",
                     "subaddress_4": "88kBtkZqpX8AB7EorzdVYaHcSzRyrtBCB9cwBzVJ1opeiQEhrS5TGsr5sDqBFEKuqeUhmi3cEthpRRpgJWeNzwRMQhUQSho"
-                }
+                },
             },
         },
     ]
