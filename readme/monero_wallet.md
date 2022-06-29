@@ -1,12 +1,13 @@
 # Monero wallet
 
-A Monero wallet is a wallet based on Monero.\
+A Monero wallet is a wallet based on the Monero official wallet.\
 It doesn't follow BIP44 but it generates the Monero spend/view keys, primary address and subaddresses.
 
 ## Monero wallet factory
 
 A Monero wallet is created using the *HdWalletMoneroFactory* class.\
-A *HdWalletMoneroFactory* class is simply constructed by specifying the desired coin. After the construction, the factory can be used to create wallets with the specified coin.
+A *HdWalletMoneroFactory* class is simply constructed by specifying the desired network.
+After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
 

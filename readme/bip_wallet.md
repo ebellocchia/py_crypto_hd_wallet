@@ -5,7 +5,8 @@ A BIP wallet is a wallet based on BIP-0044, BIP-0049 and BIP-0084 specifications
 ## BIP wallet factory
 
 A BIP wallet is created using the *HdWalletBipFactory* class.\
-A *HdWalletBipFactory* class is simply constructed by specifying the desired coin. After the construction, the factory can be used to create wallets with the specified coin.
+A *HdWalletBipFactory* class is simply constructed by specifying the desired coin.
+After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
 

@@ -1,12 +1,13 @@
 # Substrate wallet
 
-A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem).\
+A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem) like PolkadotJS.\
 It doesn't follow BIP44 but it generates a pair of private and public keys depending on the derivation path.
 
 ## Substrate wallet factory
 
 A Substrate wallet is created using the *HdWalletSubstrateFactory* class.\
-A *HdWalletSubstrateFactory* class is simply constructed by specifying the desired coin. After the construction, the factory can be used to create wallets with the specified coin.
+A *HdWalletSubstrateFactory* class is simply constructed by specifying the desired coin.
+After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
 
