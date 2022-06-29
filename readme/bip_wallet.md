@@ -203,6 +203,18 @@ A wallet can be created in the following ways:
         priv_key = binascii.unhexlify(b"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35")
         hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key)
 
+- From a public key (will be considered an account public key):
+
+        import binascii
+        from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
+
+        # Create factory
+        hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
+
+        # Create from public key bytes
+        pub_key = binascii.unhexlify(b"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2")
+        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key)
+
 In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
 
 ### Generating wallet keys and addresses

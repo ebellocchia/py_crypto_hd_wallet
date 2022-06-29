@@ -102,7 +102,7 @@ Code:
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip84Coins.LITECOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("ltc_bip84_wallet", ex_key)
-    hd_wallet.Generate(account_idx=2, change_idx=HdWalletBipChanges.CHAIN_INT, addr_num=3)
+    hd_wallet.Generate(account_idx=2, change_idx=HdWalletBipChanges.CHAIN_INT, addr_num=2)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
@@ -138,53 +138,44 @@ Output:
             "wif_priv": "T3DUSXFXv5wQGVwmN3eajsC3gBXLi4HJP3N9QAqojudXsh9XhFTt",
             "address": "ltc1qj2dfpqy98cwav734n4qc3s6g6mqvrx0atq8hq8"
         },
-        "account_idx": 2,
+        "account_idx": 0,
         "account_key": {
-            "ex_pub": "zpub6rPo5mF47z5cuPYr45wj1wHiJooU6VVoowK5N1BRFiKDA5S62UDPoMnrYUPiNsGgfQpaCV2w2uXnjgUmnestsBp1XPqyPyCFSB1pT8JSwQL",
-            "raw_compr_pub": "03d3f39769e1a2c930337f94f976b7ae776e0508bf69d51eb72f10dbab0b98e804",
-            "raw_uncompr_pub": "04d3f39769e1a2c930337f94f976b7ae776e0508bf69d51eb72f10dbab0b98e80404434410f2086491c7b3d714e9794bc20eb8ad429f96b26f31897a8c607f4905",
-            "ex_priv": "zprvAdQSgFiAHcXKguUNx4QieoLykmxyh2mxSiPUZcmohNnEHH6wUvu9FZUNhA6mKaaqBDr6rjf18GLn6KSsEbjzpD3ZFAQRVAh71eXdZXYVam4",
-            "raw_priv": "26636b848b4c1187c95f827cee303455d034645aa5742c634a4a88057ef0de0b",
-            "wif_priv": "T4Lbhf9PQrXQvZ8u85JrrgCAWS3t71CAQF2sPTy1pv9ns4dVcHv3",
-            "address": "ltc1qjj6sezejxt8ry7a5dxn32uug00jshrq389jpnd"
+            "ex_pub": "zpub6rPo5mF47z5coVm5rvWv7fv181awb7Vckn5Cf3xQXBVKu18kuBHDhNi1Jrb4br6vVD3ZbrnXemEsWJoR18mZwkUdzwD8TQnHDUCGxqZ6swA",
+            "raw_compr_pub": "0267ab8b9fa18b53948a630a607f0bd1cf8711ae58e19b7bccc1cce8377c77973f",
+            "raw_uncompr_pub": "0467ab8b9fa18b53948a630a607f0bd1cf8711ae58e19b7bccc1cce8377c77973fff21d84a3c111664f403d9d54ac0962211f6d101566d904ccf3af47e73326728",
+            "ex_priv": "zprvAdQSgFiAHcXKb1gcktyukXyGZykTBemmPZ9brfYnxqxM2CocMdxy9aPXTbTLv7dvJgWn2Efi4vFSyPbT4QqgarYrs583WCeMXM2q3TUU8FS",
+            "raw_priv": "5a27801ac91d93adcaf558ce677e666bc88269f8435b025f7e358f442a8f4624",
+            "wif_priv": "T65E2GR1U9ppjfmdSPvpuNWyAh8Cu73kQczTzj6ERhgpSDhTgZss",
+            "address": "ltc1qkjrpttg7zakalzeyzxpy6hw98g878lllfwynjl"
         },
         "change_idx": 1,
         "change_key": {
-            "ex_pub": "zpub6tHpx8aYXtj3Bh1Gj2pZqFd1d8dXZyydeivRaAht6QqCSjdKEyPwgEEshojsEgemRDkwi7SR9kAJ92TJmT538AZwUNHdGvG7yyhxWL98ZAV",
-            "raw_compr_pub": "0322068c3e9b8b81e6116429e96cce0c7f34dfcbbe02748d7d039c3b6d5f0002e4",
-            "raw_uncompr_pub": "0422068c3e9b8b81e6116429e96cce0c7f34dfcbbe02748d7d039c3b6d5f0002e4325db506b39c54bf3787c97347fe640a36ece3a2fed444dcb32f79fb96c4e7a9",
-            "ex_priv": "zprvAfJUYd3ehXAjyCvod1HZU7gH56o3AXFnHVzpmnJGY5JDZwJAhS5h8RvPrWhnh3XXWfF7NmM2KMx6RwYtDy2JXjsV3SYUTb73JsR54wnwi8q",
-            "raw_priv": "19ecb6871998145bc4b14ec9dacf6eacc1be35a2d2f3c871d8e6fe80fd7af8fa",
-            "wif_priv": "T3vNVL8tKAdziuDYACQagqzj21hSQXoHcg6TePTn2wQ2Mkn9QMm2",
-            "address": "ltc1qhd4p5y7ycw8jyq3fd25nrs9d6qweewk7cmyuzd"
+            "ex_pub": "zpub6tXPeWbUFv3GCNMZj5mYc1GC9xJ56VaYv9i882JKPne6nhVBj7LgFpfpNJetQ6ZTGRyN2mpKnR3DbT3zBZUrsfUxd1x1qpsvAVGBD8e6mH8",
+            "raw_compr_pub": "02cff64fc74fc2d4764063abfe2ed89913b3e384653579bb15cbb27f7b05af1f06",
+            "raw_uncompr_pub": "04cff64fc74fc2d4764063abfe2ed89913b3e384653579bb15cbb27f7b05af1f06eed358b0fb8012087d9d5002df59a181e4d1f111de44c57b0699af144ce6bd70",
+            "ex_priv": "zprvAfY3F14aRYUxytH6d4EYEsKTbvTah2rhYvnXKdthqT77uuA3Ba2Ri2MLX3HqMUkaDCgNa8DNnzFEAX2Z4HwQpZ2EqXvpiDWJG5VWfqSqpsB",
+            "raw_priv": "a42b9b8abcf7bc3058f9ad453b6ba32e0d7a97df0d021770c662bc0708d06afd",
+            "wif_priv": "T8Z6vEVHFfG7V5DHjc4EGHFecehLzfZgscHFJDho9dgYGMpPNcnx",
+            "address": "ltc1q9saac26acxxwhc5v34p4c286363k7m03fn524p"
         },
         "address": {
             "address_0": {
-                "ex_pub": "zpub6vTTtJ8jWvYsRr2xkYgxWA7vbUfhpHPZtqRQ7YUc4TMfoWzJLwxFar48oDAgiN6tX4WW9vmqkXafqXi3fq5XJozY8QyFkcougMwVDYJEofN",
-                "raw_compr_pub": "03c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1",
-                "raw_uncompr_pub": "04c29e0c901821ed6a5a11ec164b7b4185a6a05fcd55fa9e87197864e98974cdd1be8722700b9e957b500970b49b64ed140d7d497ce49efd9b5bf11f61119f0163",
-                "ex_priv": "zprvAhU7UnbqgYzaDMxVeX9x92BC3SqDQpfiXcVoKA4zW7pgvif9oQe133jewvCKqDdrXfG7EGjV8kZ4NcmnYLH3De58hZThxUSAT9ArQ9kkbyJ",
-                "raw_priv": "c2f59bac194fac86d3f81f5a99e15c208a1de977a124d5bb1d482dc64ddae168",
-                "wif_priv": "T9axDMhDy4riyEcvn8duEfko5jZ2Pxp6V6XFwdm9iz8LwEVdk4u2",
-                "address": "ltc1qeyp9rflupuvw5j5pdyluhqgdxfk092hra6m8jm"
+                "ex_pub": "zpub6uQRbjH9SSyQUr4MvX6Byx3RHibL7sCjpGHWYGX8hfuj5xYcovLy3uG8Rp2bUUs4yJNm77LMHx1Nj5r7tSbikfnZox23pXAEeoDxpYdCCDV",
+                "raw_compr_pub": "029857513f0fe1dc125f219ffef22098e14c653c4bcb0a2aaeff47b3a252569f1a",
+                "raw_uncompr_pub": "049857513f0fe1dc125f219ffef22098e14c653c4bcb0a2aaeff47b3a252569f1a3e4bf0fce942131fa4afbb77038f36e39b988e123fb707679ffb548e8ab0c1dc",
+                "ex_priv": "zprvAgR5CDkFc5R7GMytpVZBcp6gjgkqiQUtT3Mujt7X9LNkDADUGP2iW6weaZWcNqhmQKvHyaocKuDWaQ9PVty4oP7Yo9y7HXcJyGNKHFnWmvn",
+                "raw_priv": "dbf6dd9d691b00d0a7f6f93605a67ddb42ba4baafcf9b0d98979b66f8a21184e",
+                "wif_priv": "TARZNteayzJqRiXnqKJX3h5zr6H4tx4sXvoZ21pHjAEgNc1g2MWm",
+                "address": "ltc1qyeljcy9v88jg8sqvnqh0m5q390xruc5r98q9yy"
             },
             "address_1": {
-                "ex_pub": "zpub6vTTtJ8jWvYsU8EMiNdNZBK6WGgzXMb5Y44C6sZ3ppmSVZ1T24DsdeeS7CqUzTVm4orZ5DjBfXCUT4EvdMUriMD3wJZ9T6ReHDsjHc1eKY7",
-                "raw_compr_pub": "039111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f22699",
-                "raw_uncompr_pub": "049111b4f7b9c4a70d621cc358fcda823117033b9e7c4a4b752014569086f2269942508a95ec95c1aece10aa0ec6c375950ed4131a1300bb5970f75aa1a360f871",
-                "ex_priv": "zprvAhU7UnbqgYzaFe9tcM6NC3NMxErW7tsEAq8bJV9SGVETckgJUWud5rKxFup4RfzazWi1HGQVdufUhg2c9RzPmtZ8sDBgTNnqiM23UummCXc",
-                "raw_priv": "8a748332b72d01727f0e63bdc2ddda5db517940b22a91fe57afed4fa8905048b",
-                "wif_priv": "T7h7fuRWqkAbcwMNbXdoNwW8WF5LKLa83jXHnNiMLowp97eKNpy8",
-                "address": "ltc1q2ksy0gmj2y2zru74nd64zlaq8h30qpz6dstr2s"
-            },
-            "address_2": {
-                "ex_pub": "zpub6vTTtJ8jWvYsWueMEngC1icupRsMKEL4yu8qrtJHEHXBrqp1xV3JYKr6L8oiaUzub2Vpzzi2jRxktYYkV16HNveP3GxbfpvdeNfUxUC1ec9",
-                "raw_compr_pub": "0301e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400",
-                "raw_uncompr_pub": "0401e2c682317976460352324e4142cdb0153172df8c6c8aca51f8359e6005f400ea341d4a8c1f97d46c9e6a8341b2fd81442b5ae8aea988ccf3f5f429d6eb9bd9",
-                "ex_priv": "zprvAhU7UnbqgYzaJRZt8m9BeagBGQ2rumcDcgDF4VtffwzCz3UsQwj3zXXcUqvjaMvwLzmtKhYLojHyQSMVyg3VbE7BknvoPVpduFcTECojzq4",
-                "raw_priv": "0e7002ca0442417ee8a2a20db68c84e6844352f43627660010df8e8182df0c61",
-                "wif_priv": "T3Y3P3QgygBZrmF3xNowQYpFwHVT9XG6TDzbbUDNLzDwJae1FfUN",
-                "address": "ltc1qatkc4pe54qupgp0zazd5qycwmmyhklrkgpjxap"
+                "ex_pub": "zpub6uQRbjH9SSyQWjrhjrJwA4oDNTC5BGjWEia5P7z83Yr5Gv8T2hnk232myA5p1n1yYtbZhev34iS4m8i6VFDmxhUHQeL58opRT71ipt38goG",
+                "raw_compr_pub": "02df3af22530218813eab494b0bec331ee13e4662a566e24bed32a35a4cc2a248f",
+                "raw_uncompr_pub": "04df3af22530218813eab494b0bec331ee13e4662a566e24bed32a35a4cc2a248fc9e5b53395cabdbce81c3cecda711e2622200595f2f837af2408fe29254e68a8",
+                "ex_priv": "zprvAgR5CDkFc5R7JFnEdpmvnvrUpRMamp1esVeUajaWVDK6Q7oJVAUVUEiJ7tfuxXoiUqqxCRvXS1zaSojazB1KzbLLa3JKEnoWVsYzgpX8gEj",
+                "raw_priv": "acfa7e72eeb4254be5f87a09685089039f6e4736cb7cb998e48ff51202c5fdc8",
+                "wif_priv": "T8rDzH8bF1cgAG2oZKctJX9qmxfVK7HmgQqww4wom15ndzPzF2uu",
+                "address": "ltc1qzenvkhkqqazfanrjs6htluwlm2sdwt0sgc3jh8"
             }
         }
     }
@@ -199,7 +190,7 @@ Code:
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip49Coins.BITCOIN)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("btc_bip49_wallet", ex_key)
-    hd_wallet.Generate(addr_num=3)
+    hd_wallet.Generate(addr_num=1)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
@@ -236,24 +227,6 @@ Output:
                 "raw_priv": "508c73a06f6b6c817238ba61be232f5080ea4616c54f94771156934666d38ee3",
                 "wif_priv": "KyvHbRLNXfXaHuZb3QRaeqA5wovkjg4RuUpFGCxdH5UWc1Foih9o",
                 "address": "37VucYSaXLCAsxYyAPfbSi9eh4iEcbShgf"
-            },
-            "address_1": {
-                "ex_pub": "ypub6bWfB6tKVSQKcyzhDuvtgHqpp14CDMfkba7pG9W9WdCh5Y2Mmktq7rUu8EqXX3fQ6wvHKEXQUkGiXaTtFaraxa9FxsCPJF9qEWDi4HkXs8p",
-                "raw_compr_pub": "022a421fa4a65a87d1c3e4238155d85f7bd2c5bb87632f331b5722f110586aa198",
-                "raw_uncompr_pub": "042a421fa4a65a87d1c3e4238155d85f7bd2c5bb87632f331b5722f110586aa19885dc3cfdbc32b6050392ab66f99f67cc15fedb517df58070d022c9d7bc840804",
-                "ex_priv": "yprvANXJmbMRf4r2QVvE7tPtK9u6FyDhotwuEMCDTm6XxHfiCjhDEDaaa4ARGz27KayDwS58MYjFcjTGqkhmgEBgEr7fNprrWLK6e4a8mezb4Fz",
-                "raw_priv": "464c5dd427dcf1e2791b97a1aa9348647d3a55e1223b4e58cb663b49fd12e0ca",
-                "wif_priv": "KyaMvgopkPDQMQUx2w9a8AiEtA7A84hYzASJWGQiKZ8AJUEj77iV",
-                "address": "3LtMnn87fqUeHBUG414p9CWwnoV6E2pNKS"
-            },
-            "address_2": {
-                "ex_pub": "ypub6bWfB6tKVSQKezmwEg4FKD6EZmrm1oEd1ydxdRGKd89KyyWmrHar3ATQV2vXNDtXPUZBkaR7zgRKiCqkQwLgxXKLcnBQF8Cmr7jFd8YUnSb",
-                "raw_compr_pub": "02fdbd244eebd701270478af75ebb8894b963d61f2f686e366a626cb200ba13e45",
-                "raw_uncompr_pub": "04fdbd244eebd701270478af75ebb8894b963d61f2f686e366a626cb200ba13e4504fa4141a7e6ba896cbc25c37b6b26d0ca2bea07a44f33609874faffabbfd35e",
-                "ex_priv": "yprvANXJmbMRf4r2SWhU8eXEx59W1k2GcLWmekiMq2ri4ncM7BBdJkGbVN8vdmB6mE8SC7LYVjb1P3xz8RP1qy1qz8DtKMHbV25SB7hP3MFAzDz",
-                "raw_priv": "9f263c1b238e7810453e42e6416292a0ae04e9963856dc470ea46bfcd5c49b23",
-                "wif_priv": "L2Z5PN4YPPyGFRCQzxrqa4ChdhFqiba61gQUmCsCW7GaNW452hbM",
-                "address": "3B4cvWGR8X6Xs8nvTxVUoMJV77E4f7oaia"
             }
         }
     }
@@ -300,7 +273,7 @@ Code:
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN_CASH)
     hd_wallet = hd_wallet_fact.CreateFromExtendedKey("bch_wo_wallet", ex_key)
-    hd_wallet.Generate(addr_num=3)
+    hd_wallet.Generate(addr_num=2)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
@@ -327,12 +300,6 @@ Output:
                 "raw_compr_pub": "02dfcaec532010d704860e20ad6aff8cf3477164ffb02f93d45c552dadc70ed24f",
                 "raw_uncompr_pub": "04dfcaec532010d704860e20ad6aff8cf3477164ffb02f93d45c552dadc70ed24f05100e9dc6d05ccd7e8bdade50dabeeed654700fde6134870194a6ccb2a07a5e",
                 "address": "bitcoincash:qp4wzvqu73x22ft4r5tk8tz0aufdz9fescwtpcmhc7"
-            },
-            "address_2": {
-                "ex_pub": "xpub6Fbrwk4KhC8qtGNv4K6ZPPa4CjbLKcXhc6CzA57XMPXVYMjQn3LQUY3G8B9kwKkfiM5KnhL1bTSQaN4EYDgamQeQGu7RjFgqBC1rjTvqwLM",
-                "raw_compr_pub": "0338994349b3a804c44bbec55c2824443ebb9e475dfdad14f4b1a01a97d42751b3",
-                "raw_uncompr_pub": "0438994349b3a804c44bbec55c2824443ebb9e475dfdad14f4b1a01a97d42751b37a93be7a6818b0f5bc5410bb844ba9d417181afae5810c7a222e8fd47a02f6b9",
-                "address": "bitcoincash:qr0kwqzf2h3wvjjhn4pg895lrxwp96wqgyhkksq2nh"
             }
         }
     }
@@ -350,7 +317,7 @@ Code:
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip84Coins.BITCOIN)
     hd_wallet = hd_wallet_fact.CreateFromPrivateKey("btc_wallet", priv_key)
-    hd_wallet.Generate(addr_num=3, addr_off=10)
+    hd_wallet.Generate(addr_num=1, addr_off=10)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
 Output:
@@ -416,24 +383,49 @@ Output:
                 "raw_priv": "bec1e972e7d89d08abbeb859337b51076e8da2cb8a9aec4744ceb6243aa17923",
                 "wif_priv": "L3cX2PujELmCHDUaeLMX5sc4JU3kuRogKWfgxNiVAVUUkWuf8HpW",
                 "address": "bc1qfa50sz7cdx8kdyrtnr9n9lawxdsg8r0ndaed3m"
-            },
-            "address_11": {
-                "ex_pub": "zpub6uWUdQwoERPosBJL8VNUGsxetVoUWwLx9ueSKqdQ4tj4WKDZPx756bD3Vch5zZtagf33a9hR3N447mdbZSKc4Q5Qqv6UnDNHJBvekoYb83L",
-                "raw_compr_pub": "021e6c3f7a88c521920fa4e8a1ff156b31632c6cef49e1334f08f176ff2386b1df",
-                "raw_uncompr_pub": "041e6c3f7a88c521920fa4e8a1ff156b31632c6cef49e1334f08f176ff2386b1dfbcb01b7e1029de03493c36724d0fc2a3107254b6cf0a011013147c760057e8a4",
-                "ex_priv": "zprvAgX8DuQuQ3qWehDs2TqTuk1vLTxz7Ud6ngiqXTDnWZC5dWtQrQnpYntZeMXDxKMzGYQ79HYGPBmL93ST4LWmDn9MvKxGjRNwFAeJxxRHKqE",
-                "raw_priv": "0c09ec2493f5bd30c15b7da7d387da5298c9acbc96adae4d13694da36a2bb8f2",
-                "wif_priv": "Kwd7VEJx26UB3kqbaoJfhKU3J2BW6QewCjfuvXddA2PKJBv4ixX1",
-                "address": "bc1q29dz6dmey6nkv3ky87grsuza5fljl9rwh9nda3"
-            },
-            "address_12": {
-                "ex_pub": "zpub6uWUdQwoERPowGc9VGNoCQEXvhGBZTTGThm3FGQV6mxNvYGEU5yLLHuwB8k7LwBvLs4JC3tnnfTMCdkiA9WnjEsW7LEjzRB7qBaC81NC9Ja",
-                "raw_compr_pub": "038cc8faddc9d6da9aeded9dafa0055d675ba166b1dd7e491e9db312c22f2795cf",
-                "raw_uncompr_pub": "048cc8faddc9d6da9aeded9dafa0055d675ba166b1dd7e491e9db312c22f2795cf8548459cc0901b6275b81a4c66fc03a84020a65ceebdc37b6e32675ad4aa6791",
-                "ex_priv": "zprvAgX8DuQuQ3qWinXgPEqnqGHoNfRh9zjR6UqSSszsYSRQ3jw5vYf5nVbTKrEXJPFF8ZZhSeG5JDcKnEXveajJAkx2XiHMi7fAv3vpMjJ27ft",
-                "raw_priv": "c9eb2b300a75b7ea5048081b46ea0ea4e4370e3ff38c5561d45dfb449eb444f0",
-                "wif_priv": "L3zDPBizmWUPkFdFdcio1Tj44gExNhaUZgRqqLirZTW23H2K4rcR",
-                "address": "bc1qt2m5rmdnj9ujm0zpxy64wpmzzhcrgjpf66renx"
+            }
+        }
+    }
+
+**Wallet created from public key for Bitcoin, using BIP-0044 specification**
+
+Code:
+
+    import binascii
+    from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip44Coins
+
+    pub_key = binascii.unhexlify(b"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2")
+
+    hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
+    hd_wallet = hd_wallet_fact.CreateFromPublicKey("btc_wallet", pub_key)
+    hd_wallet.Generate(addr_num=1)
+    HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
+
+Output:
+
+    {
+        "wallet_name": "btc_wallet",
+        "spec_name": "BIP-0044",
+        "coin_name": "Bitcoin (BTC)",
+        "account_key": {
+            "ex_pub": "xpub6BemYiVEULcborKY35udNtwGFrGoDLKoByPWGVpdxyeW1XWwTUt5MjdGMAGxDTSJzEVTMbVZQeYqpP5rA2jW63TPxPK2UqV8g22sDJuWxtX",
+            "raw_compr_pub": "0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2",
+            "raw_uncompr_pub": "0439a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c23cbe7ded0e7ce6a594896b8f62888fdbc5c8821305e2ea42bf01e37300116281",
+            "address": "15mKKb2eos1hWa6tisdPwwDC1a5J1y9nma"
+        },
+        "change_idx": 0,
+        "change_key": {
+            "ex_pub": "xpub6DvBYRnZDwCcnw5YfmkbUAYz1i9V79pnq1N7524jemQdx6HWzHmnEYnBoXf8mhyhpbKBNF2Pk3NJfVP8zZUUEZGAhvMk6cfh6LkfVuqXrVH",
+            "raw_compr_pub": "02305e20d8d1e7a398c79ba12965bc11f317a325acb01237f620d16a5b1515ab59",
+            "raw_uncompr_pub": "04305e20d8d1e7a398c79ba12965bc11f317a325acb01237f620d16a5b1515ab59dca80f80ad7584c80abb3168b4cd400611da196b45ddff12ccd2b6eb3c0fe96e",
+            "address": "12UozKxnThvfEYmwB9sdpysCmMFrPMA8NF"
+        },
+        "address": {
+            "address_0": {
+                "ex_pub": "xpub6FXxYBzvxCyWrcm5wCxWcwab5XdgCeTWb7LhjxnioDAX3wJWXT9EfXpub95g2Q6zsbxKyHie3Y9rhqyek5xjhssvLGpFej9oEwSzkSNTeFw",
+                "raw_compr_pub": "03b0b376563ed920b460e348df3b88151fed329cfa322137112a658e33aca1e405",
+                "raw_uncompr_pub": "04b0b376563ed920b460e348df3b88151fed329cfa322137112a658e33aca1e405c15a64abb9ccf3faa0eda30f09d8223e55802d7e727738dd077b8ad9e1345c2b",
+                "address": "14cnZEkq8RKdNsuS7RfFz1HZsBtRyXazJV"
             }
         }
     }
