@@ -751,6 +751,10 @@ class HdWalletBipTests(unittest.TestCase):
         invalid_priv_key = binascii.unhexlify(b"6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
         self.assertRaises(ValueError, hd_wallet_fact.CreateFromPrivateKey, "test_wallet", invalid_priv_key)
 
+        # Invalid parameter for CreateFromPublicKey
+        invalid_pub_key = binascii.unhexlify(b"019efbcb2db9ee44cb12739e9350e19e5f1ce4563351b770096f0e408f93400c70")
+        self.assertRaises(ValueError, hd_wallet_fact.CreateFromPublicKey, "test_wallet", invalid_pub_key)
+
         # Create wallet
         hd_wallet = hd_wallet_fact.CreateRandom("test_wallet")
 
