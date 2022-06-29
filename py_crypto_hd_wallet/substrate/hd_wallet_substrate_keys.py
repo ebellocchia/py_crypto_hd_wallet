@@ -41,7 +41,7 @@ class HdWalletSubstrateKeysConst:
 class HdWalletSubstrateKeys(HdWalletKeysBase):
     """
     HD wallet Substrate keys class.
-    It creates keys from a Substrate object and store them.
+    It creates keys from a Substrate object and stores them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 

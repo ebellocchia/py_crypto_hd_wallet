@@ -41,7 +41,7 @@ class HdWalletAlgorandKeysConst:
 class HdWalletAlgorandKeys(HdWalletKeysBase):
     """
     HD wallet Algorand keys class.
-    It creates keys from a Algorand object and store them.
+    It creates keys from a Algorand object and stores them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 

@@ -45,7 +45,7 @@ class HdWalletBipKeysConst:
 class HdWalletBipKeys(HdWalletKeysBase):
     """
     HD wallet BIP keys class.
-    It creates keys from a Bip object and store them.
+    It creates keys from a Bip object and stores them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 

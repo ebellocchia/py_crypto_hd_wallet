@@ -43,7 +43,7 @@ class HdWalletMoneroKeysConst:
 class HdWalletMoneroKeys(HdWalletKeysBase):
     """
     HD wallet Monero keys class.
-    It creates keys from a Monero object and store them.
+    It creates keys from a Monero object and stores them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 

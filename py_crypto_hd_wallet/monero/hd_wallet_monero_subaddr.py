@@ -35,7 +35,7 @@ class HdWalletMoneroSubaddressesConst:
 class HdWalletMoneroSubaddresses(HdWalletAddrBase):
     """
     HD wallet Monero subaddresses class.
-    It creates subaddresses from a Monero object and store them.
+    It creates subaddresses from a Monero object and stores them.
     Subaddresses can be got individually, as dictionary or in JSON format.
     """
 
