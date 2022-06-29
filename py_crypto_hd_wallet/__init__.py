@@ -1,5 +1,11 @@
 # Version
 from py_crypto_hd_wallet._version import __version__
+# Algorand
+from py_crypto_hd_wallet.algorand import (
+    HdWalletAlgorandWordsNum, HdWalletAlgorandLanguages,
+    HdWalletAlgorandDataTypes, HdWalletAlgorandKeyTypes,
+    HdWalletAlgorandFactory, HdWalletAlgorandKeys, HdWalletAlgorand
+)
 # Bip
 from py_crypto_hd_wallet.bip import (
     HdWalletBipWordsNum, HdWalletBipLanguages,
