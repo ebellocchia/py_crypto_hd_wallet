@@ -24,7 +24,7 @@
 from typing import Type, Union
 from bip_utils import (
     MnemonicChecksumError, Bip39MnemonicGenerator, Bip39SeedGenerator,
-    Bip32KeyError, Bip32KeyData, Bip44, Bip49, Bip84, Bip86
+    Bip32KeyError, Bip44, Bip49, Bip84, Bip86
 )
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
@@ -182,9 +182,33 @@ class HdWalletBipFactory:
             ValueError: If the private key is not valid
         """
         try:
-            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin, Bip32KeyData())
+            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
         except Bip32KeyError as ex:
             raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key)}") from ex
+
+        return HdWalletBip(wallet_name=wallet_name,
+                           bip_obj=bip_obj)
+
+    def CreateFromPublicKey(self,
+                            wallet_name: str,
+                            pub_key: bytes) -> HdWalletBase:
+        """
+        Create wallet from public key.
+
+        Args:
+            wallet_name (str): Wallet name
+            pub_key (bytes)  : Public key bytes
+
+        Returns:
+            HdWalletBase object: HdWalletBase object
+
+        Raises:
+            ValueError: If the public key is not valid
+        """
+        try:
+            bip_obj = self.m_bip_cls.FromPublicKey(pub_key, self.m_bip_coin)
+        except Bip32KeyError as ex:
+            raise ValueError(f"Invalid public key: {Utils.BytesToHexString(pub_key)}") from ex
 
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
