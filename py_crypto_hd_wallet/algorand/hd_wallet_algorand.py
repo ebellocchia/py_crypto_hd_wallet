@@ -106,29 +106,16 @@ class HdWalletAlgorand(HdWalletBase):
         """
 
         # Set wallet name
-        self.__SetData(HdWalletAlgorandDataTypes.WALLET_NAME, wallet_name)
+        self._SetData(HdWalletAlgorandDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = self.m_bip_obj.CoinConf().CoinNames()
-        self.__SetData(HdWalletAlgorandDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._SetData(HdWalletAlgorandDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self.__SetData(HdWalletAlgorandDataTypes.MNEMONIC, mnemonic)
+            self._SetData(HdWalletAlgorandDataTypes.MNEMONIC, mnemonic)
         if seed_bytes != b"":
-            self.__SetData(HdWalletAlgorandDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
-
-    def __SetData(self,
-                  data_type: HdWalletAlgorandDataTypes,
-                  data_value: Union[int, str, HdWalletAlgorandKeys]) -> None:
-        """
-        Set wallet data.
-
-        Args:
-            data_type (HdWalletAlgorandDataTypes)          : Data type
-            data_value (int or str or HdWalletAlgorandKeys): Data value
-        """
-        dict_key = HdWalletAlgorandConst.DATA_TYPE_TO_DICT_KEY[data_type]
-        self.m_wallet_data[dict_key] = data_value
+            self._SetData(HdWalletAlgorandDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
 
     def __SetKeys(self,
                   data_type: HdWalletAlgorandDataTypes,
@@ -140,4 +127,4 @@ class HdWalletAlgorand(HdWalletBase):
             data_type (HdWalletAlgorandDataTypes): Data type
             algorand_obj (Algorand object)      : Algorand object
         """
-        self.__SetData(data_type, HdWalletAlgorandKeys(algorand_obj))
+        self._SetData(data_type, HdWalletAlgorandKeys(algorand_obj))
