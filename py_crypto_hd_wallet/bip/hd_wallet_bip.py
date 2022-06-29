@@ -140,9 +140,7 @@ class HdWalletBip(HdWalletBase):
         if bip_obj.IsLevel(Bip44Levels.CHANGE):
             self.__SetKeys(HdWalletBipDataTypes.CHANGE_KEY, bip_obj)
 
-            if addr_off != 0:
-                self._SetData(HdWalletBipDataTypes.ADDRESS_OFF, addr_off)
-
+            self._SetData(HdWalletBipDataTypes.ADDRESS_OFF, addr_off)
             self._SetData(HdWalletBipDataTypes.ADDRESS,
                            HdWalletBipAddresses(bip_obj, addr_num, addr_off))
         # In this case, the wallet was created from an address index extended key,

@@ -137,6 +137,7 @@ TEST_VECTOR = [
                     "raw_priv": "5cc8571103db0bec90c0ae91020c17145a2d61bc1d391a14f4d2c8ae878c86b1",
                     "address": "0x1af21bC3e7319984A37fb72f1B900db4De5b1A75",
                 },
+                "address_off": 0,
                 "address": {
                     "address_0": {
                         "ex_pub": "xpub6GkuXeVuFpgwJvJCsRyr1Mq8UEgYa4SrW3GJyPxr232F2xhYJhmY66JiJJ3G8Qsvsmz1n24YUpcmdVuinMj5UdJ2t9oHySr3pftXSiWo2Cq",
@@ -213,6 +214,7 @@ TEST_VECTOR = [
                     "raw_priv": "5cc8571103db0bec90c0ae91020c17145a2d61bc1d391a14f4d2c8ae878c86b1",
                     "address": "0x1af21bC3e7319984A37fb72f1B900db4De5b1A75",
                 },
+                "address_off": 0,
                 "address": {
                     "address_0": {
                         "ex_pub": "xpub6GkuXeVuFpgwJvJCsRyr1Mq8UEgYa4SrW3GJyPxr232F2xhYJhmY66JiJJ3G8Qsvsmz1n24YUpcmdVuinMj5UdJ2t9oHySr3pftXSiWo2Cq",
@@ -309,6 +311,7 @@ TEST_VECTOR = [
                     "wif_priv": "T3vNVL8tKAdziuDYACQagqzj21hSQXoHcg6TePTn2wQ2Mkn9QMm2",
                     "address": "ltc1qhd4p5y7ycw8jyq3fd25nrs9d6qweewk7cmyuzd",
                 },
+                "address_off": 0,
                 "address": {
                     "address_0": {
                         "ex_pub": "zpub6vTTtJ8jWvYsRr2xkYgxWA7vbUfhpHPZtqRQ7YUc4TMfoWzJLwxFar48oDAgiN6tX4WW9vmqkXafqXi3fq5XJozY8QyFkcougMwVDYJEofN",
@@ -401,6 +404,7 @@ TEST_VECTOR = [
                     "raw_uncompr_pub": "0486b865b52b753d0a84d09bc20063fab5d8453ec33c215d4019a5801c9c6438b917770b2782e29a9ecc6edb67cd1f0fbf05ec4c1236884b6d686d6be3b1588abb",
                     "address": "13KE6TffArLh4fVM6uoQzvsYq5vwetJcVM",
                 },
+                "address_off": 0,
                 "address": {
                     "address_0": {
                         "ex_pub": "xpub6Fbrwk4KhC8qnFVXTcR3wRsqiTGkedcSSZKyTqKaxXjFN6rZv3UJYZ4mQtjNYY3gCa181iCHSBWyWst2PFiXBKgLpFVSdcyLbHyAahin8pd",
@@ -594,6 +598,7 @@ TEST_VECTOR = [
                     "wif_priv": "KytcxrhpyjrECvfc73WBqdzPaca8f7C6dkVrtzK4MQiWYdMk88Rp",
                     "address": "bc1p34w5xzczeel9l8tle39nu763pvhjschtmv7wewxy3qv0c5rgskds7ta5fq",
                 },
+                "address_off": 0,
                 "address": {
                     "address_0": {
                         "ex_pub": "xpub6H3W6JmYJXN49h5TfcVjLC3onS6uPeUTTJoVvRC8oG9vsTn2J8LwigLzq5tHbrwAzH9DGo6ThGUdWsqce8dGfwHVBxSbixjDADGGdzF7t2B",
@@ -650,6 +655,7 @@ TEST_VECTOR = [
                     "raw_uncompr_pub": "04c627d9c8c212c0b26a59af421119fe510c0bbd610ea97ad91f413fe2b32e0f0988c8427d68f44427a72d0d09b2cac27a09bf24f55ef89af0682e02fbc61772ba",
                     "address": "3NsVPcffYEtrAHXuvBSuhgPc8EJpFhDG8D"
                 },
+                "address_off": 0,
                 "address": {
                     "address_0": {
                         "ex_pub": "ypub6c7qodM5PbRWsCY6HHyx7JxR5V3kgECb8DnkwcmSMZm7fCWW6mA6MLLtafTH1SoUB2DX4bPzDQPR8wD9b5D5p3E5r89ed7z4K4feeEsjbtQ",
