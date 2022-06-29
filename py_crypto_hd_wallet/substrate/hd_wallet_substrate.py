@@ -89,7 +89,7 @@ class HdWalletSubstrate(HdWalletBase):
         path = kwargs.get("path", "")
 
         if path != "":
-            self.__SetData(HdWalletSubstrateDataTypes.PATH, path)
+            self._SetData(HdWalletSubstrateDataTypes.PATH, path)
 
         try:
             substrate_obj = self.m_substrate_obj.DerivePath(path)
@@ -126,30 +126,17 @@ class HdWalletSubstrate(HdWalletBase):
         """
 
         # Set wallet name
-        self.__SetData(HdWalletSubstrateDataTypes.WALLET_NAME, wallet_name)
+        self._SetData(HdWalletSubstrateDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = self.m_substrate_obj.CoinConf().CoinNames()
-        self.__SetData(HdWalletSubstrateDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._SetData(HdWalletSubstrateDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self.__SetData(HdWalletSubstrateDataTypes.MNEMONIC, mnemonic)
-            self.__SetData(HdWalletSubstrateDataTypes.PASSPHRASE, passphrase)
+            self._SetData(HdWalletSubstrateDataTypes.MNEMONIC, mnemonic)
+            self._SetData(HdWalletSubstrateDataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
-            self.__SetData(HdWalletSubstrateDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
-
-    def __SetData(self,
-                  data_type: HdWalletSubstrateDataTypes,
-                  data_value: Union[int, str, HdWalletSubstrateKeys]) -> None:
-        """
-        Set wallet data.
-
-        Args:
-            data_type (HdWalletSubstrateDataTypes)          : Data type
-            data_value (int or str or HdWalletSubstrateKeys): Data value
-        """
-        dict_key = HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[data_type]
-        self.m_wallet_data[dict_key] = data_value
+            self._SetData(HdWalletSubstrateDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
 
     def __SetKeys(self,
                   data_type: HdWalletSubstrateDataTypes,
@@ -161,4 +148,4 @@ class HdWalletSubstrate(HdWalletBase):
             data_type (HdWalletSubstrateDataTypes): Data type
             substrate_obj (Substrate object)      : Substrate object
         """
-        self.__SetData(data_type, HdWalletSubstrateKeys(substrate_obj))
+        self._SetData(data_type, HdWalletSubstrateKeys(substrate_obj))

@@ -132,3 +132,16 @@ class HdWalletBase(ABC):
             dict_key = self.m_key_type_to_dict_key[data_type]
             return self.m_wallet_data[dict_key]
         return None
+
+    def _SetData(self,
+                 data_type: HdWalletDataTypes,
+                 data_value: Any) -> None:
+        """
+        Set wallet data.
+
+        Args:
+            data_type (HdWalletDataTypes): Data type
+            data_value (any)             : Data value
+        """
+        dict_key = self.m_key_type_to_dict_key[data_type]
+        self.m_wallet_data[dict_key] = data_value

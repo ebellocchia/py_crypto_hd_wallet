@@ -106,10 +106,10 @@ class HdWalletMonero(HdWalletBase):
 
         if subaddr_num > 0:
             # Set subaddresses data
-            self.__SetData(HdWalletMoneroDataTypes.ACCOUNT_IDX, acc_idx)
-            self.__SetData(HdWalletMoneroDataTypes.SUBADDRESS_OFF, subaddr_off)
+            self._SetData(HdWalletMoneroDataTypes.ACCOUNT_IDX, acc_idx)
+            self._SetData(HdWalletMoneroDataTypes.SUBADDRESS_OFF, subaddr_off)
             # Set subaddresses
-            self.__SetData(HdWalletMoneroDataTypes.SUBADDRESS,
+            self._SetData(HdWalletMoneroDataTypes.SUBADDRESS,
                            HdWalletMoneroSubaddresses(self.m_monero_obj,
                                                       acc_idx,
                                                       subaddr_num,
@@ -142,29 +142,16 @@ class HdWalletMonero(HdWalletBase):
         """
 
         # Set wallet name
-        self.__SetData(HdWalletMoneroDataTypes.WALLET_NAME, wallet_name)
+        self._SetData(HdWalletMoneroDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = self.m_monero_obj.CoinConf().CoinNames()
-        self.__SetData(HdWalletMoneroDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._SetData(HdWalletMoneroDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self.__SetData(HdWalletMoneroDataTypes.MNEMONIC, mnemonic)
+            self._SetData(HdWalletMoneroDataTypes.MNEMONIC, mnemonic)
         if seed_bytes != b"":
-            self.__SetData(HdWalletMoneroDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
-
-    def __SetData(self,
-                  data_type: HdWalletMoneroDataTypes,
-                  data_value: Union[int, str, HdWalletMoneroKeys, HdWalletMoneroSubaddresses]) -> None:
-        """
-        Set wallet data.
-
-        Args:
-            data_type (HdWalletMoneroDataTypes)                                        : Data type
-            data_value (int or str or HdWalletMoneroKeys or HdWalletMoneroSubaddresses): Data value
-        """
-        dict_key = HdWalletMoneroConst.DATA_TYPE_TO_DICT_KEY[data_type]
-        self.m_wallet_data[dict_key] = data_value
+            self._SetData(HdWalletMoneroDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
 
     def __SetKeys(self,
                   data_type: HdWalletMoneroDataTypes,
@@ -176,4 +163,4 @@ class HdWalletMonero(HdWalletBase):
             data_type (HdWalletMoneroDataTypes): Data type
             monero_obj (Monero object)         : Monero object
         """
-        self.__SetData(data_type, HdWalletMoneroKeys(monero_obj))
+        self._SetData(data_type, HdWalletMoneroKeys(monero_obj))
