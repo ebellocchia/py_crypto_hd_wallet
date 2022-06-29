@@ -22,7 +22,7 @@
 
 # Imports
 from bip_utils import (
-    AlgorandMnemonicGenerator, AlgorandSeedGenerator, Bip32KeyError, Bip44, Bip44Coins
+    MnemonicChecksumError, AlgorandMnemonicGenerator, AlgorandSeedGenerator, Bip32KeyError, Bip44, Bip44Coins
 )
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_enum import (
     HdWalletAlgorandWordsNum, HdWalletAlgorandLanguages
@@ -90,7 +90,7 @@ class HdWalletAlgorandFactory:
         """
         try:
             seed_bytes = AlgorandSeedGenerator(mnemonic).Generate()
-        except ValueError as ex:
+        except (ValueError, MnemonicChecksumError) as ex:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         bip_obj = Bip44.FromSeed(seed_bytes, Bip44Coins.ALGORAND)
