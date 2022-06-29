@@ -48,12 +48,14 @@ To run tests and get the code coverage and report.
 ## Modules description
 
 - [BIP wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/bip_wallet.md)
+- [Algorand wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/algorand_wallet.md)
 - [Monero wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/monero_wallet.md)
 - [Substrate wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/substrate_wallet.md)
 
 # Examples of wallet JSON outputs
 
 - [BIP wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/bip_wallet_examples.md)
+- [Algorand wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/algorand_wallet_examples.md)
 - [Monero wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/monero_wallet_examples.md)
 - [Substrate wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/substrate_wallet_examples.md)
 

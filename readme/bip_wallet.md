@@ -1,6 +1,6 @@
 # BIP wallet
 
-A BIP wallet is a wallet based on BIP-0044, BIP-0049 and BIP-0084 specifications.
+A BIP wallet is a wallet based on BIP-0044, BIP-0049, BIP-0084 and BIP-0086 specifications.
 
 ## BIP wallet factory
 
@@ -19,6 +19,7 @@ Supported coin enumerative:
 |Avalanche C-Chain|*HdWalletBip44Coins.AVAX_C_CHAIN*|-|
 |Avalanche P-Chain|*HdWalletBip44Coins.AVAX_P_CHAIN*|-|
 |Avalanche X-Chain|*HdWalletBip44Coins.AVAX_X_CHAIN*|-|
+|Axelar|*HdWalletBip44Coins.AXELAR*|-|
 |Band Protocol|*HdWalletBip44Coins.BAND_PROTOCOL*|-|
 |Binance Chain|*HdWalletBip44Coins.BINANCE_CHAIN*|-|
 |Binance Smart Chain|*HdWalletBip44Coins.BINANCE_SMART_CHAIN*|-|
@@ -108,7 +109,7 @@ Harmony One and OKEx Chain have different formats, see [bip_utils](https://githu
     # Create a BIP-0049 Litecoin wallet factory
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip49Coins.LITECOIN)
 
-### Wallet creation
+## Wallet creation
 
 After a wallet factory is constructed, it can be used to create wallets.\
 Supported words number:
@@ -144,15 +145,15 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
         # Create randomly (words number: 24, language: English)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
-        # Create randomly by specifying the words number (language: English):
+        # Create randomly by specifying the words number (language: English)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_24)
-        # Specifying the language:
+        # Create randomly by specifying words number and language
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.ITALIAN)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.CZECH)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletBipWordsNum.WORDS_NUM_12, HdWalletBipLanguages.KOREAN)
 
-- From an already existent mnemonic (language is autoamtically detected):
+- From an already existent mnemonic (language is automatically detected):
 
         from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
 
@@ -172,8 +173,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
 
         # Create from seed
-        seed_bytes = b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4"
-        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
+        seed_bytes = binascii.unhexlify(b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4")
+        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", seed_bytes)
 
 - From an extended key:
 
@@ -233,7 +234,6 @@ Supported change index enumerative:
 
 **Example**
 
-    import binascii
     from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipChanges, HdWalletBipFactory
 
     # Create factory
@@ -306,7 +306,7 @@ The possible key types *HdWalletBipKeyTypes* are:
 - *HdWalletBipKeyTypes.EX_PUB* : public key in extended serialized format
 - *HdWalletBipKeyTypes.RAW_COMPR_PUB* : raw public key in compressed format
 - *HdWalletBipKeyTypes.RAW_UNCOMPR_PUB* : raw public key in uncompressed format
-- *HdWalletBipKeyTypes.ADDRESS* : address correspondet to the public key
+- *HdWalletBipKeyTypes.ADDRESS* : address correspondent to the public key
 
 In case of addresses, a *HdWalletBipAddresses* is returned, This object has the following methods:
 - **ToDict()** : return addresses as a dictionary

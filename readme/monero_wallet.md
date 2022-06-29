@@ -1,13 +1,13 @@
 # Monero wallet
 
 A Monero wallet is a wallet based on the Monero official wallet.\
-It doesn't follow BIP44 but it generates the Monero spend/view keys, primary address and subaddresses.
+It doesn't follow BIP44 but it allows generating Monero spend/view keys, primary address and subaddresses.
 
 ## Monero wallet factory
 
 A Monero wallet is created using the *HdWalletMoneroFactory* class.\
 A *HdWalletMoneroFactory* class is simply constructed by specifying the desired network.
-After the construction, the factory can be used to create wallets with the specified coin.
+After the construction, the factory can be used to create wallets with the specified network.
 
 Supported coin enumerative:
 
@@ -26,7 +26,7 @@ Supported coin enumerative:
     # Create a Monero wallet factory by specifying the coin
     hd_wallet_fact = HdWalletMoneroFactory(HdWalletMoneroCoins.MONERO_TESTNET)
 
-### Wallet creation
+## Wallet creation
 
 After a wallet factory is constructed, it can be used to create wallets.\
 Supported words number:
@@ -65,12 +65,12 @@ A wallet can be created in the following ways:
         # Create randomly by specifying the words number (language: English):
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_13)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_24)
-        # Specifying the language:
+        # Create randomly by specifying words number and language
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_25, HdWalletMoneroLanguages.ITALIAN)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_25, HdWalletMoneroLanguages.DUTCH)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletMoneroWordsNum.WORDS_NUM_25, HdWalletMoneroLanguages.PORTUGUESE)
 
-- From an already existent mnemonic (language is autoamtically detected):
+- From an already existent mnemonic (language is automatically detected):
 
         from py_crypto_hd_wallet import HdWalletMoneroFactory
 
@@ -90,8 +90,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletMoneroFactory()
 
         # Create from seed
-        seed_bytes = b"b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b"
-        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
+        seed_bytes = binascii.unhexlify(b"b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b")
+        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", seed_bytes)
 
 - From a private spend key:
 
@@ -130,7 +130,6 @@ For generating a wallet, you can specify:
 
 **Example**
 
-    import binascii
     from py_crypto_hd_wallet import HdWalletMoneroFactory
 
     # Create factory

@@ -35,7 +35,7 @@ Supported coin enumerative:
     # Create a substrate wallet factory
     hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
 
-### Wallet creation
+## Wallet creation
 
 After a wallet factory is constructed, it can be used to create wallets.\
 Supported words number:
@@ -71,15 +71,15 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
         # Create randomly (words number: 24, language: English)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name")
-        # Create randomly by specifying the words number (language: English):
+        # Create randomly by specifying the words number (language: English)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_24)
-        # Specifying the language:
+        # Create randomly by specifying words number and language
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12, HdWalletSubstrateLanguages.ITALIAN)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12, HdWalletSubstrateLanguages.CZECH)
         hd_wallet = hd_wallet_fact.CreateRandom("my_wallet_name", HdWalletSubstrateWordsNum.WORDS_NUM_12, HdWalletSubstrateLanguages.KOREAN)
 
-- From an already existent mnemonic (language is autoamtically detected):
+- From an already existent mnemonic (language is automatically detected):
 
         from py_crypto_hd_wallet import HdWalletSubstrateCoins, HdWalletSubstrateFactory
 
@@ -99,8 +99,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
 
         # Create from seed
-        seed_bytes = b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4"
-        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", binascii.unhexlify(seed_bytes))
+        seed_bytes = binascii.unhexlify(b"5eb00bbddcf069084889a8ab9155568165f5c453ccb85e70811aaed6f6da5fc19a5ac40b389cd370d086206dec8aa6c43daea6690f20ad3d8d48b2d2ce9e38e4")
+        hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", seed_bytes)
 
 - From a private key:
 
@@ -135,7 +135,6 @@ For generating a wallet, you can specify a substrate derivation path (if not spe
 
 **Example**
 
-    import binascii
     from py_crypto_hd_wallet import HdWalletSubstrateCoins, HdWalletSubstrateFactory
 
     # Create factory
@@ -197,7 +196,7 @@ In case of keys, a *HdWalletSubstrateKeys* object is returned. This object has t
 The possible key types *HdWalletSubstrateKeyTypes* are:
 - *HdWalletSubstrateKeyTypes.PRIV* : private key
 - *HdWalletSubstrateKeyTypes.PUB* : public key
-- *HdWalletSubstrateKeyTypes.ADDRESS* : address correspondet to the public key
+- *HdWalletSubstrateKeyTypes.ADDRESS* : address correspondent to the public key
 
 **Example**
 
@@ -221,9 +220,7 @@ The possible key types *HdWalletSubstrateKeyTypes* are:
     wallet_name = hd_wallet.GetData(HdWalletSubstrateDataTypes.WALLET_NAME)
     coin_name = hd_wallet.GetData(HdWalletSubstrateDataTypes.COIN_NAME)
     # Get path
-    has_path = hd_wallet.HasData(HdWalletSubstrateDataTypes.PATH)
-    if has_path:
-        path = hd_wallet.GetData(HdWalletSubstrateDataTypes.PATH)
+    path = hd_wallet.GetData(HdWalletSubstrateDataTypes.PATH)
 
     # Get wallet keys
     keys = hd_wallet.GetData(HdWalletSubstrateDataTypes.KEY)
