@@ -47,7 +47,7 @@ class HdWalletSubstrateConst:
 class HdWalletSubstrate(HdWalletBase):
     """
     HD wallet Substrate class.
-    It basically wraps the bip_utils, allowing to generate a complete Substrate wallet.
+    It allows to generate a Substrate wallet like the official one.
     """
 
     m_substrate_obj: Substrate

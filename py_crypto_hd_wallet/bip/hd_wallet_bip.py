@@ -58,7 +58,7 @@ class HdWalletBipConst:
 class HdWalletBip(HdWalletBase):
     """
     HD wallet BIP class.
-    It basically wraps the bip_utils, allowing to generate a complete wallet based on BIP specifications.
+    It allows to generate a complete wallet based on BIP specifications.
     """
 
     m_bip_obj: Bip44Base

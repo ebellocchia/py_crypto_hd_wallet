@@ -50,7 +50,7 @@ class HdWalletMoneroConst:
 class HdWalletMonero(HdWalletBase):
     """
     HD wallet Monero class.
-    It basically wraps the bip_utils, allowing to generate a complete Monero wallet.
+    It allows to generate a Monero wallet like the official one.
     """
 
     m_monero_obj: Monero
