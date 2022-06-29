@@ -116,11 +116,9 @@ class HdWalletAlgorandFactory:
         Raises:
             ValueError: If the seed is not valid
         """
-        bip_obj = Bip44.FromSeed(seed_bytes, Bip44Coins.ALGORAND)
 
-        return HdWalletAlgorand(wallet_name=wallet_name,
-                                bip_obj=bip_obj,
-                                seed_bytes=seed_bytes)
+        # In Algorand official wallet, the seed is the private key itself
+        return self.CreateFromPrivateKey(wallet_name, seed_bytes)
 
     def CreateFromPrivateKey(self,
                              wallet_name: str,
