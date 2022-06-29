@@ -66,24 +66,11 @@ class HdWalletAlgorandKeys(HdWalletKeysBase):
         """
 
         # Add public key
-        self.__SetKeyData(HdWalletAlgorandKeyTypes.PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        self._SetKeyData(HdWalletAlgorandKeyTypes.PUB, bip_obj.PublicKey().RawCompressed().ToHex())
 
         # Add private key only if Algorand object is not public-only
         if not bip_obj.IsPublicOnly():
-            self.__SetKeyData(HdWalletAlgorandKeyTypes.PRIV, bip_obj.PrivateKey().Raw().ToHex())
+            self._SetKeyData(HdWalletAlgorandKeyTypes.PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
         # Address
-        self.__SetKeyData(HdWalletAlgorandKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
-
-    def __SetKeyData(self,
-                     key_type: HdWalletAlgorandKeyTypes,
-                     key_value: str) -> None:
-        """
-        Set key data.
-
-        Args:
-            key_type (HdWalletAlgorandKeyTypes): Key type, shall be of HdWalletAlgorandKeyTypes enum
-            key_value (str)                     : Key value
-        """
-        dict_key = HdWalletAlgorandKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        self.m_key_data[dict_key] = key_value
+        self._SetKeyData(HdWalletAlgorandKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
