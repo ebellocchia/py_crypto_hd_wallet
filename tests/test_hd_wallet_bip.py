@@ -616,6 +616,50 @@ TEST_VECTOR = [
                 },
             },
         },
+        # Bitcoin wallet from public key
+        {
+            # Data for wallet construction
+            "wallet_name": "btc_wallet",
+            "coin": HdWalletBip49Coins.BITCOIN,
+            # Data for wallet creation
+            "type": "from_pub_key",
+            "pub_key": b"0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
+            # Data for wallet generation
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 1,
+            "addr_off": 0,
+            # Data for saving to file
+            "file_path": "test_wallet.txt",
+            # Data for wallet test
+            "watch_only": True,
+            "wallet_data_dict": {
+                "wallet_name": "btc_wallet",
+                "spec_name": "BIP-0049",
+                "coin_name": "Bitcoin (BTC)",
+                "account_key": {
+                    "ex_pub": "ypub6WV2rPA9d2A5f9WesShFaz2mRpRF9xKJ75uj3tiXLz2P4dLAi93dyoHQNNToNJicgBsAbmtk7k7ZUhKACoQ2DgHSpSkDeqm2d4s1JPkQMt3",
+                    "raw_compr_pub": "0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
+                    "raw_uncompr_pub": "0457bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc24310ef3676384179e713be3115e93f34ac9a3933f6367aeb3081527ea74027b7",
+                    "address": "3NpdZ19ArtjGyY4jDd7gzz1vHGi67wG6et"
+                },
+                "change_idx": 0,
+                "change_key": {
+                    "ex_pub": "ypub6a7qMVQFMRfXvZGSQzJoYTe6j2iKLBG3QB6HeDgPJrEo2aZbiL2YF8xAMRHmsxo1C7EFofeaXwJy1wNoyJKLSGh2J1FQuyCbfNVk4ga6UcJ",
+                    "raw_compr_pub": "02c627d9c8c212c0b26a59af421119fe510c0bbd610ea97ad91f413fe2b32e0f09",
+                    "raw_uncompr_pub": "04c627d9c8c212c0b26a59af421119fe510c0bbd610ea97ad91f413fe2b32e0f0988c8427d68f44427a72d0d09b2cac27a09bf24f55ef89af0682e02fbc61772ba",
+                    "address": "3NsVPcffYEtrAHXuvBSuhgPc8EJpFhDG8D"
+                },
+                "address": {
+                    "address_0": {
+                        "ex_pub": "ypub6c7qodM5PbRWsCY6HHyx7JxR5V3kgECb8DnkwcmSMZm7fCWW6mA6MLLtafTH1SoUB2DX4bPzDQPR8wD9b5D5p3E5r89ed7z4K4feeEsjbtQ",
+                        "raw_compr_pub": "038ed23d7cfb0a12099eca19c8bfd1393c4ee66c173450d3c5b7185b3c95e2d503",
+                        "raw_uncompr_pub": "048ed23d7cfb0a12099eca19c8bfd1393c4ee66c173450d3c5b7185b3c95e2d503526f1f45eccdc0cf8b7fe17ed84d6fe4d4b94d3c0f037dfe978828f80dff01d9",
+                        "address": "35bm81nzz2jaj8yt8kjfccTUyWgQuDnKuW"
+                    }
+                }
+            },
+        },
     ]
 
 
@@ -660,6 +704,8 @@ class HdWalletBipTests(unittest.TestCase):
                     hd_wallet = hd_wallet_fact.CreateFromExtendedKey(test["wallet_name"], test["ex_key"])
                 elif test["type"] == "from_priv_key":
                     hd_wallet = hd_wallet_fact.CreateFromPrivateKey(test["wallet_name"], binascii.unhexlify(test["priv_key"]))
+                elif test["type"] == "from_pub_key":
+                    hd_wallet = hd_wallet_fact.CreateFromPublicKey(test["wallet_name"], binascii.unhexlify(test["pub_key"]))
                 else:
                     raise RuntimeError("Invalid test type")
 
