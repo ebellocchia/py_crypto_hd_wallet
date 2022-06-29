@@ -21,7 +21,7 @@
 """Module for generating Monero wallets."""
 
 # Imports
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Union
 from bip_utils import Monero
 from bip_utils.monero.monero_subaddr import MoneroSubaddressConst
 from py_crypto_hd_wallet.common import HdWalletBase
@@ -35,7 +35,7 @@ class HdWalletMoneroConst:
     """Class container for HD wallet Monero constants."""
 
     # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletMoneroDataTypes, str] = {
+    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
         HdWalletMoneroDataTypes.WALLET_NAME: "wallet_name",
         HdWalletMoneroDataTypes.COIN_NAME: "coin_name",
         HdWalletMoneroDataTypes.MNEMONIC: "mnemonic",
@@ -74,11 +74,8 @@ class HdWalletMonero(HdWalletBase):
             mnemonic (str, optional)    : Mnemonic, empty if not specified
             seed_bytes (bytes, optional): Seed_bytes, empty if not specified
         """
-
-        # Initialize members
+        super().__init__(HdWalletMoneroDataTypes, HdWalletMoneroConst.DATA_TYPE_TO_DICT_KEY)
         self.m_monero_obj = monero_obj
-        self.m_wallet_data = {}
-
         # Initialize data
         self.__InitData(wallet_name, mnemonic, seed_bytes)
 
@@ -126,66 +123,6 @@ class HdWalletMonero(HdWalletBase):
             bool: True if watch-only, false otherwise
         """
         return self.m_monero_obj.IsWatchOnly()
-
-    def ToDict(self) -> Dict[str, Any]:
-        """
-        Get wallet data as a dictionary.
-
-        Returns:
-            dict: Wallet data as a dictionary
-        """
-        wallet_dict = {}
-
-        # Builddictionary
-        for key, value in self.m_wallet_data.items():
-            if isinstance(value, (HdWalletMoneroKeys, HdWalletMoneroSubaddresses)):
-                wallet_dict[key] = value.ToDict()
-            else:
-                wallet_dict[key] = value
-
-        return wallet_dict
-
-    def HasData(self,
-                data_type: HdWalletDataTypes) -> bool:
-        """
-        Get if the wallet data of the specified type is present.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-
-        Returns:
-            bool: True if present, false otherwise
-
-        Raises:
-            TypeError: If data type is not of the correct enumerative type
-        """
-        if not isinstance(data_type, HdWalletMoneroDataTypes):
-            raise TypeError("Data type is not an enumerative of HdWalletMoneroDataTypes")
-
-        dict_key = HdWalletMoneroConst.DATA_TYPE_TO_DICT_KEY[HdWalletMoneroDataTypes(data_type)]
-        return dict_key in self.m_wallet_data
-
-    def GetData(self,
-                data_type: HdWalletDataTypes) -> Optional[Any]:
-        """
-        Get wallet data of the specified type.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-
-        Returns:
-            Any: Wallet data (it depends on the specific data)
-            None: If not found
-
-        Raises:
-            TypeError: If data type is not of the correct enumerative type
-        """
-        if self.HasData(data_type):
-            return self.m_wallet_data[
-                HdWalletMoneroConst.DATA_TYPE_TO_DICT_KEY[HdWalletMoneroDataTypes(data_type)]
-            ]
-
-        return None
 
     #
     # Private methods

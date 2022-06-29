@@ -21,9 +21,9 @@
 """Module with enums for Monero wallets."""
 
 # Imports
-from enum import Enum, auto, unique
+from enum import auto, unique
 from bip_utils import MoneroWordsNum, MoneroLanguages, MoneroCoins
-from py_crypto_hd_wallet.common import HdWalletDataTypes
+from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
 
 # Alias for MoneroWordsNum
@@ -49,7 +49,7 @@ class HdWalletMoneroDataTypes(HdWalletDataTypes):
 
 
 @unique
-class HdWalletMoneroKeyTypes(Enum):
+class HdWalletMoneroKeyTypes(HdWalletKeyTypes):
     """Enumerative for wallet Monero key types."""
 
     PRIV_SPEND = auto()

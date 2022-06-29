@@ -1,2 +1,4 @@
+from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 from py_crypto_hd_wallet.common.hd_wallet_base import HdWalletBase
-from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
+from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes, HdWalletKeyTypes
+from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase

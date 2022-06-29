@@ -23,16 +23,30 @@
 # Imports
 import json
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Type
 from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
 
 
 class HdWalletBase(ABC):
     """HD wallet base class."""
 
-    #
-    # Public methods
-    #
+    m_key_type_enum: Type[HdWalletDataTypes]
+    m_key_type_to_dict_key: Dict[HdWalletDataTypes, str]
+    m_wallet_data: Dict[str, Any]
+
+    def __init__(self,
+                 key_type_enum: Type[HdWalletDataTypes],
+                 key_type_to_dict_key: Dict[HdWalletDataTypes, str]) -> None:
+        """
+        Construct class.
+
+        Args:
+            key_type_enum (HdWalletDataTypes)                  : Data type enumerative
+            key_type_to_dict_key (Dict[HdWalletDataTypes, str]): Data type to dictionary key
+        """
+        self.m_key_type_enum = key_type_enum
+        self.m_key_type_to_dict_key = key_type_to_dict_key
+        self.m_wallet_data = {}
 
     @abstractmethod
     def Generate(self,
@@ -53,7 +67,6 @@ class HdWalletBase(ABC):
             bool: True if watch-only, false otherwise
         """
 
-    @abstractmethod
     def ToDict(self) -> Dict[str, Any]:
         """
         Get wallet data as a dictionary.
@@ -61,8 +74,25 @@ class HdWalletBase(ABC):
         Returns:
             dict: Wallet data as a dictionary
         """
+        wallet_dict = {}
+        for key, value in self.m_wallet_data.items():
+            wallet_dict[key] = value.ToDict() if hasattr(value, "ToDict") else value
 
-    @abstractmethod
+        return wallet_dict
+
+    def ToJson(self,
+               json_indent: int = 4) -> str:
+        """
+        Get wallet data as string in JSON format.
+
+        Args:
+            json_indent (int, optional): Indent for JSON format, 4 by default
+
+        Returns:
+            str: Wallet data as string in JSON format
+        """
+        return json.dumps(self.ToDict(), indent=json_indent)
+
     def HasData(self,
                 data_type: HdWalletDataTypes) -> bool:
         """
@@ -77,8 +107,12 @@ class HdWalletBase(ABC):
         Raises:
             TypeError: If data type is not of the correct enumerative type
         """
+        if not isinstance(data_type, self.m_key_type_enum):
+            raise TypeError(f"Key type is not an enumerative of {self.m_key_type_enum}")
 
-    @abstractmethod
+        dict_key = self.m_key_type_to_dict_key[data_type]
+        return dict_key in self.m_wallet_data
+
     def GetData(self,
                 data_type: HdWalletDataTypes) -> Optional[Any]:
         """
@@ -94,16 +128,7 @@ class HdWalletBase(ABC):
         Raises:
             TypeError: If data type is not of the correct enumerative type
         """
-
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get wallet data as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Wallet data as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
+        if self.HasData(data_type):
+            dict_key = self.m_key_type_to_dict_key[data_type]
+            return self.m_wallet_data[dict_key]
+        return None

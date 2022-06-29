@@ -21,18 +21,17 @@
 """Module with helper class for storing Monero keys."""
 
 # Imports
-from __future__ import annotations
-import json
-from typing import Dict, Optional
+from typing import Dict
 from bip_utils import Monero
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import HdWalletMoneroKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
 
 
 class HdWalletMoneroKeysConst:
     """Class container for HD wallet Monero keys constants."""
 
     # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletMoneroKeyTypes, str] = {
+    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
         HdWalletMoneroKeyTypes.PRIV_SPEND: "priv_spend",
         HdWalletMoneroKeyTypes.PRIV_VIEW: "priv_view",
         HdWalletMoneroKeyTypes.PUB_SPEND: "pub_spend",
@@ -41,18 +40,12 @@ class HdWalletMoneroKeysConst:
     }
 
 
-class HdWalletMoneroKeys:
+class HdWalletMoneroKeys(HdWalletKeysBase):
     """
     HD wallet Monero keys class.
     It creates keys from a Monero object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
-
-    m_key_data: Dict[str, str]
-
-    #
-    # Public methods
-    #
 
     def __init__(self,
                  monero_obj: Monero) -> None:
@@ -62,64 +55,8 @@ class HdWalletMoneroKeys:
         Args:
             monero_obj (Monero object): Monero object
         """
-        self.m_key_data = {}
+        super().__init__(HdWalletMoneroKeyTypes, HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY)
         self.__FromMoneroObj(monero_obj)
-
-    def ToDict(self) -> Dict[str, str]:
-        """
-        Get keys as a dictionary.
-
-        Returns:
-            dict: Keys as a dictionary
-        """
-        return self.m_key_data
-
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get keys as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Keys as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
-
-    def HasKey(self,
-               key_type: HdWalletMoneroKeyTypes) -> bool:
-        """
-        Get if the key of the specified type is present.
-
-        Args:
-            key_type (HdWalletMoneroKeyTypes): Key type, shall be of HdWalletMoneroKeyTypes enum
-
-        Returns:
-            bool: True if present, false otherwise
-        """
-        if not isinstance(key_type, HdWalletMoneroKeyTypes):
-            raise TypeError("Key type is not an enumerative of HdWalletMoneroKeyTypes")
-
-        dict_key = HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        return dict_key in self.m_key_data
-
-    def GetKey(self,
-               key_type: HdWalletMoneroKeyTypes) -> Optional[str]:
-        """
-        Get key of the specified type.
-
-        Args:
-            key_type (HdWalletMoneroKeyTypes): Key type, shall be of HdWalletMoneroKeyTypes enum
-
-        Returns:
-            str: Key string
-            None: If the key type is not found
-        """
-        if self.HasKey(key_type):
-            return self.m_key_data[HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
-
-        return None
 
     def __FromMoneroObj(self,
                         monero_obj: Monero) -> None:
@@ -130,27 +67,15 @@ class HdWalletMoneroKeys:
             monero_obj (Monero object): Monero object
         """
 
-        # Add public key
-        self.__SetKeyData(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
-        self.__SetKeyData(HdWalletMoneroKeyTypes.PUB_VIEW, monero_obj.PublicViewKey().RawCompressed().ToHex())
-        self.__SetKeyData(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
+        # Add public keys
+        self._SetKeyData(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
+        self._SetKeyData(HdWalletMoneroKeyTypes.PUB_VIEW, monero_obj.PublicViewKey().RawCompressed().ToHex())
+        # Add private view key
+        self._SetKeyData(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
 
         # Add private spend key only if Monero object is not watch-only
         if not monero_obj.IsWatchOnly():
-            self.__SetKeyData(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
+            self._SetKeyData(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
 
-        # Address
-        self.__SetKeyData(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS, monero_obj.PrimaryAddress())
-
-    def __SetKeyData(self,
-                     key_type: HdWalletMoneroKeyTypes,
-                     key_value: str) -> None:
-        """
-        Set key data.
-
-        Args:
-            key_type (HdWalletMoneroKeyTypes): Key type, shall be of HdWalletMoneroKeyTypes enum
-            key_value (str)                  : Key value
-        """
-        dict_key = HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        self.m_key_data[dict_key] = key_value
+        # Add address
+        self._SetKeyData(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS, monero_obj.PrimaryAddress())

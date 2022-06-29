@@ -21,10 +21,8 @@
 """Module with helper class for storing Monero subaddresses."""
 
 # Imports
-from __future__ import annotations
-import json
-from typing import Dict, Iterator, List
 from bip_utils import Monero
+from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 
 
 class HdWalletMoneroSubaddressesConst:
@@ -34,19 +32,12 @@ class HdWalletMoneroSubaddressesConst:
     SUBADDR_DICT_KEY: str = "subaddress_{:d}"
 
 
-class HdWalletMoneroSubaddresses:
+class HdWalletMoneroSubaddresses(HdWalletAddrBase):
     """
     HD wallet Monero subaddresses class.
     It creates subaddresses from a Monero object and store them.
     Subaddresses can be got individually, as dictionary or in JSON format.
     """
-
-    m_subaddr: List[str]
-    m_subaddr_off: int
-
-    #
-    # Public methods
-    #
 
     def __init__(self,
                  monero_obj: Monero,
@@ -62,68 +53,8 @@ class HdWalletMoneroSubaddresses:
             subaddr_num (int)         : Subaddress number
             subaddr_off (int)         : Starting subaddress index
         """
-        self.m_subaddr = []
-        self.m_subaddr_off = subaddr_off
+        super().__init__(subaddr_off, HdWalletMoneroSubaddressesConst.SUBADDR_DICT_KEY)
         self.__FromMoneroObj(monero_obj, acc_idx, subaddr_num, subaddr_off)
-
-    def ToDict(self) -> Dict[str, str]:
-        """
-        Get addresses as a dictionary.
-
-        Returns:
-            dict: Addresses as a dictionary
-        """
-        addr_dict = {}
-
-        for i, subaddr in enumerate(self.m_subaddr):
-            dict_key = HdWalletMoneroSubaddressesConst.SUBADDR_DICT_KEY.format(i + self.m_subaddr_off)
-            addr_dict[dict_key] = subaddr
-
-        return addr_dict
-
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get addresses as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Addresses as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
-
-    def Count(self) -> int:
-        """
-        Get the addresses count.
-
-        Returns:
-            int: Number of addresses
-        """
-        return len(self.m_subaddr)
-
-    def __getitem__(self,
-                    subaddr_idx: int) -> str:
-        """
-        Get the specified subaddress index.
-
-        Args:
-            subaddr_idx (int): Subaddress index
-
-        Returns:
-            str: Subaddress
-        """
-        return self.m_subaddr[subaddr_idx]
-
-    def __iter__(self) -> Iterator[str]:
-        """
-        Get the iterator to the current element.
-
-        Returns:
-            Iterator object: Iterator to the current element
-        """
-        yield from self.m_subaddr
 
     def __FromMoneroObj(self,
                         monero_obj: Monero,
@@ -142,4 +73,4 @@ class HdWalletMoneroSubaddresses:
         """
         for i in range(subaddr_num):
             subaddr = monero_obj.Subaddress(i + subaddr_off, acc_idx)
-            self.m_subaddr.append(subaddr)
+            self._AddAddr(subaddr)

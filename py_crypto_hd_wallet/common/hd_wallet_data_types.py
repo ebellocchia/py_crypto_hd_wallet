@@ -26,3 +26,7 @@ from enum import Enum
 
 class HdWalletDataTypes(Enum):
     """Base enum for wallet data types."""
+
+
+class HdWalletKeyTypes(Enum):
+    """Base enum for wallet key types."""

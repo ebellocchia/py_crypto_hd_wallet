@@ -21,9 +21,9 @@
 """Module with enums for BIP wallets."""
 
 # Imports
-from enum import Enum, auto, unique
+from enum import auto, unique
 from bip_utils import Bip39WordsNum, Bip39Languages, Bip44Changes, Bip44Coins, Bip49Coins, Bip84Coins, Bip86Coins
-from py_crypto_hd_wallet.common import HdWalletDataTypes
+from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
 
 # Alias for Bip39WordsNum
@@ -64,7 +64,7 @@ class HdWalletBipDataTypes(HdWalletDataTypes):
 
 
 @unique
-class HdWalletBipKeyTypes(Enum):
+class HdWalletBipKeyTypes(HdWalletKeyTypes):
     """Enumerative for wallet BIP key types."""
 
     EX_PRIV = auto()

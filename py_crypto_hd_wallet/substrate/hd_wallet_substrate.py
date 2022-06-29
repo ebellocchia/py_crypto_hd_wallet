@@ -21,7 +21,7 @@
 """Module for generating Substrate wallets."""
 
 # Imports
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Union
 from bip_utils import SubstrateKeyError, SubstratePathError, Substrate
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateDataTypes, HdWalletDataTypes
@@ -33,7 +33,7 @@ class HdWalletSubstrateConst:
     """Class container for HD wallet Substrate constants."""
 
     # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletSubstrateDataTypes, str] = {
+    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
         HdWalletSubstrateDataTypes.WALLET_NAME: "wallet_name",
         HdWalletSubstrateDataTypes.COIN_NAME: "coin_name",
         HdWalletSubstrateDataTypes.MNEMONIC: "mnemonic",
@@ -73,11 +73,8 @@ class HdWalletSubstrate(HdWalletBase):
             passphrase (str, optional)      : Passphrase, empty if not specified
             seed_bytes (bytes, optional)    : Seed_bytes, empty if not specified
         """
-
-        # Initialize members
+        super().__init__(HdWalletSubstrateDataTypes, HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY)
         self.m_substrate_obj = substrate_obj
-        self.m_wallet_data = {}
-
         # Initialize data
         self.__InitData(wallet_name, mnemonic, passphrase, seed_bytes)
 
@@ -108,66 +105,6 @@ class HdWalletSubstrate(HdWalletBase):
             bool: True if watch-only, false otherwise
         """
         return self.m_substrate_obj.IsPublicOnly()
-
-    def ToDict(self) -> Dict[str, Any]:
-        """
-        Get wallet data as a dictionary.
-
-        Returns:
-            dict: Wallet data as a dictionary
-        """
-        wallet_dict = {}
-
-        # Build dictionary
-        for key, value in self.m_wallet_data.items():
-            if isinstance(value, HdWalletSubstrateKeys):
-                wallet_dict[key] = value.ToDict()
-            else:
-                wallet_dict[key] = value
-
-        return wallet_dict
-
-    def HasData(self,
-                data_type: HdWalletDataTypes) -> bool:
-        """
-        Get if the wallet data of the specified type is present.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-
-        Returns:
-            bool: True if present, false otherwise
-
-        Raises:
-            TypeError: If data type is not of the correct enumerative type
-        """
-        if not isinstance(data_type, HdWalletSubstrateDataTypes):
-            raise TypeError("Data type is not an enumerative of HdWalletSubstrateDataTypes")
-
-        dict_key = HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[HdWalletSubstrateDataTypes(data_type)]
-        return dict_key in self.m_wallet_data
-
-    def GetData(self,
-                data_type: HdWalletDataTypes) -> Optional[Any]:
-        """
-        Get wallet data of the specified type.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-
-        Returns:
-            Any: Wallet data (it depends on the specific data)
-            None: If not found
-
-        Raises:
-            TypeError: If data type is not of the correct enumerative type
-        """
-        if self.HasData(data_type):
-            return self.m_wallet_data[
-                HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY[HdWalletSubstrateDataTypes(data_type)]
-            ]
-
-        return None
 
     #
     # Private methods

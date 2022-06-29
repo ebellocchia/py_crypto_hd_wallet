@@ -24,7 +24,7 @@
 from typing import Type, Union
 from bip_utils import (
     MnemonicChecksumError, Bip39MnemonicGenerator, Bip39SeedGenerator,
-    Bip32KeyError, Bip44, Bip49, Bip84, Bip86
+    Bip32KeyError, Bip32KeyData, Bip44, Bip49, Bip84, Bip86
 )
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
@@ -182,7 +182,7 @@ class HdWalletBipFactory:
             ValueError: If the private key is not valid
         """
         try:
-            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
+            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin, Bip32KeyData())
         except Bip32KeyError as ex:
             raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key)}") from ex
 

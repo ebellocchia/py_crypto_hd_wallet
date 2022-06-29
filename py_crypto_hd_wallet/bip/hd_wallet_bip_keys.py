@@ -21,18 +21,17 @@
 """Module with helper class for storing BIP keys."""
 
 # Imports
-from __future__ import annotations
-import json
-from typing import Dict, Optional
+from typing import Dict
 from bip_utils.bip.bip44_base import Bip44Base
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import HdWalletBipKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
 
 
 class HdWalletBipKeysConst:
     """Class container for HD wallet BIP keys constants."""
 
     # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletBipKeyTypes, str] = {
+    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
         HdWalletBipKeyTypes.EX_PRIV: "ex_priv",
         HdWalletBipKeyTypes.RAW_PRIV: "raw_priv",
         HdWalletBipKeyTypes.WIF_PRIV: "wif_priv",
@@ -43,18 +42,12 @@ class HdWalletBipKeysConst:
     }
 
 
-class HdWalletBipKeys:
+class HdWalletBipKeys(HdWalletKeysBase):
     """
     HD wallet BIP keys class.
     It creates keys from a Bip object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
-
-    m_key_data: Dict[str, str]
-
-    #
-    # Public methods
-    #
 
     def __init__(self,
                  bip_obj: Bip44Base) -> None:
@@ -64,70 +57,8 @@ class HdWalletBipKeys:
         Args:
             bip_obj (Bip44Base object): Bip44Base object
         """
-        self.m_key_data = {}
+        super().__init__(HdWalletBipKeyTypes, HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY)
         self.__FromBipObj(bip_obj)
-
-    def ToDict(self) -> Dict[str, str]:
-        """
-        Get keys as a dictionary.
-
-        Returns:
-            dict: Keys as a dictionary
-        """
-        return self.m_key_data
-
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get keys as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Keys as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
-
-    def HasKey(self,
-               key_type: HdWalletBipKeyTypes) -> bool:
-        """
-        Get if the key of the specified type is present.
-
-        Args:
-            key_type (HdWalletBipKeyTypes): Key type, shall be of HdWalletBipKeyTypes enum
-
-        Returns:
-            bool: True if present, false otherwise
-
-        Raises:
-            TypeError: If key type is not a HdWalletBipKeyTypes enum
-        """
-        if not isinstance(key_type, HdWalletBipKeyTypes):
-            raise TypeError("Key type is not an enumerative of HdWalletBipKeyTypes")
-
-        dict_key = HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        return dict_key in self.m_key_data
-
-    def GetKey(self,
-               key_type: HdWalletBipKeyTypes) -> Optional[str]:
-        """
-        Get key of the specified type.
-
-        Args:
-            key_type (HdWalletBipKeyTypes): Key type, shall be of HdWalletBipKeyTypes enum
-
-        Returns:
-            str: Key string
-            None: If the key type is not found
-
-        Raises:
-            TypeError: If key type is not a HdWalletBipKeyTypes enum
-        """
-        if self.HasKey(key_type):
-            return self.m_key_data[HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
-
-        return None
 
     def __FromBipObj(self,
                      bip_obj: Bip44Base) -> None:
@@ -139,32 +70,19 @@ class HdWalletBipKeys:
         """
 
         # Add public keys
-        self.__SetKeyData(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
-        self.__SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
-        self.__SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
+        self._SetKeyData(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
+        self._SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        self._SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
 
         # Add private keys only if Bip object is not public-only
         if not bip_obj.IsPublicOnly():
-            self.__SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
-            self.__SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
+            self._SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
+            self._SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
             # Add WIF if supported by the coin
             wif = bip_obj.PrivateKey().ToWif()
             if wif != "":
-                self.__SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)
+                self._SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)
 
         # Address
-        self.__SetKeyData(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
-
-    def __SetKeyData(self,
-                     key_type: HdWalletBipKeyTypes,
-                     key_value: str) -> None:
-        """
-        Set key data.
-
-        Args:
-            key_type (HdWalletBipKeyTypes): Key type, shall be of HdWalletBipKeyTypes enum
-            key_value (str)               : Key value
-        """
-        dict_key = HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        self.m_key_data[dict_key] = key_value
+        self._SetKeyData(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())

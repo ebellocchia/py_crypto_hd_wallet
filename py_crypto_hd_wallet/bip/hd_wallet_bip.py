@@ -21,7 +21,7 @@
 """Module for generating wallets based on BIP specifications."""
 
 # Imports
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Union
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
 from bip_utils.bip.bip44_base import Bip44Base
@@ -36,7 +36,7 @@ class HdWalletBipConst:
     """Class container for HD wallet BIP constants."""
 
     # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletBipDataTypes, str] = {
+    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
         HdWalletBipDataTypes.WALLET_NAME: "wallet_name",
         HdWalletBipDataTypes.COIN_NAME: "coin_name",
         HdWalletBipDataTypes.SPEC_NAME: "spec_name",
@@ -62,7 +62,6 @@ class HdWalletBip(HdWalletBase):
     """
 
     m_bip_obj: Bip44Base
-    m_wallet_data: Dict[str, Any]
 
     #
     # Public methods
@@ -84,11 +83,8 @@ class HdWalletBip(HdWalletBase):
             passphrase (str, optional)  : Passphrase, empty if not specified
             seed_bytes (bytes, optional): Seed_bytes, empty if not specified
         """
-
-        # Initialize members
+        super().__init__(HdWalletBipDataTypes, HdWalletBipConst.DATA_TYPE_TO_DICT_KEY)
         self.m_bip_obj = bip_obj
-        self.m_wallet_data = {}
-
         # Initialize data
         self.__InitData(wallet_name, mnemonic, passphrase, seed_bytes)
 
@@ -163,66 +159,6 @@ class HdWalletBip(HdWalletBase):
             bool: True if watch-only, false otherwise
         """
         return self.m_bip_obj.IsPublicOnly()
-
-    def ToDict(self) -> Dict[str, Any]:
-        """
-        Get wallet data as a dictionary.
-
-        Returns:
-            dict: Wallet data as a dictionary
-        """
-        wallet_dict = {}
-
-        # Build dictionary
-        for key, value in self.m_wallet_data.items():
-            if isinstance(value, (HdWalletBipKeys, HdWalletBipAddresses)):
-                wallet_dict[key] = value.ToDict()
-            else:
-                wallet_dict[key] = value
-
-        return wallet_dict
-
-    def HasData(self,
-                data_type: HdWalletDataTypes) -> bool:
-        """
-        Get if the wallet data of the specified type is present.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-
-        Returns:
-            bool: True if present, false otherwise
-
-        Raises:
-            TypeError: If data type is not of the correct enumerative type
-        """
-        if not isinstance(data_type, HdWalletBipDataTypes):
-            raise TypeError("Data type is not an enumerative of HdWalletBipDataTypes")
-
-        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[HdWalletBipDataTypes(data_type)]
-        return dict_key in self.m_wallet_data
-
-    def GetData(self,
-                data_type: HdWalletDataTypes) -> Optional[Any]:
-        """
-        Get wallet data of the specified type.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-
-        Returns:
-            Any: Wallet data (it depends on the specific data)
-            None: If not found
-
-        Raises:
-            TypeError: If data type is not of the correct enumerative type
-        """
-        if self.HasData(data_type):
-            return self.m_wallet_data[
-                HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[HdWalletBipDataTypes(data_type)]
-            ]
-
-        return None
 
     #
     # Private methods

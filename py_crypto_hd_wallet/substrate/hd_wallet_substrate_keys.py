@@ -21,36 +21,29 @@
 """Module with helper class for storing Substrate keys."""
 
 # Imports
-from __future__ import annotations
-import json
-from typing import Dict, Optional
+from typing import Dict
 from bip_utils import Substrate
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
 
 
 class HdWalletSubstrateKeysConst:
     """Class container for HD wallet Substrate keys constants."""
 
     # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletSubstrateKeyTypes, str] = {
+    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
         HdWalletSubstrateKeyTypes.PRIV: "priv",
         HdWalletSubstrateKeyTypes.PUB: "pub",
         HdWalletSubstrateKeyTypes.ADDRESS: "address",
     }
 
 
-class HdWalletSubstrateKeys:
+class HdWalletSubstrateKeys(HdWalletKeysBase):
     """
     HD wallet Substrate keys class.
     It creates keys from a Substrate object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
-
-    m_key_data: Dict[str, str]
-
-    #
-    # Public methods
-    #
 
     def __init__(self,
                  substrate_obj: Substrate) -> None:
@@ -60,64 +53,8 @@ class HdWalletSubstrateKeys:
         Args:
             substrate_obj (Substrate object): Substrate object
         """
-        self.m_key_data = {}
+        super().__init__(HdWalletSubstrateKeyTypes, HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY)
         self.__FromSubstrateObj(substrate_obj)
-
-    def ToDict(self) -> Dict[str, str]:
-        """
-        Get keys as a dictionary.
-
-        Returns:
-            dict: Keys as a dictionary
-        """
-        return self.m_key_data
-
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get keys as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Keys as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
-
-    def HasKey(self,
-               key_type: HdWalletSubstrateKeyTypes) -> bool:
-        """
-        Get if the key of the specified type is present.
-
-        Args:
-            key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum
-
-        Returns:
-            bool: True if present, false otherwise
-        """
-        if not isinstance(key_type, HdWalletSubstrateKeyTypes):
-            raise TypeError("Key type is not an enumerative of HdWalletSubstrateKeyTypes")
-
-        dict_key = HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        return dict_key in self.m_key_data
-
-    def GetKey(self,
-               key_type: HdWalletSubstrateKeyTypes) -> Optional[str]:
-        """
-        Get key of the specified type.
-
-        Args:
-            key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum
-
-        Returns:
-            str: Key string
-            None: If the key type is not found
-        """
-        if self.HasKey(key_type):
-            return self.m_key_data[HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]]
-
-        return None
 
     def __FromSubstrateObj(self,
                            substrate_obj: Substrate) -> None:
@@ -129,24 +66,11 @@ class HdWalletSubstrateKeys:
         """
 
         # Add public key
-        self.__SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
+        self._SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
 
         # Add private key only if Substrate object is not public-only
         if not substrate_obj.IsPublicOnly():
-            self.__SetKeyData(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
+            self._SetKeyData(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
 
-        # Address
-        self.__SetKeyData(HdWalletSubstrateKeyTypes.ADDRESS, substrate_obj.PublicKey().ToAddress())
-
-    def __SetKeyData(self,
-                     key_type: HdWalletSubstrateKeyTypes,
-                     key_value: str) -> None:
-        """
-        Set key data.
-
-        Args:
-            key_type (HdWalletSubstrateKeyTypes): Key type, shall be of HdWalletSubstrateKeyTypes enum
-            key_value (str)                     : Key value
-        """
-        dict_key = HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
-        self.m_key_data[dict_key] = key_value
+        # Add aAddress
+        self._SetKeyData(HdWalletSubstrateKeyTypes.ADDRESS, substrate_obj.PublicKey().ToAddress())

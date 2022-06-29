@@ -21,10 +21,10 @@
 """Module with enums for Substrate wallets."""
 
 # Imports
-from enum import Enum, auto, unique
+from enum import auto, unique
 from bip_utils import SubstrateCoins
 from py_crypto_hd_wallet.bip import HdWalletBipWordsNum, HdWalletBipLanguages
-from py_crypto_hd_wallet.common import HdWalletDataTypes
+from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
 
 # Alias for HdWalletBipWordsNum
@@ -49,7 +49,7 @@ class HdWalletSubstrateDataTypes(HdWalletDataTypes):
 
 
 @unique
-class HdWalletSubstrateKeyTypes(Enum):
+class HdWalletSubstrateKeyTypes(HdWalletKeyTypes):
     """Enumerative for wallet Substrate key types."""
 
     PRIV = auto()
