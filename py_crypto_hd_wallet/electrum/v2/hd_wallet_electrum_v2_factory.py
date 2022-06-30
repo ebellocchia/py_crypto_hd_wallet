@@ -155,15 +155,17 @@ class HdWalletElectrumV2Factory:
             HdWalletBase object: HdWalletBase object
 
         Raises:
-            ValueError: If the extended key is not valid
+            ValueError: If the extended key is public or not valid
         """
         try:
-            electrum_obj = self.m_electrum_cls(
-                Bip32Secp256k1.FromExtendedKey(ex_key_str)
-            )
+            bip_obj = Bip32Secp256k1.FromExtendedKey(ex_key_str)
         except Bip32KeyError as ex:
             raise ValueError(f"Invalid extended key: {ex_key_str}") from ex
 
+        if bip_obj.IsPublicOnly():
+            raise ValueError("Only private extended keys are supported")
+
+        electrum_obj = self.m_electrum_cls(bip_obj)
         return HdWalletElectrumV2(wallet_name=wallet_name,
                                   electrum_obj=electrum_obj)
 
