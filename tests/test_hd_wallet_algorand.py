@@ -186,9 +186,6 @@ class HdWalletAlgorandTests(unittest.TestCase):
 
     # Test invalid parameters
     def test_invalid_params(self):
-        # Invalid parameters during construction
-        self.assertRaises(TypeError, HdWalletAlgorandFactory, 0)
-
         # Construct a wallet factory
         hd_wallet_fact = HdWalletAlgorandFactory()
         # Invalid parameter for CreateRandom
