@@ -137,13 +137,13 @@ class HdWalletMoneroFactory:
 
     def CreateFromPrivateKey(self,
                              wallet_name: str,
-                             priv_skey: bytes) -> HdWalletBase:
+                             priv_skey_bytes: bytes) -> HdWalletBase:
         """
         Create wallet from private spend key.
 
         Args:
-            wallet_name (str): Wallet name
-            priv_skey (bytes): Private spend key bytes
+            wallet_name (str)      : Wallet name
+            priv_skey_bytes (bytes): Private spend key bytes
 
         Returns:
             HdWalletBase object: HdWalletBase object
@@ -152,24 +152,24 @@ class HdWalletMoneroFactory:
             ValueError: If the private key is not valid
         """
         try:
-            monero_obj = Monero.FromPrivateSpendKey(priv_skey, self.m_monero_coin)
+            monero_obj = Monero.FromPrivateSpendKey(priv_skey_bytes, self.m_monero_coin)
         except MoneroKeyError as ex:
-            raise ValueError(f"Invalid private spend key: {Utils.BytesToHexString(priv_skey)}") from ex
+            raise ValueError(f"Invalid private spend key: {Utils.BytesToHexString(priv_skey_bytes)}") from ex
 
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj)
 
     def CreateFromWatchOnly(self,
                             wallet_name: str,
-                            priv_vkey: bytes,
-                            pub_skey: bytes) -> HdWalletBase:
+                            priv_vkey_bytes: bytes,
+                            pub_skey_bytes: bytes) -> HdWalletBase:
         """
         Create wallet from private view key and public spend key (i.e. watch-only wallet).
 
         Args:
-            wallet_name (str): Wallet name
-            priv_vkey (bytes): Private view key bytes
-            pub_skey (bytes) : Public spend key bytes
+            wallet_name (str)      : Wallet name
+            priv_vkey_bytes (bytes): Private view key bytes
+            pub_skey_bytes (bytes) : Public spend key bytes
 
         Returns:
             HdWalletBase object: HdWalletBase object
@@ -178,7 +178,7 @@ class HdWalletMoneroFactory:
             ValueError: If the public key is not valid
         """
         try:
-            monero_obj = Monero.FromWatchOnly(priv_vkey, pub_skey, self.m_monero_coin)
+            monero_obj = Monero.FromWatchOnly(priv_vkey_bytes, pub_skey_bytes, self.m_monero_coin)
         except MoneroKeyError as ex:
             raise ValueError("Invalid keys for watch-only wallet") from ex
 

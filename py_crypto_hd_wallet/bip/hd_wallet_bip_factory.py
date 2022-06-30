@@ -164,13 +164,13 @@ class HdWalletBipFactory:
 
     def CreateFromPrivateKey(self,
                              wallet_name: str,
-                             priv_key: bytes) -> HdWalletBase:
+                             priv_key_bytes: bytes) -> HdWalletBase:
         """
         Create wallet from private key.
 
         Args:
-            wallet_name (str): Wallet name
-            priv_key (bytes) : Private key bytes
+            wallet_name (str)     : Wallet name
+            priv_key_bytes (bytes): Private key bytes
 
         Returns:
             HdWalletBase object: HdWalletBase object
@@ -179,22 +179,22 @@ class HdWalletBipFactory:
             ValueError: If the private key is not valid
         """
         try:
-            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key, self.m_bip_coin)
+            bip_obj = self.m_bip_cls.FromPrivateKey(priv_key_bytes, self.m_bip_coin)
         except Bip32KeyError as ex:
-            raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key)}") from ex
+            raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key_bytes)}") from ex
 
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)
 
     def CreateFromPublicKey(self,
                             wallet_name: str,
-                            pub_key: bytes) -> HdWalletBase:
+                            pub_key_bytes: bytes) -> HdWalletBase:
         """
         Create wallet from public key.
 
         Args:
-            wallet_name (str): Wallet name
-            pub_key (bytes)  : Public key bytes
+            wallet_name (str)    : Wallet name
+            pub_key_bytes (bytes): Public key bytes
 
         Returns:
             HdWalletBase object: HdWalletBase object
@@ -203,9 +203,9 @@ class HdWalletBipFactory:
             ValueError: If the public key is not valid
         """
         try:
-            bip_obj = self.m_bip_cls.FromPublicKey(pub_key, self.m_bip_coin)
+            bip_obj = self.m_bip_cls.FromPublicKey(pub_key_bytes, self.m_bip_coin)
         except Bip32KeyError as ex:
-            raise ValueError(f"Invalid public key: {Utils.BytesToHexString(pub_key)}") from ex
+            raise ValueError(f"Invalid public key: {Utils.BytesToHexString(pub_key_bytes)}") from ex
 
         return HdWalletBip(wallet_name=wallet_name,
                            bip_obj=bip_obj)

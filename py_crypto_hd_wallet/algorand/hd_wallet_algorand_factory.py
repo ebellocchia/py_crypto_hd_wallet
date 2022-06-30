@@ -120,13 +120,13 @@ class HdWalletAlgorandFactory:
 
     def CreateFromPrivateKey(self,
                              wallet_name: str,
-                             priv_key: bytes) -> HdWalletBase:
+                             priv_key_bytes: bytes) -> HdWalletBase:
         """
         Create wallet from private key.
 
         Args:
-            wallet_name (str): Wallet name
-            priv_key (bytes) : Private key bytes
+            wallet_name (str)     : Wallet name
+            priv_key_bytes (bytes): Private key bytes
 
         Returns:
             HdWalletBase object: HdWalletBase object
@@ -135,23 +135,23 @@ class HdWalletAlgorandFactory:
             ValueError: If the private key is not valid
         """
         try:
-            bip_obj = Bip44.FromPrivateKey(priv_key, Bip44Coins.ALGORAND)
+            bip_obj = Bip44.FromPrivateKey(priv_key_bytes, Bip44Coins.ALGORAND)
         except Bip32KeyError as ex:
-            raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key)}") from ex
+            raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key_bytes)}") from ex
 
         return HdWalletAlgorand(wallet_name=wallet_name,
                                 bip_obj=bip_obj,
-                                seed_bytes=priv_key)
+                                seed_bytes=priv_key_bytes)
 
     def CreateFromPublicKey(self,
                             wallet_name: str,
-                            pub_key: bytes) -> HdWalletBase:
+                            pub_key_bytes: bytes) -> HdWalletBase:
         """
         Create wallet from public key.
 
         Args:
-            wallet_name (str): Wallet name
-            pub_key (bytes)  : Public key bytes
+            wallet_name (str)    : Wallet name
+            pub_key_bytes (bytes): Public key bytes
 
         Returns:
             HdWalletBase object: HdWalletBase object
@@ -160,9 +160,9 @@ class HdWalletAlgorandFactory:
             ValueError: If the public key is not valid
         """
         try:
-            bip_obj = Bip44.FromPublicKey(pub_key, Bip44Coins.ALGORAND)
+            bip_obj = Bip44.FromPublicKey(pub_key_bytes, Bip44Coins.ALGORAND)
         except Bip32KeyError as ex:
-            raise ValueError(f"Invalid public key: {Utils.BytesToHexString(pub_key)}") from ex
+            raise ValueError(f"Invalid public key: {Utils.BytesToHexString(pub_key_bytes)}") from ex
 
         return HdWalletAlgorand(wallet_name=wallet_name,
                                 bip_obj=bip_obj)
