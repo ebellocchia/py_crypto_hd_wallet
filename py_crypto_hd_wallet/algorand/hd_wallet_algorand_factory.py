@@ -69,7 +69,6 @@ class HdWalletAlgorandFactory:
             raise TypeError("Language is not an enumerative of HdWalletAlgorandLanguages")
 
         mnemonic = AlgorandMnemonicGenerator(lang).FromWordsNumber(words_num)
-
         return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 
     def CreateFromMnemonic(self,
@@ -94,7 +93,6 @@ class HdWalletAlgorandFactory:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         bip_obj = Bip44.FromSeed(seed_bytes, Bip44Coins.ALGORAND)
-
         return HdWalletAlgorand(wallet_name=wallet_name,
                                 bip_obj=bip_obj,
                                 mnemonic=mnemonic,
@@ -117,7 +115,7 @@ class HdWalletAlgorandFactory:
             ValueError: If the seed is not valid
         """
 
-        # In Algorand official wallet, the seed is the private key itself
+        # In Algorand wallet, seed is the private key itself
         return self.CreateFromPrivateKey(wallet_name, seed_bytes)
 
     def CreateFromPrivateKey(self,
@@ -142,7 +140,8 @@ class HdWalletAlgorandFactory:
             raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key)}") from ex
 
         return HdWalletAlgorand(wallet_name=wallet_name,
-                                bip_obj=bip_obj)
+                                bip_obj=bip_obj,
+                                seed_bytes=priv_key)
 
     def CreateFromPublicKey(self,
                             wallet_name: str,
