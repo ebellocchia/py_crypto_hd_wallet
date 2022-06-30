@@ -18,25 +18,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-"""Module for creating Monero wallet generators."""
+"""Module for creating Monero wallet factories."""
 
 # Imports
 from bip_utils import (
     MnemonicChecksumError, MoneroMnemonicGenerator, MoneroSeedGenerator,
     MoneroKeyError, Monero
 )
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import (
     HdWalletMoneroWordsNum, HdWalletMoneroLanguages, HdWalletMoneroCoins
 )
 from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMonero
-from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletMoneroFactory:
     """
     HD wallet Monero factory class.
-    It allows a HdWalletMonero to be created in different way.
+    It allows a HdWalletMonero to be created in different ways.
     """
 
     m_monero_coin: HdWalletMoneroCoins
@@ -50,14 +50,11 @@ class HdWalletMoneroFactory:
             coin_type (HdWalletMoneroCoins, optional): Coin type (default: main net)
 
         Raised:
-            TypeError: If coin_type is not one a HdWalletMoneroCoins enum
+            TypeError: If coin type is not a HdWalletMoneroCoins enumerative
         """
-
-        # Check coin type
         if not isinstance(coin_type, HdWalletMoneroCoins):
             raise TypeError("Coin type is not an enumerative of HdWalletMoneroCoins")
 
-        # Initialize members
         self.m_monero_coin = coin_type
 
     def CreateRandom(self,

@@ -39,24 +39,25 @@ from py_crypto_hd_wallet.utils import Utils
 class HdWalletBipFactory:
     """
     HD wallet BIP factory class.
-    It allows a HdWalletBip to be created in different way.
+    It allows a HdWalletBip to be created in different ways.
     """
 
-    m_bip_coin: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins]
+    m_bip_coin: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins]
     m_bip_cls: Type[Bip44Base]
 
     def __init__(self,
                  coin_type: Union[HdWalletBip44Coins,
                                   HdWalletBip49Coins,
-                                  HdWalletBip84Coins]) -> None:
+                                  HdWalletBip84Coins,
+                                  HdWalletBip86Coins]) -> None:
         """
         Construct class.
 
         Args:
-            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins): Coin type
+            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins): Coin type
 
         Raised:
-            TypeError: If coin_type is not one of the accepted enum
+            TypeError: If coin type is not one of the accepted enum
         """
         self.m_bip_coin = coin_type
         self.m_bip_cls = self.__BipClassFromCoinType(coin_type)

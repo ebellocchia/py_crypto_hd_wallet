@@ -21,7 +21,7 @@
 """Module for generating Monero wallets."""
 
 # Imports
-from typing import Any, Dict, Union
+from typing import Any, Dict
 from bip_utils import Monero
 from bip_utils.monero.monero_subaddr import MoneroSubaddressConst
 from py_crypto_hd_wallet.common import HdWalletBase
@@ -110,10 +110,10 @@ class HdWalletMonero(HdWalletBase):
             self._SetData(HdWalletMoneroDataTypes.SUBADDRESS_OFF, subaddr_off)
             # Set subaddresses
             self._SetData(HdWalletMoneroDataTypes.SUBADDRESS,
-                           HdWalletMoneroSubaddresses(self.m_monero_obj,
-                                                      acc_idx,
-                                                      subaddr_num,
-                                                      subaddr_off))
+                          HdWalletMoneroSubaddresses(self.m_monero_obj,
+                                                     acc_idx,
+                                                     subaddr_num,
+                                                     subaddr_off))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -136,9 +136,9 @@ class HdWalletMonero(HdWalletBase):
         Initialize data.
 
         Args:
-            wallet_name (str): Wallet name
-            mnemonic (str)   : Mnemonic
-            seed_bytes (bytes) : Seed_bytes
+            wallet_name (str) : Wallet name
+            mnemonic (str)    : Mnemonic
+            seed_bytes (bytes): Seed_bytes
         """
 
         # Set wallet name

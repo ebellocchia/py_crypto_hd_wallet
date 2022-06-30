@@ -21,7 +21,7 @@
 """Module for generating Substrate wallets."""
 
 # Imports
-from typing import Any, Dict, Union
+from typing import Any, Dict
 from bip_utils import SubstrateKeyError, SubstratePathError, Substrate
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateDataTypes, HdWalletDataTypes
@@ -119,10 +119,10 @@ class HdWalletSubstrate(HdWalletBase):
         Initialize data.
 
         Args:
-            wallet_name (str): Wallet name
-            mnemonic (str)   : Mnemonic
-            passphrase (str) : Passphrase
-            seed_bytes (bytes) : Seed_bytes
+            wallet_name (str) : Wallet name
+            mnemonic (str)    : Mnemonic
+            passphrase (str)  : Passphrase
+            seed_bytes (bytes): Seed_bytes
         """
 
         # Set wallet name

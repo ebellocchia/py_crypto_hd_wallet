@@ -23,8 +23,8 @@
 # Imports
 from typing import Dict
 from bip_utils import Monero
-from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import HdWalletMoneroKeyTypes
 from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
+from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import HdWalletMoneroKeyTypes
 
 
 class HdWalletMoneroKeysConst:

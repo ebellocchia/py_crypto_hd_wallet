@@ -21,11 +21,11 @@
 """Module for generating Algorand wallets."""
 
 # Imports
-from typing import Any, Dict, Union
+from typing import Any, Dict
 from bip_utils.bip.bip44_base import Bip44Base
-from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_enum import HdWalletAlgorandDataTypes, HdWalletDataTypes
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_keys import HdWalletAlgorandKeys
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
 
 
@@ -45,7 +45,7 @@ class HdWalletAlgorandConst:
 class HdWalletAlgorand(HdWalletBase):
     """
     HD wallet Algorand class.
-    It allows to generate an Algorand wallet like the official.
+    It allows to generate an Algorand wallet like the official one.
     """
 
     m_bip_obj: Bip44Base
@@ -125,6 +125,6 @@ class HdWalletAlgorand(HdWalletBase):
 
         Args:
             data_type (HdWalletAlgorandDataTypes): Data type
-            algorand_obj (Algorand object)      : Algorand object
+            algorand_obj (Algorand object)       : Algorand object
         """
         self._SetData(data_type, HdWalletAlgorandKeys(algorand_obj))

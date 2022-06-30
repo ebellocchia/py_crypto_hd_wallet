@@ -23,8 +23,8 @@
 # Imports
 from typing import Dict
 from bip_utils import Substrate
-from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateKeyTypes
 from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
+from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateKeyTypes
 
 
 class HdWalletSubstrateKeysConst:

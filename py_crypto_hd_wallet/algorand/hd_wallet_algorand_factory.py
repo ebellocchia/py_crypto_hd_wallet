@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-"""Module for creating Algorand wallet generators."""
+"""Module for creating Algorand wallet factories."""
 
 # Imports
 from bip_utils import (

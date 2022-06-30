@@ -18,25 +18,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-"""Module for creating Substrate wallet generators."""
+"""Module for creating Substrate wallet factories."""
 
 # Imports
 from bip_utils import (
     MnemonicChecksumError, Bip39MnemonicGenerator, SubstrateBip39SeedGenerator,
     SubstrateKeyError, Substrate
 )
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import (
     HdWalletSubstrateWordsNum, HdWalletSubstrateLanguages, HdWalletSubstrateCoins
 )
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate import HdWalletSubstrate
-from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
 
 
 class HdWalletSubstrateFactory:
     """
     HD wallet Substrate factory class.
-    It allows a HdWalletSubstrate to be created in different way.
+    It allows a HdWalletSubstrate to be created in different ways.
     """
 
     m_substrate_coin: HdWalletSubstrateCoins
@@ -50,14 +50,11 @@ class HdWalletSubstrateFactory:
             coin_type (HdWalletSubstrateCoins): Coin type
 
         Raised:
-            TypeError: If coin_type is not one a HdWalletSubstrateCoins enum
+            TypeError: If coin type is not one a HdWalletSubstrateCoins enum
         """
-
-        # Check coin type
         if not isinstance(coin_type, HdWalletSubstrateCoins):
             raise TypeError("Coin type is not an enumerative of HdWalletSubstrateCoins")
 
-        # Initialize members
         self.m_substrate_coin = coin_type
 
     def CreateRandom(self,

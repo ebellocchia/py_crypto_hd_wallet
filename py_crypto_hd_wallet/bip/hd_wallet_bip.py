@@ -21,7 +21,7 @@
 """Module for generating wallets based on BIP specifications."""
 
 # Imports
-from typing import Any, Dict, Union
+from typing import Any, Dict
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
 from bip_utils.bip.bip44_base import Bip44Base
@@ -142,12 +142,12 @@ class HdWalletBip(HdWalletBase):
 
             self._SetData(HdWalletBipDataTypes.ADDRESS_OFF, addr_off)
             self._SetData(HdWalletBipDataTypes.ADDRESS,
-                           HdWalletBipAddresses(bip_obj, addr_num, addr_off))
+                          HdWalletBipAddresses(bip_obj, addr_num, addr_off))
         # In this case, the wallet was created from an address index extended key,
         # so there is only one address to generate
         else:
             self._SetData(HdWalletBipDataTypes.ADDRESS,
-                           HdWalletBipAddresses(bip_obj, 1, 0))
+                          HdWalletBipAddresses(bip_obj, 1, 0))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -171,10 +171,10 @@ class HdWalletBip(HdWalletBase):
         Initialize data.
 
         Args:
-            wallet_name (str): Wallet name
-            mnemonic (str)   : Mnemonic
-            passphrase (str) : Passphrase
-            seed_bytes (bytes) : Seed_bytes
+            wallet_name (str) : Wallet name
+            mnemonic (str)    : Mnemonic
+            passphrase (str)  : Passphrase
+            seed_bytes (bytes): Seed_bytes
         """
 
         # Set wallet name

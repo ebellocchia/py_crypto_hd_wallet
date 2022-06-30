@@ -62,8 +62,7 @@ class HdWalletMoneroSubaddresses(HdWalletAddrBase):
                         subaddr_num: int,
                         subaddr_off: int) -> None:
         """
-        Create addresses from the specified Bip object.
-        If the Bip object is at address index level, only one address will be computed.
+        Create addresses from the specified Monero object.
 
         Args:
             monero_obj (Monero object): Monero object
