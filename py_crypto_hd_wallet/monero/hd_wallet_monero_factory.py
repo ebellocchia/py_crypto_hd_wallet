@@ -85,7 +85,6 @@ class HdWalletMoneroFactory:
             raise TypeError("Language is not an enumerative of HdWalletMoneroLanguages")
 
         mnemonic = MoneroMnemonicGenerator(lang).FromWordsNumber(words_num)
-
         return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 
     def CreateFromMnemonic(self,
@@ -110,7 +109,6 @@ class HdWalletMoneroFactory:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         monero_obj = Monero.FromSeed(seed_bytes, self.m_monero_coin)
-
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj,
                               mnemonic=mnemonic,
@@ -133,7 +131,6 @@ class HdWalletMoneroFactory:
             ValueError: If the seed is not valid
         """
         monero_obj = Monero.FromSeed(seed_bytes, self.m_monero_coin)
-
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj,
                               seed_bytes=seed_bytes)

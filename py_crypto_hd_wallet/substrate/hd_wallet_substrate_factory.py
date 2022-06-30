@@ -85,7 +85,6 @@ class HdWalletSubstrateFactory:
             raise TypeError("Language is not an enumerative of HdWalletSubstrateLanguages")
 
         mnemonic = Bip39MnemonicGenerator(lang).FromWordsNumber(words_num)
-
         return self.CreateFromMnemonic(wallet_name, mnemonic.ToStr())
 
     def CreateFromMnemonic(self,
@@ -112,7 +111,6 @@ class HdWalletSubstrateFactory:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
 
         substrate_obj = Substrate.FromSeed(seed_bytes, self.m_substrate_coin)
-
         return HdWalletSubstrate(wallet_name=wallet_name,
                                  substrate_obj=substrate_obj,
                                  mnemonic=mnemonic,
@@ -136,7 +134,6 @@ class HdWalletSubstrateFactory:
             ValueError: If the seed is not valid
         """
         substrate_obj = Substrate.FromSeed(seed_bytes, self.m_substrate_coin)
-
         return HdWalletSubstrate(wallet_name=wallet_name,
                                  substrate_obj=substrate_obj,
                                  seed_bytes=seed_bytes)
