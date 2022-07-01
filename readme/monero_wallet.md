@@ -81,7 +81,7 @@ A wallet can be created in the following ways:
         mnemonic = "vials licks gulp people reorder tulips acquire cool lunar upwards recipe against ambush february shelter textbook annoyed veered getting swagger paradise total dawn duets getting"
         hd_wallet = hd_wallet_fact.CreateFromMnemonic("my_wallet_name", mnemonic)
 
-- From a seed:
+- From a seed. The mnemonic will be automatically computed from the seed:
 
         import binascii
         from py_crypto_hd_wallet import HdWalletMoneroFactory
@@ -93,7 +93,7 @@ A wallet can be created in the following ways:
         seed_bytes = binascii.unhexlify(b"b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b")
         hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", seed_bytes)
 
-- From a private spend key:
+- From a private spend key. The mnemonic will be automatically computed from the private key:
 
         import binascii
         from py_crypto_hd_wallet import HdWalletMoneroFactory

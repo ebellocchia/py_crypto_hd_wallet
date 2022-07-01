@@ -56,7 +56,7 @@ A wallet can be created in the following ways:
         mnemonic = "devote clean board fruit wish feed snap property design peace guide area vanish race oval wish execute junk fresh blood fetch sauce trend about obtain"
         hd_wallet = hd_wallet_fact.CreateFromMnemonic("my_wallet_name", mnemonic)
 
-- From a seed (same of private key in Algorand official wallet):
+- From a seed (same of private key in Algorand official wallet). The mnemonic will be automatically computed from the seed:
 
         import binascii
         from py_crypto_hd_wallet import HdWalletAlgorandFactory
@@ -68,7 +68,7 @@ A wallet can be created in the following ways:
         seed_bytes = binascii.unhexlify(b"e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d")
         hd_wallet = hd_wallet_fact.CreateFromSeed("my_wallet_name", seed_bytes)
 
-- From a private key:
+- From a private key. The mnemonic will be automatically computed from the private key:
 
         import binascii
         from py_crypto_hd_wallet import HdWalletAlgorandFactory
