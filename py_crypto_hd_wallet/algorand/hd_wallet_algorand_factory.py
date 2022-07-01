@@ -22,7 +22,8 @@
 
 # Imports
 from bip_utils import (
-    MnemonicChecksumError, AlgorandMnemonicGenerator, AlgorandSeedGenerator, Bip32KeyError, Bip44, Bip44Coins
+    MnemonicChecksumError, AlgorandMnemonicEncoder, AlgorandMnemonicGenerator, AlgorandSeedGenerator,
+    Bip32KeyError, Bip44, Bip44Coins
 )
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_enum import (
     HdWalletAlgorandWordsNum, HdWalletAlgorandLanguages
@@ -91,12 +92,7 @@ class HdWalletAlgorandFactory:
             seed_bytes = AlgorandSeedGenerator(mnemonic).Generate()
         except (ValueError, MnemonicChecksumError) as ex:
             raise ValueError(f"Invalid mnemonic: {mnemonic}") from ex
-
-        bip_obj = Bip44.FromSeed(seed_bytes, Bip44Coins.ALGORAND)
-        return HdWalletAlgorand(wallet_name=wallet_name,
-                                bip_obj=bip_obj,
-                                mnemonic=mnemonic,
-                                seed_bytes=seed_bytes)
+        return self.CreateFromSeed(wallet_name, seed_bytes)
 
     def CreateFromSeed(self,
                        wallet_name: str,
@@ -139,8 +135,10 @@ class HdWalletAlgorandFactory:
         except Bip32KeyError as ex:
             raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key_bytes)}") from ex
 
+        # Mnemonic is simply the encoding of the private key
         return HdWalletAlgorand(wallet_name=wallet_name,
                                 bip_obj=bip_obj,
+                                mnemonic=AlgorandMnemonicEncoder().Encode(priv_key_bytes).ToStr(),
                                 seed_bytes=priv_key_bytes)
 
     def CreateFromPublicKey(self,
