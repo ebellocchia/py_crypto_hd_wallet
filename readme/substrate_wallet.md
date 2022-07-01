@@ -1,12 +1,11 @@
 # Substrate wallet
 
-A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem) like PolkadotJS.\
-It doesn't follow BIP44 but it generates a pair of private and public keys depending on the derivation path.
+A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem) like PolkadotJS.
 
 ## Substrate wallet factory
 
 A Substrate wallet is created using the *HdWalletSubstrateFactory* class.\
-A *HdWalletSubstrateFactory* class is simply constructed by specifying the desired coin.
+A *HdWalletSubstrateFactory* class is constructed by specifying the desired coin.
 After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
@@ -111,8 +110,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
 
         # Create from private key bytes
-        priv_key = binascii.unhexlify(b"2ec306fc1c5bc2f0e3a2c7a6ec6014ca4a0823a7d7d42ad5e9d7f376a1c36c0d14a2ddb1ef1df4adba49f3a4d8c0f6205117907265f09a53ccf07a4e8616dfd8")
-        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key)
+        priv_key_bytes = binascii.unhexlify(b"2ec306fc1c5bc2f0e3a2c7a6ec6014ca4a0823a7d7d42ad5e9d7f376a1c36c0d14a2ddb1ef1df4adba49f3a4d8c0f6205117907265f09a53ccf07a4e8616dfd8")
+        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key_bytes)
 
 - From a public key:
 
@@ -123,8 +122,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
 
         # Create from public key bytes
-        pub_key = binascii.unhexlify(b"66933bd1f37070ef87bd1198af3dacceb095237f803f3d32b173e6b425ed7972")
-        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key)
+        pub_key_bytes = binascii.unhexlify(b"66933bd1f37070ef87bd1198af3dacceb095237f803f3d32b173e6b425ed7972")
+        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key_bytes)
 
 In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
 

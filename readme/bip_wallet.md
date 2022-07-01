@@ -5,7 +5,7 @@ A BIP wallet is a wallet based on BIP-0044, BIP-0049, BIP-0084 and BIP-0086 spec
 ## BIP wallet factory
 
 A BIP wallet is created using the *HdWalletBipFactory* class.\
-A *HdWalletBipFactory* class is simply constructed by specifying the desired coin.
+A *HdWalletBipFactory* class is constructed by specifying the desired coin.
 After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
@@ -200,10 +200,10 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
 
         # Create from private key bytes
-        priv_key = binascii.unhexlify(b"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35")
-        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key)
+        priv_key_bytes = binascii.unhexlify(b"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35")
+        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key_bytes)
 
-- From a public key (will be considered an account public key):
+- From a public key (it will be considered an account public key):
 
         import binascii
         from py_crypto_hd_wallet import HdWalletBip44Coins, HdWalletBipFactory
@@ -212,8 +212,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
 
         # Create from public key bytes
-        pub_key = binascii.unhexlify(b"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2")
-        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key)
+        pub_key_bytes = binascii.unhexlify(b"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2")
+        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key_bytes)
 
 In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
 

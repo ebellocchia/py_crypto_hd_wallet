@@ -2,7 +2,7 @@
 
 **NOTE:** to limit the output size in the examples, the addresses number is limited to 3
 
-**Random wallet with 24 words passphrase for Ethereum (WIF is not present since it is not supported by Ethereum)**
+**Random wallet with 24 words mnemonic for Ethereum (WIF is not present since it is not supported by Ethereum)**
 
 Code:
 
@@ -265,6 +265,8 @@ Output:
 
 **Watch-only wallet create from a change public extended key for Bitcoin Cash**
 
+Private key is not present since it's a watch-only wallet.
+
 Code:
 
     from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip44Coins
@@ -304,8 +306,6 @@ Output:
         }
     }
 
-Private key is not present since it's a watch-only wallet.
-
 **Wallet created from private key for Bitcoin, using BIP-0084 specification**
 
 Code:
@@ -313,10 +313,10 @@ Code:
     import binascii
     from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip84Coins
 
-    priv_key = binascii.unhexlify(b"3c6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
+    priv_key_bytes = binascii.unhexlify(b"3c6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip84Coins.BITCOIN)
-    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("btc_wallet", priv_key)
+    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("btc_wallet", priv_key_bytes)
     hd_wallet.Generate(addr_num=1, addr_off=10)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -389,15 +389,17 @@ Output:
 
 **Wallet created from public key for Bitcoin, using BIP-0044 specification**
 
+Private key is not present since it's a watch-only wallet.
+
 Code:
 
     import binascii
     from py_crypto_hd_wallet import HdWalletBipFactory, HdWalletSaver, HdWalletBip44Coins
 
-    pub_key = binascii.unhexlify(b"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2")
+    pub_key_bytes = binascii.unhexlify(b"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2")
 
     hd_wallet_fact = HdWalletBipFactory(HdWalletBip44Coins.BITCOIN)
-    hd_wallet = hd_wallet_fact.CreateFromPublicKey("btc_wallet", pub_key)
+    hd_wallet = hd_wallet_fact.CreateFromPublicKey("btc_wallet", pub_key_bytes)
     hd_wallet.Generate(addr_num=1)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 

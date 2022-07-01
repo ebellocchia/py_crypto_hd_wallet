@@ -1,6 +1,6 @@
 # Algorand wallet
 
-An Algorand wallet is a wallet based on the Algorand official wallet.\
+An Algorand wallet is a wallet based on the Algorand official wallet.
 
 ## Algorand wallet factory
 
@@ -77,8 +77,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletAlgorandFactory()
 
         # Create from private key bytes
-        priv_key = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
-        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key)
+        priv_key_bytes = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
+        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_key_bytes)
 
 - From a public key:
 
@@ -89,8 +89,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletAlgorandFactory()
 
         # Create from private key bytes
-        pub_key = binascii.unhexlify(b"7d5ea03ab150169176f66df6f6f67afe70b4d9e8b06fa6b46cd74bab1ca5e75c")
-        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key)
+        pub_key_bytes = binascii.unhexlify(b"7d5ea03ab150169176f66df6f6f67afe70b4d9e8b06fa6b46cd74bab1ca5e75c")
+        hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key_bytes)
 
 In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
 

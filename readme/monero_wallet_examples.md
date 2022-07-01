@@ -1,6 +1,8 @@
 # Monero wallet examples
 
-**Random wallet with 25 words passphrase**
+**Random wallet with 25 words mnemonic**
+
+Please note that, in Monero, the subaddress zero for account zero is equal to the primary address.
 
 Code:
 
@@ -32,19 +34,19 @@ Output:
             }
         }
 
-Please note that, in Monero, the subaddress zero for account zero is equal to the primary address.
-
 **Wallet created from seed**
+
+Please note that the mnemonic is automatically computed from the seed bytes, since the seed is the mnemonic entropy itself.
 
 Code:
 
     import binascii
-    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver
 
-    seed = binascii.unhexlify(b"750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff")
+    seed_bytes = binascii.unhexlify(b"750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff")
 
     hd_wallet_fact = HdWalletMoneroFactory()
-    hd_wallet = hd_wallet_fact.CreateFromSeed("xmr_wallet", seed)
+    hd_wallet = hd_wallet_fact.CreateFromSeed("xmr_wallet", seed_bytes)
     hd_wallet.Generate(subaddr_num=5)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -53,6 +55,7 @@ Output:
     {
         "wallet_name": "xmr_wallet",
         "coin_name": "Monero (XMR)",
+        "mnemonic": "owls cocoa vinegar drinks nitrogen soil smuggled drowning oyster unveil aglow zebra stylishly ocean session lemon twice obtains wrist efficient jingle gifts rebel rays twice",
         "seed_bytes": "750fb1c8c62d7938ebfb396be9c388f86e29ac2a6df1b4b61caaac34737fd2ff",
         "key": {
             "pub_spend": "45f2bb77d2dea75c646426cf53f60fa3643e8e81d3483164515d1443426cc2eb",
@@ -74,15 +77,17 @@ Output:
 
 **Wallet created from private spend key**
 
+Please note that the mnemonic is automatically computed from the private key bytes, since the private key is the mnemonic entropy itself.
+
 Code:
 
     import binascii
-    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver
 
-    priv_skey = binascii.unhexlify(b"83bb85465f189b9328c8cadf0c75260500fbcc9ccd0c5b8d3783934741a9720d")
+    priv_skey_bytes = binascii.unhexlify(b"83bb85465f189b9328c8cadf0c75260500fbcc9ccd0c5b8d3783934741a9720d")
 
     hd_wallet_fact = HdWalletMoneroFactory()
-    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("xmr_wallet", priv_skey)
+    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("xmr_wallet", priv_skey_bytes)
     hd_wallet.Generate(acc_idx=1, subaddr_num=5, subaddr_off=10)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -91,6 +96,8 @@ Output:
     {
         "wallet_name": "xmr_wallet",
         "coin_name": "Monero (XMR)",
+        "mnemonic": "kiosk woken enhanced locker cogs ruby itself mostly inquest laptop cobra dagger voice wallets neon onboard omission coexist went cool jetting olympics virtual zebra wallets",
+        "seed_bytes": "83bb85465f189b9328c8cadf0c75260500fbcc9ccd0c5b8d3783934741a9720d",
         "key": {
             "pub_spend": "aa4e7c95a40fc97b98c4801bee5347842ff0740368cfe0ffcba65ad4270dc45b",
             "pub_view": "8af4a1601edb665007c9e53cdf697e928c208fc2935c5aec6d3c0ff9c12dc2a6",
@@ -111,16 +118,18 @@ Output:
 
 **Wallet created from watch-only (i.e. private view key and public spend key)**
 
+Private spend key is not present since it's a watch-only wallet.
+
 Code:
 
     import binascii
-    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver, HdWalletMoneroWordsNum
+    from py_crypto_hd_wallet import HdWalletMoneroFactory, HdWalletSaver
 
-    priv_vkey = binascii.unhexlify(b"f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f")
-    pub_skey = binascii.unhexlify(b"d1a7da825fcf942f42e5b8669375888d27f58360c7ab10a00e820ddc1030ce8e")
+    priv_vkey_bytes = binascii.unhexlify(b"f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f")
+    pub_skey_bytes = binascii.unhexlify(b"d1a7da825fcf942f42e5b8669375888d27f58360c7ab10a00e820ddc1030ce8e")
 
     hd_wallet_fact = HdWalletMoneroFactory()
-    hd_wallet = hd_wallet_fact.CreateFromWatchOnly("xmr_wallet", priv_vkey, pub_skey)
+    hd_wallet = hd_wallet_fact.CreateFromWatchOnly("xmr_wallet", priv_vkey_bytes, pub_skey_bytes)
     hd_wallet.Generate(subaddr_num=5)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -146,9 +155,8 @@ Output:
         }
     }
 
-Private spend key is not present since it's a watch-only wallet.
 
-**Wallet created with 25 words passphrase for test net**
+**Wallet created with 25 words mnemonic for test net**
 
 Code:
 

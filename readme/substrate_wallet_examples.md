@@ -1,6 +1,6 @@
 # Substrate wallet examples
 
-**Random wallet with 24 words passphrase for Polkadot, default derivation path**
+**Random wallet with 24 words mnemonic for Polkadot, default derivation path**
 
 Code:
 
@@ -33,10 +33,10 @@ Code:
     import binascii
     from py_crypto_hd_wallet import HdWalletSubstrateFactory, HdWalletSaver, HdWalletSubstrateCoins
 
-    seed = binascii.unhexlify(b"4ed8d4b17698ddeaa1f1559f152f87b5d472f725ca86d341bd0276f1b61197e21dd5a391f9f5ed7340ff4d4513aab9cce44f9497a5e7ed85fd818876b6eb402e")
+    seed_bytes = binascii.unhexlify(b"4ed8d4b17698ddeaa1f1559f152f87b5d472f725ca86d341bd0276f1b61197e21dd5a391f9f5ed7340ff4d4513aab9cce44f9497a5e7ed85fd818876b6eb402e")
 
     hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.POLKADOT)
-    hd_wallet = hd_wallet_fact.CreateFromSeed("dot_wallet", seed)
+    hd_wallet = hd_wallet_fact.CreateFromSeed("dot_wallet", seed_bytes)
     hd_wallet.Generate(path="//polkadot/0")
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -61,10 +61,10 @@ Code:
     import binascii
     from py_crypto_hd_wallet import HdWalletSubstrateFactory, HdWalletSaver, HdWalletSubstrateCoins
 
-    priv_key = binascii.unhexlify(b"2ec306fc1c5bc2f0e3a2c7a6ec6014ca4a0823a7d7d42ad5e9d7f376a1c36c0d14a2ddb1ef1df4adba49f3a4d8c0f6205117907265f09a53ccf07a4e8616dfd8")
+    priv_key_bytes = binascii.unhexlify(b"2ec306fc1c5bc2f0e3a2c7a6ec6014ca4a0823a7d7d42ad5e9d7f376a1c36c0d14a2ddb1ef1df4adba49f3a4d8c0f6205117907265f09a53ccf07a4e8616dfd8")
 
     hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.KUSAMA)
-    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("ksm_wallet", priv_key)
+    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("ksm_wallet", priv_key_bytes)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -82,15 +82,17 @@ Output:
 
 **Wallet created from public key for Acala, default derivation path**
 
+Private key is not present since it's a watch-only wallet.
+
 Code:
 
     import binascii
     from py_crypto_hd_wallet import HdWalletSubstrateFactory, HdWalletSaver, HdWalletSubstrateCoins
 
-    pub_key = binascii.unhexlify(b"5244eb2b8a9f975c603485c5a76eeec41fdad88aa6ef204b7c56691940ad1671")
+    pub_key_bytes = binascii.unhexlify(b"5244eb2b8a9f975c603485c5a76eeec41fdad88aa6ef204b7c56691940ad1671")
 
     hd_wallet_fact = HdWalletSubstrateFactory(HdWalletSubstrateCoins.ACALA)
-    hd_wallet = hd_wallet_fact.CreateFromPublicKey("aca_wallet", pub_key)
+    hd_wallet = hd_wallet_fact.CreateFromPublicKey("aca_wallet", pub_key_bytes)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -104,5 +106,3 @@ Output:
             "address": "22jTz6rkZu7UTdgCHCVuXWbRVuxAVZ9BNoqhFJrvuLytMG3W"
         }
     }
-
-Private key is not present since it's a watch-only wallet.

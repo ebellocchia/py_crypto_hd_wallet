@@ -1,6 +1,6 @@
 # Algorand wallet examples
 
-**Random wallet with 25 words**
+**Random wallet with 25 words mnemonic**
 
 Code:
 
@@ -27,15 +27,17 @@ Output:
 
 **Wallet created from seed**
 
+Please note that the mnemonic is automatically computed from the seed bytes, since the seed is the mnemonic entropy itself.
+
 Code:
 
     import binascii
     from py_crypto_hd_wallet import HdWalletAlgorandFactory, HdWalletSaver
 
-    seed = binascii.unhexlify(b"e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d")
+    seed_bytes = binascii.unhexlify(b"e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d")
 
     hd_wallet_fact = HdWalletAlgorandFactory()
-    hd_wallet = hd_wallet_fact.CreateFromSeed("algo_wallet", seed)
+    hd_wallet = hd_wallet_fact.CreateFromSeed("algo_wallet", seed_bytes)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -44,6 +46,8 @@ Output:
     {
         "wallet_name": "algo_wallet",
         "coin_name": "Algorand (ALGO)",
+        "mnemonic": "devote clean board fruit wish feed snap property design peace guide area vanish race oval wish execute junk fresh blood fetch sauce trend about obtain",
+        "seed_bytes": "e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d",
         "key": {
             "pub": "00fc4031af7e5b7601b6e254701e01692d6b0dfaf3cf40ee6c94d05a94bfb9e7c6",
             "priv": "e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d",
@@ -53,15 +57,17 @@ Output:
 
 **Wallet created from private key**
 
+Please note that the mnemonic is automatically computed from the private key bytes, since the private key is the mnemonic entropy itself.
+
 Code:
 
     import binascii
     from py_crypto_hd_wallet import HdWalletAlgorandFactory, HdWalletSaver
 
-    priv_key = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
+    priv_key_bytes = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
 
     hd_wallet_fact = HdWalletAlgorandFactory()
-    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("algo_wallet", priv_key)
+    hd_wallet = hd_wallet_fact.CreateFromPrivateKey("algo_wallet", priv_key_bytes)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -70,6 +76,8 @@ Output:
     {
         "wallet_name": "algo_wallet",
         "coin_name": "Algorand (ALGO)",
+        "mnemonic": "wash tooth parent fire because squeeze total wife science else clean avocado churn pulp toddler small noodle medal blue tooth obvious creek discover abandon theme",
+        "seed_bytes": "bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07",
         "key": {
             "pub": "00d14696583ee9144878635b557d515a502b04366818dfe7765737746b4f57978d",
             "priv": "bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07",
@@ -79,15 +87,17 @@ Output:
 
 **Wallet created from public key**
 
+Private key is not present since it's a watch-only wallet.
+
 Code:
 
     import binascii
     from py_crypto_hd_wallet import HdWalletAlgorandFactory, HdWalletSaver
 
-    pub_key = binascii.unhexlify(b"7d5ea03ab150169176f66df6f6f67afe70b4d9e8b06fa6b46cd74bab1ca5e75c")
+    pub_key_bytes = binascii.unhexlify(b"7d5ea03ab150169176f66df6f6f67afe70b4d9e8b06fa6b46cd74bab1ca5e75c")
 
     hd_wallet_fact = HdWalletAlgorandFactory()
-    hd_wallet = hd_wallet_fact.CreateFromPublicKey("algo_wallet", pub_key)
+    hd_wallet = hd_wallet_fact.CreateFromPublicKey("algo_wallet", pub_key_bytes)
     hd_wallet.Generate()
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 
@@ -101,5 +111,3 @@ Output:
             "address": "PVPKAOVRKALJC5XWNX3PN5T27ZYLJWPIWBX2NNDM25F2WHFF45ODDRMTMA"
         }
     }
-
-Private key is not present since it's a watch-only wallet.

@@ -1,12 +1,11 @@
 # Monero wallet
 
-A Monero wallet is a wallet based on the Monero official wallet.\
-It doesn't follow BIP44 but it allows generating Monero spend/view keys, primary address and subaddresses.
+A Monero wallet is a wallet based on the Monero official wallet, by generating Monero spend/view keys, primary address and subaddresses.
 
 ## Monero wallet factory
 
 A Monero wallet is created using the *HdWalletMoneroFactory* class.\
-A *HdWalletMoneroFactory* class is simply constructed by specifying the desired network.
+A *HdWalletMoneroFactory* class is constructed by specifying the desired network.
 After the construction, the factory can be used to create wallets with the specified network.
 
 Supported coin enumerative:
@@ -102,8 +101,8 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletMoneroFactory()
 
         # Create from private key bytes
-        priv_skey = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
-        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_skey)
+        priv_skey_bytes = binascii.unhexlify(b"bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07")
+        hd_wallet = hd_wallet_fact.CreateFromPrivateKey("my_wallet_name", priv_skey_bytes)
 
 - From a watch-only wallet (i.e. from a public spend key and a private view key):
 
@@ -114,9 +113,9 @@ A wallet can be created in the following ways:
         hd_wallet_fact = HdWalletMoneroFactory()
 
         # Create from private key bytes
-        priv_vkey = binascii.unhexlify(b"b42c6e744db8c45d1320ba28f79d0a1813b1821358fbf195958de4e19b23aa0b")
-        pub_skey = binascii.unhexlify(b"aa4e7c95a40fc97b98c4801bee5347842ff0740368cfe0ffcba65ad4270dc45b")
-        hd_wallet = hd_wallet_fact.CreateFromWatchOnly("my_wallet_name", priv_vkey, pub_skey)
+        priv_vkey_bytes = binascii.unhexlify(b"b42c6e744db8c45d1320ba28f79d0a1813b1821358fbf195958de4e19b23aa0b")
+        pub_skey_bytes = binascii.unhexlify(b"aa4e7c95a40fc97b98c4801bee5347842ff0740368cfe0ffcba65ad4270dc45b")
+        hd_wallet = hd_wallet_fact.CreateFromWatchOnly("my_wallet_name", priv_vkey_bytes, pub_skey_bytes)
 
 In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
 
