@@ -127,7 +127,27 @@ class HdWalletElectrumV1Factory:
         Raises:
             ValueError: If the private key is not valid
         """
-        electrum_obj = ElectrumV1.FromSeed(priv_key_bytes)
+        electrum_obj = ElectrumV1.FromPrivateKey(priv_key_bytes)
         return HdWalletElectrumV1(wallet_name=wallet_name,
                                   electrum_obj=electrum_obj,
                                   seed_bytes=priv_key_bytes)
+
+    def CreateFromPublicKey(self,
+                            wallet_name: str,
+                            pub_key_bytes: bytes) -> HdWalletBase:
+        """
+        Create wallet from public key.
+
+        Args:
+            wallet_name (str)    : Wallet name
+            pub_key_bytes (bytes): Public key bytes
+
+        Returns:
+            HdWalletBase object: HdWalletBase object
+
+        Raises:
+            ValueError: If the private key is not valid
+        """
+        electrum_obj = ElectrumV1.FromPublicKey(pub_key_bytes)
+        return HdWalletElectrumV1(wallet_name=wallet_name,
+                                  electrum_obj=electrum_obj)

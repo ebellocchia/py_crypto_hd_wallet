@@ -91,9 +91,11 @@ class HdWalletElectrumV1MasterKeys(HdWalletKeysBase):
         self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PUB,
                          electrum_obj.MasterPublicKey().RawUncompressed().ToHex()[2:])
 
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV, electrum_obj.MasterPrivateKey().Raw().ToHex())
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
-                         HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.MasterPrivateKey()))
+        # Add private key only if Electrum object is not public-only
+        if not electrum_obj.IsPublicOnly():
+            self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV, electrum_obj.MasterPrivateKey().Raw().ToHex())
+            self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
+                             HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.MasterPrivateKey()))
 
 
 class HdWalletElectrumV1DerivedKeys(HdWalletKeysBase):
@@ -140,10 +142,12 @@ class HdWalletElectrumV1DerivedKeys(HdWalletKeysBase):
         self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PUB,
                          electrum_obj.GetPublicKey(change_idx, addr_idx).RawUncompressed().ToHex()[2:])
 
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV,
-                         electrum_obj.GetPrivateKey(change_idx, addr_idx).Raw().ToHex())
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
-                         HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.GetPrivateKey(change_idx, addr_idx)))
+        # Add private key only if Electrum object is not public-only
+        if not electrum_obj.IsPublicOnly():
+            self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV,
+                             electrum_obj.GetPrivateKey(change_idx, addr_idx).Raw().ToHex())
+            self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
+                             HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.GetPrivateKey(change_idx, addr_idx)))
 
         # Address
         self._SetKeyData(HdWalletElectrumV1KeyTypes.ADDRESS,

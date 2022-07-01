@@ -193,6 +193,44 @@ TEST_VECTOR = [
             }
         },
     },
+    # Wallet from public key
+    {
+        # Data for wallet construction
+        "wallet_name": "electrum_wallet",
+        # Data for wallet creation
+        "type": "from_pub_key",
+        "pub_key": "049ce5ca76a323951422cff5f0af3bb5963292238648ca23853f6c4bd8c33844d7a57b7e0203a2e2b12bd3abda417e4e4ba85e34498810a120d037f08e4c912f4b",
+        # Data for saving to file1
+        "file_path": "test_wallet.txt",
+        # Data for wallet generation
+        "change_idx": 0,
+        "addr_num": 3,
+        "addr_off": 0,
+        # Data for wallet test
+        "watch_only": False,
+        "wallet_data_dict": {
+            "wallet_name": "electrum_wallet",
+            "coin_name": "Bitcoin (BTC)",
+            "master_key": {
+                "raw_pub": "9ce5ca76a323951422cff5f0af3bb5963292238648ca23853f6c4bd8c33844d7a57b7e0203a2e2b12bd3abda417e4e4ba85e34498810a120d037f08e4c912f4b"
+            },
+            "address_off": 0,
+            "address": {
+                "address_0": {
+                    "raw_pub": "5b60cf5e137e5e3a69a5d5b48e5a32f6ca2a8795b009f5ea8977821e0c6f5757be8e72a7c0eed1b1191b2cff338b0ebefe44afc4436f054396454cfc88ec217b",
+                    "address": "16tSgwGNEznQ7EVDrnJL5QgCAZFMEhe7S4"
+                },
+                "address_1": {
+                    "raw_pub": "1b5e91b61b8c580d7842cfa3fee2200da5e84a5fcc18862e6a6e49578a6f7d53b0e745607a94ca7e27344095eb3d6fef7c8bfa5db9b2ee9e05c71b6037a1371a",
+                    "address": "1Mc7WAKEVTrEY7jSG1ZgS6pZByhjVEDRC6"
+                },
+                "address_2": {
+                    "raw_pub": "9a826deeb4a9967d861bc64be71d539da32c2b9428666bec407666cf6555cf4946534556da5af267ea84e9c3815af22c331b3d37bea8cd4846a67c43e36a4150",
+                    "address": "1HKg9njvobnGB5kUYeFXzKpp2UAG1zWFvj"
+                }
+            }
+        },
+    },
 ]
 
 
@@ -233,6 +271,8 @@ class HdWalletElectrumV1Tests(unittest.TestCase):
                     hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
                 elif test["type"] == "from_priv_key":
                     hd_wallet = hd_wallet_fact.CreateFromPrivateKey(test["wallet_name"], binascii.unhexlify(test["priv_key"]))
+                elif test["type"] == "from_pub_key":
+                    hd_wallet = hd_wallet_fact.CreateFromPublicKey(test["wallet_name"], binascii.unhexlify(test["pub_key"]))
                 else:
                     raise RuntimeError("Invalid test type")
 
