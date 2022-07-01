@@ -278,6 +278,47 @@ TEST_VECTOR = [
             }
         },
     },
+    # Wallet from extended key (public)
+    {
+        # Data for wallet construction
+        "wallet_name": "electrum_wallet",
+        # Data for wallet creation
+        "mnemonic_type": HdWalletElectrumV2MnemonicTypes.STANDARD,
+        "type": "from_ex_key",
+        "ex_key": "xpub661MyMwAqRbcFrtsKpTC35Lbm6BJoekshx7oUUk87N8Um3j8ckWQjbHhZgvEVRx3JWyZxaT63ut7oAKoYpGS985fCPhqaogTNVNidD1H7us",
+        # Data for saving to file1
+        "file_path": "test_wallet.txt",
+        # Data for wallet generation
+        "change_idx": 0,
+        "addr_num": 2,
+        "addr_off": 0,
+        # Data for wallet test
+        "watch_only": True,
+        "wallet_data_dict": {
+            "wallet_name": "electrum_wallet",
+            "coin_name": "Bitcoin (BTC)",
+            "master_key": {
+                "ex_pub": "xpub661MyMwAqRbcFrtsKpTC35Lbm6BJoekshx7oUUk87N8Um3j8ckWQjbHhZgvEVRx3JWyZxaT63ut7oAKoYpGS985fCPhqaogTNVNidD1H7us",
+                "raw_compr_pub": "0207bdcd40ff66af6e1a9dc5502f765250f1e7e09dad34cd2060cac2682e916947",
+                "raw_uncompr_pub": "0407bdcd40ff66af6e1a9dc5502f765250f1e7e09dad34cd2060cac2682e916947323148a8a940300ea44ca0ef023775cfe54cf88453a11a4e656e7f1d4502c5d6"
+            },
+            "address_off": 0,
+            "address": {
+                "address_0": {
+                    "ex_pub": "xpub6BS3kzb2nXFcsDyHoqtUDeP6Yb7Q7Y5FTzy2Hjp3NJaG5pMs3iaBLBbKVYZ1WHniMeS57KPgEXkgmTfoEprMVFDj38jVkLA5qLgoVeQA9FK",
+                    "raw_compr_pub": "021462cdc2b25dfba4f9adb2b72d1e0471c4b48b0992eb98d2c8cbddcfa6660be6",
+                    "raw_uncompr_pub": "041462cdc2b25dfba4f9adb2b72d1e0471c4b48b0992eb98d2c8cbddcfa6660be6e2d61d44401f3e2970f0034b2ca922311dfb51f6cfb742b74d5cf76fc9f8d1ca",
+                    "address": "15zGjp6jzzcfFZy5P6FrLpXV3M4FKSBqsZ"
+                },
+                "address_1": {
+                    "ex_pub": "xpub6BS3kzb2nXFctAPCp2fofUZeW3cwLUnCxdsRh9i8S3ThT73drDNPDWLtdzsg6oXMogZ7vZpCqdqUHUia6uJ56SGouPgoDFS1dXC64yZc14W",
+                    "raw_compr_pub": "037a887696437638b6994f7edd2f0574db82005612b1a1ebad3cfb9c75b7e3de45",
+                    "raw_uncompr_pub": "047a887696437638b6994f7edd2f0574db82005612b1a1ebad3cfb9c75b7e3de4573e29c36faad3bb0c1ace643dd0543442c613b6e4ca6c574bcf92de75b2052af",
+                    "address": "1FtbsREpV2QvRX7Lysi4oB5e314yJ1Todu"
+                }
+            }
+        },
+    },
 ]
 
 
@@ -341,7 +382,7 @@ class HdWalletElectrumV2Tests(unittest.TestCase):
         self.assertRaises(ValueError, HdWalletElectrumV2Factory, HdWalletElectrumV2MnemonicTypes.STANDARD_2FA)
 
         # Construct a wallet factory
-        hd_wallet_fact = HdWalletElectrumV2Factory(HdWalletElectrumV2MnemonicTypes.STANDARD)
+        hd_wallet_fact = HdWalletElectrumV2Factory(HdWalletElectrumV2MnemonicTypes.SEGWIT)
         # Invalid parameter for CreateRandom
         self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", 12)
         self.assertRaises(TypeError, hd_wallet_fact.CreateRandom, "test_wallet", HdWalletElectrumV2WordsNum.WORDS_NUM_12, 0)

@@ -162,8 +162,9 @@ class HdWalletElectrumV2Factory:
         except Bip32KeyError as ex:
             raise ValueError(f"Invalid extended key: {ex_key_str}") from ex
 
-        if bip_obj.IsPublicOnly():
-            raise ValueError("Only private extended keys are supported")
+        # Segwit wallet uses hardened derivation, not supported by public-only objects
+        if bip_obj.IsPublicOnly() and self.m_mnemonic_type == HdWalletElectrumV2MnemonicTypes.SEGWIT:
+            raise ValueError("Only private extended keys are supported for segwit mnemonic type")
 
         electrum_obj = self.m_electrum_cls(bip_obj)
         return HdWalletElectrumV2(wallet_name=wallet_name,
