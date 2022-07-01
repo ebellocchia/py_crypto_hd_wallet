@@ -123,6 +123,7 @@ TEST_VECTOR = [
         "wallet_data_dict": {
             "wallet_name": "xmr_wallet",
             "coin_name": "Monero (XMR)",
+            "mnemonic": "later utility occur boil puffin bids soda jackets snout earth apply jetting titans sugar domestic jerseys urchins orders fixate tolerant zoom afoot feel gesture feel",
             "seed_bytes": "b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b",
             "key": {
                 "pub_spend": "903b1c27c4759cba056ff02532a2245c0dd93dddf621ab1428bc72a60f698622",
@@ -151,13 +152,15 @@ TEST_VECTOR = [
         "acc_idx": 1,
         "subaddr_num": 3,
         "subaddr_off": 10,
-        # Data for saving to file1
+        # Data for saving to file
         "file_path": "test_wallet.txt",
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
             "wallet_name": "xmr_wallet",
             "coin_name": "Monero (XMR)",
+            "mnemonic": "cuisine deepest goldfish wetsuit circle purged kiosk touchy adrenalin fabrics haystack roared hobby vibrate vaults daily bacon dosage adrenalin fences tolerant females aptitude army fences",
+            "seed_bytes": "b6514a29ff612189af1bba250606bb5b1e7846fe8f31a91fc0beb393cddb6101",
             "key": {
                 "pub_spend": "323abccb6e92ee89b1a07f6829ab3e16cc4fd276377c11d84a5719808f16ec83",
                 "pub_view": "4842482c21c0d0459f04dd7a27256b1743fe018727bd395c964a5ae9e3c6f6c1",

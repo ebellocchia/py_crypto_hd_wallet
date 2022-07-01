@@ -22,7 +22,7 @@
 
 # Imports
 from bip_utils import (
-    MnemonicChecksumError, MoneroMnemonicGenerator, MoneroSeedGenerator,
+    MnemonicChecksumError, MoneroMnemonicEncoder, MoneroMnemonicGenerator, MoneroSeedGenerator,
     MoneroKeyError, Monero
 )
 from py_crypto_hd_wallet.common import HdWalletBase
@@ -130,6 +130,7 @@ class HdWalletMoneroFactory:
         monero_obj = Monero.FromSeed(seed_bytes, self.m_monero_coin)
         return HdWalletMonero(wallet_name=wallet_name,
                               monero_obj=monero_obj,
+                              mnemonic=MoneroMnemonicEncoder().EncodeWithChecksum(seed_bytes).ToStr(),
                               seed_bytes=seed_bytes)
 
     def CreateFromPrivateKey(self,
@@ -154,6 +155,8 @@ class HdWalletMoneroFactory:
             raise ValueError(f"Invalid private spend key: {Utils.BytesToHexString(priv_skey_bytes)}") from ex
 
         return HdWalletMonero(wallet_name=wallet_name,
+                              seed_bytes=priv_skey_bytes,
+                              mnemonic=MoneroMnemonicEncoder().EncodeWithChecksum(priv_skey_bytes).ToStr(),
                               monero_obj=monero_obj)
 
     def CreateFromWatchOnly(self,
