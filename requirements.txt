@@ -1,1 +1,1 @@
-bip_utils~=2.5
+bip_utils>=2.5.1,<3.0
