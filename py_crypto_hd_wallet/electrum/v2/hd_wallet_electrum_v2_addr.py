@@ -72,5 +72,5 @@ class HdWalletElectrumV2Addresses(HdWalletAddrBase):
         """
         for i in range(addr_num):
             self._AddAddr(
-                HdWalletElectrumV2DerivedKeys(electrum_obj, change_idx, addr_num + i, addr_off)
+                HdWalletElectrumV2DerivedKeys(electrum_obj, change_idx, i, addr_off)
             )

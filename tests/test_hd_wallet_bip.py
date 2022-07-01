@@ -662,8 +662,8 @@ TEST_VECTOR = [
                     "raw_compr_pub": "038ed23d7cfb0a12099eca19c8bfd1393c4ee66c173450d3c5b7185b3c95e2d503",
                     "raw_uncompr_pub": "048ed23d7cfb0a12099eca19c8bfd1393c4ee66c173450d3c5b7185b3c95e2d503526f1f45eccdc0cf8b7fe17ed84d6fe4d4b94d3c0f037dfe978828f80dff01d9",
                     "address": "35bm81nzz2jaj8yt8kjfccTUyWgQuDnKuW"
-                }
-            }
+                },
+            },
         },
     },
 ]

@@ -66,7 +66,7 @@ TEST_VECTOR = [
                 "pub": "00e0155519f3709708de39262bd466a5633b3508898563a408e52bd58b490184b1",
                 "priv": "160f7ffb2f93b995e367c0a51d0df76ee9cff658a8085f33d3a17d70dbc88961",
                 "address": "4AKVKGPTOCLQRXRZEYV5IZVFMM5TKCEJQVR2ICHFFPKYWSIBQSY2Z3RS6Q"
-            }
+            },
         },
     },
     # Wallet from seed
@@ -89,7 +89,7 @@ TEST_VECTOR = [
                 "pub": "00fc4031af7e5b7601b6e254701e01692d6b0dfaf3cf40ee6c94d05a94bfb9e7c6",
                 "priv": "e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d",
                 "address": "7RADDL36LN3ADNXCKRYB4ALJFVVQ36XTZ5AO43EU2BNJJP5Z47DKMFA22U"
-            }
+            },
         },
     },
     # Wallet from private key
@@ -112,7 +112,7 @@ TEST_VECTOR = [
                 "pub": "00d14696583ee9144878635b557d515a502b04366818dfe7765737746b4f57978d",
                 "priv": "bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07",
                 "address": "2FDJMWB65EKEQ6DDLNKX2UK2KAVQINTIDDP6O5SXG52GWT2XS6GWBBFHDM"
-            }
+            },
         },
     },
     # Wallet from public key
@@ -132,7 +132,7 @@ TEST_VECTOR = [
             "key": {
                 "pub": "007d5ea03ab150169176f66df6f6f67afe70b4d9e8b06fa6b46cd74bab1ca5e75c",
                 "address": "PVPKAOVRKALJC5XWNX3PN5T27ZYLJWPIWBX2NNDM25F2WHFF45ODDRMTMA"
-            }
+            },
         },
     },
 ]

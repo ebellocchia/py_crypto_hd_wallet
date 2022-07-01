@@ -85,22 +85,22 @@ TEST_VECTOR = [
             "address_off": 0,
             "address": {
                 "address_0": {
-                    "ex_pub": "xpub6A22pbU1VsUW14XdD6Ksnn7AK1kMKDkKVHYqfABydCSw1g2jNNYrekQTzfEZCk2T7Kf9wQDeLZRkFMgvYs9Ti79Esj1KCXmayAvxbPysbP6",
-                    "raw_pub": "adfbb960ad23c0d127cd17ebf3f6f4998ea1e70fa176dd8e0414581b164c4122536a187ec20692a9012209dcf6fe71cef7ad14209b07d2d8a687c6758089f8b0",
-                    "ex_priv": "xprv9w2gR5w7fVvCnaTA74nsReARkyurum2U84dErmnN4rux8shapqEc6x5z9PUhDehqcD86LJ3eGkzj6W6ScuyoGwgNCQrWcGXBnH97zAvgGMv",
-                    "raw_priv": "4e6672978b2a1babecf2413b83f0a77044922cadecc05e14edde0e5b7bfea4c3",
-                    "wif_priv": "Kyr7NJfHUvDAZxu14KWFrCDm5YUHARycHbyDNwoYvxfZ9uRFKQKi",
-                    "address": "1PtRy4Kkfap6jnJAiEnUeWThdPNiDwwXEb"
+                    "ex_pub": "xpub6A22pbU1VsUVv74x9qqKEoQUEFuM2Lk2QzdFirgVqiWeFbV5pvv637CL6AhEvXCj7mJTbbhHzEQKyesUm2FVbLTXgmnbJfLWZNoNefEmt8u",
+                    "raw_pub": "cd2b95a5e117ff782f93db34cd0bc478b75febdaba30bd948dd2da2f86a2ceb0963240e824b8317a1d13bb74b190251fe2575cbd234b7e40967a41435cb93b52",
+                    "ex_priv": "xprv9w2gR5w7fVvChczV3pJJsfTjgE4rct2B3mhevUGtHNyfNo9wHPbqVJsrEv1ii1SV6nUTAqSc4UKocLtnXoMxFWj5JW17dBbBMcionoo6AX7",
+                    "raw_priv": "fb23bf6b2bf010b80fb9fa44054cc1ebb14363338c5c606ba2b2a009436fe0a7",
+                    "wif_priv": "L5dtn4jazRTcv1tiZbqWFniQgZBLxpreBaU1H2tMHEbRCsAfmPCx",
+                    "address": "1HBWDaEySQnitECtvNd7boSkCqqNfrvtpf"
                 },
                 "address_1": {
-                    "ex_pub": "xpub6A22pbU1VsUW3FyG6bj8XRTTRxDJewANL9EqJDgntMC35X2PbjoBix8d2sZNF4hUSPeaxYj4WkLKw755C59aS3EAzTFY4wQEbRZLyiDcMXz",
-                    "raw_pub": "aa41f1c39ca188da8233d0506eed8747d90045394975273c68211710a619ab9a1c259fc3029cd8040df7dad5f7722fc456f3a833bcc040c07f3d6716cb836c24",
-                    "ex_priv": "xprv9w2gR5w7fVvCpmtnzaC8AHWisvNpFUSWxvKEVqHBL1f4CihF4CUwB9p9BbQexXtpUdRtPfVV6axsZiEgW5kBufsEyVvuSREjkZcPnVNNBiX",
-                    "raw_priv": "16ca6dbe1d5c58f26461a8f5169c329b6d873c40d4b062e37b67f775cce43684",
-                    "wif_priv": "Kwz1iJpvrGwnF41ozoTihfcNvCpNPyWHKMLMVS3w8SXVzmMuHCea",
-                    "address": "15qswyYW2ofa5gcxZuP3EAZbSy6K5qaAMw"
-                }
-            }
+                    "ex_pub": "xpub6A22pbU1VsUVwkahjgVMh6oAvgxrfqxD8YeG6e2u7s7vPCgtrmZifqreYsEhsx25o2VP4zCUueUHukug2v6d6kqFj5uxDVEzYVMZe2FDxeH",
+                    "raw_pub": "9df8193d0da68592fd1086817e9da2a5a35fb521fec99207090e6cffebe5c1e6870b8a08d1229bdf7c0fc65fa792ae279e5f540c730f79c8252790d48833c001",
+                    "ex_priv": "xprv9w2gR5w7fVvCjGWEdexMKxrSNf8NGPEMmKifJFdHZXawWQMkKEFU83YAhaur9TQLZvAqKrFf57fKH2K2RUkUwB6xnWo14XpJgU8o6sUPKXW",
+                    "raw_priv": "f377208b0541e06795b3c43386d64228c1f6684d60c6c6809935ed02dab00567",
+                    "wif_priv": "L5NyYU8Y8GfU53GyuXjUp9PUwmNLUmmknHn7SjdSr4VZGKGLeak2",
+                    "address": "1RfCMLmwia2ZCNCgTMWxZq1K5ctab1d2T"
+                },
+            },
         },
     },
     # Wallet from mnemonic (segwit)
@@ -135,22 +135,22 @@ TEST_VECTOR = [
             "address_off": 0,
             "address": {
                 "address_0": {
-                    "ex_pub": "xpub6DFUEqfT2vMywCpPfjKp1J2DpGaqBg92VBnFefBmdDiNdLwsxePFVY9PwMK3ZR9PAnbYrY8aq33Vs6fGYhet9YC1VhtnQddmwDfhhTSm2VM",
-                    "raw_pub": "6abdf591307e722e3f5558c5b77336e17aada006219717428563a02d0462203bd2398d1af566288b0181b6255900edd834e5cd3b123884af9a5189e4d4601793",
-                    "ex_priv": "xprv9zG7qL8ZCYogiijvZhnoeA5VGEkLnDRB7xrerGnA4tBPkYcjR74zwjpv64zysA8wFfs4iDoe8f8CgEYRBFvD2HaVgdZ7UYN6p71iLGn2AJD",
-                    "raw_priv": "c20a63777dd56941410307c1a95c4691039331ba23a901e9560ab90a0798e623",
-                    "wif_priv": "L3iuBF4qzY9tWiY8Sci9GkgfBds2w2MC6G8SDLZfkZD17mcCJQnx",
-                    "address": "bc1q0n5p05gjrteh3y3tw35l99pcw6fvc2xk2cjvym"
+                    "ex_pub": "xpub6DFUEqfT2vMyrqsRGoj2wnbXzq7mXRhPxLhqFufW6iFnukcXndRxMp56yRXHYJjJT2EWvFWNeudtXC7S4FkwgZH19dAKrscGrCTygX1R3Z6",
+                    "raw_pub": "f4d3935574f7f2f7296a807a94cefa53594b2867ce2ea0ac4d3d1b52f9a40ca01f006f473b30bf9b2d2ae9d9e61e9536271de4a33697402505a24ac44a27afa2",
+                    "ex_priv": "xprv9zG7qL8ZCYogeMnxAnC2aeeoSoHH7xyYb7nETXFtYNip2xHPF67hp1kd8AGSEtnf1NQoh4bHeFFNBqTbUacyws57j21oVoAycgkaJRKtWD5",
+                    "raw_priv": "d71e4168af3a463aa78cbafaa40557e29f7a41e9262aa42428677d8ebe142752",
+                    "wif_priv": "L4RsZRUjGbootKd89A7TfiemG6CdYPs1nMiQ49YSR9V4QptP19xL",
+                    "address": "bc1q3k70h49klfpxm4shjckhmv5arzl4u6e3v7rc0y"
                 },
                 "address_1": {
-                    "ex_pub": "xpub6DFUEqfT2vMyzJseXWXUN78UzkHBjjdQ1h1BNKsBQDNdMiL9EMLnzhr6ky2CRAXdBz4yNUwkiE1jbsL1h6eoEK29Q95rpJe7BnfTdHBuRri",
-                    "raw_pub": "7de1dd58e59b865e30d773da3db8c27d024e12a9b8de7a45d401beb0511db807d85f165cf2eb7e30ef45b4b5646a5aa94a26f7a87d2f7cce722257a523d91d11",
-                    "ex_priv": "xprv9zG7qL8ZCYogmpoBRUzTzyBkSiShLGuYeU5aZwTZqsqeUuzzgp2YSuXcufJvxycwd8K9KYv7vHkNeexJ9RjH5jhKhMqCqtRCTqiC3ouiWR9",
-                    "raw_priv": "1cccd5fc2b6782b5ef15e16215dce44b58219b2a6d5332b6ba33cd30ff312051",
-                    "wif_priv": "KxBhErZKQgFPuyA97tRjKJ4aWZYZM6oLhoi8yfK466Jqbx7ySxSA",
-                    "address": "bc1qf6g8wnr6pjpnv289c98a24jw9ynlw8k6x924m8"
-                }
-            }
+                    "ex_pub": "xpub6DFUEqfT2vMyuHXbTRtvBnF4yXqdJXW4QGbzrFsH8oamkxEDJYUeEkKf4Kaas2Uuw8YfyN9fpp9qHnyGFVUiDRrDHsDgMYjZJ85J1qMsiYC",
+                    "raw_pub": "ce5849bbad31bc140ac35f5e01e3cbaf4fa9b729b38cb8c2e27df5f81cd59db27f6730a9dd4e0b9322f650dc1aea6e64816affb4834291e5b88a17d6f6040f17",
+                    "ex_priv": "xprv9zG7qL8ZCYoggoT8MQMupeJLRW18u4nD33gQ3sTfaU3nt9u4m1APgx1BD1GaJWZ27f1fsQUoR9rmzKdHSbFpjKv1QNn4Gk5FDGRpaM3SYJV",
+                    "raw_priv": "1e5fb878289e51bef89849f8a4e54705b04d7f607e6685bc8afcb8c916f3e7e7",
+                    "wif_priv": "KxEkg1Ci5d7ZQaWiirp4J41g68APFUvMnaT378CY31L8Q338mjqh",
+                    "address": "bc1q2rtd3llq3wjwmds4guvdek7takkgxrjyt9lsvh"
+                },
+            },
         },
     },
     # Wallet from seed
@@ -183,30 +183,30 @@ TEST_VECTOR = [
             "address_off": 10,
             "address": {
                 "address_10": {
-                    "ex_pub": "xpub6Aebs6BHU9rtYwNN45Kf8Cfd3eUU3MaGQUEY3rdRzmmbKdyCGrWfDxZE4EYsKRvf3oHxjyHKYmpzvVdY9PY11M9ughAVvDcyF6XVFfqMppC",
-                    "raw_pub": "dad844900d2a8b862d3c128ff3eacb96487e83769462f202f31076d37bdeaa4509e705d8d54981af1c97d86659442f11b49de859933a795d0803a70bd0137ade",
-                    "ex_priv": "xprv9wfFTaePdnJbLTHtx3nem4itVcdydtrR3FJwFUDpSSEcSqe3jKCQgAEkCxFuV6ejwrg4x33776Azgvg7SJ5gMrHEjqnFaprBXKCirqvmMG1",
-                    "raw_priv": "34a4b6b60264eb9e86eaa8f133c783072f90a9a872a1d3e70c213d148a224e6d",
-                    "wif_priv": "Kxz3SDr3kLQKDwpctK3sV1fjsoiadcFaq2tWr7mu68WedePvJV7n",
-                    "address": "14yrFJT9J8GwdV5JVawxMkT5uqVrQiavKE"
+                    "ex_pub": "xpub6Aebs6BHU9rtSeA2bVYqdiu9p1GvSq7bbpHABaYxQ9LsCE4EGRNuaALaKSZGstYAevy4VYFsjP8HZRbRxWEAWeLrML6cByxDMcZGw5awzD1",
+                    "raw_pub": "5053f51ce0871eab000f5170ef12e24b222adb4a1c41ef957aaafcd1879a25177e724497ac0a0b0fcb111b30532a5ef9dd1e5f00d3d9dfaa481ad0f10b69b55c",
+                    "ex_priv": "xprv9wfFTaePdnJbEA5ZVU1qGaxRFySS3NPkEbMZPC9LqootKRj5it4f2N26UBzUw5kJSZ5PBvirLNULtQBJzgo23dspWNQbCJvWmGaLAdfuUA7",
+                    "raw_priv": "8d936fd9f8d8ca332dc8fea9fb07318365da7168e7f0127fb524eb6eccc9d63f",
+                    "wif_priv": "L1xv5cMcCdfyiL4dE4incMi6D7gPNpgDYAu89kjALZH3GRcFo8NM",
+                    "address": "1JQFqskH1xfnHm2BgSW9LhWNkLsP5FZfAY"
                 },
                 "address_11": {
-                    "ex_pub": "xpub6Aebs6BHU9rtbfgvxT8GHnvi6jWQBYq4BDFadgETFAsWKADL63rcxTMmXJdjPWLzg3gir9MYGuqZEyQpCpVExTMCJNeFCX2Yu3rheGAcNqC",
-                    "raw_pub": "dc70005564bc103614e02c21e73c25923bc7a1906c85b02c5940383cc21af20742485ded2220d84275ba4deda2d6704570bd47420e631ec0995276e579848e26",
-                    "ex_priv": "xprv9wfFTaePdnJbPBcTrRbFveyyYhfun67CozKyqHpqgqLXSMtBYWYNQf3Hg1wAo6YE8sRzrPStUbMzLpQPFscCS2odZNzm67RSNgPygqZzQUi",
-                    "raw_priv": "00a6a811257eb3199ad11fb2bc510b3e485470bf3d1267851ea87647c6c5f7ec",
-                    "wif_priv": "KwEyag73LbkEdttrh3z3RrFbgU5aF5xWe4CMA3LR8Bbuhjv5FivN",
-                    "address": "1EGBtnFoCZyyJ2KT4Ls9jmF3dSd99qh9FA"
+                    "ex_pub": "xpub6Aebs6BHU9rtURbB5xcyPt8FCrVsMSq2hA7wpaW4WSM4jKbfc5noaQqfRc3w7KHUgKNtSNemQzPDG6eU2MxCrw3cvgfrPeWkw1ffRCnqAh6",
+                    "raw_pub": "b3600cab4755c226cad7ec5228c1c7a4727864ccf19314bbe785c081b2f88345a6e34345ab42034f67bf0d0c6a6e712d079cd6934b1bfb1e5ca0cbf3e6c7f7b6",
+                    "ex_priv": "xprv9wfFTaePdnJbFwWhyw5y2kBWepfNwz7BKwCM2C6Sx6p5rXGX4YUZ2cXBaLhqHvYkRDy83rPckfQfRpyjsXmTaumdXRWMe79PRFZiRFHJkCv",
+                    "raw_priv": "89bed8069efed4a2350a71cc08ef80f51fc4bff722450fe79a75c0ebb4b18636",
+                    "wif_priv": "L1qUDgC9pFANbWiLTsMutTU9LFi8Qa7h1FcgVBjzwtoW2yYvJSYo",
+                    "address": "1P3kA3FGx79ZArkMCETWvAaEaNL5MWcDan"
                 },
                 "address_12": {
-                    "ex_pub": "xpub6Aebs6BHU9rtdtUeb1ZwSLSE8AZ4u5UZVY3QnQTtKJEFpSA9775jpwXhnDUbF3B8DJ1eAa6dSxRtkPJ7UQmTTwrcQG97bgqhj2q685wFzDj",
-                    "raw_pub": "5c50539bebd12db9272e1f9edc4464e95369b847dc4e759a3a1e0e78641e63c0d71caddfa62de984408a7b3027e629cb80135e69b55b84d5e06a88dffbf1c7c8",
-                    "ex_priv": "xprv9wfFTaePdnJbRQQBUz2w5CVVa8iaVcki8K7oz24GkxhGwdpzZZmVH9DDvxqjH55k4VsQDANaAz8A5cev1hYPB3C4HhqVUiQsnVR2bSY2wZH",
-                    "raw_priv": "905266691adf9a7808fe6d5ad5c2155f9b7ac395ac14fa40353e5b5268360645",
-                    "wif_priv": "L24FfrpoVFUF5e1rfm3ns4L7FL886B3ZjLDDQQerF891XS9NfSb8",
-                    "address": "1GZuuywiBpJo9YHswDJmDLdYkDrMjiKFjE"
-                }
-            }
+                    "ex_pub": "xpub6Aebs6BHU9rtXk7RhRKueM9NUS7Ef45nVuBLTh6W5JbTcLWWjVXtQvp5DGpFMyBiDVhVmBD1o5THPM2a8doBrYMR4zkeeKWEvCEi7FpmquC",
+                    "raw_pub": "45861dd170ef29ff5a22717f00519bcf8f7407d30a20a3fb097c95735bd65e8bf35cb47fc0bd0e7e4a84ecd33dd204b75ae4b21fe528da0a719d8613e242f286",
+                    "ex_priv": "xprv9wfFTaePdnJbKG2xbPnuHDCdvQGkFbMw8gFjfJgtWy4UjYBNBxDds8VbN2odaejmjsu8mLTgdryoQSfdeEG7qsddEZj5tfgjjXs2pBGg6Ws",
+                    "raw_priv": "cbd464ecbc77cb15734596affa94ef4304e9c5eb6171069e92da70a282d96ec9",
+                    "wif_priv": "L43vqo61VTX5rruXLGr2gmdctcm6NUsYQep2qmWvKtjGpqJTd4Q6",
+                    "address": "1LKRqstPXJG9TY1tnke92fwHoLsVB5ck5n"
+                },
+            },
         },
     },
     # Wallet from extended key (private)
@@ -238,30 +238,30 @@ TEST_VECTOR = [
             "address_off": 0,
             "address": {
                 "address_0": {
-                    "ex_pub": "xpub6CfQrbmZKfHEkArZ7JxU4YqXZM8MWn8osAMGfhr1TZS5qvb1ky1KJkm1DWKvXwGRaCzxVaNt6iQy3kduuW5QVsgi2zxWAPZvZoCucoN8kCq",
-                    "raw_pub": "ab709448f6732c893994d0ac1e6c911de5ed0f2927d0bf7e1327bb437fdd53b6e6a527187301be39556a8bbc19ca8c564f348b9d11abfc8131b32282ac13f276",
-                    "ex_priv": "xprv9yg4T6EfVHiwXgn61HRThQto1KHs7KQxVwRfsKSPuDu6y8FsDRh4kxSXNFojRJxbsCjDcxoKhhdNyEweEm44oUQ2Pqn7hWYZ6AQE7Gf2Nnj",
-                    "raw_priv": "ee97b14f2907b209453ff3e633a1445ccabacf7f592e1068b09c60a5ae30198e",
-                    "wif_priv": "L5DWARo8hoiEsqKpJ7bm9TtJfqbw97h2x9PDG4dAFA93A2iyBGWQ",
-                    "address": "bc1qe06g5ql55ycxwz007s5w473520wmjjxql0dmdq"
+                    "ex_pub": "xpub6CfQrbmZKfHEcLGnAje7Rvuaq3QrUPK8Br4ZLEEBLys3fkGBTsgA1UkaR2yyGyru6NWpQNTc4gFAthwnpHyJSyivA5FjrvAbEkG5rgDRgMe",
+                    "raw_pub": "7e0e68afe3a2b645fde9530fe0d6057c8c676ef120ac99b4e47bdbf568ae7d5339098116dafcb6d437fa762fa6c448f0812627f5960a426e2a37785d90ea9fab",
+                    "ex_priv": "xprv9yg4T6EfVHiwPrCK4i774nxrH1aN4vbGpd8xXqpZneL4nww2vLMuTgS6ZkDxWD7Jxu2FaTNpLsyrXLUFYuPMh1SEHLc67pHWsgMZdz5geSC",
+                    "raw_priv": "9a6edcc3cd776dd8c69732f1034251ad143c5a4b2ea002d8a4e9c9b5c6855506",
+                    "wif_priv": "L2PueezGVDEHMzvywDpWciuXHoXMr4yBHmgfcRq9b4P71qo6rhgr",
+                    "address": "bc1qqm4zkekrv4faywlelhq8lf5gyep7ptl356t0g2"
                 },
                 "address_1": {
-                    "ex_pub": "xpub6CfQrbmZKfHEpTgMXsgR9mXYuYgsU3MjimL6t5FzuxkmFMECdjvjWn6WSiV6Pck9Dud9rfjnWTUsfmGw49eTcprRPeCxoevA2a6dWdtQfF5",
-                    "raw_pub": "a2f880cd574fab7607e0494d295648684e579ec641be0794d5a098642c811fbc48cc925bc884d31c7902502e516fa7fbaae6f05fb5dec579f00228f6d88aa51e",
-                    "ex_priv": "xprv9yg4T6EfVHiwbybtRr9QndapMWrP4adtMYQW5grPMdDnNYu46CcUxyn2bT9aDHaWKUtvnrbedjqsNvbyUDmWxXQLbJABx2hZHBXw4KHFguQ",
-                    "raw_priv": "7aa86ded49058c850235b0b17c8ecd0241483ca8005c41a246eddb114115e140",
-                    "wif_priv": "L1L9BUzFR6uywuupUdwRuxbT77exb4nYKk76vNsAMG81pvqK4NU7",
-                    "address": "bc1qyjfa8jq802806u88trdxqqppt6kfvp32ja3sp8"
+                    "ex_pub": "xpub6CfQrbmZKfHEgQ8uNs8vDPVTMyuk4zeKzHoXs2AQnyXwMGbeHM7dW2pX6MEHWfBgab996q1f5GRjpVLz8nAF3G2rRwNQ8mCaYgj3zAW7pXr",
+                    "raw_pub": "c27e6258bd839435ab49f43d71162901f66b133d665b836bef18644d741e1f71d85c2c17003f36069b044492c40c27a20c90af8a9e171b0cb46fce0ab36d9291",
+                    "ex_priv": "xprv9yg4T6EfVHiwTv4SGqburFYiox5FfXvUd4sw4dkoEdzxUUGVjooNxEW3F3FVQ2VNJqiCFrgCWy9eMzFuMavrHFCbALvRgKctHpCQ9CYPGxy",
+                    "raw_priv": "3e26dc6625b0e64d370d4e0802587a22739c6579f06773c4ac584293486331e5",
+                    "wif_priv": "KyJXTFDtsYgJZEPY3Rc7XxKB9PZLZz53XBcFBL84zB5wK8dTdVTa",
+                    "address": "bc1q73y3mzs5se7m3uq00fhg2h5mja9je735ejs297"
                 },
                 "address_2": {
-                    "ex_pub": "xpub6CfQrbmZKfHEqM39oCXfzf9npd7bGd7YB9E3c2YbcrHiykk332sYJK4D4cK5ppSEzs9oSEXNoDKn5erd6wqdJaqX77pdVmh9ha6LcaKQrcR",
-                    "raw_pub": "8afdbd428238b30ebf9033e93e87487f6e7bd7fde3fae9f77b4f4142b5549740c231f8fac7745b20f84dc8fb0525c1f2e064dfbe233d175424d69adc27f173e4",
-                    "ex_priv": "xprv9yg4T6EfVHiwcrxghAzfdXD4GbH6sAPgovJSoe8z4Wkk6xQtVVZHkWjjDLZo79XftWsRUCZEEcKdB358Hxga2pTn3a1NbZD4SGep5Yu72N9",
-                    "raw_priv": "2cb5daf686ca45f1fd6abe1ccf342d777383356241ee0f5d12df8a61d8490f28",
-                    "wif_priv": "Kxid2fqW7hePKC5Hprh8zpHmP9SBSPhQXCFGY5P74NNy1N8PvfnS",
-                    "address": "bc1qqqkt7txq36pn0st8fcksp8wz9vgkj67yy2scsq"
-                }
-            }
+                    "ex_pub": "xpub6CfQrbmZKfHEhQUyPXG4YH88pzm72xyBEVNgNkEdEJWPEWGg9BMcQn2dRUKW9qQE9A44XPYN87ZJRe368kuviVHLQunuHBgKYMdRADzRyss",
+                    "raw_pub": "f9a9618ced0e6755ea0d32bb91d76e6ca905b1d4cafc73af96d9a02bb73d540fab87557b2606c96e596b36bb84a0aff2a3d3b22b6d0b2154375c5479df470b9e",
+                    "ex_priv": "xprv9yg4T6EfVHiwUvQWHVj4B9BQGxvcdWFKsGT5aMq1fxyQMhwXbe3Mryi9aBk8TA9epPgmsX7t5ABLcrdfiRnAUp6ubq7F4d5Wyy1jNJDygpB",
+                    "raw_priv": "2e3226be049bf1bf53a05177bb1d752827e2d52c6e6e3f50f8237e4797cdda46",
+                    "wif_priv": "KxmWWpcFmUmUmkZnkDprAqvdsDCB34YLBvNggAo6HnjLD2MAXJVH",
+                    "address": "bc1qdpmt5znm4ayp5wnxt82kumdhulevng9drp43zp"
+                },
+            },
         },
     },
     # Wallet from extended key (public)
@@ -290,16 +290,16 @@ TEST_VECTOR = [
             "address_off": 0,
             "address": {
                 "address_0": {
-                    "ex_pub": "xpub6BS3kzb2nXFcsDyHoqtUDeP6Yb7Q7Y5FTzy2Hjp3NJaG5pMs3iaBLBbKVYZ1WHniMeS57KPgEXkgmTfoEprMVFDj38jVkLA5qLgoVeQA9FK",
-                    "raw_pub": "1462cdc2b25dfba4f9adb2b72d1e0471c4b48b0992eb98d2c8cbddcfa6660be6e2d61d44401f3e2970f0034b2ca922311dfb51f6cfb742b74d5cf76fc9f8d1ca",
-                    "address": "15zGjp6jzzcfFZy5P6FrLpXV3M4FKSBqsZ"
+                    "ex_pub": "xpub6BS3kzb2nXFcm2Ej2kUah2nGQcUhHDULRpaLjDTa7tS6W5wgxqJcXJDsRz4uTnsYXf3w2AATFtjJBDS55yziFkjAMUTgewy4Th9LvZEWuJ1",
+                    "raw_pub": "8d012214f4109ae66d393bb6d7a000bfdf024e8896ec7f656e2eb9d36a3234b57d6e0d2ee43af12afa89290c0abbab47051c2a8413762e970bfd831e79959c2b",
+                    "address": "1N4TSaAKeoGdHvUsQGasifaSyXVKrMB5uZ"
                 },
                 "address_1": {
-                    "ex_pub": "xpub6BS3kzb2nXFctAPCp2fofUZeW3cwLUnCxdsRh9i8S3ThT73drDNPDWLtdzsg6oXMogZ7vZpCqdqUHUia6uJ56SGouPgoDFS1dXC64yZc14W",
-                    "raw_pub": "7a887696437638b6994f7edd2f0574db82005612b1a1ebad3cfb9c75b7e3de4573e29c36faad3bb0c1ace643dd0543442c613b6e4ca6c574bcf92de75b2052af",
-                    "address": "1FtbsREpV2QvRX7Lysi4oB5e314yJ1Todu"
-                }
-            }
+                    "ex_pub": "xpub6BS3kzb2nXFcpxgqrXPg3hrDU8ThBxh3U1WNhRQWv9471dMEH82XwZwkcC1WXV6S5uALYUz9jdU3L7Du1SexmBikjHwfPVaFmwj7YCEHGM7",
+                    "raw_pub": "8198bb0482d447529aeda10746e311c3c77681c9d8b20fb1d2d0850db996cf92b4fe03f98ef5883695cd0584d4b36c4ec73a1f6ec096c704f0816e2e7bf67e52",
+                    "address": "18WEzdxTFrAjn42u1DfAkBxCCDWPjzsQq8"
+                },
+            },
         },
     },
 ]
