@@ -77,8 +77,7 @@ TEST_VECTOR = [
             "seed_bytes": "c0627d3474fe45acc171bb7022ea9795a99850d47693afcee1ee4d5f6cfedb9daf39a6176065ae4a149a06610d242319f53de17484bc7e52ece8c6e4a85dfd7e",
             "master_key": {
                 "ex_pub": "xpub661MyMwAqRbcGy5R4yJNYmMfUUGrVJToLX45EV2KaBJzKwuj12qSjySnnG4Hk7R1whBSogYAYfJSnJXaoaLDim5MqaYLvt41a3MoepDM5fz",
-                "raw_compr_pub": "034f9e9b4fc2b65a06d073c211cf7de0379f7f367d96ae349f94f3356c3509c002",
-                "raw_uncompr_pub": "044f9e9b4fc2b65a06d073c211cf7de0379f7f367d96ae349f94f3356c3509c002085f2a07711131836e938343957125f06d5c8ad29191a4ee80dbd3e519c5c85f",
+                "raw_pub": "4f9e9b4fc2b65a06d073c211cf7de0379f7f367d96ae349f94f3356c3509c002085f2a07711131836e938343957125f06d5c8ad29191a4ee80dbd3e519c5c85f",
                 "ex_priv": "xprv9s21ZrQH143K4UzwxwmNBdQvvSSN5qjwyJ8US6ci1qn1T9aaTVXCCB8JvzNfPkAANQ1BmT3aChpBSocdZWgxduZXGxEBviWjjzZhzVxRH3p",
                 "raw_priv": "f9a714815abe607120cd426aa0af25c2c81414aa2ba044899b78da22d5235c47",
                 "wif_priv": "L5b18RQAPSwRqBN7HcrY2LUvKCQncY9u4jMPTH26eigmXWZMAdoK"
@@ -87,8 +86,7 @@ TEST_VECTOR = [
             "address": {
                 "address_0": {
                     "ex_pub": "xpub6A22pbU1VsUW14XdD6Ksnn7AK1kMKDkKVHYqfABydCSw1g2jNNYrekQTzfEZCk2T7Kf9wQDeLZRkFMgvYs9Ti79Esj1KCXmayAvxbPysbP6",
-                    "raw_compr_pub": "02adfbb960ad23c0d127cd17ebf3f6f4998ea1e70fa176dd8e0414581b164c4122",
-                    "raw_uncompr_pub": "04adfbb960ad23c0d127cd17ebf3f6f4998ea1e70fa176dd8e0414581b164c4122536a187ec20692a9012209dcf6fe71cef7ad14209b07d2d8a687c6758089f8b0",
+                    "raw_pub": "adfbb960ad23c0d127cd17ebf3f6f4998ea1e70fa176dd8e0414581b164c4122536a187ec20692a9012209dcf6fe71cef7ad14209b07d2d8a687c6758089f8b0",
                     "ex_priv": "xprv9w2gR5w7fVvCnaTA74nsReARkyurum2U84dErmnN4rux8shapqEc6x5z9PUhDehqcD86LJ3eGkzj6W6ScuyoGwgNCQrWcGXBnH97zAvgGMv",
                     "raw_priv": "4e6672978b2a1babecf2413b83f0a77044922cadecc05e14edde0e5b7bfea4c3",
                     "wif_priv": "Kyr7NJfHUvDAZxu14KWFrCDm5YUHARycHbyDNwoYvxfZ9uRFKQKi",
@@ -96,8 +94,7 @@ TEST_VECTOR = [
                 },
                 "address_1": {
                     "ex_pub": "xpub6A22pbU1VsUW3FyG6bj8XRTTRxDJewANL9EqJDgntMC35X2PbjoBix8d2sZNF4hUSPeaxYj4WkLKw755C59aS3EAzTFY4wQEbRZLyiDcMXz",
-                    "raw_compr_pub": "02aa41f1c39ca188da8233d0506eed8747d90045394975273c68211710a619ab9a",
-                    "raw_uncompr_pub": "04aa41f1c39ca188da8233d0506eed8747d90045394975273c68211710a619ab9a1c259fc3029cd8040df7dad5f7722fc456f3a833bcc040c07f3d6716cb836c24",
+                    "raw_pub": "aa41f1c39ca188da8233d0506eed8747d90045394975273c68211710a619ab9a1c259fc3029cd8040df7dad5f7722fc456f3a833bcc040c07f3d6716cb836c24",
                     "ex_priv": "xprv9w2gR5w7fVvCpmtnzaC8AHWisvNpFUSWxvKEVqHBL1f4CihF4CUwB9p9BbQexXtpUdRtPfVV6axsZiEgW5kBufsEyVvuSREjkZcPnVNNBiX",
                     "raw_priv": "16ca6dbe1d5c58f26461a8f5169c329b6d873c40d4b062e37b67f775cce43684",
                     "wif_priv": "Kwz1iJpvrGwnF41ozoTihfcNvCpNPyWHKMLMVS3w8SXVzmMuHCea",
@@ -130,8 +127,7 @@ TEST_VECTOR = [
             "seed_bytes": "6f66213848593608fcc4926f2a87e8babf17828fb059cc898f2b10cf7925d25f81885fb344565db0ce99a9eadf124786079c0aadc0ae26180076c200f6feccc4",
             "master_key": {
                 "ex_pub": "xpub661MyMwAqRbcFSQZQR3gsJuZJKgxuioinfxRGhdLY4PbEt5AZ5iWqLK9RD9QeqCswBH8KQ6MizeSHVopSmfSJpsVLfjicz3feVGQVaVpPUy",
-                "raw_compr_pub": "0313f2fc52b412679970af03dbd12889bf4576cfd996bc774ead539c40874be4d2",
-                "raw_uncompr_pub": "0413f2fc52b412679970af03dbd12889bf4576cfd996bc774ead539c40874be4d2c4aec369b3fa84320f430da73c3ef696d577aa1e6e02dac0cc32a9bc36157e07",
+                "raw_pub": "13f2fc52b412679970af03dbd12889bf4576cfd996bc774ead539c40874be4d2c4aec369b3fa84320f430da73c3ef696d577aa1e6e02dac0cc32a9bc36157e07",
                 "ex_priv": "xprv9s21ZrQH143K2xL6JPWgWAxpkHrUWG5sRT2pUKDiyircN5k21YQGHXzfZwhFTwjMFozq776WpQ3AcyzyWrLoJxh6GWvqCDCDnHRqqEYn12T",
                 "raw_priv": "dc9052d98eb9a7ef0dc34c3f53a594a02c7e5877670f7e199cdb715f2aeebd41",
                 "wif_priv": "L4cTX2EoBpeqwhAo7xm2bWhTuqafoA5sJ7BDpCrPDFQNswAsAL1J"
@@ -140,8 +136,7 @@ TEST_VECTOR = [
             "address": {
                 "address_0": {
                     "ex_pub": "xpub6DFUEqfT2vMywCpPfjKp1J2DpGaqBg92VBnFefBmdDiNdLwsxePFVY9PwMK3ZR9PAnbYrY8aq33Vs6fGYhet9YC1VhtnQddmwDfhhTSm2VM",
-                    "raw_compr_pub": "036abdf591307e722e3f5558c5b77336e17aada006219717428563a02d0462203b",
-                    "raw_uncompr_pub": "046abdf591307e722e3f5558c5b77336e17aada006219717428563a02d0462203bd2398d1af566288b0181b6255900edd834e5cd3b123884af9a5189e4d4601793",
+                    "raw_pub": "6abdf591307e722e3f5558c5b77336e17aada006219717428563a02d0462203bd2398d1af566288b0181b6255900edd834e5cd3b123884af9a5189e4d4601793",
                     "ex_priv": "xprv9zG7qL8ZCYogiijvZhnoeA5VGEkLnDRB7xrerGnA4tBPkYcjR74zwjpv64zysA8wFfs4iDoe8f8CgEYRBFvD2HaVgdZ7UYN6p71iLGn2AJD",
                     "raw_priv": "c20a63777dd56941410307c1a95c4691039331ba23a901e9560ab90a0798e623",
                     "wif_priv": "L3iuBF4qzY9tWiY8Sci9GkgfBds2w2MC6G8SDLZfkZD17mcCJQnx",
@@ -149,8 +144,7 @@ TEST_VECTOR = [
                 },
                 "address_1": {
                     "ex_pub": "xpub6DFUEqfT2vMyzJseXWXUN78UzkHBjjdQ1h1BNKsBQDNdMiL9EMLnzhr6ky2CRAXdBz4yNUwkiE1jbsL1h6eoEK29Q95rpJe7BnfTdHBuRri",
-                    "raw_compr_pub": "037de1dd58e59b865e30d773da3db8c27d024e12a9b8de7a45d401beb0511db807",
-                    "raw_uncompr_pub": "047de1dd58e59b865e30d773da3db8c27d024e12a9b8de7a45d401beb0511db807d85f165cf2eb7e30ef45b4b5646a5aa94a26f7a87d2f7cce722257a523d91d11",
+                    "raw_pub": "7de1dd58e59b865e30d773da3db8c27d024e12a9b8de7a45d401beb0511db807d85f165cf2eb7e30ef45b4b5646a5aa94a26f7a87d2f7cce722257a523d91d11",
                     "ex_priv": "xprv9zG7qL8ZCYogmpoBRUzTzyBkSiShLGuYeU5aZwTZqsqeUuzzgp2YSuXcufJvxycwd8K9KYv7vHkNeexJ9RjH5jhKhMqCqtRCTqiC3ouiWR9",
                     "raw_priv": "1cccd5fc2b6782b5ef15e16215dce44b58219b2a6d5332b6ba33cd30ff312051",
                     "wif_priv": "KxBhErZKQgFPuyA97tRjKJ4aWZYZM6oLhoi8yfK466Jqbx7ySxSA",
@@ -181,8 +175,7 @@ TEST_VECTOR = [
             "seed_bytes": "24ae6188cbde185898dc61f4b3bb6dfbb854824331e72ba0457f4aa19bbf0aedafc60cabd57ffd71b2543844a77b0d1aa0228bf44f49926165bc8e2875b645d7",
             "master_key": {
                 "ex_pub": "xpub661MyMwAqRbcH4M1W3eBUtreTt1ZNfMzAGgC9fpY8FLiCDHnMJyWKmQou62zqGCVC78KTPGKt6WYWzA8xAf1JdyTG46Juqmp4NPpNTNWxfY",
-                "raw_compr_pub": "034c9f2078ee53b99b1718fb42757b210b883ed2a122126e45391219aef612fa3f",
-                "raw_uncompr_pub": "044c9f2078ee53b99b1718fb42757b210b883ed2a122126e45391219aef612fa3f0db4cceb5700e925667459522430645e9f9b82722d6f158cf3b380f097884a97",
+                "raw_pub": "4c9f2078ee53b99b1718fb42757b210b883ed2a122126e45391219aef612fa3f0db4cceb5700e925667459522430645e9f9b82722d6f158cf3b380f097884a97",
                 "ex_priv": "xprv9s21ZrQH143K4aGYQ27B7kuuurB4yCe8o3kbMHQvZuojKQxdomfFmy6L3pMbaSDy7SuP7tCjK9Cvgxtaot5TcfoYoyvFZQS8Y68H7Z5QVRe",
                 "raw_priv": "f72ad81b50bdc3278151e7dbef4adbd8b9d27ebf02661bd1f3a67b8cec41c8ac",
                 "wif_priv": "L5WAvdQddaAnDnwFRSL91fiYrhByThZ59wtWQRrpNvXoV7igKjSh"
@@ -191,8 +184,7 @@ TEST_VECTOR = [
             "address": {
                 "address_10": {
                     "ex_pub": "xpub6Aebs6BHU9rtYwNN45Kf8Cfd3eUU3MaGQUEY3rdRzmmbKdyCGrWfDxZE4EYsKRvf3oHxjyHKYmpzvVdY9PY11M9ughAVvDcyF6XVFfqMppC",
-                    "raw_compr_pub": "02dad844900d2a8b862d3c128ff3eacb96487e83769462f202f31076d37bdeaa45",
-                    "raw_uncompr_pub": "04dad844900d2a8b862d3c128ff3eacb96487e83769462f202f31076d37bdeaa4509e705d8d54981af1c97d86659442f11b49de859933a795d0803a70bd0137ade",
+                    "raw_pub": "dad844900d2a8b862d3c128ff3eacb96487e83769462f202f31076d37bdeaa4509e705d8d54981af1c97d86659442f11b49de859933a795d0803a70bd0137ade",
                     "ex_priv": "xprv9wfFTaePdnJbLTHtx3nem4itVcdydtrR3FJwFUDpSSEcSqe3jKCQgAEkCxFuV6ejwrg4x33776Azgvg7SJ5gMrHEjqnFaprBXKCirqvmMG1",
                     "raw_priv": "34a4b6b60264eb9e86eaa8f133c783072f90a9a872a1d3e70c213d148a224e6d",
                     "wif_priv": "Kxz3SDr3kLQKDwpctK3sV1fjsoiadcFaq2tWr7mu68WedePvJV7n",
@@ -200,8 +192,7 @@ TEST_VECTOR = [
                 },
                 "address_11": {
                     "ex_pub": "xpub6Aebs6BHU9rtbfgvxT8GHnvi6jWQBYq4BDFadgETFAsWKADL63rcxTMmXJdjPWLzg3gir9MYGuqZEyQpCpVExTMCJNeFCX2Yu3rheGAcNqC",
-                    "raw_compr_pub": "02dc70005564bc103614e02c21e73c25923bc7a1906c85b02c5940383cc21af207",
-                    "raw_uncompr_pub": "04dc70005564bc103614e02c21e73c25923bc7a1906c85b02c5940383cc21af20742485ded2220d84275ba4deda2d6704570bd47420e631ec0995276e579848e26",
+                    "raw_pub": "dc70005564bc103614e02c21e73c25923bc7a1906c85b02c5940383cc21af20742485ded2220d84275ba4deda2d6704570bd47420e631ec0995276e579848e26",
                     "ex_priv": "xprv9wfFTaePdnJbPBcTrRbFveyyYhfun67CozKyqHpqgqLXSMtBYWYNQf3Hg1wAo6YE8sRzrPStUbMzLpQPFscCS2odZNzm67RSNgPygqZzQUi",
                     "raw_priv": "00a6a811257eb3199ad11fb2bc510b3e485470bf3d1267851ea87647c6c5f7ec",
                     "wif_priv": "KwEyag73LbkEdttrh3z3RrFbgU5aF5xWe4CMA3LR8Bbuhjv5FivN",
@@ -209,8 +200,7 @@ TEST_VECTOR = [
                 },
                 "address_12": {
                     "ex_pub": "xpub6Aebs6BHU9rtdtUeb1ZwSLSE8AZ4u5UZVY3QnQTtKJEFpSA9775jpwXhnDUbF3B8DJ1eAa6dSxRtkPJ7UQmTTwrcQG97bgqhj2q685wFzDj",
-                    "raw_compr_pub": "025c50539bebd12db9272e1f9edc4464e95369b847dc4e759a3a1e0e78641e63c0",
-                    "raw_uncompr_pub": "045c50539bebd12db9272e1f9edc4464e95369b847dc4e759a3a1e0e78641e63c0d71caddfa62de984408a7b3027e629cb80135e69b55b84d5e06a88dffbf1c7c8",
+                    "raw_pub": "5c50539bebd12db9272e1f9edc4464e95369b847dc4e759a3a1e0e78641e63c0d71caddfa62de984408a7b3027e629cb80135e69b55b84d5e06a88dffbf1c7c8",
                     "ex_priv": "xprv9wfFTaePdnJbRQQBUz2w5CVVa8iaVcki8K7oz24GkxhGwdpzZZmVH9DDvxqjH55k4VsQDANaAz8A5cev1hYPB3C4HhqVUiQsnVR2bSY2wZH",
                     "raw_priv": "905266691adf9a7808fe6d5ad5c2155f9b7ac395ac14fa40353e5b5268360645",
                     "wif_priv": "L24FfrpoVFUF5e1rfm3ns4L7FL886B3ZjLDDQQerF891XS9NfSb8",
@@ -240,8 +230,7 @@ TEST_VECTOR = [
             "coin_name": "Bitcoin (BTC)",
             "master_key": {
                 "ex_pub": "xpub661MyMwAqRbcH4M1W3eBUtreTt1ZNfMzAGgC9fpY8FLiCDHnMJyWKmQou62zqGCVC78KTPGKt6WYWzA8xAf1JdyTG46Juqmp4NPpNTNWxfY",
-                "raw_compr_pub": "034c9f2078ee53b99b1718fb42757b210b883ed2a122126e45391219aef612fa3f",
-                "raw_uncompr_pub": "044c9f2078ee53b99b1718fb42757b210b883ed2a122126e45391219aef612fa3f0db4cceb5700e925667459522430645e9f9b82722d6f158cf3b380f097884a97",
+                "raw_pub": "4c9f2078ee53b99b1718fb42757b210b883ed2a122126e45391219aef612fa3f0db4cceb5700e925667459522430645e9f9b82722d6f158cf3b380f097884a97",
                 "ex_priv": "xprv9s21ZrQH143K4aGYQ27B7kuuurB4yCe8o3kbMHQvZuojKQxdomfFmy6L3pMbaSDy7SuP7tCjK9Cvgxtaot5TcfoYoyvFZQS8Y68H7Z5QVRe",
                 "raw_priv": "f72ad81b50bdc3278151e7dbef4adbd8b9d27ebf02661bd1f3a67b8cec41c8ac",
                 "wif_priv": "L5WAvdQddaAnDnwFRSL91fiYrhByThZ59wtWQRrpNvXoV7igKjSh"
@@ -250,8 +239,7 @@ TEST_VECTOR = [
             "address": {
                 "address_0": {
                     "ex_pub": "xpub6CfQrbmZKfHEkArZ7JxU4YqXZM8MWn8osAMGfhr1TZS5qvb1ky1KJkm1DWKvXwGRaCzxVaNt6iQy3kduuW5QVsgi2zxWAPZvZoCucoN8kCq",
-                    "raw_compr_pub": "02ab709448f6732c893994d0ac1e6c911de5ed0f2927d0bf7e1327bb437fdd53b6",
-                    "raw_uncompr_pub": "04ab709448f6732c893994d0ac1e6c911de5ed0f2927d0bf7e1327bb437fdd53b6e6a527187301be39556a8bbc19ca8c564f348b9d11abfc8131b32282ac13f276",
+                    "raw_pub": "ab709448f6732c893994d0ac1e6c911de5ed0f2927d0bf7e1327bb437fdd53b6e6a527187301be39556a8bbc19ca8c564f348b9d11abfc8131b32282ac13f276",
                     "ex_priv": "xprv9yg4T6EfVHiwXgn61HRThQto1KHs7KQxVwRfsKSPuDu6y8FsDRh4kxSXNFojRJxbsCjDcxoKhhdNyEweEm44oUQ2Pqn7hWYZ6AQE7Gf2Nnj",
                     "raw_priv": "ee97b14f2907b209453ff3e633a1445ccabacf7f592e1068b09c60a5ae30198e",
                     "wif_priv": "L5DWARo8hoiEsqKpJ7bm9TtJfqbw97h2x9PDG4dAFA93A2iyBGWQ",
@@ -259,8 +247,7 @@ TEST_VECTOR = [
                 },
                 "address_1": {
                     "ex_pub": "xpub6CfQrbmZKfHEpTgMXsgR9mXYuYgsU3MjimL6t5FzuxkmFMECdjvjWn6WSiV6Pck9Dud9rfjnWTUsfmGw49eTcprRPeCxoevA2a6dWdtQfF5",
-                    "raw_compr_pub": "02a2f880cd574fab7607e0494d295648684e579ec641be0794d5a098642c811fbc",
-                    "raw_uncompr_pub": "04a2f880cd574fab7607e0494d295648684e579ec641be0794d5a098642c811fbc48cc925bc884d31c7902502e516fa7fbaae6f05fb5dec579f00228f6d88aa51e",
+                    "raw_pub": "a2f880cd574fab7607e0494d295648684e579ec641be0794d5a098642c811fbc48cc925bc884d31c7902502e516fa7fbaae6f05fb5dec579f00228f6d88aa51e",
                     "ex_priv": "xprv9yg4T6EfVHiwbybtRr9QndapMWrP4adtMYQW5grPMdDnNYu46CcUxyn2bT9aDHaWKUtvnrbedjqsNvbyUDmWxXQLbJABx2hZHBXw4KHFguQ",
                     "raw_priv": "7aa86ded49058c850235b0b17c8ecd0241483ca8005c41a246eddb114115e140",
                     "wif_priv": "L1L9BUzFR6uywuupUdwRuxbT77exb4nYKk76vNsAMG81pvqK4NU7",
@@ -268,8 +255,7 @@ TEST_VECTOR = [
                 },
                 "address_2": {
                     "ex_pub": "xpub6CfQrbmZKfHEqM39oCXfzf9npd7bGd7YB9E3c2YbcrHiykk332sYJK4D4cK5ppSEzs9oSEXNoDKn5erd6wqdJaqX77pdVmh9ha6LcaKQrcR",
-                    "raw_compr_pub": "028afdbd428238b30ebf9033e93e87487f6e7bd7fde3fae9f77b4f4142b5549740",
-                    "raw_uncompr_pub": "048afdbd428238b30ebf9033e93e87487f6e7bd7fde3fae9f77b4f4142b5549740c231f8fac7745b20f84dc8fb0525c1f2e064dfbe233d175424d69adc27f173e4",
+                    "raw_pub": "8afdbd428238b30ebf9033e93e87487f6e7bd7fde3fae9f77b4f4142b5549740c231f8fac7745b20f84dc8fb0525c1f2e064dfbe233d175424d69adc27f173e4",
                     "ex_priv": "xprv9yg4T6EfVHiwcrxghAzfdXD4GbH6sAPgovJSoe8z4Wkk6xQtVVZHkWjjDLZo79XftWsRUCZEEcKdB358Hxga2pTn3a1NbZD4SGep5Yu72N9",
                     "raw_priv": "2cb5daf686ca45f1fd6abe1ccf342d777383356241ee0f5d12df8a61d8490f28",
                     "wif_priv": "Kxid2fqW7hePKC5Hprh8zpHmP9SBSPhQXCFGY5P74NNy1N8PvfnS",
@@ -299,21 +285,18 @@ TEST_VECTOR = [
             "coin_name": "Bitcoin (BTC)",
             "master_key": {
                 "ex_pub": "xpub661MyMwAqRbcFrtsKpTC35Lbm6BJoekshx7oUUk87N8Um3j8ckWQjbHhZgvEVRx3JWyZxaT63ut7oAKoYpGS985fCPhqaogTNVNidD1H7us",
-                "raw_compr_pub": "0207bdcd40ff66af6e1a9dc5502f765250f1e7e09dad34cd2060cac2682e916947",
-                "raw_uncompr_pub": "0407bdcd40ff66af6e1a9dc5502f765250f1e7e09dad34cd2060cac2682e916947323148a8a940300ea44ca0ef023775cfe54cf88453a11a4e656e7f1d4502c5d6"
+                "raw_pub": "07bdcd40ff66af6e1a9dc5502f765250f1e7e09dad34cd2060cac2682e916947323148a8a940300ea44ca0ef023775cfe54cf88453a11a4e656e7f1d4502c5d6"
             },
             "address_off": 0,
             "address": {
                 "address_0": {
                     "ex_pub": "xpub6BS3kzb2nXFcsDyHoqtUDeP6Yb7Q7Y5FTzy2Hjp3NJaG5pMs3iaBLBbKVYZ1WHniMeS57KPgEXkgmTfoEprMVFDj38jVkLA5qLgoVeQA9FK",
-                    "raw_compr_pub": "021462cdc2b25dfba4f9adb2b72d1e0471c4b48b0992eb98d2c8cbddcfa6660be6",
-                    "raw_uncompr_pub": "041462cdc2b25dfba4f9adb2b72d1e0471c4b48b0992eb98d2c8cbddcfa6660be6e2d61d44401f3e2970f0034b2ca922311dfb51f6cfb742b74d5cf76fc9f8d1ca",
+                    "raw_pub": "1462cdc2b25dfba4f9adb2b72d1e0471c4b48b0992eb98d2c8cbddcfa6660be6e2d61d44401f3e2970f0034b2ca922311dfb51f6cfb742b74d5cf76fc9f8d1ca",
                     "address": "15zGjp6jzzcfFZy5P6FrLpXV3M4FKSBqsZ"
                 },
                 "address_1": {
                     "ex_pub": "xpub6BS3kzb2nXFctAPCp2fofUZeW3cwLUnCxdsRh9i8S3ThT73drDNPDWLtdzsg6oXMogZ7vZpCqdqUHUia6uJ56SGouPgoDFS1dXC64yZc14W",
-                    "raw_compr_pub": "037a887696437638b6994f7edd2f0574db82005612b1a1ebad3cfb9c75b7e3de45",
-                    "raw_uncompr_pub": "047a887696437638b6994f7edd2f0574db82005612b1a1ebad3cfb9c75b7e3de4573e29c36faad3bb0c1ace643dd0543442c613b6e4ca6c574bcf92de75b2052af",
+                    "raw_pub": "7a887696437638b6994f7edd2f0574db82005612b1a1ebad3cfb9c75b7e3de4573e29c36faad3bb0c1ace643dd0543442c613b6e4ca6c574bcf92de75b2052af",
                     "address": "1FtbsREpV2QvRX7Lysi4oB5e314yJ1Todu"
                 }
             }

@@ -57,6 +57,5 @@ class HdWalletElectrumV2KeyTypes(HdWalletKeyTypes):
     RAW_PRIV = auto()
     WIF_PRIV = auto()
     EX_PUB = auto()
-    RAW_COMPR_PUB = auto()
-    RAW_UNCOMPR_PUB = auto()
+    RAW_PUB = auto()
     ADDRESS = auto()
