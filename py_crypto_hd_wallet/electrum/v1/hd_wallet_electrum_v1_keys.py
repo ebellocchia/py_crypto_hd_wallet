@@ -55,7 +55,7 @@ class HdWalletElectrumV1KeyUtils:
         """
         return WifEncoder.Encode(
             priv_key,
-            CoinsConf.BitcoinMainNet.Params("wif_net_ver"),
+            CoinsConf.BitcoinMainNet.ParamByKey("wif_net_ver"),
             WifPubKeyModes.UNCOMPRESSED
         )
 
