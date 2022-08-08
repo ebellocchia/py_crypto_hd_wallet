@@ -27,6 +27,8 @@ Supported coin enumerative:
 |Bitcoin Cash|*HdWalletBip44Coins.BITCOIN_CASH*|*HdWalletBip44Coins.BITCOIN_CASH_TESTNET*|
 |Bitcoin Cash SLP|*HdWalletBip44Coins.BITCOIN_CASH_SLP*|*HdWalletBip44Coins.BITCOIN_CASH_SLP_TESTNET*|
 |BitcoinSV|*HdWalletBip44Coins.BITCOIN_SV*|*HdWalletBip44Coins.BITCOIN_SV_TESTNET*|
+|Cardano Byron (Icarus)|*HdWalletBip44Coins.CARDANO_BYRON_ICARUS*, see [Cardano](https://github.com/ebellocchia/bip_utils/tree/master/readme/cardano.md)|-|
+|Cardano Byron (Ledger)|*HdWalletBip44Coins.CARDANO_BYRON_LEDGER*, see [Cardano](https://github.com/ebellocchia/bip_utils/tree/master/readme/cardano.md)|-|
 |Celo|*HdWalletBip44Coins.CELO*|-|
 |Certik|*HdWalletBip44Coins.CERTIK*|-|
 |Chihuahua|*HdWalletBip44Coins.CHIHUAHUA*|-|
@@ -36,6 +38,7 @@ Supported coin enumerative:
 |eCash|*HdWalletBip44Coins.ECASH*|*HdWalletBip44Coins.ECASH_TESTNET*|
 |Elrond|*HdWalletBip44Coins.ELROND*|-|
 |EOS|*HdWalletBip44Coins.EOS*|-|
+|Ergo|*HdWalletBip44Coins.ERGO*|*HdWalletBip44Coins.ERGO_TESTNET*|
 |Ethereum|*HdWalletBip44Coins.ETHEREUM*|-|
 |Ethereum Classic|*HdWalletBip44Coins.ETHEREUM_CLASSIC*|-|
 |Fantom Opera|*HdWalletBip44Coins.FANTOM_OPERA*|-|
@@ -48,6 +51,8 @@ Supported coin enumerative:
 |Kava|*HdWalletBip44Coins.KAVA*|-|
 |Kusama (ed25519 SLIP-0010)|*HdWalletBip44Coins.KUSAMA_ED25519_SLIP*|-|
 |Litecoin|*HdWalletBip44Coins.LITECOIN*|*HdWalletBip44Coins.LITECOIN_TESTNET*|
+|Monero (ed25519 SLIP-0010)|*HdWalletBip44Coins.MONERO_ED25519_SLIP*|-|
+|Monero (secp256k1)|*HdWalletBip44Coins.MONERO_SECP256K1*|-|
 |Nano|*HdWalletBip44Coins.NANO*|-|
 |Near Protocol|*HdWalletBip44Coins.NEAR_PROTOCOL*|-|
 |NEO|*HdWalletBip44Coins.NEO*|-|
