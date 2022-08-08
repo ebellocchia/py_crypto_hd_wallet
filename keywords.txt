@@ -22,6 +22,9 @@ segwit
 electrum
 substrate
 taproot
+daedalus
+byron
+shelley
 
 # BIP coins
 akash
@@ -36,6 +39,9 @@ bitcoin
 bitcoin cash
 bitcoinsv
 bnb
+cardano
+cardano-byron
+cardano-shelley
 celo
 certik
 cosmos
