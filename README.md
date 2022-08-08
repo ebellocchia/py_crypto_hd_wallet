@@ -41,9 +41,11 @@ Or you can install *tox*:
 
 And then simply run *tox*:
 
-    tox -e coverage
+    tox
 
-To run tests and get the code coverage and report.
+Or, with code coverage:
+
+    tox -e coverage
 
 ## Modules description
 
