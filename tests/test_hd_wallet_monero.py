@@ -24,15 +24,16 @@ import binascii
 import json
 import os
 import unittest
+
 from py_crypto_hd_wallet import (
-    HdWalletSaver, HdWalletMoneroFactory, HdWalletMoneroCoins,
-    HdWalletMoneroWordsNum, HdWalletMoneroDataTypes, HdWalletMoneroKeyTypes,
-    HdWalletMoneroKeys, HdWalletMoneroSubaddresses
+    HdWalletMoneroCoins, HdWalletMoneroDataTypes, HdWalletMoneroFactory, HdWalletMoneroKeys, HdWalletMoneroKeyTypes,
+    HdWalletMoneroSubaddresses, HdWalletMoneroWordsNum, HdWalletSaver
 )
+from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMoneroConst
+
 # Just for testing
 from py_crypto_hd_wallet.monero.hd_wallet_monero_keys import HdWalletMoneroKeysConst
 from py_crypto_hd_wallet.monero.hd_wallet_monero_subaddr import HdWalletMoneroSubaddressesConst
-from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMoneroConst
 
 # Test vector
 TEST_VECTOR = [

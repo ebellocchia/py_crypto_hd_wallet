@@ -22,16 +22,18 @@
 
 # Imports
 from typing import Type
-from bip_utils.electrum.electrum_v2 import ElectrumV2Base
+
 from bip_utils import (
     Bip32KeyError, Bip32Secp256k1, ElectrumV2MnemonicDecoder, ElectrumV2MnemonicGenerator, ElectrumV2SeedGenerator,
     ElectrumV2Segwit, ElectrumV2Standard
 )
-from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_enum import (
-    HdWalletElectrumV2WordsNum, HdWalletElectrumV2Languages, HdWalletElectrumV2MnemonicTypes
-)
+from bip_utils.electrum.electrum_v2 import ElectrumV2Base
+
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2 import HdWalletElectrumV2
+from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_enum import (
+    HdWalletElectrumV2Languages, HdWalletElectrumV2MnemonicTypes, HdWalletElectrumV2WordsNum
+)
 
 
 class HdWalletElectrumV2Factory:

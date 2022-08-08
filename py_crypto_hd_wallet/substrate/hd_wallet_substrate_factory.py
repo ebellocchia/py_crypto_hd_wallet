@@ -22,14 +22,14 @@
 
 # Imports
 from bip_utils import (
-    MnemonicChecksumError, Bip39MnemonicGenerator, SubstrateBip39SeedGenerator,
-    SubstrateKeyError, Substrate
+    Bip39MnemonicGenerator, MnemonicChecksumError, Substrate, SubstrateBip39SeedGenerator, SubstrateKeyError
 )
+
 from py_crypto_hd_wallet.common import HdWalletBase
-from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import (
-    HdWalletSubstrateWordsNum, HdWalletSubstrateLanguages, HdWalletSubstrateCoins
-)
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate import HdWalletSubstrate
+from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import (
+    HdWalletSubstrateCoins, HdWalletSubstrateLanguages, HdWalletSubstrateWordsNum
+)
 from py_crypto_hd_wallet.utils import Utils
 
 

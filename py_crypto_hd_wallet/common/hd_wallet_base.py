@@ -24,6 +24,7 @@
 import json
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Type
+
 from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
 
 

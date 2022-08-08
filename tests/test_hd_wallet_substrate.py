@@ -24,14 +24,15 @@ import binascii
 import json
 import os
 import unittest
+
 from py_crypto_hd_wallet import (
-    HdWalletSaver, HdWalletSubstrateFactory, HdWalletSubstrateCoins,
-    HdWalletSubstrateWordsNum, HdWalletSubstrateDataTypes, HdWalletSubstrateKeyTypes,
-    HdWalletSubstrateKeys
+    HdWalletSaver, HdWalletSubstrateCoins, HdWalletSubstrateDataTypes, HdWalletSubstrateFactory, HdWalletSubstrateKeys,
+    HdWalletSubstrateKeyTypes, HdWalletSubstrateWordsNum
 )
+from py_crypto_hd_wallet.substrate.hd_wallet_substrate import HdWalletSubstrateConst
+
 # Just for testing
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_keys import HdWalletSubstrateKeysConst
-from py_crypto_hd_wallet.substrate.hd_wallet_substrate import HdWalletSubstrateConst
 
 # Test vector
 TEST_VECTOR = [

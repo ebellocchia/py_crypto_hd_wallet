@@ -22,14 +22,14 @@
 
 # Imports
 from bip_utils import (
-    MnemonicChecksumError, MoneroMnemonicEncoder, MoneroMnemonicGenerator, MoneroSeedGenerator,
-    MoneroKeyError, Monero
+    MnemonicChecksumError, Monero, MoneroKeyError, MoneroMnemonicEncoder, MoneroMnemonicGenerator, MoneroSeedGenerator
 )
+
 from py_crypto_hd_wallet.common import HdWalletBase
-from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import (
-    HdWalletMoneroWordsNum, HdWalletMoneroLanguages, HdWalletMoneroCoins
-)
 from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMonero
+from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import (
+    HdWalletMoneroCoins, HdWalletMoneroLanguages, HdWalletMoneroWordsNum
+)
 from py_crypto_hd_wallet.utils import Utils
 
 

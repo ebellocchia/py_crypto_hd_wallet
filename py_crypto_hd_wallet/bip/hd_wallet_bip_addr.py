@@ -23,6 +23,7 @@
 # Imports
 from bip_utils import Bip44Levels
 from bip_utils.bip.bip44_base import Bip44Base
+
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 

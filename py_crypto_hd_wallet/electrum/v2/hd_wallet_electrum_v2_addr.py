@@ -22,6 +22,7 @@
 
 # Imports
 from bip_utils.electrum.electrum_v2 import ElectrumV2Base
+
 from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_keys import HdWalletElectrumV2DerivedKeys
 

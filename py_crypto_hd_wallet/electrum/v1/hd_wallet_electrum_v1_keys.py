@@ -22,8 +22,10 @@
 
 # Imports
 from typing import Dict
-from bip_utils import CoinsConf, ElectrumV1, IPrivateKey, WifPubKeyModes, WifEncoder
-from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
+
+from bip_utils import CoinsConf, ElectrumV1, IPrivateKey, WifEncoder, WifPubKeyModes
+
+from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import HdWalletElectrumV1KeyTypes
 
 

@@ -24,14 +24,15 @@ import binascii
 import json
 import os
 import unittest
+
 from py_crypto_hd_wallet import (
-    HdWalletSaver, HdWalletAlgorandFactory,
-    HdWalletAlgorandWordsNum, HdWalletAlgorandDataTypes, HdWalletAlgorandKeyTypes,
-    HdWalletAlgorandKeys
+    HdWalletAlgorandDataTypes, HdWalletAlgorandFactory, HdWalletAlgorandKeys, HdWalletAlgorandKeyTypes,
+    HdWalletAlgorandWordsNum, HdWalletSaver
 )
+from py_crypto_hd_wallet.algorand.hd_wallet_algorand import HdWalletAlgorandConst
+
 # Just for testing
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_keys import HdWalletAlgorandKeysConst
-from py_crypto_hd_wallet.algorand.hd_wallet_algorand import HdWalletAlgorandConst
 
 # Test vector
 TEST_VECTOR = [

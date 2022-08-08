@@ -22,6 +22,7 @@
 
 # Imports
 from bip_utils import Monero
+
 from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 
 

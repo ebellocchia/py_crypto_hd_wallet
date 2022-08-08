@@ -24,15 +24,16 @@ import binascii
 import json
 import os
 import unittest
+
 from py_crypto_hd_wallet import (
-    HdWalletSaver, HdWalletElectrumV1Factory,
-    HdWalletElectrumV1WordsNum, HdWalletElectrumV1DataTypes, HdWalletElectrumV1KeyTypes,
-    HdWalletElectrumV1Addresses, HdWalletElectrumV1MasterKeys, HdWalletElectrumV1DerivedKeys
+    HdWalletElectrumV1Addresses, HdWalletElectrumV1DataTypes, HdWalletElectrumV1DerivedKeys, HdWalletElectrumV1Factory,
+    HdWalletElectrumV1KeyTypes, HdWalletElectrumV1MasterKeys, HdWalletElectrumV1WordsNum, HdWalletSaver
 )
+from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1 import HdWalletElectrumV1Const
+
 # Just for testing
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_addr import HdWalletElectrumV1AddressesConst
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_keys import HdWalletElectrumV1KeysConst
-from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1 import HdWalletElectrumV1Const
 
 # Test vector
 TEST_VECTOR = [

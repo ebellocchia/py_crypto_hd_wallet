@@ -22,9 +22,11 @@
 
 # Imports
 from typing import Any, Dict
-from bip_utils import SubstrateKeyError, SubstratePathError, Substrate
+
+from bip_utils import Substrate, SubstrateKeyError, SubstratePathError
+
 from py_crypto_hd_wallet.common import HdWalletBase
-from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateDataTypes, HdWalletDataTypes
+from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletDataTypes, HdWalletSubstrateDataTypes
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_keys import HdWalletSubstrateKeys
 from py_crypto_hd_wallet.utils import Utils
 

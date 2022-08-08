@@ -22,9 +22,11 @@
 
 # Imports
 from typing import Dict
+
 from bip_utils.bip.bip44_base import Bip44Base
+
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_enum import HdWalletAlgorandKeyTypes
-from py_crypto_hd_wallet.common import HdWalletKeyTypes, HdWalletKeysBase
+from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
 
 
 class HdWalletAlgorandKeysConst:

@@ -21,12 +21,13 @@
 """Module for creating Electrum V1 wallet factories."""
 
 # Imports
-from bip_utils import ElectrumV1MnemonicGenerator, ElectrumV1SeedGenerator, ElectrumV1
-from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import (
-    HdWalletElectrumV1WordsNum, HdWalletElectrumV1Languages
-)
+from bip_utils import ElectrumV1, ElectrumV1MnemonicGenerator, ElectrumV1SeedGenerator
+
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1 import HdWalletElectrumV1
+from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import (
+    HdWalletElectrumV1Languages, HdWalletElectrumV1WordsNum
+)
 
 
 class HdWalletElectrumV1Factory:

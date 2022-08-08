@@ -22,13 +22,13 @@
 
 # Imports
 from typing import Any, Dict
+
 from bip_utils import CoinsConf, ElectrumV1
-from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletBase
+
+from py_crypto_hd_wallet.common import HdWalletBase, HdWalletDataTypes
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_addr import HdWalletElectrumV1Addresses
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import HdWalletElectrumV1DataTypes
-from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_keys import (
-    HdWalletElectrumV1MasterKeys
-)
+from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_keys import HdWalletElectrumV1MasterKeys
 from py_crypto_hd_wallet.utils import Utils
 
 

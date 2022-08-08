@@ -22,10 +22,11 @@
 
 # Imports
 from enum import auto, unique
-from bip_utils import SubstrateCoins
-from py_crypto_hd_wallet.bip import HdWalletBipWordsNum, HdWalletBipLanguages
-from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+from bip_utils import SubstrateCoins
+
+from py_crypto_hd_wallet.bip import HdWalletBipLanguages, HdWalletBipWordsNum
+from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
 # Alias for HdWalletBipWordsNum
 HdWalletSubstrateWordsNum = HdWalletBipWordsNum

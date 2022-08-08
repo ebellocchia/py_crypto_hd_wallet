@@ -24,16 +24,17 @@ import binascii
 import json
 import os
 import unittest
+
 from py_crypto_hd_wallet import (
-    HdWalletSaver, HdWalletBipFactory,
-    HdWalletBipChanges, HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins,
-    HdWalletBipWordsNum, HdWalletBipDataTypes, HdWalletBipKeyTypes,
-    HdWalletBipKeys, HdWalletBipAddresses
+    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins, HdWalletBipAddresses,
+    HdWalletBipChanges, HdWalletBipDataTypes, HdWalletBipFactory, HdWalletBipKeys, HdWalletBipKeyTypes,
+    HdWalletBipWordsNum, HdWalletSaver
 )
+from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBipConst
+
 # Just for testing
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddressesConst
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeysConst
-from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBipConst
 
 # Test vector
 TEST_VECTOR = [

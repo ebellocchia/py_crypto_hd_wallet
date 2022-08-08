@@ -22,9 +22,10 @@
 
 # Imports
 from enum import auto, unique
-from bip_utils import Bip39WordsNum, Bip39Languages, Bip44Changes, Bip44Coins, Bip49Coins, Bip84Coins, Bip86Coins
-from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+from bip_utils import Bip39Languages, Bip39WordsNum, Bip44Changes, Bip44Coins, Bip49Coins, Bip84Coins, Bip86Coins
+
+from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
 # Alias for Bip39WordsNum
 HdWalletBipWordsNum = Bip39WordsNum
