@@ -4,15 +4,15 @@ An Electrum V2 wallet is a wallet based on Electrum (standard or segwit seed).
 
 ## Electrum V2 wallet factory
 
-An Electrum V2 wallet is created using the *HdWalletElectrumV2Factory* class.\
-A *HdWalletElectrumV2Factory* class is simply constructed by specifying the mnemonic type.
+An Electrum V2 wallet is created using the `HdWalletElectrumV2Factory` class.\
+A `HdWalletElectrumV2Factory` class is simply constructed by specifying the mnemonic type.
 
 Supported mnemonic types:
 
 |Words number|Enum|
 |---|---|
-|Standard|*HdWalletElectrumV2MnemonicTypes.STANDARD*|
-|Segwit|*HdWalletElectrumV2MnemonicTypes.SEGWIT*|
+|Standard|`HdWalletElectrumV2MnemonicTypes.STANDARD`|
+|Segwit|`HdWalletElectrumV2MnemonicTypes.SEGWIT`|
 
 After the construction, the factory can be used to create wallets.
 
@@ -32,17 +32,17 @@ Supported words number:
 
 |Words number|Enum|
 |---|---|
-|12|*HdWalletElectrumV2WordsNum.WORDS_NUM_12*|
-|21|*HdWalletElectrumV2WordsNum.WORDS_NUM_24*|
+|12|`HdWalletElectrumV2WordsNum.WORDS_NUM_12`|
+|21|`HdWalletElectrumV2WordsNum.WORDS_NUM_24`|
 
 Supported languages:
 
 |Language|Enum|
 |---|---|
-|Chinese (simplified)|*HdWalletElectrumV2Languages.CHINESE_SIMPLIFIED*|
-|English|*HdWalletElectrumV2Languages.ENGLISH*|
-|Portuguese|*HdWalletElectrumV2Languages.PORTUGUESE*|
-|Spanish|*HdWalletElectrumV2Languages.SPANISH*|
+|Chinese (simplified)|`HdWalletElectrumV2Languages.CHINESE_SIMPLIFIED`|
+|English|`HdWalletElectrumV2Languages.ENGLISH`|
+|Portuguese|`HdWalletElectrumV2Languages.PORTUGUESE`|
+|Spanish|`HdWalletElectrumV2Languages.SPANISH`|
 
 A wallet can be created in the following ways:
 - Randomly by generating a random mnemonic with the specified words number (default: 12) and language (default: English):
@@ -62,7 +62,7 @@ A wallet can be created in the following ways:
                                                 HdWalletElectrumV2WordsNum.WORDS_NUM_12,
                                                 HdWalletElectrumV2Languages.SPANISH)
 
-- From an already existent mnemonic (language is automatically detected). The mnemonic type shall match the one of the factory, or a *ValueError* will be raised:
+- From an already existent mnemonic (language is automatically detected). The mnemonic type shall match the one of the factory, or a `ValueError` will be raised:
 
         from py_crypto_hd_wallet import HdWalletElectrumV2MnemonicTypes, HdWalletElectrumV2Factory
 
@@ -101,15 +101,15 @@ In case of an extended public key, the factory shall be of standard mnemonic typ
         ex_key = "xpub661MyMwAqRbcGy5R4yJNYmMfUUGrVJToLX45EV2KaBJzKwuj12qSjySnnG4Hk7R1whBSogYAYfJSnJXaoaLDim5MqaYLvt41a3MoepDM5fz"
         hd_wallet = hd_wallet_fact.CreateFromExtendedKey("my_wallet_name", ex_key)
 
-In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
+In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a `ValueError` exception will be raised.
 
 ### Generating wallet keys and addresses
 
-After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method.\
+After a wallet is created, you can generate keys and addresses by simply calling the `Generate` method.\
 For generating a wallet, you can specify:
-- *change_idx* : Change index (default value: 0)
-- *addr_num* : Number of addresses (default value: 20)
-- *addr_off* : Address offset (default value: 0)
+- `change_idx` : Change index (default value: 0)
+- `addr_num` : Number of addresses (default value: 20)
+- `addr_off` : Address offset (default value: 0)
 
 **Example**
 
@@ -127,7 +127,7 @@ For generating a wallet, you can specify:
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
-In case of invalid parameters, a *ValueError* exception will be raised.
+In case of invalid parameters, a `ValueError` exception will be raised.
 
 ### Getting wallet data
 
@@ -142,7 +142,7 @@ After keys and addresses were generated, you can:
         # Get wallet data as a string in JSON format
         wallet_data = hd_wallet.ToJson()
 
-- Save data to a file in JSON format using the *HdWalletSaver* class, to store the generated keys and addresses:
+- Save data to a file in JSON format using the `HdWalletSaver` class, to store the generated keys and addresses:
 
         # Save wallet data to file
         HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -151,44 +151,44 @@ After keys and addresses were generated, you can:
 
 ### Getting specific wallet data
 
-For getting specific data, the following methods of *HdWalletBip* can be used:
-- **GetData(*HdWalletBipDataTypes*)** : return the specified data type if existent, *None* otherwise
-- **HasData(*HdWalletBipDataTypes*)** : return if the specified data type is existent
+For getting specific data, the following methods of `HdWalletBip` can be used:
+- `GetData(HdWalletBipDataTypes)` : return the specified data type if existent, `None` otherwise
+- `HasData(HdWalletBipDataTypes)` : return if the specified data type is existent
 
-The possible data types *HdWalletBipDataTypes* are:
-- *HdWalletElectrumV2DataTypes.WALLET_NAME* : wallet name
-- *HdWalletElectrumV2DataTypes.COIN_NAME* : coin name
-- *HdWalletElectrumV2DataTypes.MNEMONIC* : mnemonic
-- *HdWalletElectrumV2DataTypes.PASSPHRASE* : passphrase
-- *HdWalletElectrumV2DataTypes.SEED_BYTES* : seed bytes
-- *HdWalletElectrumV2DataTypes.CHANGE_IDX* : change index
-- *HdWalletElectrumV2DataTypes.MASTER_KEY* : master keys (*HdWalletElectrumV2MasterKeys* object)
-- *HdWalletElectrumV2DataTypes.ADDRESS_OFF* : addresses offset (if different from zero)
-- *HdWalletElectrumV2DataTypes.ADDRESS* : addresses (*HdWalletElectrumV2DerivedKeys* object)
+The possible data types `HdWalletBipDataTypes` are:
+- `HdWalletElectrumV2DataTypes.WALLET_NAME` : wallet name
+- `HdWalletElectrumV2DataTypes.COIN_NAME` : coin name
+- `HdWalletElectrumV2DataTypes.MNEMONIC` : mnemonic
+- `HdWalletElectrumV2DataTypes.PASSPHRASE` : passphrase
+- `HdWalletElectrumV2DataTypes.SEED_BYTES` : seed bytes
+- `HdWalletElectrumV2DataTypes.CHANGE_IDX` : change index
+- `HdWalletElectrumV2DataTypes.MASTER_KEY` : master keys (`HdWalletElectrumV2MasterKeys` object)
+- `HdWalletElectrumV2DataTypes.ADDRESS_OFF` : addresses offset (if different from zero)
+- `HdWalletElectrumV2DataTypes.ADDRESS` : addresses (`HdWalletElectrumV2DerivedKeys` object)
 
-In case of keys, a *HdWalletElectrumV2MasterKeys* or *HdWalletElectrumV2DerivedKeys* object is returned.
+In case of keys, a `HdWalletElectrumV2MasterKeys` or `HdWalletElectrumV2DerivedKeys` object is returned.
 These objects have the same usage and the following methods:
-- **ToDict()** : return keys as a dictionary
-- **ToJson()** : return keys as a string in JSON format
-- **HasKey(*HdWalletElectrumV2KeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletElectrumV2KeyTypes*)** : get the specified key if existent, *None* otherwise
+- `ToDict()` : return keys as a dictionary
+- `ToJson()` : return keys as a string in JSON format
+- `HasKey(HdWalletElectrumV2KeyTypes)` : get if the specified key type is existent
+- `GetKey(HdWalletElectrumV2KeyTypes)` : get the specified key if existent, `None` otherwise
 
-The possible key types *HdWalletElectrumV2KeyTypes* are:
-- *HdWalletElectrumV2KeyTypes.EX_PRIV* : extended private key
-- *HdWalletElectrumV2KeyTypes.RAW_PRIV* : raw private key
-- *HdWalletElectrumV2KeyTypes.WIF_PRIV* : private key in WIF format
-- *HdWalletElectrumV2KeyTypes.EX_PUB* : extended public key
-- *HdWalletElectrumV2KeyTypes.RAW_PUB* : raw public key (uncompressed without the "04" prefix, like shown in Electrum)
-- *HdWalletElectrumV2KeyTypes.ADDRESS* : address correspondent to the public key
+The possible key types `HdWalletElectrumV2KeyTypes` are:
+- `HdWalletElectrumV2KeyTypes.EX_PRIV` : extended private key
+- `HdWalletElectrumV2KeyTypes.RAW_PRIV` : raw private key
+- `HdWalletElectrumV2KeyTypes.WIF_PRIV` : private key in WIF format
+- `HdWalletElectrumV2KeyTypes.EX_PUB` : extended public key
+- `HdWalletElectrumV2KeyTypes.RAW_PUB` : raw public key (uncompressed without the "04" prefix, like shown in Electrum)
+- `HdWalletElectrumV2KeyTypes.ADDRESS` : address correspondent to the public key
 
-In case of addresses, a *HdWalletElectrumV2Addresses* is returned, This object has the following methods:
-- **ToDict()** : return addresses as a dictionary
-- **ToJson()** : return addresses as a string in JSON format
-- **Count()** : get the number of addresses
-- **__getitem__(*addr_idx*)** : get the address at the specified index using operator *[]*
-- **__iter__()** : allows iterating over all addresses
+In case of addresses, a `HdWalletElectrumV2Addresses` is returned, This object has the following methods:
+- `ToDict()` : return addresses as a dictionary
+- `ToJson()` : return addresses as a string in JSON format
+- `Count()` : get the number of addresses
+- `__getitem__(addr_idx)` : get the address at the specified index using operator *[]*
+- `__iter__()` : allows iterating over all addresses
 
-Each address is of type *HdWalletElectrumV2DerivedKeys*, so you can access it as a *HdWalletElectrumV2DerivedKeys* class as previously described.
+Each address is of type `HdWalletElectrumV2DerivedKeys`, so you can access it as a `HdWalletElectrumV2DerivedKeys` class as previously described.
 
 **Example**
 

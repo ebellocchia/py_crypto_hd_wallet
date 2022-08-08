@@ -4,17 +4,17 @@ A Monero wallet is a wallet based on the Monero official wallet, by generating M
 
 ## Monero wallet factory
 
-A Monero wallet is created using the *HdWalletMoneroFactory* class.\
-A *HdWalletMoneroFactory* class is constructed by specifying the desired network.
+A Monero wallet is created using the `HdWalletMoneroFactory` class.\
+A `HdWalletMoneroFactory` class is constructed by specifying the desired network.
 After the construction, the factory can be used to create wallets with the specified network.
 
 Supported coin enumerative:
 
 |Coin|Enum|
 |---|---|
-|Monero main net|*HdWalletMoneroCoins.MONERO_MAINNET*|
-|Monero stage net|*HdWalletMoneroCoins.MONERO_STAGENET*|
-|Monero test net|*HdWalletMoneroCoins.MONERO_TESTNET*|
+|Monero main net|`HdWalletMoneroCoins.MONERO_MAINNET`|
+|Monero stage net|`HdWalletMoneroCoins.MONERO_STAGENET`|
+|Monero test net|`HdWalletMoneroCoins.MONERO_TESTNET`|
 
 **Example**
 
@@ -32,25 +32,25 @@ Supported words number:
 
 |Words number|Enum|
 |---|---|
-|12|*HdWalletMoneroWordsNum.WORDS_NUM_12*|
-|13|*HdWalletMoneroWordsNum.WORDS_NUM_13*|
-|24|*HdWalletMoneroWordsNum.WORDS_NUM_24*|
-|25|*HdWalletMoneroWordsNum.WORDS_NUM_25*|
+|12|`HdWalletMoneroWordsNum.WORDS_NUM_12`|
+|13|`HdWalletMoneroWordsNum.WORDS_NUM_13`|
+|24|`HdWalletMoneroWordsNum.WORDS_NUM_24`|
+|25|`HdWalletMoneroWordsNum.WORDS_NUM_25`|
 
 Supported languages:
 
 |Language|Enum|
 |---|---|
-|Chinese (simplified)|*HdWalletMoneroLanguages.CHINESE_SIMPLIFIED*|
-|Dutch|*HdWalletMoneroLanguages.DUTCH*|
-|English|*HdWalletMoneroLanguages.ENGLISH*|
-|French|*HdWalletMoneroLanguages.FRENCH*|
-|German|*HdWalletMoneroLanguages.GERMAN*|
-|Italian|*HdWalletMoneroLanguages.ITALIAN*|
-|Japanese|*HdWalletMoneroLanguages.JAPANESE*|
-|Portuguese|*HdWalletMoneroLanguages.PORTUGUESE*|
-|Spanish|*HdWalletMoneroLanguages.SPANISH*|
-|Russian|*HdWalletMoneroLanguages.RUSSIAN*|
+|Chinese (simplified)|`HdWalletMoneroLanguages.CHINESE_SIMPLIFIED`|
+|Dutch|`HdWalletMoneroLanguages.DUTCH`|
+|English|`HdWalletMoneroLanguages.ENGLISH`|
+|French|`HdWalletMoneroLanguages.FRENCH`|
+|German|`HdWalletMoneroLanguages.GERMAN`|
+|Italian|`HdWalletMoneroLanguages.ITALIAN`|
+|Japanese|`HdWalletMoneroLanguages.JAPANESE`|
+|Portuguese|`HdWalletMoneroLanguages.PORTUGUESE`|
+|Spanish|`HdWalletMoneroLanguages.SPANISH`|
+|Russian|`HdWalletMoneroLanguages.RUSSIAN`|
 
 A wallet can be created in the following ways:
 - Randomly by generating a random mnemonic with the specified words number (default: 25) and language (default: English):
@@ -117,15 +117,15 @@ A wallet can be created in the following ways:
         pub_skey_bytes = binascii.unhexlify(b"aa4e7c95a40fc97b98c4801bee5347842ff0740368cfe0ffcba65ad4270dc45b")
         hd_wallet = hd_wallet_fact.CreateFromWatchOnly("my_wallet_name", priv_vkey_bytes, pub_skey_bytes)
 
-In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
+In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a `ValueError` exception will be raised.
 
 ### Generating wallet keys and addresses
 
-After a wallet is created, you can generate keys and subaddresses by simply calling the *Generate* method.\
+After a wallet is created, you can generate keys and subaddresses by simply calling the `Generate` method.\
 For generating a wallet, you can specify:
-- *acc_idx* : Account index (default value: 0)
-- *subaddr_num* : Subaddress number (default value: 0)
-- *subaddr_off* : Subaddress offset (default value: 0)
+- `acc_idx` : Account index (default value: 0)
+- `subaddr_num` : Subaddress number (default value: 0)
+- `subaddr_off` : Subaddress offset (default value: 0)
 
 **Example**
 
@@ -143,7 +143,7 @@ For generating a wallet, you can specify:
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
-In case of invalid parameters, a *ValueError* exception will be raised.
+In case of invalid parameters, a `ValueError` exception will be raised.
 
 ### Getting wallet data
 
@@ -158,7 +158,7 @@ After keys and addresses were generated, you can:
         # Get wallet data as a string in JSON format
         wallet_data = hd_wallet.ToJson()
 
-- Save data to a file in JSON format using the *HdWalletSaver* class, to store the generated keys and addresses:
+- Save data to a file in JSON format using the `HdWalletSaver` class, to store the generated keys and addresses:
 
         # Save wallet data to file
         HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -167,39 +167,39 @@ After keys and addresses were generated, you can:
 
 ### Getting specific wallet data
 
-For getting specific data, the following methods of *HdWalletMonero* can be used:
-- **GetData(*HdWalletMoneroDataTypes*)** : return the specified data type if existent, *None* otherwise
-- **HasData(*HdWalletMoneroDataTypes*)** : return if the specified data type is existent
+For getting specific data, the following methods of `HdWalletMonero` can be used:
+- `GetData(HdWalletMoneroDataTypes)` : return the specified data type if existent, `None` otherwise
+- `HasData(HdWalletMoneroDataTypes)` : return if the specified data type is existent
 
-The possible data types *HdWalletMoneroDataTypes* are:
-- *HdWalletMoneroDataTypes.WALLET_NAME* : wallet name
-- *HdWalletMoneroDataTypes.COIN_NAME* : coin name
-- *HdWalletMoneroDataTypes.MNEMONIC* : mnemonic
-- *HdWalletMoneroDataTypes.SEED_BYTES* : seed bytes
-- *HdWalletMoneroDataTypes.KEY* : generated keys (*HdWalletMoneroKeys* object)
-- *HdWalletMoneroDataTypes.ACCOUNT_IDX* : account index
-- *HdWalletMoneroDataTypes.SUBADDRESS_OFF* : subaddresses offset
-- *HdWalletMoneroDataTypes.SUBADDRESS* : subaddresses (*HdWalletMoneroSubaddresses* object)
+The possible data types `HdWalletMoneroDataTypes` are:
+- `HdWalletMoneroDataTypes.WALLET_NAME` : wallet name
+- `HdWalletMoneroDataTypes.COIN_NAME` : coin name
+- `HdWalletMoneroDataTypes.MNEMONIC` : mnemonic
+- `HdWalletMoneroDataTypes.SEED_BYTES` : seed bytes
+- `HdWalletMoneroDataTypes.KEY` : generated keys (`HdWalletMoneroKeys` object)
+- `HdWalletMoneroDataTypes.ACCOUNT_IDX` : account index
+- `HdWalletMoneroDataTypes.SUBADDRESS_OFF` : subaddresses offset
+- `HdWalletMoneroDataTypes.SUBADDRESS` : subaddresses (`HdWalletMoneroSubaddresses` object)
 
-In case of keys, a *HdWalletMoneroKeys* object is returned. This object has the following methods:
-- **ToDict()** : return keys as a dictionary
-- **ToJson()** : return keys as a string in JSON format
-- **HasKey(*HdWalletMoneroKeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletMoneroKeyTypes*)** : get the specified key if existent, *None* otherwise
+In case of keys, a `HdWalletMoneroKeys` object is returned. This object has the following methods:
+- `ToDict()` : return keys as a dictionary
+- `ToJson()` : return keys as a string in JSON format
+- `HasKey(HdWalletMoneroKeyTypes)` : get if the specified key type is existent
+- `GetKey(HdWalletMoneroKeyTypes)` : get the specified key if existent, `None` otherwise
 
-The possible key types *HdWalletMoneroKeyTypes* are:
-- *HdWalletMoneroKeyTypes.PRIV_SPEND* : private spend key
-- *HdWalletMoneroKeyTypes.PRIV_VIEW* : private view key
-- *HdWalletMoneroKeyTypes.PUB_SPEND* : public spend key
-- *HdWalletMoneroKeyTypes.PUB_VIEW* : public view key
-- *HdWalletMoneroKeyTypes.PRIMARY_ADDRESS* : primary address
+The possible key types `HdWalletMoneroKeyTypes` are:
+- `HdWalletMoneroKeyTypes.PRIV_SPEND` : private spend key
+- `HdWalletMoneroKeyTypes.PRIV_VIEW` : private view key
+- `HdWalletMoneroKeyTypes.PUB_SPEND` : public spend key
+- `HdWalletMoneroKeyTypes.PUB_VIEW` : public view key
+- `HdWalletMoneroKeyTypes.PRIMARY_ADDRESS` : primary address
 
-In case of subaddresses, a *HdWalletMoneroSubaddresses* is returned, This object has the following methods:
-- **ToDict()** : return addresses as a dictionary
-- **ToJson()** : return addresses as a string in JSON format
-- **Count()** : get the number of addresses
-- **__getitem__(*addr_idx*)** : get the address at the specified index using operator *[]*
-- **__iter__()** : allows to iterate over all addresses
+In case of subaddresses, a `HdWalletMoneroSubaddresses` is returned, This object has the following methods:
+- `ToDict()` : return addresses as a dictionary
+- `ToJson()` : return addresses as a string in JSON format
+- `Count()` : get the number of addresses
+- `__getitem__(addr_idx)` : get the address at the specified index using operator *[]*
+- `__iter__()` : allows to iterate over all addresses
 
 Each subaddress is a string.
 

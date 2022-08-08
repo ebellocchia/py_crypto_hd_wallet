@@ -4,7 +4,7 @@ An Algorand wallet is a wallet based on the Algorand official wallet.
 
 ## Algorand wallet factory
 
-An Algorand wallet is created using the *HdWalletAlgorandFactory* class.\
+An Algorand wallet is created using the `HdWalletAlgorandFactory` class.\
 After the construction, the factory can be used to create wallets.
 
 **Example**
@@ -21,13 +21,13 @@ Supported words number:
 
 |Words number|Enum|
 |---|---|
-|25|*HdWalletAlgorandWordsNum.WORDS_NUM_25*|
+|25|`HdWalletAlgorandWordsNum.WORDS_NUM_25`|
 
 Supported languages:
 
 |Language|Enum|
 |---|---|
-|English|*HdWalletAlgorandLanguages.ENGLISH*|
+|English|`HdWalletAlgorandLanguages.ENGLISH`|
 
 A wallet can be created in the following ways:
 - Randomly by generating a random mnemonic with the specified words number (default: 25) and language (default: English):
@@ -92,11 +92,11 @@ A wallet can be created in the following ways:
         pub_key_bytes = binascii.unhexlify(b"7d5ea03ab150169176f66df6f6f67afe70b4d9e8b06fa6b46cd74bab1ca5e75c")
         hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key_bytes)
 
-In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
+In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a `ValueError` exception will be raised.
 
 ### Generating wallet keys and addresses
 
-After a wallet is created, you can generate keys and address by simply calling the *Generate* method.\
+After a wallet is created, you can generate keys and address by simply calling the `Generate` method.\
 Since Algorand official wallet is not hierarchical, only the master keypair will be generated, so no parameters
 have to be specified.
 
@@ -127,7 +127,7 @@ After keys and address were generated, you can:
         # Get wallet data as a string in JSON format
         wallet_data = hd_wallet.ToJson()
 
-- Save data to a file in JSON format using the *HdWalletSaver* class, to store the generated keys and addresses:
+- Save data to a file in JSON format using the `HdWalletSaver` class, to store the generated keys and addresses:
 
         # Save wallet data to file
         HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -136,27 +136,27 @@ After keys and address were generated, you can:
 
 ### Getting specific wallet data
 
-For getting specific data, the following methods of *HdWalletAlgorand* can be used:
-- **GetData(*HdWalletAlgorandDataTypes*)** : return the specified data type if existent, *None* otherwise
-- **HasData(*HdWalletAlgorandDataTypes*)** : return if the specified data type is existent
+For getting specific data, the following methods of `HdWalletAlgorand` can be used:
+- `GetData(HdWalletAlgorandDataTypes`) : return the specified data type if existent, `None` otherwise
+- `HasData(HdWalletAlgorandDataTypes`) : return if the specified data type is existent
 
-The possible data types *HdWalletAlgorandDataTypes* are:
-- *HdWalletAlgorandDataTypes.WALLET_NAME* : wallet name
-- *HdWalletAlgorandDataTypes.COIN_NAME* : coin name
-- *HdWalletAlgorandDataTypes.MNEMONIC* : mnemonic
-- *HdWalletAlgorandDataTypes.SEED_BYTES* : seed bytes
-- *HdWalletAlgorandDataTypes.KEY* : generated keys and address (*HdWalletAlgorandKeys* object)
+The possible data types `HdWalletAlgorandDataTypes` are:
+- `HdWalletAlgorandDataTypes.WALLET_NAME` : wallet name
+- `HdWalletAlgorandDataTypes.COIN_NAME` : coin name
+- `HdWalletAlgorandDataTypes.MNEMONIC` : mnemonic
+- `HdWalletAlgorandDataTypes.SEED_BYTES` : seed bytes
+- `HdWalletAlgorandDataTypes.KEY` : generated keys and address (`HdWalletAlgorandKeys` object)
 
-In case of keys, a *HdWalletAlgorandKeys* object is returned. This object has the following methods:
-- **ToDict()** : return keys as a dictionary
-- **ToJson()** : return keys as a string in JSON format
-- **HasKey(*HdWalletAlgorandKeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletAlgorandKeyTypes*)** : get the specified key if existent, *None* otherwise
+In case of keys, a `HdWalletAlgorandKeys` object is returned. This object has the following methods:
+- `ToDict()` : return keys as a dictionary
+- `ToJson()` : return keys as a string in JSON format
+- `HasKey(HdWalletAlgorandKeyTypes`) : get if the specified key type is existent
+- `GetKey(HdWalletAlgorandKeyTypes`) : get the specified key if existent, `None` otherwise
 
-The possible key types *HdWalletAlgorandKeyTypes* are:
-- *HdWalletAlgorandKeyTypes.PRIV* : private key
-- *HdWalletAlgorandKeyTypes.PUB* : public key
-- *HdWalletAlgorandKeyTypes.ADDRESS* : address correspondent to the public key
+The possible key types `HdWalletAlgorandKeyTypes` are:
+- `HdWalletAlgorandKeyTypes.PRIV` : private key
+- `HdWalletAlgorandKeyTypes.PUB` : public key
+- `HdWalletAlgorandKeyTypes.ADDRESS` : address correspondent to the public key
 
 **Example**
 

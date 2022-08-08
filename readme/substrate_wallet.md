@@ -4,28 +4,28 @@ A Substrate wallet is a wallet based on Substrate (Polkadot/Kusama ecosystem) li
 
 ## Substrate wallet factory
 
-A Substrate wallet is created using the *HdWalletSubstrateFactory* class.\
-A *HdWalletSubstrateFactory* class is constructed by specifying the desired coin.
+A Substrate wallet is created using the `HdWalletSubstrateFactory` class.\
+A `HdWalletSubstrateFactory` class is constructed by specifying the desired coin.
 After the construction, the factory can be used to create wallets with the specified coin.
 
 Supported coin enumerative:
 
 |Coin|Enum|
 |---|---|
-|Acala|*HdWalletSubstrateCoins.ACALA*|
-|Bifrost|*HdWalletSubstrateCoins.BIFROST*|
-|Chainx|*HdWalletSubstrateCoins.CHAINX*|
-|Edgeware|*HdWalletSubstrateCoins.EDGEWARE*|
-|Generic|*HdWalletSubstrateCoins.GENERIC*|
-|Karura|*HdWalletSubstrateCoins.KARURA*|
-|Kusama|*HdWalletSubstrateCoins.KUSAMA*|
-|Moonbeam|*HdWalletSubstrateCoins.MOONBEAM*|
-|Moonriver|*HdWalletSubstrateCoins.MOONRIVER*|
-|Phala Network|*HdWalletSubstrateCoins.PHALA*|
-|Plasm Network|*HdWalletSubstrateCoins.PLASM*|
-|Polkadot|*HdWalletSubstrateCoins.POLKADOT*|
-|Sora|*HdWalletSubstrateCoins.SORA*|
-|Stafi|*HdWalletSubstrateCoins.STAFI*|
+|Acala|`HdWalletSubstrateCoins.ACALA`|
+|Bifrost|`HdWalletSubstrateCoins.BIFROST`|
+|Chainx|`HdWalletSubstrateCoins.CHAINX`|
+|Edgeware|`HdWalletSubstrateCoins.EDGEWARE`|
+|Generic|`HdWalletSubstrateCoins.GENERIC`|
+|Karura|`HdWalletSubstrateCoins.KARURA`|
+|Kusama|`HdWalletSubstrateCoins.KUSAMA`|
+|Moonbeam|`HdWalletSubstrateCoins.MOONBEAM`|
+|Moonriver|`HdWalletSubstrateCoins.MOONRIVER`|
+|Phala Network|`HdWalletSubstrateCoins.PHALA`|
+|Plasm Network|`HdWalletSubstrateCoins.PLASM`|
+|Polkadot|`HdWalletSubstrateCoins.POLKADOT`|
+|Sora|`HdWalletSubstrateCoins.SORA`|
+|Stafi|`HdWalletSubstrateCoins.STAFI`|
 
 **Example**
 
@@ -41,25 +41,25 @@ Supported words number:
 
 |Words number|Enum|
 |---|---|
-|12|*HdWalletSubstrateWordsNum.WORDS_NUM_12*|
-|15|*HdWalletSubstrateWordsNum.WORDS_NUM_15*|
-|18|*HdWalletSubstrateWordsNum.WORDS_NUM_18*|
-|21|*HdWalletSubstrateWordsNum.WORDS_NUM_21*|
-|24|*HdWalletSubstrateWordsNum.WORDS_NUM_24*|
+|12|`HdWalletSubstrateWordsNum.WORDS_NUM_12`|
+|15|`HdWalletSubstrateWordsNum.WORDS_NUM_15`|
+|18|`HdWalletSubstrateWordsNum.WORDS_NUM_18`|
+|21|`HdWalletSubstrateWordsNum.WORDS_NUM_21`|
+|24|`HdWalletSubstrateWordsNum.WORDS_NUM_24`|
 
 Supported languages:
 
 |Language|Enum|
 |---|---|
-|Chinese (simplified)|*HdWalletSubstrateLanguages.CHINESE_SIMPLIFIED*|
-|Chinese (traditional)|*HdWalletSubstrateLanguages.CHINESE_TRADITIONAL*|
-|Czech|*HdWalletSubstrateLanguages.CZECH*|
-|English|*HdWalletSubstrateLanguages.ENGLISH*|
-|French|*HdWalletSubstrateLanguages.FRENCH*|
-|Italian|*HdWalletSubstrateLanguages.ITALIAN*|
-|Korean|*HdWalletSubstrateLanguages.KOREAN*|
-|Portuguese|*HdWalletSubstrateLanguages.PORTUGUESE*|
-|Spanish|*HdWalletSubstrateLanguages.SPANISH*|
+|Chinese (simplified)|`HdWalletSubstrateLanguages.CHINESE_SIMPLIFIED`|
+|Chinese (traditional)|`HdWalletSubstrateLanguages.CHINESE_TRADITIONAL`|
+|Czech|`HdWalletSubstrateLanguages.CZECH`|
+|English|`HdWalletSubstrateLanguages.ENGLISH`|
+|French|`HdWalletSubstrateLanguages.FRENCH`|
+|Italian|`HdWalletSubstrateLanguages.ITALIAN`|
+|Korean|`HdWalletSubstrateLanguages.KOREAN`|
+|Portuguese|`HdWalletSubstrateLanguages.PORTUGUESE`|
+|Spanish|`HdWalletSubstrateLanguages.SPANISH`|
 
 A wallet can be created in the following ways:
 - Randomly by generating a random mnemonic with the specified words number (default: 24) and language (default: English):
@@ -125,11 +125,11 @@ A wallet can be created in the following ways:
         pub_key_bytes = binascii.unhexlify(b"66933bd1f37070ef87bd1198af3dacceb095237f803f3d32b173e6b425ed7972")
         hd_wallet = hd_wallet_fact.CreateFromPublicKey("my_wallet_name", pub_key_bytes)
 
-In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a *ValueError* exception will be raised.
+In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a `ValueError` exception will be raised.
 
 ### Generating wallet keys and addresses
 
-After a wallet is created, you can generate keys and addresses by simply calling the *Generate* method.\
+After a wallet is created, you can generate keys and addresses by simply calling the `Generate` method.\
 For generating a wallet, you can specify a substrate derivation path (if not specified, the default path will be emtpy).\
 
 **Example**
@@ -149,7 +149,7 @@ For generating a wallet, you can specify a substrate derivation path (if not spe
     # After generated, you can check if the wallet is watch-only with the IsWatchOnly method
     is_wo = hd_wallet.IsWatchOnly()
 
-If an invalid path is specified, a *ValueError* exception will be raised.
+If an invalid path is specified, a `ValueError` exception will be raised.
 
 ### Getting wallet data
 
@@ -164,7 +164,7 @@ After keys and addresses were generated, you can:
         # Get wallet data as a string in JSON format
         wallet_data = hd_wallet.ToJson()
 
-- Save data to a file in JSON format using the *HdWalletSaver* class, to store the generated keys and addresses:
+- Save data to a file in JSON format using the `HdWalletSaver` class, to store the generated keys and addresses:
 
         # Save wallet data to file
         HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
@@ -173,29 +173,29 @@ After keys and addresses were generated, you can:
 
 ### Getting specific wallet data
 
-For getting specific data, the following methods of *HdWalletSubstrate* can be used:
-- **GetData(*HdWalletSubstrateDataTypes*)** : return the specified data type if existent, *None* otherwise
-- **HasData(*HdWalletSubstrateDataTypes*)** : return if the specified data type is existent
+For getting specific data, the following methods of `HdWalletSubstrate` can be used:
+- `GetData(HdWalletSubstrateDataTypes)` : return the specified data type if existent, `None` otherwise
+- `HasData(HdWalletSubstrateDataTypes)` : return if the specified data type is existent
 
-The possible data types *HdWalletSubstrateDataTypes* are:
-- *HdWalletSubstrateDataTypes.WALLET_NAME* : wallet name
-- *HdWalletSubstrateDataTypes.COIN_NAME* : coin name
-- *HdWalletSubstrateDataTypes.MNEMONIC* : mnemonic
-- *HdWalletSubstrateDataTypes.PASSPHRASE* : passphrase
-- *HdWalletSubstrateDataTypes.SEED_BYTES* : seed bytes
-- *HdWalletSubstrateDataTypes.PATH* : derivation path, if any
-- *HdWalletSubstrateDataTypes.KEY* : generated keys and address (*HdWalletSubstrateKeys* object)
+The possible data types `HdWalletSubstrateDataTypes` are:
+- `HdWalletSubstrateDataTypes.WALLET_NAME` : wallet name
+- `HdWalletSubstrateDataTypes.COIN_NAME` : coin name
+- `HdWalletSubstrateDataTypes.MNEMONIC` : mnemonic
+- `HdWalletSubstrateDataTypes.PASSPHRASE` : passphrase
+- `HdWalletSubstrateDataTypes.SEED_BYTES` : seed bytes
+- `HdWalletSubstrateDataTypes.PATH` : derivation path, if any
+- `HdWalletSubstrateDataTypes.KEY` : generated keys and address (`HdWalletSubstrateKeys` object)
 
-In case of keys, a *HdWalletSubstrateKeys* object is returned. This object has the following methods:
-- **ToDict()** : return keys as a dictionary
-- **ToJson()** : return keys as a string in JSON format
-- **HasKey(*HdWalletSubstrateKeyTypes*)** : get if the specified key type is existent
-- **GetKey(*HdWalletSubstrateKeyTypes*)** : get the specified key if existent, *None* otherwise
+In case of keys, a `HdWalletSubstrateKeys` object is returned. This object has the following methods:
+- `ToDict()` : return keys as a dictionary
+- `ToJson()` : return keys as a string in JSON format
+- `HasKey(HdWalletSubstrateKeyTypes)` : get if the specified key type is existent
+- `GetKey(HdWalletSubstrateKeyTypes)` : get the specified key if existent, `None` otherwise
 
-The possible key types *HdWalletSubstrateKeyTypes* are:
-- *HdWalletSubstrateKeyTypes.PRIV* : private key
-- *HdWalletSubstrateKeyTypes.PUB* : public key
-- *HdWalletSubstrateKeyTypes.ADDRESS* : address correspondent to the public key
+The possible key types `HdWalletSubstrateKeyTypes` are:
+- `HdWalletSubstrateKeyTypes.PRIV` : private key
+- `HdWalletSubstrateKeyTypes.PUB` : public key
+- `HdWalletSubstrateKeyTypes.ADDRESS` : address correspondent to the public key
 
 **Example**
 
