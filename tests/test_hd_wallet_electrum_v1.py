@@ -318,7 +318,10 @@ class HdWalletElectrumV1Tests(unittest.TestCase):
         # Invalid parameters for Generate
         self.assertRaises(ValueError, hd_wallet.Generate, change_idx=-1)
         self.assertRaises(ValueError, hd_wallet.Generate, addr_num=-1)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_num=2**32)
         self.assertRaises(ValueError, hd_wallet.Generate, addr_off=-1)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_off=2**32)
+        self.assertRaises(ValueError, hd_wallet.Generate, addr_num=2, addr_off=2 ** 32 - 2)
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)

@@ -24,6 +24,7 @@
 from typing import Any, Dict
 
 from bip_utils import CoinsConf
+from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
 from bip_utils.electrum.electrum_v2 import ElectrumV2Base
 
 from py_crypto_hd_wallet.common import HdWalletBase, HdWalletDataTypes
@@ -102,9 +103,9 @@ class HdWalletElectrumV2(HdWalletBase):
         # Check parameters
         if change_idx < 0:
             raise ValueError("Change index shall be greater or equal to zero")
-        if addr_num < 0:
+        if addr_num < 0 or addr_num > Bip32KeyDataConst.KEY_INDEX_MAX_VAL:
             raise ValueError("Address number shall be greater or equal to zero")
-        if addr_off < 0:
+        if addr_off < 0 or ((addr_off + addr_num) > Bip32KeyDataConst.KEY_INDEX_MAX_VAL):
             raise ValueError("Address offset shall be greater or equal to zero")
 
         # Set master key
