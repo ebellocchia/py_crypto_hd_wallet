@@ -35,6 +35,7 @@ from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMoneroConst
 from py_crypto_hd_wallet.monero.hd_wallet_monero_keys import HdWalletMoneroKeysConst
 from py_crypto_hd_wallet.monero.hd_wallet_monero_subaddr import HdWalletMoneroSubaddressesConst
 
+
 # Test vector
 TEST_VECTOR = [
     # Random wallet, 24 words

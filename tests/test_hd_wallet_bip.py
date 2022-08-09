@@ -36,6 +36,7 @@ from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBipConst
 from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddressesConst
 from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeysConst
 
+
 # Test vector
 TEST_VECTOR = [
     # Random bitcoin wallet, 24 words

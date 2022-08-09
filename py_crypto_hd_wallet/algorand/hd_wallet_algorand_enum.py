@@ -27,6 +27,7 @@ from bip_utils import AlgorandLanguages, AlgorandWordsNum
 
 from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+
 # Alias for AlgorandWordsNum
 HdWalletAlgorandWordsNum = AlgorandWordsNum
 # Alias for AlgorandLanguages

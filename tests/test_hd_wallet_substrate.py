@@ -34,6 +34,7 @@ from py_crypto_hd_wallet.substrate.hd_wallet_substrate import HdWalletSubstrateC
 # Just for testing
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_keys import HdWalletSubstrateKeysConst
 
+
 # Test vector
 TEST_VECTOR = [
     # Random polkadot wallet, 24 words

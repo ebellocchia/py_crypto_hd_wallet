@@ -27,6 +27,7 @@ from bip_utils import ElectrumV1Languages, ElectrumV1WordsNum
 
 from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+
 # Alias for ElectrumV1WordsNum
 HdWalletElectrumV1WordsNum = ElectrumV1WordsNum
 # Alias for ElectrumV1Languages

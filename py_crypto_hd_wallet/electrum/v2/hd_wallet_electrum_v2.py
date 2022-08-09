@@ -62,7 +62,7 @@ class HdWalletElectrumV2(HdWalletBase):
     # Public methods
     #
 
-    def __init__(self,
+    def __init__(self,  # pylint: disable=too-many-arguments
                  wallet_name: str,
                  electrum_obj: ElectrumV2Base,
                  mnemonic: str = "",

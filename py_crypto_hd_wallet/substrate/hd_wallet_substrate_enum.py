@@ -28,6 +28,7 @@ from bip_utils import SubstrateCoins
 from py_crypto_hd_wallet.bip import HdWalletBipLanguages, HdWalletBipWordsNum
 from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+
 # Alias for HdWalletBipWordsNum
 HdWalletSubstrateWordsNum = HdWalletBipWordsNum
 # Alias for HdWalletBipLanguages

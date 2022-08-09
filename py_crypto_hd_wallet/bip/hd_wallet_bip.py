@@ -69,7 +69,7 @@ class HdWalletBip(HdWalletBase):
     # Public methods
     #
 
-    def __init__(self,
+    def __init__(self,  # pylint: disable=too-many-arguments
                  wallet_name: str,
                  bip_obj: Bip44Base,
                  mnemonic: str = "",

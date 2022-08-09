@@ -36,6 +36,7 @@ from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2 import HdWalletElectr
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_addr import HdWalletElectrumV2AddressesConst
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_keys import HdWalletElectrumV2KeysConst
 
+
 # Test vector
 TEST_VECTOR = [
     # Random wallet

@@ -27,6 +27,7 @@ from bip_utils import MoneroCoins, MoneroLanguages, MoneroWordsNum
 
 from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+
 # Alias for MoneroWordsNum
 HdWalletMoneroWordsNum = MoneroWordsNum
 # Alias for MoneroLanguages

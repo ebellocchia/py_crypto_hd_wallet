@@ -27,6 +27,7 @@ from bip_utils import Bip39Languages, Bip39WordsNum, Bip44Changes, Bip44Coins, B
 
 from py_crypto_hd_wallet.common import HdWalletDataTypes, HdWalletKeyTypes
 
+
 # Alias for Bip39WordsNum
 HdWalletBipWordsNum = Bip39WordsNum
 # Alias for Bip39Languages

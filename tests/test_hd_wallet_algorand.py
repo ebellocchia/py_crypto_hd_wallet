@@ -34,6 +34,7 @@ from py_crypto_hd_wallet.algorand.hd_wallet_algorand import HdWalletAlgorandCons
 # Just for testing
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_keys import HdWalletAlgorandKeysConst
 
+
 # Test vector
 TEST_VECTOR = [
     # Random wallet
