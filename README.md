@@ -48,7 +48,7 @@ For quick test:
 
     tox -e unittest
 
-## Modules description
+# Modules description
 
 - [BIP wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/bip_wallet.md)
 - [Algorand wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/algorand_wallet.md)
