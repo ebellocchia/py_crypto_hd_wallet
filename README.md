@@ -39,13 +39,14 @@ Or you can install *tox*:
 
     pip install tox
 
-And then simply run *tox*:
+And then simply run it:
 
     tox
 
-Or, with code coverage:
+This will run code coverage with different Python versions and perform style and code analysis.\
+For quick test:
 
-    tox -e coverage
+    tox -e unittest
 
 ## Modules description
 
