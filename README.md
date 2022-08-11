@@ -17,10 +17,6 @@ The supported coins are the same of the [bip_utils](https://github.com/ebellocch
 
 The package requires Python 3, it is not compatible with Python 2.
 To install it:
-- Using *setuptools*:
-
-        python setup.py install
-
 - Using *pip*, from this directory (local):
 
         pip install .
