@@ -54,6 +54,9 @@ setuptools.setup(
     license="MIT",
     test_suite="tests",
     install_requires=load_requirements("requirements.txt"),
+    extras_require={
+        "develop": load_requirements("requirements-dev.txt"),
+    },
     packages=setuptools.find_packages(exclude=["*tests*"]),
     keywords=load_keywords("keywords.txt"),
     platforms=["any"],
