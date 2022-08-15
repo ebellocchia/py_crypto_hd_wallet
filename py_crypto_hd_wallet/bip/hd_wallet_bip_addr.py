@@ -37,7 +37,8 @@ class HdWalletBipAddressesConst:
 
 class HdWalletBipAddresses(HdWalletAddrBase):
     """
-    HD wallet BIP addresses class. It creates addresses from a Bip object and stores them.
+    HD wallet BIP addresses class.
+    It creates addresses from a Bip object and stores them.
     Addresses can be got individually, as dictionary or in JSON format.
     """
 

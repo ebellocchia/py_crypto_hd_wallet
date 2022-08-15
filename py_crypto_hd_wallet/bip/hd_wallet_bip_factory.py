@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-"""Module for creating wallet generators based on BIP specifications."""
+"""Module for creating BIP wallet factories."""
 
 # Imports
 from typing import Type, Union

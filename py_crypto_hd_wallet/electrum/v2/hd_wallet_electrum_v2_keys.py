@@ -67,7 +67,7 @@ class HdWalletElectrumV1KeyUtils:
 class HdWalletElectrumV2MasterKeys(HdWalletKeysBase):
     """
     HD wallet Electrum master keys class.
-    It creates master keys from an Electrum object and store them.
+    It creates master keys from an ElectrumV2 object and store them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 

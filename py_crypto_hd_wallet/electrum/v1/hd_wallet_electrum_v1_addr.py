@@ -36,7 +36,8 @@ class HdWalletElectrumV1AddressesConst:
 
 class HdWalletElectrumV1Addresses(HdWalletAddrBase):
     """
-    HD wallet Electrum V1 addresses class. It creates addresses from a ElectrumV1 object and store them.
+    HD wallet Electrum V1 addresses class.
+    It creates addresses from an ElectrumV1 object and stores them.
     Addresses can be got individually, as dictionary or in JSON format.
     """
 
