@@ -109,7 +109,8 @@ class HdWalletElectrumV2(HdWalletBase):
             raise ValueError("Address offset shall be greater or equal to zero")
 
         # Set master key
-        self.__SetMasterKeys(HdWalletElectrumV2DataTypes.MASTER_KEY, self.m_electrum_obj)
+        self._SetData(HdWalletElectrumV2DataTypes.MASTER_KEY,
+                      HdWalletElectrumV2MasterKeys(self.m_electrum_obj))
 
         # Set addresses
         self._SetData(HdWalletElectrumV2DataTypes.ADDRESS_OFF, addr_off)
@@ -156,15 +157,3 @@ class HdWalletElectrumV2(HdWalletBase):
             self._SetData(HdWalletElectrumV2DataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
             self._SetData(HdWalletElectrumV2DataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
-
-    def __SetMasterKeys(self,
-                        data_type: HdWalletElectrumV2DataTypes,
-                        electrum_obj: ElectrumV2Base) -> None:
-        """
-        Add master keys to wallet data.
-
-        Args:
-            data_type (HdWalletElectrumV2DataTypes): Data type
-            electrum_obj (ElectrumV2Base object)   : ElectrumV1 object
-        """
-        self._SetData(data_type, HdWalletElectrumV2MasterKeys(electrum_obj))
