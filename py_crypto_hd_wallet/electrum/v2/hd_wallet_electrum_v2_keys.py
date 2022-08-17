@@ -96,7 +96,7 @@ class HdWalletElectrumV2MasterKeys(HdWalletKeysBase):
         self._SetKeyData(HdWalletElectrumV2KeyTypes.EX_PUB, pub_key.ToExtended())
         self._SetKeyData(HdWalletElectrumV2KeyTypes.RAW_PUB, pub_key.RawUncompressed().ToHex()[2:])
 
-        # Add private key only if Electrum object is not public-only
+        # Add private key only if not public-only
         if not electrum_obj.IsPublicOnly():
             priv_key = electrum_obj.MasterPrivateKey()
             self._SetKeyData(HdWalletElectrumV2KeyTypes.EX_PRIV, priv_key.ToExtended())

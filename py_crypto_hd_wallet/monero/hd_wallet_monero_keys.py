@@ -75,7 +75,7 @@ class HdWalletMoneroKeys(HdWalletKeysBase):
         # Add private view key
         self._SetKeyData(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
 
-        # Add private spend key only if Monero object is not watch-only
+        # Add private spend key only if not watch-only
         if not monero_obj.IsWatchOnly():
             self._SetKeyData(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
 

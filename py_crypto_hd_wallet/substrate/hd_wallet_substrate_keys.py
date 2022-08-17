@@ -70,7 +70,7 @@ class HdWalletSubstrateKeys(HdWalletKeysBase):
         # Add public key
         self._SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
 
-        # Add private key only if Substrate object is not public-only
+        # Add private key only if not public-only
         if not substrate_obj.IsPublicOnly():
             self._SetKeyData(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
 

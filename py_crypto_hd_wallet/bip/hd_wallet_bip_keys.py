@@ -76,12 +76,12 @@ class HdWalletBipKeys(HdWalletKeysBase):
         self._SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
         self._SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
 
-        # Add private keys only if Bip object is not public-only
+        # Add private keys only if not public-only
         if not bip_obj.IsPublicOnly():
             self._SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
             self._SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
-            # Add WIF if supported by the coin
+            # Add WIF if supported
             wif = bip_obj.PrivateKey().ToWif()
             if wif != "":
                 self._SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)

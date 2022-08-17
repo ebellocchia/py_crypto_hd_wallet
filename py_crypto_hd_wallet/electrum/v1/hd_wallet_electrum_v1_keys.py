@@ -93,7 +93,7 @@ class HdWalletElectrumV1MasterKeys(HdWalletKeysBase):
         self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PUB,
                          electrum_obj.MasterPublicKey().RawUncompressed().ToHex()[2:])
 
-        # Add private key only if Electrum object is not public-only
+        # Add private key only if not public-only
         if not electrum_obj.IsPublicOnly():
             self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV, electrum_obj.MasterPrivateKey().Raw().ToHex())
             self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
@@ -144,7 +144,7 @@ class HdWalletElectrumV1DerivedKeys(HdWalletKeysBase):
         self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PUB,
                          electrum_obj.GetPublicKey(change_idx, addr_idx).RawUncompressed().ToHex()[2:])
 
-        # Add private key only if Electrum object is not public-only
+        # Add private key only if not public-only
         if not electrum_obj.IsPublicOnly():
             self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV,
                              electrum_obj.GetPrivateKey(change_idx, addr_idx).Raw().ToHex())
