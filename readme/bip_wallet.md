@@ -227,7 +227,7 @@ In case of errors (e.g. construction from an invalid mnemonic, seed or keys) a `
 After a wallet is created, you can generate keys and addresses by simply calling the `Generate` method.\
 For generating a wallet, you can specify:
 - `acc_idx` : Account index (default value: 0)
-- `change_idx` : Chain: external (default value: HdWalletChanges.CHAIN_EXT)
+- `change_idx` : Chain: external (default value: HdWalletBipChanges.CHAIN_EXT)
 - `addr_num` : Number of addresses (default value: 20)
 - `addr_off` : Address offset (default value: 0)
 
@@ -246,8 +246,8 @@ In case the extended key was public, only public keys will be generated (watch-o
 Please note that, for watch-only wallets, the public extended key shall be of change or address index level, otherwise an exception will be raised.
 
 Supported change index enumerative:
-- External chain: `HdWalletChanges.CHAIN_EXT`
-- Internal chain: `HdWalletChanges.CHAIN_INT`
+- External chain: `HdWalletBipChanges.CHAIN_EXT`
+- Internal chain: `HdWalletBipChanges.CHAIN_INT`
 
 **Example**
 
