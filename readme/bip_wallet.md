@@ -290,8 +290,8 @@ After keys and addresses were generated, you can:
 ### Getting specific wallet data
 
 For getting specific data, the following methods of `HdWalletBip` can be used:
-- `GetDat(HdWalletBipDataTypes`) : return the specified data type if existent, `None` otherwise
-- `HasDat(HdWalletBipDataTypes`) : return if the specified data type is existent
+- `GetData(HdWalletBipDataTypes`) : return the specified data type if existent, `None` otherwise
+- `HasData(HdWalletBipDataTypes`) : return if the specified data type is existent
 
 The possible data types `HdWalletBipDataTypes` are:
 - `HdWalletBipDataTypes.WALLET_NAME` : wallet name
