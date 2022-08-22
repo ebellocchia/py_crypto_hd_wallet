@@ -68,10 +68,10 @@ Code:
         HdWalletElectrumV2Factory, HdWalletSaver, HdWalletElectrumV2MnemonicTypes
     )
     
-    priv_key_bytes = binascii.unhexlify(b"e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d")
+    seed_bytes = binascii.unhexlify(b"e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d")
     
     hd_wallet_fact = HdWalletElectrumV2Factory(HdWalletElectrumV2MnemonicTypes.STANDARD)
-    hd_wallet = hd_wallet_fact.CreateFromSeed("electrum_wallet", priv_key_bytes)
+    hd_wallet = hd_wallet_fact.CreateFromSeed("electrum_wallet", seed_bytes)
     hd_wallet.Generate(addr_num=2)
     HdWalletSaver(hd_wallet).SaveToFile("my_wallet.txt")
 

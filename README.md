@@ -48,6 +48,7 @@ For quick test:
 
 - [BIP wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/bip_wallet.md)
 - [Algorand wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/algorand_wallet.md)
+- [Cardano Shelley wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/cardano_shelley_wallet.md)
 - [Electrum V1 wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/electrum_v1_wallet.md)
 - [Electrum V2 wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/electrum_v2_wallet.md)
 - [Monero wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/monero_wallet.md)
@@ -57,6 +58,7 @@ For quick test:
 
 - [BIP wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/bip_wallet_examples.md)
 - [Algorand wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/algorand_wallet_examples.md)
+- [Cardano Shelley wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/cardano_shelley_wallet_examples.md)
 - [Electrum V1 wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/electrum_v1_wallet_examples.md)
 - [Electrum V2 wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/electrum_v2_wallet_examples.md)
 - [Monero wallet](https://github.com/ebellocchia/py_crypto_hd_wallet/tree/master/readme/monero_wallet_examples.md)

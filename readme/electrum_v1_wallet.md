@@ -156,8 +156,7 @@ The possible data types `HdWalletBipDataTypes` are:
 - `HdWalletElectrumV1DataTypes.ADDRESS_OFF` : addresses offset (if different from zero)
 - `HdWalletElectrumV1DataTypes.ADDRESS` : addresses (`HdWalletElectrumV1DerivedKeys` object)
 
-In case of keys, a `HdWalletElectrumV1MasterKeys` or `HdWalletElectrumV1DerivedKeys` object is returned.
-These objects have the same usage and the following methods:
+In case of keys, the returned objects have the following methods:
 - `ToDict()` : return keys as a dictionary
 - `ToJson()` : return keys as a string in JSON format
 - `HasKey(HdWalletElectrumV1KeyTypes)` : get if the specified key type is existent

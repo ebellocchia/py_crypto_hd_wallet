@@ -166,18 +166,17 @@ The possible data types `HdWalletBipDataTypes` are:
 - `HdWalletElectrumV2DataTypes.ADDRESS_OFF` : addresses offset (if different from zero)
 - `HdWalletElectrumV2DataTypes.ADDRESS` : addresses (`HdWalletElectrumV2DerivedKeys` object)
 
-In case of keys, a `HdWalletElectrumV2MasterKeys` or `HdWalletElectrumV2DerivedKeys` object is returned.
-These objects have the same usage and the following methods:
+In case of keys, the returned objects have the following methods:
 - `ToDict()` : return keys as a dictionary
 - `ToJson()` : return keys as a string in JSON format
 - `HasKey(HdWalletElectrumV2KeyTypes)` : get if the specified key type is existent
 - `GetKey(HdWalletElectrumV2KeyTypes)` : get the specified key if existent, `None` otherwise
 
 The possible key types `HdWalletElectrumV2KeyTypes` are:
-- `HdWalletElectrumV2KeyTypes.EX_PRIV` : extended private key
+- `HdWalletElectrumV2KeyTypes.EX_PRIV` : private key in extended serialized format
 - `HdWalletElectrumV2KeyTypes.RAW_PRIV` : raw private key
 - `HdWalletElectrumV2KeyTypes.WIF_PRIV` : private key in WIF format
-- `HdWalletElectrumV2KeyTypes.EX_PUB` : extended public key
+- `HdWalletElectrumV2KeyTypes.EX_PUB` : public key in extended serialized format
 - `HdWalletElectrumV2KeyTypes.RAW_PUB` : raw public key (uncompressed without the "04" prefix, like shown in Electrum)
 - `HdWalletElectrumV2KeyTypes.ADDRESS` : address correspondent to the public key
 
