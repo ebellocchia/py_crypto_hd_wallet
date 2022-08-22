@@ -175,7 +175,7 @@ class HdWalletElectrumV2Factory:
     def __ValidateMnemonicType(self,
                                mnemonic: str) -> None:
         """
-        Validate the type of a mnemonic.
+        Validate the type of mnemonic.
 
         Args:
             mnemonic (str): Mnemonic
