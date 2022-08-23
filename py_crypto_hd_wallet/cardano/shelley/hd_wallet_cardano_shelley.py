@@ -120,13 +120,12 @@ class HdWalletCardanoShelley(HdWalletBase):
         if bip_obj.IsLevel(Bip44Levels.COIN):
             self._Set(HdWalletCardanoShelleyDataTypes.ACCOUNT_IDX, acc_idx)
             bip_obj = bip_obj.Account(acc_idx)
-        # Set account keys and derive change if correct level
-        if bip_obj.IsLevel(Bip44Levels.ACCOUNT):
-            self._Set(HdWalletCardanoShelleyDataTypes.CHANGE_IDX, int(change_idx))
-            shelley_obj = CardanoShelley.FromCip1852Object(bip_obj).Change(change_idx)
-            self._Set(HdWalletCardanoShelleyDataTypes.ACCOUNT_KEY, HdWalletCardanoShelleyDerivedKeys(shelley_obj))
-        else:
-            shelley_obj = bip_obj
+
+        # Set account keys and derive change
+        shelley_obj = CardanoShelley.FromCip1852Object(bip_obj)
+        self._Set(HdWalletCardanoShelleyDataTypes.CHANGE_IDX, int(change_idx))
+        self._Set(HdWalletCardanoShelleyDataTypes.ACCOUNT_KEY, HdWalletCardanoShelleyDerivedKeys(shelley_obj))
+        shelley_obj = shelley_obj.Change(change_idx)
 
         # Set change keys and derive addresses
         self._Set(HdWalletCardanoShelleyDataTypes.ADDRESS_OFF, addr_off)
