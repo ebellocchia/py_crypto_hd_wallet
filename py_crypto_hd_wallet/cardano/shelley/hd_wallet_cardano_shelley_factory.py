@@ -171,7 +171,7 @@ class HdWalletCardanoShelleyFactory:
                     chain_code=priv_key_bytes[Ed25519KholawPrivateKey.Length():]
                 )
             )
-        except Bip32KeyError as ex:
+        except (Bip32KeyError, ValueError) as ex:
             raise ValueError(f"Invalid private key: {Utils.BytesToHexString(priv_key_bytes)}") from ex
 
         return HdWalletCardanoShelley(wallet_name=wallet_name,
@@ -204,7 +204,7 @@ class HdWalletCardanoShelleyFactory:
                     depth=Bip44Levels.ACCOUNT
                 )
             )
-        except Bip32KeyError as ex:
+        except (Bip32KeyError, ValueError) as ex:
             raise ValueError(f"Invalid public key: {Utils.BytesToHexString(pub_key_bytes)}") from ex
 
         return HdWalletCardanoShelley(wallet_name=wallet_name,
