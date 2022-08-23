@@ -47,6 +47,15 @@ class HdWalletEnumDict:
         self.m_key_enum = key_enum
         self.m_dict_data = {}
 
+    def KeyEnum(self) -> Type[Enum]:
+        """
+        Get key enumerative type.
+
+        Returns:
+            Enum: Key enumerative type
+        """
+        return self.m_key_enum
+
     def ToDict(self) -> Dict[str, Any]:
         """
         Get keys as a dictionary.
