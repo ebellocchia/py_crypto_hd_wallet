@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Emanuele Bellocchia
+# Copyright (c) 2022 Emanuele Bellocchia
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,12 @@
 
 # Imports
 import binascii
-import json
-import os
-import unittest
 
 from py_crypto_hd_wallet import (
-    HdWalletMoneroCoins, HdWalletMoneroDataTypes, HdWalletMoneroFactory, HdWalletMoneroKeyTypes,
-    HdWalletMoneroWordsNum, HdWalletSaver
+    HdWalletMoneroCoins, HdWalletMoneroDataTypes, HdWalletMoneroFactory, HdWalletMoneroWordsNum
 )
-
-# Just for testing
 from py_crypto_hd_wallet.monero.hd_wallet_monero_subaddr import HdWalletMoneroSubaddressesConst
-from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
-from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase
+from tests.test_hd_wallet_base import HdWalletBaseTests
 
 
 # Test vector
@@ -47,11 +40,11 @@ TEST_VECTOR = [
         "type": "random",
         "words_num": HdWalletMoneroWordsNum.WORDS_NUM_25,
         # Data for wallet generation
-        "acc_idx": 0,
-        "subaddr_num": 0,
-        "subaddr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "subaddr_num": 0,
+            "subaddr_off": 0,
+        },
         # No wallet data because it is random
     },
     # Random wallet, 12 words
@@ -63,11 +56,11 @@ TEST_VECTOR = [
         "type": "random",
         "words_num": HdWalletMoneroWordsNum.WORDS_NUM_13,
         # Data for wallet generation
-        "acc_idx": 0,
-        "subaddr_num": 0,
-        "subaddr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "subaddr_num": 0,
+            "subaddr_off": 0,
+        },
         # No wallet data because it is random
     },
     # Wallet from mnemonic
@@ -79,11 +72,11 @@ TEST_VECTOR = [
         "type": "mnemonic",
         "mnemonic": "larve wacht ommegaand budget puppy bombarde stoven kilsdonk stijf epileer bachelor klus tukje teisman eeneiig kluif vrucht opel galvlieg ugandees zworen afzijdig fornuis giraal fornuis",
         # Data for wallet generation
-        "acc_idx": 0,
-        "subaddr_num": 2,
-        "subaddr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "subaddr_num": 2,
+            "subaddr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -115,11 +108,11 @@ TEST_VECTOR = [
         "type": "from_seed",
         "seed": "b12434ae4b055a6c5250725ca100f062ae1d38644cc9d3b432cf1223b25edc0b",
         # Data for wallet generation
-        "acc_idx": 0,
-        "subaddr_num": 2,
-        "subaddr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "subaddr_num": 2,
+            "subaddr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -148,14 +141,14 @@ TEST_VECTOR = [
         "wallet_name": "xmr_wallet",
         "coin": HdWalletMoneroCoins.MONERO_MAINNET,
         # Data for wallet creation
-        "type": "from_priv_skey",
-        "priv_skey": "b6514a29ff612189af1bba250606bb5b1e7846fe8f31a91fc0beb393cddb6101",
+        "type": "from_priv_key",
+        "priv_key": "b6514a29ff612189af1bba250606bb5b1e7846fe8f31a91fc0beb393cddb6101",
         # Data for wallet generation
-        "acc_idx": 1,
-        "subaddr_num": 3,
-        "subaddr_off": 10,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 1,
+            "subaddr_num": 3,
+            "subaddr_off": 10,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -185,15 +178,15 @@ TEST_VECTOR = [
         "wallet_name": "xmr_wallet",
         "coin": HdWalletMoneroCoins.MONERO_MAINNET,
         # Data for wallet creation
-        "type": "from_wo",
-        "priv_vkey": "f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f",
-        "pub_skey": "d1a7da825fcf942f42e5b8669375888d27f58360c7ab10a00e820ddc1030ce8e",
+        "type": "from_monero_wo",
+        "priv_key": "f4d4ee4630f874cb3b8a7cc630c0ac415b05204119809d59eeb8177b7096d90f",
+        "pub_key": "d1a7da825fcf942f42e5b8669375888d27f58360c7ab10a00e820ddc1030ce8e",
         # Data for wallet generation
-        "acc_idx": 0,
-        "subaddr_num": 5,
-        "subaddr_off": 0,
-        # Data for saving to file1
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "subaddr_num": 5,
+            "subaddr_off": 0,
+        },
         # Data for wallet test
         "watch_only": True,
         "wallet_data_dict": {
@@ -222,56 +215,14 @@ TEST_VECTOR = [
 #
 # Tests
 #
-class HdWalletMoneroTests(unittest.TestCase):
+class HdWalletMoneroTests(HdWalletBaseTests):
     # Run all tests in test vector
     def test_vector(self):
-        self.maxDiff = None
-
         for test in TEST_VECTOR:
-            # Construct wallet factory
-            hd_wallet_fact = HdWalletMoneroFactory(test["coin"])
-
-            # Create wallet depending on type
-            if test["type"] == "random":
-                hd_wallet = hd_wallet_fact.CreateRandom(test["wallet_name"], test["words_num"])
-                # Generate wallet
-                hd_wallet.Generate(acc_idx=test["acc_idx"],
-                                   subaddr_num=test["subaddr_num"],
-                                   subaddr_off=test["subaddr_off"])
-
-                # Since the wallet is random, in order to check it we create a new wallet from the
-                # random wallet mnemonic. The two wallets shall be identical.
-                compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.ToDict()["mnemonic"])
-                compare_wallet.Generate(acc_idx=test["acc_idx"],
-                                        subaddr_num=test["subaddr_num"],
-                                        subaddr_off=test["subaddr_off"])
-
-                # Test wallet data
-                self.assertFalse(hd_wallet.IsWatchOnly())
-                self.__test_wallet_content(compare_wallet.ToDict(), hd_wallet)
-            else:
-                if test["type"] == "mnemonic":
-                    hd_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], test["mnemonic"])
-                elif test["type"] == "from_seed":
-                    hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
-                elif test["type"] == "from_priv_skey":
-                    hd_wallet = hd_wallet_fact.CreateFromPrivateKey(test["wallet_name"], binascii.unhexlify(test["priv_skey"]))
-                elif test["type"] == "from_wo":
-                    hd_wallet = hd_wallet_fact.CreateFromWatchOnly(test["wallet_name"], binascii.unhexlify(test["priv_vkey"]), binascii.unhexlify(test["pub_skey"]))
-                else:
-                    raise RuntimeError("Invalid test type")
-
-                # Generate wallet
-                hd_wallet.Generate(acc_idx=test["acc_idx"],
-                                   subaddr_num=test["subaddr_num"],
-                                   subaddr_off=test["subaddr_off"])
-
-                # Test wallet data
-                self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
-                self.__test_wallet_content(test["wallet_data_dict"], hd_wallet)
-
-            # Test save to file
-            self.__test_wallet_save_to_file(hd_wallet, test["file_path"])
+            self._test_wallet(HdWalletMoneroFactory(test["coin"]),
+                              test,
+                              HdWalletMoneroDataTypes.SUBADDRESS_OFF,
+                              HdWalletMoneroSubaddressesConst.DICT_KEY_FORMAT)
 
     # Test invalid parameters
     def test_invalid_params(self):
@@ -312,97 +263,3 @@ class HdWalletMoneroTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-
-    #
-    # Helper methods
-    #
-
-    # Helper method for testing a wallet content
-    def __test_wallet_content(self, ref_wallet_dict, ut_wallet):
-        # Check the whole data as a dictionary
-        self.assertEqual(ref_wallet_dict, ut_wallet.ToDict())
-        # Test each single data type
-        for data_type in HdWalletMoneroDataTypes:
-            self.__test_wallet_data_type(data_type, ref_wallet_dict, ut_wallet)
-
-    # Helper method for testing a wallet data type
-    def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
-        # Get dictionary key
-        dict_key = data_type.name.lower()
-
-        # If data type is present in the reference wallet, check it
-        if dict_key in ref_wallet_dict:
-            # Data shall be present
-            self.assertTrue(ut_wallet.HasData(data_type))
-            # Get specific data
-            wallet_data = ut_wallet.GetData(data_type)
-
-            # Test keys individually
-            if isinstance(wallet_data, HdWalletKeysBase):
-                self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
-            # Test subaddresses individually
-            elif isinstance(wallet_data, HdWalletAddrBase):
-                self.__test_wallet_subaddresses(ref_wallet_dict[dict_key], wallet_data, ut_wallet.GetData(HdWalletMoneroDataTypes.SUBADDRESS_OFF))
-            # Otherwise just test the content
-            else:
-                self.assertEqual(ref_wallet_dict[dict_key], wallet_data)
-        # If data type is not present, it shall be None
-        else:
-            self.assertFalse(ut_wallet.HasData(data_type))
-            self.assertEqual(None, ut_wallet.GetData(data_type))
-
-    # Helper method for testing wallet keys (HdWalletMoneroKeys)
-    def __test_wallet_keys(self, ref_keys_dict, ut_wallet_keys):
-        # Test all keys as a dictionary
-        self.assertEqual(ref_keys_dict, ut_wallet_keys.ToDict())
-        # Test all keys as a string in JSON format
-        self.assertEqual(json.dumps(ref_keys_dict, indent=4), ut_wallet_keys.ToJson())
-
-        # Get and test each key type
-        for key_type in HdWalletMoneroKeyTypes:
-            # Get current dictionary key
-            dict_key = key_type.name.lower()
-
-            # If key type is present in the reference keys, check it
-            if dict_key in ref_keys_dict:
-                self.assertTrue(ut_wallet_keys.HasKey(key_type))
-                self.assertEqual(ref_keys_dict[dict_key], ut_wallet_keys.GetKey(key_type))
-            # If key type is not present, it shall be None
-            else:
-                self.assertFalse(ut_wallet_keys.HasKey(key_type))
-                self.assertEqual(None, ut_wallet_keys.GetKey(key_type))
-
-    # Helper method for testing wallet addresses (HdWalletMoneroSubaddresses)
-    def __test_wallet_subaddresses(self, test_subaddr_dict, ut_wallet_subaddr, subaddr_off):
-        subaddr_off = subaddr_off or 0
-
-        # Test whole addresses as a dictionary
-        self.assertEqual(test_subaddr_dict, ut_wallet_subaddr.ToDict())
-        # Test all addresses as a string in JSON format
-        self.assertEqual(json.dumps(test_subaddr_dict, indent=4), ut_wallet_subaddr.ToJson())
-
-        # Test address count
-        self.assertEqual(len(test_subaddr_dict), ut_wallet_subaddr.Count())
-
-        # Test each address by iterating
-        for i, addr in enumerate(ut_wallet_subaddr):
-            # Get current dictionary key
-            dict_key = HdWalletMoneroSubaddressesConst.SUBADDR_DICT_KEY.format(i + subaddr_off)
-            # Test both value and via indexing
-            self.assertEqual(test_subaddr_dict[dict_key], addr)
-            self.assertEqual(test_subaddr_dict[dict_key], ut_wallet_subaddr[i])
-
-    # Helper method for saving a wallet to file and test it
-    def __test_wallet_save_to_file(self, ut_wallet, file_path):
-        # Save wallet to file
-        HdWalletSaver(ut_wallet).SaveToFile(file_path)
-        # File shall exist
-        self.assertTrue(os.path.exists(file_path))
-
-        # Load again from file in JSON format
-        with open(file_path, "r") as f:
-            saved_data = json.load(f)
-        # Loaded data shall be the same
-        self.assertEqual(ut_wallet.ToDict(), saved_data)
-        # Remove file
-        os.remove(file_path)

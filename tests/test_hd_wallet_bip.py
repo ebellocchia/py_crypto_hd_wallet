@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Emanuele Bellocchia
+# Copyright (c) 2022 Emanuele Bellocchia
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,12 @@
 
 # Imports
 import binascii
-import json
-import os
-import unittest
 
 from py_crypto_hd_wallet import (
-    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins,
-    HdWalletBipChanges, HdWalletBipDataTypes, HdWalletBipFactory, HdWalletBipKeyTypes,
-    HdWalletBipWordsNum, HdWalletSaver
+    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins, HdWalletBipChanges,
+    HdWalletBipFactory, HdWalletBipWordsNum
 )
-
-# Just for testing
-from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBaseConst, HdWalletAddrBase
-from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase
+from tests.test_hd_wallet_base import HdWalletBaseTests
 
 
 # Test vector
@@ -47,12 +40,12 @@ TEST_VECTOR = [
         "type": "random",
         "words_num": HdWalletBipWordsNum.WORDS_NUM_24,
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 1,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 1,
+            "addr_off": 0,
+        },
         # No wallet data because it is random
     },
     # Random bitcoin wallet, 12 words
@@ -64,12 +57,12 @@ TEST_VECTOR = [
         "type": "random",
         "words_num": HdWalletBipWordsNum.WORDS_NUM_12,
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 1,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 1,
+            "addr_off": 0,
+        },
         # No wallet data because it is random
     },
     # Ethereum wallet from mnemonic, BIP44
@@ -81,12 +74,12 @@ TEST_VECTOR = [
         "type": "mnemonic",
         "mnemonic": "scale tourist mobile heavy adult invite barely rib iron hover clap used swear group torch inside turn gold test rookie dog pet fuel process",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 1,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 1,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -160,12 +153,12 @@ TEST_VECTOR = [
         "type": "from_seed",
         "seed": "eed77707306437d996d5adf59e125b9c37a330c6f5d4de471171708b81cdf592c4fa5d8eee244fff8b0518abe5c57e14a09edf4042d0687ea39ad23dcb5f06af",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 3,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 3,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -253,12 +246,12 @@ TEST_VECTOR = [
         "type": "from_ex_key",
         "ex_key": "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5",
         # Data for wallet generation
-        "acc_idx": 2,
-        "change_idx": HdWalletBipChanges.CHAIN_INT,
-        "addr_num": 3,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 2,
+            "change_idx": HdWalletBipChanges.CHAIN_INT,
+            "addr_num": 3,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -353,12 +346,12 @@ TEST_VECTOR = [
         "type": "from_ex_key",
         "ex_key": "dgpv5Chp3Su8jKGdbGsUJ8ksy6TAcid2jPj2vP3pk8eFRVqU1ozGb8Ppcy9yW8j8tCwKDLmw4MpsnJgDx6JzkskPXjpo57QJvf682UeMtr11nnw",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 1,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 1,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -387,12 +380,12 @@ TEST_VECTOR = [
         "type": "from_ex_key",
         "ex_key": "xpub6ELHKXNimKbxMCytPh7EdC2QXx46T9qLDJWGnTraz1H9kMMFdcduoU69wh9cxP12wDxqAAfbaESWGYt5rREsX1J8iR2TEunvzvddduAPYcY",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 3,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 3,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": True,
         "wallet_data_dict": {
@@ -437,12 +430,12 @@ TEST_VECTOR = [
         "type": "from_priv_key",
         "priv_key": b"4b03d6fc340455b363f51020ad3ecca4f0850280cf436c70c727923f6db46c3e",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 3,
-        "addr_off": 20,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 3,
+            "addr_off": 20,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -537,12 +530,12 @@ TEST_VECTOR = [
         "type": "mnemonic",
         "mnemonic": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 2,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 2,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -631,12 +624,12 @@ TEST_VECTOR = [
         "type": "from_pub_key",
         "pub_key": b"0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
         # Data for wallet generation
-        "acc_idx": 0,
-        "change_idx": HdWalletBipChanges.CHAIN_EXT,
-        "addr_num": 1,
-        "addr_off": 0,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
+        "gen_params": {
+            "acc_idx": 0,
+            "change_idx": HdWalletBipChanges.CHAIN_EXT,
+            "addr_num": 1,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": True,
         "wallet_data_dict": {
@@ -673,61 +666,11 @@ TEST_VECTOR = [
 #
 # Tests
 #
-class HdWalletBipTests(unittest.TestCase):
+class HdWalletBipTests(HdWalletBaseTests):
     # Run all tests in test vector
     def test_vector(self):
-        self.maxDiff = None
-
         for test in TEST_VECTOR:
-            # Construct wallet factory
-            hd_wallet_fact = HdWalletBipFactory(test["coin"])
-
-            # Create wallet depending on type
-            if test["type"] == "random":
-                hd_wallet = hd_wallet_fact.CreateRandom(test["wallet_name"], test["words_num"])
-                # Generate wallet
-                hd_wallet.Generate(acc_idx=test["acc_idx"],
-                                   change_idx=test["change_idx"],
-                                   addr_num=test["addr_num"],
-                                   addr_off=test["addr_off"])
-
-                # Since the wallet is random, in order to check it we create a new wallet from the
-                # random wallet mnemonic. The two wallets shall be identical.
-                compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.ToDict()["mnemonic"])
-                compare_wallet.Generate(acc_idx=test["acc_idx"],
-                                        change_idx=test["change_idx"],
-                                        addr_num=test["addr_num"],
-                                        addr_off=test["addr_off"])
-
-                # Test wallet data
-                self.assertFalse(hd_wallet.IsWatchOnly())
-                self.__test_wallet_content(compare_wallet.ToDict(), hd_wallet)
-            else:
-                if test["type"] == "mnemonic":
-                    hd_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], test["mnemonic"])
-                elif test["type"] == "from_seed":
-                    hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
-                elif test["type"] == "from_ex_key":
-                    hd_wallet = hd_wallet_fact.CreateFromExtendedKey(test["wallet_name"], test["ex_key"])
-                elif test["type"] == "from_priv_key":
-                    hd_wallet = hd_wallet_fact.CreateFromPrivateKey(test["wallet_name"], binascii.unhexlify(test["priv_key"]))
-                elif test["type"] == "from_pub_key":
-                    hd_wallet = hd_wallet_fact.CreateFromPublicKey(test["wallet_name"], binascii.unhexlify(test["pub_key"]))
-                else:
-                    raise RuntimeError("Invalid test type")
-
-                # Generate wallet
-                hd_wallet.Generate(acc_idx=test["acc_idx"],
-                                   change_idx=test["change_idx"],
-                                   addr_num=test["addr_num"],
-                                   addr_off=test["addr_off"])
-
-                # Test wallet data
-                self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
-                self.__test_wallet_content(test["wallet_data_dict"], hd_wallet)
-
-            # Test save to file
-            self.__test_wallet_save_to_file(hd_wallet, test["file_path"])
+            self._test_wallet(HdWalletBipFactory(test["coin"]), test)
 
     # Test invalid parameters
     def test_invalid_params(self):
@@ -775,98 +718,3 @@ class HdWalletBipTests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-
-    #
-    # Helper methods
-    #
-
-    # Helper method for testing a wallet content
-    def __test_wallet_content(self, ref_wallet_dict, ut_wallet):
-        # Check the whole data as a dictionary
-        self.assertEqual(ref_wallet_dict, ut_wallet.ToDict())
-        # Test each single data type
-        for data_type in HdWalletBipDataTypes:
-            self.__test_wallet_data_type(data_type, ref_wallet_dict, ut_wallet)
-
-    # Helper method for testing a wallet data type
-    def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
-        # Get dictionary key
-        dict_key = data_type.name.lower()
-
-        # If data type is present in the reference wallet, check it
-        if dict_key in ref_wallet_dict:
-            # Data shall be present
-            self.assertTrue(ut_wallet.HasData(data_type))
-            # Get specific data
-            wallet_data = ut_wallet.GetData(data_type)
-
-            # Test keys individually
-            if isinstance(wallet_data, HdWalletKeysBase):
-                self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
-            # Test addresses individually
-            elif isinstance(wallet_data, HdWalletAddrBase):
-                self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data, ut_wallet.GetData(HdWalletBipDataTypes.ADDRESS_OFF))
-            # Otherwise just test the content
-            else:
-                self.assertEqual(ref_wallet_dict[dict_key], wallet_data)
-        # If data type is not present, it shall be None
-        else:
-            self.assertFalse(ut_wallet.HasData(data_type))
-            self.assertEqual(None, ut_wallet.GetData(data_type))
-
-    # Helper method for testing wallet keys (HdWalletBipKeys)
-    def __test_wallet_keys(self, ref_keys_dict, ut_wallet_keys):
-        # Test all keys as a dictionary
-        self.assertEqual(ref_keys_dict, ut_wallet_keys.ToDict())
-        # Test all keys as a string in JSON format
-        self.assertEqual(json.dumps(ref_keys_dict, indent=4), ut_wallet_keys.ToJson())
-
-        # Get and test each key type
-        for key_type in HdWalletBipKeyTypes:
-            # Get current dictionary key
-            dict_key = key_type.name.lower()
-
-            # If key type is present in the reference keys, check it
-            if dict_key in ref_keys_dict:
-                self.assertTrue(ut_wallet_keys.HasKey(key_type))
-                self.assertEqual(ref_keys_dict[dict_key], ut_wallet_keys.GetKey(key_type))
-            # If key type is not present, it shall be None
-            else:
-                self.assertFalse(ut_wallet_keys.HasKey(key_type))
-                self.assertEqual(None, ut_wallet_keys.GetKey(key_type))
-
-    # Helper method for testing wallet addresses (HdWalletBipAddresses)
-    def __test_wallet_addresses(self, test_addr_dict, ut_wallet_addr, addr_off):
-        addr_off = addr_off or 0
-
-        # Test whole addresses as a dictionary
-        self.assertEqual(test_addr_dict, ut_wallet_addr.ToDict())
-        # Test all addresses as a string in JSON format
-        self.assertEqual(json.dumps(test_addr_dict, indent=4), ut_wallet_addr.ToJson())
-
-        # Test address count
-        self.assertEqual(len(test_addr_dict), ut_wallet_addr.Count())
-
-        # Test each address by iterating
-        for i, addr in enumerate(ut_wallet_addr):
-            # Get current dictionary key
-            dict_key = HdWalletAddrBaseConst.DICT_KEY_DEF_FORMAT.format(i + addr_off)
-            # Each address is simply a HdWalletBipKeys, so we can use the previous method
-            self.__test_wallet_keys(test_addr_dict[dict_key], addr)
-            # Test again but accessing via index
-            self.__test_wallet_keys(test_addr_dict[dict_key], ut_wallet_addr[i])
-
-    # Helper method for saving a wallet to file and test it
-    def __test_wallet_save_to_file(self, ut_wallet, file_path):
-        # Save wallet to file
-        HdWalletSaver(ut_wallet).SaveToFile(file_path)
-        # File shall exist
-        self.assertTrue(os.path.exists(file_path))
-
-        # Load again from file in JSON format
-        with open(file_path, "r") as f:
-            saved_data = json.load(f)
-        # Loaded data shall be the same
-        self.assertEqual(ut_wallet.ToDict(), saved_data)
-        # Remove file
-        os.remove(file_path)

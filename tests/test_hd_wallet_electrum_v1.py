@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Emanuele Bellocchia
+# Copyright (c) 2022 Emanuele Bellocchia
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,9 @@
 
 # Imports
 import binascii
-import json
-import os
-import unittest
 
-from py_crypto_hd_wallet import (
-    HdWalletElectrumV1DataTypes, HdWalletElectrumV1Factory,
-    HdWalletElectrumV1KeyTypes, HdWalletElectrumV1WordsNum, HdWalletSaver
-)
-
-# Just for testing
-from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBaseConst, HdWalletAddrBase
-from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase
+from py_crypto_hd_wallet import HdWalletElectrumV1Factory, HdWalletElectrumV1WordsNum
+from tests.test_hd_wallet_base import HdWalletBaseTests
 
 
 # Test vector
@@ -44,12 +35,12 @@ TEST_VECTOR = [
         # Data for wallet creation
         "type": "random",
         "words_num": HdWalletElectrumV1WordsNum.WORDS_NUM_12,
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
         # Data for wallet generation
-        "change_idx": 0,
-        "addr_num": 1,
-        "addr_off": 0,
+        "gen_params": {
+            "change_idx": 0,
+            "addr_num": 1,
+            "addr_off": 0,
+        },
         # No wallet data because it is random
     },
     # Wallet from mnemonic
@@ -59,12 +50,12 @@ TEST_VECTOR = [
         # Data for wallet creation
         "type": "mnemonic",
         "mnemonic": "observe ripple change duck floor church white stare mother awe whisper little",
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
         # Data for wallet generation
-        "change_idx": 0,
-        "addr_num": 3,
-        "addr_off": 0,
+        "gen_params": {
+            "change_idx": 0,
+            "addr_num": 3,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -107,12 +98,12 @@ TEST_VECTOR = [
         # Data for wallet creation
         "type": "from_seed",
         "seed": "e6914a31dc45fe52a979acde7128cfb4a0f8c1b693fc79529eb97ea12afe027d",
-        # Data for saving to file
-        "file_path": "test_wallet.txt",
         # Data for wallet generation
-        "change_idx": 0,
-        "addr_num": 3,
-        "addr_off": 10,
+        "gen_params": {
+            "change_idx": 0,
+            "addr_num": 3,
+            "addr_off": 10,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -154,12 +145,12 @@ TEST_VECTOR = [
         # Data for wallet creation
         "type": "from_priv_key",
         "priv_key": "bb37794073e5094ebbfcfa070e9254fe6094b56e7cccb094a2304c5eccccdc07",
-        # Data for saving to file1
-        "file_path": "test_wallet.txt",
         # Data for wallet generation
-        "change_idx": 0,
-        "addr_num": 3,
-        "addr_off": 0,
+        "gen_params": {
+            "change_idx": 0,
+            "addr_num": 3,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -201,12 +192,12 @@ TEST_VECTOR = [
         # Data for wallet creation
         "type": "from_pub_key",
         "pub_key": "049ce5ca76a323951422cff5f0af3bb5963292238648ca23853f6c4bd8c33844d7a57b7e0203a2e2b12bd3abda417e4e4ba85e34498810a120d037f08e4c912f4b",
-        # Data for saving to file1
-        "file_path": "test_wallet.txt",
         # Data for wallet generation
-        "change_idx": 0,
-        "addr_num": 3,
-        "addr_off": 0,
+        "gen_params": {
+            "change_idx": 0,
+            "addr_num": 3,
+            "addr_off": 0,
+        },
         # Data for wallet test
         "watch_only": False,
         "wallet_data_dict": {
@@ -238,56 +229,11 @@ TEST_VECTOR = [
 #
 # Tests
 #
-class HdWalletElectrumV1Tests(unittest.TestCase):
+class HdWalletElectrumV1Tests(HdWalletBaseTests):
     # Run all tests in test vector
     def test_vector(self):
-        self.maxDiff = None
-
         for test in TEST_VECTOR:
-            # Construct wallet factory
-            hd_wallet_fact = HdWalletElectrumV1Factory()
-
-            # Create wallet depending on type
-            if test["type"] == "random":
-                hd_wallet = hd_wallet_fact.CreateRandom(test["wallet_name"], test["words_num"])
-                # Generate wallet
-                hd_wallet.Generate(change_idx=test["change_idx"],
-                                   addr_num=test["addr_num"],
-                                   addr_off=test["addr_off"])
-
-                # Since the wallet is random, in order to check it we create a new wallet from the
-                # random wallet mnemonic. The two wallets shall be identical.
-                compare_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], hd_wallet.ToDict()["mnemonic"])
-                compare_wallet.Generate(change_idx=test["change_idx"],
-                                        addr_num=test["addr_num"],
-                                        addr_off=test["addr_off"])
-
-                # Test wallet data
-                self.assertFalse(hd_wallet.IsWatchOnly())
-                self.__test_wallet_content(compare_wallet.ToDict(), hd_wallet)
-            else:
-                if test["type"] == "mnemonic":
-                    hd_wallet = hd_wallet_fact.CreateFromMnemonic(test["wallet_name"], test["mnemonic"])
-                elif test["type"] == "from_seed":
-                    hd_wallet = hd_wallet_fact.CreateFromSeed(test["wallet_name"], binascii.unhexlify(test["seed"]))
-                elif test["type"] == "from_priv_key":
-                    hd_wallet = hd_wallet_fact.CreateFromPrivateKey(test["wallet_name"], binascii.unhexlify(test["priv_key"]))
-                elif test["type"] == "from_pub_key":
-                    hd_wallet = hd_wallet_fact.CreateFromPublicKey(test["wallet_name"], binascii.unhexlify(test["pub_key"]))
-                else:
-                    raise RuntimeError("Invalid test type")
-
-                # Generate wallet
-                hd_wallet.Generate(change_idx=test["change_idx"],
-                                   addr_num=test["addr_num"],
-                                   addr_off=test["addr_off"])
-
-                # Test wallet data
-                self.assertEqual(test["watch_only"], hd_wallet.IsWatchOnly())
-                self.__test_wallet_content(test["wallet_data_dict"], hd_wallet)
-
-            # Test save to file
-            self.__test_wallet_save_to_file(hd_wallet, test["file_path"])
+            self._test_wallet(HdWalletElectrumV1Factory(), test)
 
     # Test invalid parameters
     def test_invalid_params(self):
@@ -324,98 +270,3 @@ class HdWalletElectrumV1Tests(unittest.TestCase):
         # Invalid parameters for getting data
         self.assertRaises(TypeError, hd_wallet.GetData, 0)
         self.assertRaises(TypeError, hd_wallet.HasData, 0)
-
-    #
-    # Helper methods
-    #
-
-    # Helper method for testing a wallet content
-    def __test_wallet_content(self, ref_wallet_dict, ut_wallet):
-        # Check the whole data as a dictionary
-        self.assertEqual(ref_wallet_dict, ut_wallet.ToDict())
-        # Test each single data type
-        for data_type in HdWalletElectrumV1DataTypes:
-            self.__test_wallet_data_type(data_type, ref_wallet_dict, ut_wallet)
-
-    # Helper method for testing a wallet data type
-    def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
-        # Get dictionary key
-        dict_key = data_type.name.lower()
-
-        # If data type is present in the reference wallet, check it
-        if dict_key in ref_wallet_dict:
-            # Data shall be present
-            self.assertTrue(ut_wallet.HasData(data_type))
-            # Get specific data
-            wallet_data = ut_wallet.GetData(data_type)
-
-            # Test keys individually
-            if isinstance(wallet_data, HdWalletKeysBase):
-                self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
-            # Test addresses individually
-            elif isinstance(wallet_data, HdWalletAddrBase):
-                self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data, ut_wallet.GetData(HdWalletElectrumV1DataTypes.ADDRESS_OFF))
-            # Otherwise just test the content
-            else:
-                self.assertEqual(ref_wallet_dict[dict_key], wallet_data)
-        # If data type is not present, it shall be None
-        else:
-            self.assertFalse(ut_wallet.HasData(data_type))
-            self.assertEqual(None, ut_wallet.GetData(data_type))
-
-    # Helper method for testing wallet keys (HdWalletElectrumV1MasterKeys, HdWalletElectrumV1DerivedKeys)
-    def __test_wallet_keys(self, ref_keys_dict, ut_wallet_keys):
-        # Test all keys as a dictionary
-        self.assertEqual(ref_keys_dict, ut_wallet_keys.ToDict())
-        # Test all keys as a string in JSON format
-        self.assertEqual(json.dumps(ref_keys_dict, indent=4), ut_wallet_keys.ToJson())
-
-        # Get and test each key type
-        for key_type in HdWalletElectrumV1KeyTypes:
-            # Get current dictionary key
-            dict_key = key_type.name.lower()
-
-            # If key type is present in the reference keys, check it
-            if dict_key in ref_keys_dict:
-                self.assertTrue(ut_wallet_keys.HasKey(key_type))
-                self.assertEqual(ref_keys_dict[dict_key], ut_wallet_keys.GetKey(key_type))
-            # If key type is not present, it shall be None
-            else:
-                self.assertFalse(ut_wallet_keys.HasKey(key_type))
-                self.assertEqual(None, ut_wallet_keys.GetKey(key_type))
-
-    # Helper method for testing wallet addresses (HdWalletElectrumV1Addresses)
-    def __test_wallet_addresses(self, test_addr_dict, ut_wallet_addr, addr_off):
-        addr_off = addr_off or 0
-
-        # Test whole addresses as a dictionary
-        self.assertEqual(test_addr_dict, ut_wallet_addr.ToDict())
-        # Test all addresses as a string in JSON format
-        self.assertEqual(json.dumps(test_addr_dict, indent=4), ut_wallet_addr.ToJson())
-
-        # Test address count
-        self.assertEqual(len(test_addr_dict), ut_wallet_addr.Count())
-
-        # Test each address by iterating
-        for i, addr in enumerate(ut_wallet_addr):
-            # Get current dictionary key
-            dict_key = HdWalletAddrBaseConst.DICT_KEY_DEF_FORMAT.format(i + addr_off)
-            # Each address is simply a HdWalletElectrumV1DerivedKeys, so we can use the previous method
-            self.__test_wallet_keys(test_addr_dict[dict_key], addr)
-            # Test again but accessing via index
-            self.__test_wallet_keys(test_addr_dict[dict_key], ut_wallet_addr[i])
-
-    # Helper method for saving a wallet to file and test it
-    def __test_wallet_save_to_file(self, ut_wallet, file_path):
-        # Save wallet to file
-        HdWalletSaver(ut_wallet).SaveToFile(file_path)
-        # File shall exist
-        self.assertTrue(os.path.exists(file_path))
-
-        # Load again from file in JSON format
-        with open(file_path, "r") as f:
-            saved_data = json.load(f)
-        # Loaded data shall be the same
-        self.assertEqual(ut_wallet.ToDict(), saved_data)
-        # Remove file
-        os.remove(file_path)
