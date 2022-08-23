@@ -21,23 +21,10 @@
 """Module with helper class for storing Substrate keys."""
 
 # Imports
-from typing import Dict
-
 from bip_utils import Substrate
 
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateKeyTypes
-
-
-class HdWalletSubstrateKeysConst:
-    """Class container for HD wallet Substrate keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletSubstrateKeyTypes.PRIV: "priv",
-        HdWalletSubstrateKeyTypes.PUB: "pub",
-        HdWalletSubstrateKeyTypes.ADDRESS: "address",
-    }
 
 
 class HdWalletSubstrateKeys(HdWalletKeysBase):
@@ -55,7 +42,7 @@ class HdWalletSubstrateKeys(HdWalletKeysBase):
         Args:
             substrate_obj (Substrate object): Substrate object
         """
-        super().__init__(HdWalletSubstrateKeyTypes, HdWalletSubstrateKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletSubstrateKeyTypes)
         self.__FromSubstrateObj(substrate_obj)
 
     def __FromSubstrateObj(self,
@@ -68,11 +55,11 @@ class HdWalletSubstrateKeys(HdWalletKeysBase):
         """
 
         # Add public key
-        self._SetKeyData(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
+        self._Set(HdWalletSubstrateKeyTypes.PUB, substrate_obj.PublicKey().RawCompressed().ToHex())
 
         # Add private key only if not public-only
         if not substrate_obj.IsPublicOnly():
-            self._SetKeyData(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
+            self._Set(HdWalletSubstrateKeyTypes.PRIV, substrate_obj.PrivateKey().Raw().ToHex())
 
         # Add aAddress
-        self._SetKeyData(HdWalletSubstrateKeyTypes.ADDRESS, substrate_obj.PublicKey().ToAddress())
+        self._Set(HdWalletSubstrateKeyTypes.ADDRESS, substrate_obj.PublicKey().ToAddress())

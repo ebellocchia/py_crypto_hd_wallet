@@ -21,34 +21,17 @@
 """Module for generating wallets based on Electrum V2."""
 
 # Imports
-from typing import Any, Dict
+from typing import Any
 
 from bip_utils import CoinsConf
 from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
 from bip_utils.electrum.electrum_v2 import ElectrumV2Base
 
-from py_crypto_hd_wallet.common import HdWalletBase, HdWalletDataTypes
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_addr import HdWalletElectrumV2Addresses
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_enum import HdWalletElectrumV2DataTypes
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_keys import HdWalletElectrumV2MasterKeys
 from py_crypto_hd_wallet.utils import Utils
-
-
-class HdWalletElectrumV2Const:
-    """Class container for HD wallet Electrum V1 constants."""
-
-    # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
-        HdWalletElectrumV2DataTypes.WALLET_NAME: "wallet_name",
-        HdWalletElectrumV2DataTypes.COIN_NAME: "coin_name",
-        HdWalletElectrumV2DataTypes.MNEMONIC: "mnemonic",
-        HdWalletElectrumV2DataTypes.PASSPHRASE: "passphrase",
-        HdWalletElectrumV2DataTypes.SEED_BYTES: "seed_bytes",
-        HdWalletElectrumV2DataTypes.CHANGE_IDX: "change_idx",
-        HdWalletElectrumV2DataTypes.MASTER_KEY: "master_key",
-        HdWalletElectrumV2DataTypes.ADDRESS_OFF: "address_off",
-        HdWalletElectrumV2DataTypes.ADDRESS: "address",
-    }
 
 
 class HdWalletElectrumV2(HdWalletBase):
@@ -79,7 +62,7 @@ class HdWalletElectrumV2(HdWalletBase):
             passphrase (str, optional)          : Passphrase, empty if not specified
             seed_bytes (bytes, optional)        : Seed_bytes, empty if not specified
         """
-        super().__init__(HdWalletElectrumV2DataTypes, HdWalletElectrumV2Const.DATA_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletElectrumV2DataTypes)
         self.m_electrum_obj = electrum_obj
         # Initialize data
         self.__InitData(wallet_name, mnemonic, passphrase, seed_bytes)
@@ -109,13 +92,13 @@ class HdWalletElectrumV2(HdWalletBase):
             raise ValueError("Address offset shall be greater or equal to zero")
 
         # Set master key
-        self._SetData(HdWalletElectrumV2DataTypes.MASTER_KEY,
-                      HdWalletElectrumV2MasterKeys(self.m_electrum_obj))
+        self._Set(HdWalletElectrumV2DataTypes.MASTER_KEY,
+                  HdWalletElectrumV2MasterKeys(self.m_electrum_obj))
 
         # Set addresses
-        self._SetData(HdWalletElectrumV2DataTypes.ADDRESS_OFF, addr_off)
-        self._SetData(HdWalletElectrumV2DataTypes.ADDRESS,
-                      HdWalletElectrumV2Addresses(self.m_electrum_obj, change_idx, addr_num, addr_off))
+        self._Set(HdWalletElectrumV2DataTypes.ADDRESS_OFF, addr_off)
+        self._Set(HdWalletElectrumV2DataTypes.ADDRESS,
+                  HdWalletElectrumV2Addresses(self.m_electrum_obj, change_idx, addr_num, addr_off))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -146,14 +129,14 @@ class HdWalletElectrumV2(HdWalletBase):
         """
 
         # Set wallet name
-        self._SetData(HdWalletElectrumV2DataTypes.WALLET_NAME, wallet_name)
+        self._Set(HdWalletElectrumV2DataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = CoinsConf.BitcoinMainNet.CoinNames()
-        self._SetData(HdWalletElectrumV2DataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._Set(HdWalletElectrumV2DataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self._SetData(HdWalletElectrumV2DataTypes.MNEMONIC, mnemonic)
-            self._SetData(HdWalletElectrumV2DataTypes.PASSPHRASE, passphrase)
+            self._Set(HdWalletElectrumV2DataTypes.MNEMONIC, mnemonic)
+            self._Set(HdWalletElectrumV2DataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
-            self._SetData(HdWalletElectrumV2DataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
+            self._Set(HdWalletElectrumV2DataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))

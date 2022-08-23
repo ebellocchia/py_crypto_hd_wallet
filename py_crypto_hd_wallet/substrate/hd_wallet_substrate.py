@@ -21,29 +21,14 @@
 """Module for generating Substrate wallets."""
 
 # Imports
-from typing import Any, Dict
+from typing import Any
 
 from bip_utils import Substrate, SubstrateKeyError, SubstratePathError
 
 from py_crypto_hd_wallet.common import HdWalletBase
-from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletDataTypes, HdWalletSubstrateDataTypes
+from py_crypto_hd_wallet.substrate.hd_wallet_substrate_enum import HdWalletSubstrateDataTypes
 from py_crypto_hd_wallet.substrate.hd_wallet_substrate_keys import HdWalletSubstrateKeys
 from py_crypto_hd_wallet.utils import Utils
-
-
-class HdWalletSubstrateConst:
-    """Class container for HD wallet Substrate constants."""
-
-    # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
-        HdWalletSubstrateDataTypes.WALLET_NAME: "wallet_name",
-        HdWalletSubstrateDataTypes.COIN_NAME: "coin_name",
-        HdWalletSubstrateDataTypes.MNEMONIC: "mnemonic",
-        HdWalletSubstrateDataTypes.PASSPHRASE: "passphrase",
-        HdWalletSubstrateDataTypes.SEED_BYTES: "seed_bytes",
-        HdWalletSubstrateDataTypes.PATH: "path",
-        HdWalletSubstrateDataTypes.KEY: "key",
-    }
 
 
 class HdWalletSubstrate(HdWalletBase):
@@ -53,7 +38,6 @@ class HdWalletSubstrate(HdWalletBase):
     """
 
     m_substrate_obj: Substrate
-    m_wallet_data: Dict[str, Any]
 
     #
     # Public methods
@@ -75,7 +59,7 @@ class HdWalletSubstrate(HdWalletBase):
             passphrase (str, optional)      : Passphrase, empty if not specified
             seed_bytes (bytes, optional)    : Seed_bytes, empty if not specified
         """
-        super().__init__(HdWalletSubstrateDataTypes, HdWalletSubstrateConst.DATA_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletSubstrateDataTypes)
         self.m_substrate_obj = substrate_obj
         # Initialize data
         self.__InitData(wallet_name, mnemonic, passphrase, seed_bytes)
@@ -91,11 +75,11 @@ class HdWalletSubstrate(HdWalletBase):
         path = kwargs.get("path", "")
 
         if path != "":
-            self._SetData(HdWalletSubstrateDataTypes.PATH, path)
+            self._Set(HdWalletSubstrateDataTypes.PATH, path)
 
         try:
             substrate_obj = self.m_substrate_obj.DerivePath(path)
-            self.__SetKeys(HdWalletSubstrateDataTypes.KEY, substrate_obj)
+            self._Set(HdWalletSubstrateDataTypes.KEY, HdWalletSubstrateKeys(substrate_obj))
         except (SubstrateKeyError, SubstratePathError) as ex:
             raise ValueError(f"Invalid path: {path}") from ex
 
@@ -128,26 +112,14 @@ class HdWalletSubstrate(HdWalletBase):
         """
 
         # Set wallet name
-        self._SetData(HdWalletSubstrateDataTypes.WALLET_NAME, wallet_name)
+        self._Set(HdWalletSubstrateDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = self.m_substrate_obj.CoinConf().CoinNames()
-        self._SetData(HdWalletSubstrateDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._Set(HdWalletSubstrateDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self._SetData(HdWalletSubstrateDataTypes.MNEMONIC, mnemonic)
-            self._SetData(HdWalletSubstrateDataTypes.PASSPHRASE, passphrase)
+            self._Set(HdWalletSubstrateDataTypes.MNEMONIC, mnemonic)
+            self._Set(HdWalletSubstrateDataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
-            self._SetData(HdWalletSubstrateDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
-
-    def __SetKeys(self,
-                  data_type: HdWalletSubstrateDataTypes,
-                  substrate_obj: Substrate) -> None:
-        """
-        Add keys to wallet data.
-
-        Args:
-            data_type (HdWalletSubstrateDataTypes): Data type
-            substrate_obj (Substrate object)      : Substrate object
-        """
-        self._SetData(data_type, HdWalletSubstrateKeys(substrate_obj))
+            self._Set(HdWalletSubstrateDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))

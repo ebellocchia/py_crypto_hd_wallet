@@ -27,13 +27,6 @@ from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_keys import HdWalletElectrumV1DerivedKeys
 
 
-class HdWalletElectrumV1AddressesConst:
-    """Class container for HD wallet Electrum V1 addresses constants."""
-
-    # Address key for dictionary
-    ADDR_DICT_KEY: str = "address_{:d}"
-
-
 class HdWalletElectrumV1Addresses(HdWalletAddrBase):
     """
     HD wallet Electrum V1 addresses class.
@@ -55,7 +48,7 @@ class HdWalletElectrumV1Addresses(HdWalletAddrBase):
             addr_num (int)                  : Address number
             addr_off (int)                  : Starting address index
         """
-        super().__init__(addr_off, HdWalletElectrumV1AddressesConst.ADDR_DICT_KEY)
+        super().__init__(addr_off)
         self.__FromElectrumObj(electrum_obj, change_idx, addr_num, addr_off)
 
     def __FromElectrumObj(self,

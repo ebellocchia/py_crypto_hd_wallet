@@ -21,32 +21,16 @@
 """Module for generating wallets based on Electrum V1."""
 
 # Imports
-from typing import Any, Dict
+from typing import Any
 
 from bip_utils import CoinsConf, ElectrumV1
 from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
 
-from py_crypto_hd_wallet.common import HdWalletBase, HdWalletDataTypes
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_addr import HdWalletElectrumV1Addresses
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import HdWalletElectrumV1DataTypes
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_keys import HdWalletElectrumV1MasterKeys
 from py_crypto_hd_wallet.utils import Utils
-
-
-class HdWalletElectrumV1Const:
-    """Class container for HD wallet Electrum V1 constants."""
-
-    # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
-        HdWalletElectrumV1DataTypes.WALLET_NAME: "wallet_name",
-        HdWalletElectrumV1DataTypes.COIN_NAME: "coin_name",
-        HdWalletElectrumV1DataTypes.MNEMONIC: "mnemonic",
-        HdWalletElectrumV1DataTypes.SEED_BYTES: "seed_bytes",
-        HdWalletElectrumV1DataTypes.CHANGE_IDX: "change_idx",
-        HdWalletElectrumV1DataTypes.MASTER_KEY: "master_key",
-        HdWalletElectrumV1DataTypes.ADDRESS_OFF: "address_off",
-        HdWalletElectrumV1DataTypes.ADDRESS: "address",
-    }
 
 
 class HdWalletElectrumV1(HdWalletBase):
@@ -75,7 +59,7 @@ class HdWalletElectrumV1(HdWalletBase):
             mnemonic (str, optional)        : Mnemonic, empty if not specified
             seed_bytes (bytes, optional)    : Seed_bytes, empty if not specified
         """
-        super().__init__(HdWalletElectrumV1DataTypes, HdWalletElectrumV1Const.DATA_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletElectrumV1DataTypes)
         self.m_electrum_obj = electrum_obj
         # Initialize data
         self.__InitData(wallet_name, mnemonic, seed_bytes)
@@ -105,13 +89,13 @@ class HdWalletElectrumV1(HdWalletBase):
             raise ValueError("Address offset shall be greater or equal to zero")
 
         # Set master key
-        self._SetData(HdWalletElectrumV1DataTypes.MASTER_KEY,
-                      HdWalletElectrumV1MasterKeys(self.m_electrum_obj))
+        self._Set(HdWalletElectrumV1DataTypes.MASTER_KEY,
+                  HdWalletElectrumV1MasterKeys(self.m_electrum_obj))
 
         # Set addresses
-        self._SetData(HdWalletElectrumV1DataTypes.ADDRESS_OFF, addr_off)
-        self._SetData(HdWalletElectrumV1DataTypes.ADDRESS,
-                      HdWalletElectrumV1Addresses(self.m_electrum_obj, change_idx, addr_num, addr_off))
+        self._Set(HdWalletElectrumV1DataTypes.ADDRESS_OFF, addr_off)
+        self._Set(HdWalletElectrumV1DataTypes.ADDRESS,
+                  HdWalletElectrumV1Addresses(self.m_electrum_obj, change_idx, addr_num, addr_off))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -142,13 +126,13 @@ class HdWalletElectrumV1(HdWalletBase):
         """
 
         # Set wallet name
-        self._SetData(HdWalletElectrumV1DataTypes.WALLET_NAME, wallet_name)
+        self._Set(HdWalletElectrumV1DataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = CoinsConf.BitcoinMainNet.CoinNames()
-        self._SetData(HdWalletElectrumV1DataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._Set(HdWalletElectrumV1DataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self._SetData(HdWalletElectrumV1DataTypes.MNEMONIC, mnemonic)
+            self._Set(HdWalletElectrumV1DataTypes.MNEMONIC, mnemonic)
         if seed_bytes != b"":
-            self._SetData(HdWalletElectrumV1DataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
+            self._Set(HdWalletElectrumV1DataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))

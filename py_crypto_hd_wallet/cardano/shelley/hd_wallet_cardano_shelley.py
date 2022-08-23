@@ -21,7 +21,7 @@
 """Module for generating wallets based on Cardano Shelley."""
 
 # Imports
-from typing import Any, Dict
+from typing import Any
 
 from bip_utils import Bip44Levels, CardanoShelley, Cip1852
 from bip_utils.bip.bip32.bip32_key_data import Bip32KeyDataConst
@@ -34,28 +34,8 @@ from py_crypto_hd_wallet.cardano.shelley.hd_wallet_cardano_shelley_enum import (
 from py_crypto_hd_wallet.cardano.shelley.hd_wallet_cardano_shelley_keys import (
     HdWalletCardanoShelleyDerivedKeys, HdWalletCardanoShelleyMasterKeys, HdWalletCardanoShelleyStakingKeys
 )
-from py_crypto_hd_wallet.common import HdWalletBase, HdWalletDataTypes
+from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
-
-
-class HdWalletCardanoShelleyConst:
-    """Class container for HD wallet Cardano Shelley constants."""
-
-    # Map data types to dictionary key
-    DATA_TYPE_TO_DICT_KEY: Dict[HdWalletDataTypes, str] = {
-        HdWalletCardanoShelleyDataTypes.WALLET_NAME: "wallet_name",
-        HdWalletCardanoShelleyDataTypes.COIN_NAME: "coin_name",
-        HdWalletCardanoShelleyDataTypes.MNEMONIC: "mnemonic",
-        HdWalletCardanoShelleyDataTypes.PASSPHRASE: "passphrase",
-        HdWalletCardanoShelleyDataTypes.SEED_BYTES: "seed_bytes",
-        HdWalletCardanoShelleyDataTypes.ACCOUNT_IDX: "account_idx",
-        HdWalletCardanoShelleyDataTypes.CHANGE_IDX: "change_idx",
-        HdWalletCardanoShelleyDataTypes.MASTER_KEY: "master_key",
-        HdWalletCardanoShelleyDataTypes.ACCOUNT_KEY: "account_key",
-        HdWalletCardanoShelleyDataTypes.STAKING_KEY: "staking_key",
-        HdWalletCardanoShelleyDataTypes.ADDRESS_OFF: "address_off",
-        HdWalletCardanoShelleyDataTypes.ADDRESS: "address",
-    }
 
 
 class HdWalletCardanoShelley(HdWalletBase):
@@ -95,7 +75,7 @@ class HdWalletCardanoShelley(HdWalletBase):
         if bip_obj.Level() > Bip44Levels.ACCOUNT:
             raise ValueError("Bip object shall be below or equal account level")
 
-        super().__init__(HdWalletCardanoShelleyDataTypes, HdWalletCardanoShelleyConst.DATA_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletCardanoShelleyDataTypes)
         self.m_bip_obj = bip_obj
         # Initialize data
         self.__InitData(wallet_name, mnemonic, passphrase, seed_bytes)
@@ -131,29 +111,29 @@ class HdWalletCardanoShelley(HdWalletBase):
 
         # Set master keys and derive purpose if correct level
         if bip_obj.IsLevel(Bip44Levels.MASTER):
-            self._SetData(HdWalletCardanoShelleyDataTypes.MASTER_KEY, HdWalletCardanoShelleyMasterKeys(bip_obj))
+            self._Set(HdWalletCardanoShelleyDataTypes.MASTER_KEY, HdWalletCardanoShelleyMasterKeys(bip_obj))
             bip_obj = bip_obj.Purpose()
         # Set purpose keys and derive coin if correct level
         if bip_obj.IsLevel(Bip44Levels.PURPOSE):
             bip_obj = bip_obj.Coin()
         # Set coin keys and derive account if correct level
         if bip_obj.IsLevel(Bip44Levels.COIN):
-            self._SetData(HdWalletCardanoShelleyDataTypes.ACCOUNT_IDX, acc_idx)
+            self._Set(HdWalletCardanoShelleyDataTypes.ACCOUNT_IDX, acc_idx)
             bip_obj = bip_obj.Account(acc_idx)
         # Set account keys and derive change if correct level
         if bip_obj.IsLevel(Bip44Levels.ACCOUNT):
-            self._SetData(HdWalletCardanoShelleyDataTypes.CHANGE_IDX, int(change_idx))
+            self._Set(HdWalletCardanoShelleyDataTypes.CHANGE_IDX, int(change_idx))
             shelley_obj = CardanoShelley.FromCip1852Object(bip_obj).Change(change_idx)
-            self._SetData(HdWalletCardanoShelleyDataTypes.ACCOUNT_KEY, HdWalletCardanoShelleyDerivedKeys(shelley_obj))
+            self._Set(HdWalletCardanoShelleyDataTypes.ACCOUNT_KEY, HdWalletCardanoShelleyDerivedKeys(shelley_obj))
         else:
             shelley_obj = bip_obj
 
         # Set change keys and derive addresses
-        self._SetData(HdWalletCardanoShelleyDataTypes.ADDRESS_OFF, addr_off)
-        self._SetData(HdWalletCardanoShelleyDataTypes.ADDRESS,
-                      HdWalletCardanoShelleyAddresses(shelley_obj, addr_num, addr_off))
+        self._Set(HdWalletCardanoShelleyDataTypes.ADDRESS_OFF, addr_off)
+        self._Set(HdWalletCardanoShelleyDataTypes.ADDRESS,
+                  HdWalletCardanoShelleyAddresses(shelley_obj, addr_num, addr_off))
         # Set staking keys
-        self._SetData(HdWalletCardanoShelleyDataTypes.STAKING_KEY, HdWalletCardanoShelleyStakingKeys(shelley_obj))
+        self._Set(HdWalletCardanoShelleyDataTypes.STAKING_KEY, HdWalletCardanoShelleyStakingKeys(shelley_obj))
 
     def IsWatchOnly(self) -> bool:
         """
@@ -184,14 +164,14 @@ class HdWalletCardanoShelley(HdWalletBase):
         """
 
         # Set wallet name
-        self._SetData(HdWalletCardanoShelleyDataTypes.WALLET_NAME, wallet_name)
+        self._Set(HdWalletCardanoShelleyDataTypes.WALLET_NAME, wallet_name)
         # Set coin name
         coin_names = self.m_bip_obj.CoinConf().CoinNames()
-        self._SetData(HdWalletCardanoShelleyDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
+        self._Set(HdWalletCardanoShelleyDataTypes.COIN_NAME, f"{coin_names.Name()} ({coin_names.Abbreviation()})")
 
         # Set optional data if specified
         if mnemonic != "":
-            self._SetData(HdWalletCardanoShelleyDataTypes.MNEMONIC, mnemonic)
-            self._SetData(HdWalletCardanoShelleyDataTypes.PASSPHRASE, passphrase)
+            self._Set(HdWalletCardanoShelleyDataTypes.MNEMONIC, mnemonic)
+            self._Set(HdWalletCardanoShelleyDataTypes.PASSPHRASE, passphrase)
         if seed_bytes != b"":
-            self._SetData(HdWalletCardanoShelleyDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))
+            self._Set(HdWalletCardanoShelleyDataTypes.SEED_BYTES, Utils.BytesToHexString(seed_bytes))

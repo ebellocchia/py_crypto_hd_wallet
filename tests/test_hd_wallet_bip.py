@@ -30,11 +30,9 @@ from py_crypto_hd_wallet import (
     HdWalletBipChanges, HdWalletBipDataTypes, HdWalletBipFactory, HdWalletBipKeys, HdWalletBipKeyTypes,
     HdWalletBipWordsNum, HdWalletSaver
 )
-from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBipConst
 
 # Just for testing
-from py_crypto_hd_wallet.bip.hd_wallet_bip_addr import HdWalletBipAddressesConst
-from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeysConst
+from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBaseConst
 
 
 # Test vector
@@ -792,7 +790,7 @@ class HdWalletBipTests(unittest.TestCase):
     # Helper method for testing a wallet data type
     def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
         # Get dictionary key
-        dict_key = HdWalletBipConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = data_type.name.lower()
 
         # If data type is present in the reference wallet, check it
         if dict_key in ref_wallet_dict:
@@ -825,7 +823,7 @@ class HdWalletBipTests(unittest.TestCase):
         # Get and test each key type
         for key_type in HdWalletBipKeyTypes:
             # Get current dictionary key
-            dict_key = HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+            dict_key = key_type.name.lower()
 
             # If key type is present in the reference keys, check it
             if dict_key in ref_keys_dict:
@@ -851,7 +849,7 @@ class HdWalletBipTests(unittest.TestCase):
         # Test each address by iterating
         for i, addr in enumerate(ut_wallet_addr):
             # Get current dictionary key
-            dict_key = HdWalletBipAddressesConst.ADDR_DICT_KEY.format(i + addr_off)
+            dict_key = HdWalletAddrBaseConst.DICT_KEY_DEF_FORMAT.format(i + addr_off)
             # Each address is simply a HdWalletBipKeys, so we can use the previous method
             self.__test_wallet_keys(test_addr_dict[dict_key], addr)
             # Test again but accessing via index

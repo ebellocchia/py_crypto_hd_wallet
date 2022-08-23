@@ -21,29 +21,16 @@
 """Module with helper class for storing Algorand keys."""
 
 # Imports
-from typing import Dict
-
 from bip_utils.bip.bip44_base import Bip44Base
 
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand_enum import HdWalletAlgorandKeyTypes
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
-
-
-class HdWalletAlgorandKeysConst:
-    """Class container for HD wallet Algorand keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletAlgorandKeyTypes.PRIV: "priv",
-        HdWalletAlgorandKeyTypes.PUB: "pub",
-        HdWalletAlgorandKeyTypes.ADDRESS: "address",
-    }
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 
 
 class HdWalletAlgorandKeys(HdWalletKeysBase):
     """
     HD wallet Algorand keys class.
-    It creates keys from a Algorand object and stores them.
+    It creates keys from an Algorand object and stores them.
     Keys can be got individually, as dictionary or in JSON format.
     """
 
@@ -55,7 +42,7 @@ class HdWalletAlgorandKeys(HdWalletKeysBase):
         Args:
             bip_obj (Bip44Base object): Bip44Base object
         """
-        super().__init__(HdWalletAlgorandKeyTypes, HdWalletAlgorandKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletAlgorandKeyTypes)
         self.__FromBipObj(bip_obj)
 
     def __FromBipObj(self,
@@ -68,11 +55,11 @@ class HdWalletAlgorandKeys(HdWalletKeysBase):
         """
 
         # Add public key
-        self._SetKeyData(HdWalletAlgorandKeyTypes.PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        self._Set(HdWalletAlgorandKeyTypes.PUB, bip_obj.PublicKey().RawCompressed().ToHex())
 
         # Add private key only if Algorand object is not public-only
         if not bip_obj.IsPublicOnly():
-            self._SetKeyData(HdWalletAlgorandKeyTypes.PRIV, bip_obj.PrivateKey().Raw().ToHex())
+            self._Set(HdWalletAlgorandKeyTypes.PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
         # Address
-        self._SetKeyData(HdWalletAlgorandKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
+        self._Set(HdWalletAlgorandKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())

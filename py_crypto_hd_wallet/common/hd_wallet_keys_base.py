@@ -21,63 +21,25 @@
 """Module with base class for wallet keys."""
 
 # Imports
-import json
-from abc import ABC
-from typing import Dict, Optional, Type
+from typing import Optional
 
 from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletKeyTypes
+from py_crypto_hd_wallet.common.hd_wallet_enum_dict import HdWalletEnumDict
 
 
-class HdWalletKeysBase(ABC):
-    """HD wallet keys base class."""
-
-    m_key_type_enum: Type[HdWalletKeyTypes]
-    m_key_type_to_dict_key: Dict[HdWalletKeyTypes, str]
-    m_key_data: Dict[str, str]
-
-    def __init__(self,
-                 key_type_enum: Type[HdWalletKeyTypes],
-                 key_type_to_dict_key: Dict[HdWalletKeyTypes, str]) -> None:
-        """
-        Construct class.
-
-        Args:
-            key_type_enum (HdWalletKeyTypes)                  : Key type enumerative
-            key_type_to_dict_key (Dict[HdWalletKeyTypes, str]): Key type to dictionary key
-        """
-        self.m_key_type_enum = key_type_enum
-        self.m_key_type_to_dict_key = key_type_to_dict_key
-        self.m_key_data = {}
-
-    def ToDict(self) -> Dict[str, str]:
-        """
-        Get keys as a dictionary.
-
-        Returns:
-            dict: Keys as a dictionary
-        """
-        return self.m_key_data
-
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get keys as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Keys as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
+class HdWalletKeysBase(HdWalletEnumDict):
+    """
+    HD wallet keys base class.
+    It shall be inherited by wallet keys classes.
+    """
 
     def HasKey(self,
-               key_type: HdWalletKeyTypes) -> bool:
+               key: HdWalletKeyTypes) -> bool:
         """
-        Get if the key of the specified type is present.
+        Get if the specified key is present.
 
         Args:
-            key_type (HdWalletKeyTypes): Key type
+            key (HdWalletKeyTypes): Key
 
         Returns:
             bool: True if present, false otherwise
@@ -85,41 +47,21 @@ class HdWalletKeysBase(ABC):
         Raises:
             TypeError: If the enumerative is not of the correct type
         """
-        if not isinstance(key_type, self.m_key_type_enum):
-            raise TypeError(f"Key type is not an enumerative of {self.m_key_type_enum}")
-
-        dict_key = self.m_key_type_to_dict_key[key_type]
-        return dict_key in self.m_key_data
+        return super()._Has(key)
 
     def GetKey(self,
-               key_type: HdWalletKeyTypes) -> Optional[str]:
+               key: HdWalletKeyTypes) -> Optional[str]:
         """
-        Get key of the specified type.
+        Get the specified key value.
 
         Args:
-            key_type (HdWalletKeyTypes): Key type
+            key (HdWalletKeyTypes): Key
 
         Returns:
-            str: Key string
+            str: Key value
             None: If the key type is not found
 
         Raises:
             TypeError: If the enumerative is not of the correct type
         """
-        if self.HasKey(key_type):
-            dict_key = self.m_key_type_to_dict_key[key_type]
-            return self.m_key_data[dict_key]
-        return None
-
-    def _SetKeyData(self,
-                    key_type: HdWalletKeyTypes,
-                    key_value: str) -> None:
-        """
-        Set key data.
-
-        Args:
-            key_type (HdWalletKeyTypes): Key type
-            key_value (str)            : Key value
-        """
-        dict_key = self.m_key_type_to_dict_key[key_type]
-        self.m_key_data[dict_key] = key_value
+        return super()._Get(key)

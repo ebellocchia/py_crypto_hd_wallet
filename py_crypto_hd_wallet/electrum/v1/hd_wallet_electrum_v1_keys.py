@@ -21,24 +21,10 @@
 """Module with helper class for storing Electrum V1 keys."""
 
 # Imports
-from typing import Dict
-
 from bip_utils import CoinsConf, ElectrumV1, IPrivateKey, WifEncoder, WifPubKeyModes
 
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import HdWalletElectrumV1KeyTypes
-
-
-class HdWalletElectrumV1KeysConst:
-    """Class container for HD wallet Electrum V1 keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletElectrumV1KeyTypes.RAW_PRIV: "raw_priv",
-        HdWalletElectrumV1KeyTypes.WIF_PRIV: "wif_priv",
-        HdWalletElectrumV1KeyTypes.RAW_PUB: "raw_pub",
-        HdWalletElectrumV1KeyTypes.ADDRESS: "address",
-    }
 
 
 class HdWalletElectrumV1KeyUtils:
@@ -77,7 +63,7 @@ class HdWalletElectrumV1MasterKeys(HdWalletKeysBase):
         Args:
             electrum_obj (ElectrumV1 object): ElectrumV1 object
         """
-        super().__init__(HdWalletElectrumV1KeyTypes, HdWalletElectrumV1KeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletElectrumV1KeyTypes)
         self.__FromElectrumObj(electrum_obj)
 
     def __FromElectrumObj(self,
@@ -90,14 +76,15 @@ class HdWalletElectrumV1MasterKeys(HdWalletKeysBase):
         """
 
         # Add public key
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PUB,
-                         electrum_obj.MasterPublicKey().RawUncompressed().ToHex()[2:])
+        self._Set(HdWalletElectrumV1KeyTypes.RAW_PUB,
+                  electrum_obj.MasterPublicKey().RawUncompressed().ToHex()[2:])
 
         # Add private key only if not public-only
         if not electrum_obj.IsPublicOnly():
-            self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV, electrum_obj.MasterPrivateKey().Raw().ToHex())
-            self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
-                             HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.MasterPrivateKey()))
+            self._Set(HdWalletElectrumV1KeyTypes.RAW_PRIV,
+                      electrum_obj.MasterPrivateKey().Raw().ToHex())
+            self._Set(HdWalletElectrumV1KeyTypes.WIF_PRIV,
+                      HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.MasterPrivateKey()))
 
 
 class HdWalletElectrumV1DerivedKeys(HdWalletKeysBase):
@@ -121,7 +108,7 @@ class HdWalletElectrumV1DerivedKeys(HdWalletKeysBase):
             addr_num (int)                  : Address number
             addr_off (int)                  : Starting address index
         """
-        super().__init__(HdWalletElectrumV1KeyTypes, HdWalletElectrumV1KeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletElectrumV1KeyTypes)
         self.__FromElectrumObj(electrum_obj, change_idx, addr_num, addr_off)
 
     def __FromElectrumObj(self,
@@ -141,16 +128,16 @@ class HdWalletElectrumV1DerivedKeys(HdWalletKeysBase):
         addr_idx = addr_num + addr_off
 
         # Add public key
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PUB,
-                         electrum_obj.GetPublicKey(change_idx, addr_idx).RawUncompressed().ToHex()[2:])
+        self._Set(HdWalletElectrumV1KeyTypes.RAW_PUB,
+                  electrum_obj.GetPublicKey(change_idx, addr_idx).RawUncompressed().ToHex()[2:])
 
         # Add private key only if not public-only
         if not electrum_obj.IsPublicOnly():
-            self._SetKeyData(HdWalletElectrumV1KeyTypes.RAW_PRIV,
-                             electrum_obj.GetPrivateKey(change_idx, addr_idx).Raw().ToHex())
-            self._SetKeyData(HdWalletElectrumV1KeyTypes.WIF_PRIV,
-                             HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.GetPrivateKey(change_idx, addr_idx)))
+            self._Set(HdWalletElectrumV1KeyTypes.RAW_PRIV,
+                      electrum_obj.GetPrivateKey(change_idx, addr_idx).Raw().ToHex())
+            self._Set(HdWalletElectrumV1KeyTypes.WIF_PRIV,
+                      HdWalletElectrumV1KeyUtils.PrivToWif(electrum_obj.GetPrivateKey(change_idx, addr_idx)))
 
         # Address
-        self._SetKeyData(HdWalletElectrumV1KeyTypes.ADDRESS,
-                         electrum_obj.GetAddress(change_idx, addr_idx))
+        self._Set(HdWalletElectrumV1KeyTypes.ADDRESS,
+                  electrum_obj.GetAddress(change_idx, addr_idx))

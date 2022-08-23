@@ -21,7 +21,7 @@
 """Module for creating BIP wallet factories."""
 
 # Imports
-from typing import Type, Union
+from typing import Dict, Type
 
 from bip_utils import (
     Bip32KeyError, Bip39MnemonicGenerator, Bip39SeedGenerator, Bip44, Bip49, Bip84, Bip86, MnemonicChecksumError
@@ -30,11 +30,23 @@ from bip_utils.bip.bip44_base import Bip44Base
 
 from py_crypto_hd_wallet.bip.hd_wallet_bip import HdWalletBip
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import (
-    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins, HdWalletBipLanguages,
-    HdWalletBipWordsNum
+    HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins, HdWalletBipCoins,
+    HdWalletBipLanguages, HdWalletBipWordsNum
 )
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.utils import Utils
+
+
+class HdWalletBipFactoryConst:
+    """Class container for HD wallet BIP factory constants."""
+
+    # BIP coin to class map
+    BIP_COIN_TO_CLASS: Dict[Type[HdWalletBipCoins], Type[Bip44Base]] = {
+        HdWalletBip44Coins: Bip44,
+        HdWalletBip49Coins: Bip49,
+        HdWalletBip84Coins: Bip84,
+        HdWalletBip86Coins: Bip86,
+    }
 
 
 class HdWalletBipFactory:
@@ -43,25 +55,22 @@ class HdWalletBipFactory:
     It allows a HdWalletBip to be created in different ways.
     """
 
-    m_bip_coin: Union[HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins]
+    m_bip_coin: HdWalletBipCoins
     m_bip_cls: Type[Bip44Base]
 
     def __init__(self,
-                 coin_type: Union[HdWalletBip44Coins,
-                                  HdWalletBip49Coins,
-                                  HdWalletBip84Coins,
-                                  HdWalletBip86Coins]) -> None:
+                 coin_type: HdWalletBipCoins) -> None:
         """
         Construct class.
 
         Args:
-            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins): Coin type
+            coin_type (HdWalletBipCoins): Coin type
 
         Raised:
             TypeError: If coin type is not one of the accepted enum
         """
-        self.m_bip_coin = coin_type
         self.m_bip_cls = self.__BipClassFromCoinType(coin_type)
+        self.m_bip_coin = coin_type
 
     def CreateRandom(self,
                      wallet_name: str,
@@ -213,26 +222,20 @@ class HdWalletBipFactory:
                            bip_obj=bip_obj)
 
     @staticmethod
-    def __BipClassFromCoinType(coin_type: Union[HdWalletBip44Coins,
-                                                HdWalletBip49Coins,
-                                                HdWalletBip84Coins,
-                                                HdWalletBip86Coins]) -> Type[Bip44Base]:
+    def __BipClassFromCoinType(coin_type: HdWalletBipCoins) -> Type[Bip44Base]:
         """
         Get BIP class from coin type.
 
         Args:
-            coin_type (HdWalletBip44Coins, HdWalletBip49Coins, HdWalletBip84Coins, HdWalletBip86Coins): Coin type
+            coin_type (HdWalletBipCoins): Coin type
 
         Returns:
             Bip44Base class: Bip44Base class
-        """
-        if isinstance(coin_type, HdWalletBip44Coins):
-            return Bip44
-        if isinstance(coin_type, HdWalletBip49Coins):
-            return Bip49
-        if isinstance(coin_type, HdWalletBip84Coins):
-            return Bip84
-        if isinstance(coin_type, HdWalletBip86Coins):
-            return Bip86
 
-        raise TypeError("Coin type is not an accepted enumerative")
+        Raised:
+            TypeError: If coin type is not one of the accepted enum
+        """
+        try:
+            return HdWalletBipFactoryConst.BIP_COIN_TO_CLASS[type(coin_type)]
+        except KeyError as ex:
+            raise TypeError("Coin type is not an accepted enumerative") from ex

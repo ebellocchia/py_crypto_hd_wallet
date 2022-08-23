@@ -21,27 +21,11 @@
 """Module with helper class for storing Electrum V2 keys."""
 
 # Imports
-from typing import Dict
-
 from bip_utils import Bip32PrivateKey, CoinsConf, WifEncoder
 from bip_utils.electrum.electrum_v2 import ElectrumV2Base
 
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_enum import HdWalletElectrumV2KeyTypes
-
-
-class HdWalletElectrumV2KeysConst:
-    """Class container for HD wallet Electrum V2 keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletElectrumV2KeyTypes.EX_PRIV: "ex_priv",
-        HdWalletElectrumV2KeyTypes.RAW_PRIV: "raw_priv",
-        HdWalletElectrumV2KeyTypes.WIF_PRIV: "wif_priv",
-        HdWalletElectrumV2KeyTypes.EX_PUB: "ex_pub",
-        HdWalletElectrumV2KeyTypes.RAW_PUB: "raw_pub",
-        HdWalletElectrumV2KeyTypes.ADDRESS: "address",
-    }
 
 
 class HdWalletElectrumV1KeyUtils:
@@ -79,7 +63,7 @@ class HdWalletElectrumV2MasterKeys(HdWalletKeysBase):
         Args:
             electrum_obj (ElectrumV2Base object): ElectrumV2Base object
         """
-        super().__init__(HdWalletElectrumV2KeyTypes, HdWalletElectrumV2KeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletElectrumV2KeyTypes)
         self.__FromElectrumObj(electrum_obj)
 
     def __FromElectrumObj(self,
@@ -93,15 +77,15 @@ class HdWalletElectrumV2MasterKeys(HdWalletKeysBase):
 
         # Add public key
         pub_key = electrum_obj.MasterPublicKey()
-        self._SetKeyData(HdWalletElectrumV2KeyTypes.EX_PUB, pub_key.ToExtended())
-        self._SetKeyData(HdWalletElectrumV2KeyTypes.RAW_PUB, pub_key.RawUncompressed().ToHex()[2:])
+        self._Set(HdWalletElectrumV2KeyTypes.EX_PUB, pub_key.ToExtended())
+        self._Set(HdWalletElectrumV2KeyTypes.RAW_PUB, pub_key.RawUncompressed().ToHex()[2:])
 
         # Add private key only if not public-only
         if not electrum_obj.IsPublicOnly():
             priv_key = electrum_obj.MasterPrivateKey()
-            self._SetKeyData(HdWalletElectrumV2KeyTypes.EX_PRIV, priv_key.ToExtended())
-            self._SetKeyData(HdWalletElectrumV2KeyTypes.RAW_PRIV, priv_key.Raw().ToHex())
-            self._SetKeyData(HdWalletElectrumV2KeyTypes.WIF_PRIV, HdWalletElectrumV1KeyUtils.PrivToWif(priv_key))
+            self._Set(HdWalletElectrumV2KeyTypes.EX_PRIV, priv_key.ToExtended())
+            self._Set(HdWalletElectrumV2KeyTypes.RAW_PRIV, priv_key.Raw().ToHex())
+            self._Set(HdWalletElectrumV2KeyTypes.WIF_PRIV, HdWalletElectrumV1KeyUtils.PrivToWif(priv_key))
 
 
 class HdWalletElectrumV2DerivedKeys(HdWalletKeysBase):
@@ -125,7 +109,7 @@ class HdWalletElectrumV2DerivedKeys(HdWalletKeysBase):
             addr_num (int)                      : Address number
             addr_off (int)                      : Starting address index
         """
-        super().__init__(HdWalletElectrumV2KeyTypes, HdWalletElectrumV2KeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletElectrumV2KeyTypes)
         self.__FromElectrumObj(electrum_obj, change_idx, addr_num, addr_off)
 
     def __FromElectrumObj(self,
@@ -146,15 +130,15 @@ class HdWalletElectrumV2DerivedKeys(HdWalletKeysBase):
 
         # Add public key
         pub_key = electrum_obj.GetPublicKey(change_idx, addr_idx)
-        self._SetKeyData(HdWalletElectrumV2KeyTypes.EX_PUB, pub_key.ToExtended())
-        self._SetKeyData(HdWalletElectrumV2KeyTypes.RAW_PUB, pub_key.RawUncompressed().ToHex()[2:])
+        self._Set(HdWalletElectrumV2KeyTypes.EX_PUB, pub_key.ToExtended())
+        self._Set(HdWalletElectrumV2KeyTypes.RAW_PUB, pub_key.RawUncompressed().ToHex()[2:])
 
         # Add private key only if Electrum object is not public-only
         if not electrum_obj.IsPublicOnly():
             priv_key = electrum_obj.GetPrivateKey(change_idx, addr_idx)
-            self._SetKeyData(HdWalletElectrumV2KeyTypes.EX_PRIV, priv_key.ToExtended())
-            self._SetKeyData(HdWalletElectrumV2KeyTypes.RAW_PRIV, priv_key.Raw().ToHex())
-            self._SetKeyData(HdWalletElectrumV2KeyTypes.WIF_PRIV, HdWalletElectrumV1KeyUtils.PrivToWif(priv_key))
+            self._Set(HdWalletElectrumV2KeyTypes.EX_PRIV, priv_key.ToExtended())
+            self._Set(HdWalletElectrumV2KeyTypes.RAW_PRIV, priv_key.Raw().ToHex())
+            self._Set(HdWalletElectrumV2KeyTypes.WIF_PRIV, HdWalletElectrumV1KeyUtils.PrivToWif(priv_key))
 
         # Address
-        self._SetKeyData(HdWalletElectrumV2KeyTypes.ADDRESS, electrum_obj.GetAddress(change_idx, addr_idx))
+        self._Set(HdWalletElectrumV2KeyTypes.ADDRESS, electrum_obj.GetAddress(change_idx, addr_idx))

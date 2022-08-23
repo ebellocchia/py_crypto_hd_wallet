@@ -21,25 +21,10 @@
 """Module with helper class for storing Monero keys."""
 
 # Imports
-from typing import Dict
-
 from bip_utils import Monero
 
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 from py_crypto_hd_wallet.monero.hd_wallet_monero_enum import HdWalletMoneroKeyTypes
-
-
-class HdWalletMoneroKeysConst:
-    """Class container for HD wallet Monero keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletMoneroKeyTypes.PRIV_SPEND: "priv_spend",
-        HdWalletMoneroKeyTypes.PRIV_VIEW: "priv_view",
-        HdWalletMoneroKeyTypes.PUB_SPEND: "pub_spend",
-        HdWalletMoneroKeyTypes.PUB_VIEW: "pub_view",
-        HdWalletMoneroKeyTypes.PRIMARY_ADDRESS: "primary_address",
-    }
 
 
 class HdWalletMoneroKeys(HdWalletKeysBase):
@@ -57,7 +42,7 @@ class HdWalletMoneroKeys(HdWalletKeysBase):
         Args:
             monero_obj (Monero object): Monero object
         """
-        super().__init__(HdWalletMoneroKeyTypes, HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletMoneroKeyTypes)
         self.__FromMoneroObj(monero_obj)
 
     def __FromMoneroObj(self,
@@ -70,14 +55,14 @@ class HdWalletMoneroKeys(HdWalletKeysBase):
         """
 
         # Add public keys
-        self._SetKeyData(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
-        self._SetKeyData(HdWalletMoneroKeyTypes.PUB_VIEW, monero_obj.PublicViewKey().RawCompressed().ToHex())
+        self._Set(HdWalletMoneroKeyTypes.PUB_SPEND, monero_obj.PublicSpendKey().RawCompressed().ToHex())
+        self._Set(HdWalletMoneroKeyTypes.PUB_VIEW, monero_obj.PublicViewKey().RawCompressed().ToHex())
         # Add private view key
-        self._SetKeyData(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
+        self._Set(HdWalletMoneroKeyTypes.PRIV_VIEW, monero_obj.PrivateViewKey().Raw().ToHex())
 
         # Add private spend key only if not watch-only
         if not monero_obj.IsWatchOnly():
-            self._SetKeyData(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
+            self._Set(HdWalletMoneroKeyTypes.PRIV_SPEND, monero_obj.PrivateSpendKey().Raw().ToHex())
 
         # Add address
-        self._SetKeyData(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS, monero_obj.PrimaryAddress())
+        self._Set(HdWalletMoneroKeyTypes.PRIMARY_ADDRESS, monero_obj.PrimaryAddress())

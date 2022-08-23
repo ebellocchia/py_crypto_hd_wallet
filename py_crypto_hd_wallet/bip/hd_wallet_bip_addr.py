@@ -28,13 +28,6 @@ from py_crypto_hd_wallet.bip.hd_wallet_bip_keys import HdWalletBipKeys
 from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 
 
-class HdWalletBipAddressesConst:
-    """Class container for HD wallet BIP addresses constants."""
-
-    # Address key for dictionary
-    ADDR_DICT_KEY: str = "address_{:d}"
-
-
 class HdWalletBipAddresses(HdWalletAddrBase):
     """
     HD wallet BIP addresses class.
@@ -54,7 +47,7 @@ class HdWalletBipAddresses(HdWalletAddrBase):
             addr_num (int)            : Address number
             addr_off (int)            : Starting address index
         """
-        super().__init__(addr_off, HdWalletBipAddressesConst.ADDR_DICT_KEY)
+        super().__init__(addr_off)
         self.__FromBipObj(bip_obj, addr_num, addr_off)
 
     def __FromBipObj(self,

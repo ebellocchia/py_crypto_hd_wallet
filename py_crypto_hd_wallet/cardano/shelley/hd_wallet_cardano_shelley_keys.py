@@ -21,24 +21,13 @@
 """Module with helper class for storing Cardano Shelley keys."""
 
 # Imports
-from typing import Dict, Union
+from typing import Union
 
 from bip_utils import Bip32PrivateKey, Bip32PublicKey, Bip44PrivateKey, Bip44PublicKey, CardanoShelley
 from bip_utils.bip.bip44_base import Bip44Base
 
 from py_crypto_hd_wallet.cardano.shelley.hd_wallet_cardano_shelley_enum import HdWalletCardanoShelleyKeyTypes
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
-
-
-class HdWalletCardanoShelleyKeysConst:
-    """Class container for HD wallet Cardano Shelley keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletCardanoShelleyKeyTypes.RAW_PRIV: "raw_priv",
-        HdWalletCardanoShelleyKeyTypes.RAW_PUB: "raw_pub",
-        HdWalletCardanoShelleyKeyTypes.ADDRESS: "address",
-    }
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 
 
 class HdWalletCardanoShelleyKeysBase(HdWalletKeysBase):
@@ -55,8 +44,8 @@ class HdWalletCardanoShelleyKeysBase(HdWalletKeysBase):
         Args:
             priv_key (Bip32PrivateKey or Bip44PrivateKey object): Private key object
         """
-        self._SetKeyData(HdWalletCardanoShelleyKeyTypes.RAW_PRIV,
-                         priv_key.Raw().ToHex() + priv_key.ChainCode().ToHex())
+        self._Set(HdWalletCardanoShelleyKeyTypes.RAW_PRIV,
+                  priv_key.Raw().ToHex() + priv_key.ChainCode().ToHex())
 
     def _SetPublicKey(self,
                       pub_key: Union[Bip32PublicKey, Bip44PublicKey]) -> None:
@@ -66,8 +55,8 @@ class HdWalletCardanoShelleyKeysBase(HdWalletKeysBase):
         Args:
             pub_key (Bip32PublicKey or Bip44PublicKey object): Public key object
         """
-        self._SetKeyData(HdWalletCardanoShelleyKeyTypes.RAW_PUB,
-                         pub_key.RawCompressed().ToHex()[2:] + pub_key.ChainCode().ToHex())
+        self._Set(HdWalletCardanoShelleyKeyTypes.RAW_PUB,
+                  pub_key.RawCompressed().ToHex()[2:] + pub_key.ChainCode().ToHex())
 
 
 class HdWalletCardanoShelleyMasterKeys(HdWalletCardanoShelleyKeysBase):
@@ -85,7 +74,7 @@ class HdWalletCardanoShelleyMasterKeys(HdWalletCardanoShelleyKeysBase):
         Args:
             bip_obj (Bip44Base object): Bip44Base object
         """
-        super().__init__(HdWalletCardanoShelleyKeyTypes, HdWalletCardanoShelleyKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletCardanoShelleyKeyTypes)
         self.__FromBipObj(bip_obj)
 
     def __FromBipObj(self,
@@ -117,7 +106,7 @@ class HdWalletCardanoShelleyStakingKeys(HdWalletCardanoShelleyKeysBase):
         Args:
             shelley_obj (CardanoShelley object): CardanoShelley object
         """
-        super().__init__(HdWalletCardanoShelleyKeyTypes, HdWalletCardanoShelleyKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletCardanoShelleyKeyTypes)
         self.__FromShelleyObj(shelley_obj)
 
     def __FromShelleyObj(self,
@@ -135,7 +124,7 @@ class HdWalletCardanoShelleyStakingKeys(HdWalletCardanoShelleyKeysBase):
         if not staking_obj.IsPublicOnly():
             self._SetPrivateKey(staking_obj.PrivateKey())
 
-        self._SetKeyData(HdWalletCardanoShelleyKeyTypes.ADDRESS, staking_obj.PublicKey().ToAddress())
+        self._Set(HdWalletCardanoShelleyKeyTypes.ADDRESS, staking_obj.PublicKey().ToAddress())
 
 
 class HdWalletCardanoShelleyDerivedKeys(HdWalletCardanoShelleyKeysBase):
@@ -153,7 +142,7 @@ class HdWalletCardanoShelleyDerivedKeys(HdWalletCardanoShelleyKeysBase):
         Args:
             shelley_obj (CardanoShelley object): CardanoShelley object
         """
-        super().__init__(HdWalletCardanoShelleyKeyTypes, HdWalletCardanoShelleyKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletCardanoShelleyKeyTypes)
         self.__FromShelleyObj(shelley_obj)
 
     def __FromShelleyObj(self,
@@ -169,4 +158,4 @@ class HdWalletCardanoShelleyDerivedKeys(HdWalletCardanoShelleyKeysBase):
         if not shelley_obj.IsPublicOnly():
             self._SetPrivateKey(shelley_obj.PrivateKeys().AddressKey())
 
-        self._SetKeyData(HdWalletCardanoShelleyKeyTypes.ADDRESS, shelley_obj.PublicKeys().ToAddress())
+        self._Set(HdWalletCardanoShelleyKeyTypes.ADDRESS, shelley_obj.PublicKeys().ToAddress())

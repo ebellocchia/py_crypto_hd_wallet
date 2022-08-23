@@ -30,11 +30,9 @@ from py_crypto_hd_wallet import (
     HdWalletElectrumV2KeyTypes, HdWalletElectrumV2MasterKeys, HdWalletElectrumV2MnemonicTypes,
     HdWalletElectrumV2WordsNum, HdWalletSaver
 )
-from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2 import HdWalletElectrumV2Const
 
 # Just for testing
-from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_addr import HdWalletElectrumV2AddressesConst
-from py_crypto_hd_wallet.electrum.v2.hd_wallet_electrum_v2_keys import HdWalletElectrumV2KeysConst
+from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBaseConst
 
 
 # Test vector
@@ -417,7 +415,7 @@ class HdWalletElectrumV2Tests(unittest.TestCase):
     # Helper method for testing a wallet data type
     def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
         # Get dictionary key
-        dict_key = HdWalletElectrumV2Const.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = data_type.name.lower()
 
         # If data type is present in the reference wallet, check it
         if dict_key in ref_wallet_dict:
@@ -450,7 +448,7 @@ class HdWalletElectrumV2Tests(unittest.TestCase):
         # Get and test each key type
         for key_type in HdWalletElectrumV2KeyTypes:
             # Get current dictionary key
-            dict_key = HdWalletElectrumV2KeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+            dict_key = key_type.name.lower()
 
             # If key type is present in the reference keys, check it
             if dict_key in ref_keys_dict:
@@ -476,7 +474,7 @@ class HdWalletElectrumV2Tests(unittest.TestCase):
         # Test each address by iterating
         for i, addr in enumerate(ut_wallet_addr):
             # Get current dictionary key
-            dict_key = HdWalletElectrumV2AddressesConst.ADDR_DICT_KEY.format(i + addr_off)
+            dict_key = HdWalletAddrBaseConst.DICT_KEY_DEF_FORMAT.format(i + addr_off)
             # Each address is simply a HdWalletElectrumV2DerivedKeys, so we can use the previous method
             self.__test_wallet_keys(test_addr_dict[dict_key], addr)
             # Test again but accessing via index

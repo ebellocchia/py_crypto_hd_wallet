@@ -29,10 +29,8 @@ from py_crypto_hd_wallet import (
     HdWalletMoneroCoins, HdWalletMoneroDataTypes, HdWalletMoneroFactory, HdWalletMoneroKeys, HdWalletMoneroKeyTypes,
     HdWalletMoneroSubaddresses, HdWalletMoneroWordsNum, HdWalletSaver
 )
-from py_crypto_hd_wallet.monero.hd_wallet_monero import HdWalletMoneroConst
 
 # Just for testing
-from py_crypto_hd_wallet.monero.hd_wallet_monero_keys import HdWalletMoneroKeysConst
 from py_crypto_hd_wallet.monero.hd_wallet_monero_subaddr import HdWalletMoneroSubaddressesConst
 
 
@@ -328,7 +326,7 @@ class HdWalletMoneroTests(unittest.TestCase):
     # Helper method for testing a wallet data type
     def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
         # Get dictionary key
-        dict_key = HdWalletMoneroConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = data_type.name.lower()
 
         # If data type is present in the reference wallet, check it
         if dict_key in ref_wallet_dict:
@@ -361,7 +359,7 @@ class HdWalletMoneroTests(unittest.TestCase):
         # Get and test each key type
         for key_type in HdWalletMoneroKeyTypes:
             # Get current dictionary key
-            dict_key = HdWalletMoneroKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+            dict_key = key_type.name.lower()
 
             # If key type is present in the reference keys, check it
             if dict_key in ref_keys_dict:

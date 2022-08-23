@@ -21,27 +21,10 @@
 """Module with helper class for storing BIP keys."""
 
 # Imports
-from typing import Dict
-
 from bip_utils.bip.bip44_base import Bip44Base
 
 from py_crypto_hd_wallet.bip.hd_wallet_bip_enum import HdWalletBipKeyTypes
-from py_crypto_hd_wallet.common import HdWalletKeysBase, HdWalletKeyTypes
-
-
-class HdWalletBipKeysConst:
-    """Class container for HD wallet BIP keys constants."""
-
-    # Map key types to dictionary key
-    KEY_TYPE_TO_DICT_KEY: Dict[HdWalletKeyTypes, str] = {
-        HdWalletBipKeyTypes.EX_PRIV: "ex_priv",
-        HdWalletBipKeyTypes.RAW_PRIV: "raw_priv",
-        HdWalletBipKeyTypes.WIF_PRIV: "wif_priv",
-        HdWalletBipKeyTypes.EX_PUB: "ex_pub",
-        HdWalletBipKeyTypes.RAW_COMPR_PUB: "raw_compr_pub",
-        HdWalletBipKeyTypes.RAW_UNCOMPR_PUB: "raw_uncompr_pub",
-        HdWalletBipKeyTypes.ADDRESS: "address",
-    }
+from py_crypto_hd_wallet.common import HdWalletKeysBase
 
 
 class HdWalletBipKeys(HdWalletKeysBase):
@@ -59,7 +42,7 @@ class HdWalletBipKeys(HdWalletKeysBase):
         Args:
             bip_obj (Bip44Base object): Bip44Base object
         """
-        super().__init__(HdWalletBipKeyTypes, HdWalletBipKeysConst.KEY_TYPE_TO_DICT_KEY)
+        super().__init__(HdWalletBipKeyTypes)
         self.__FromBipObj(bip_obj)
 
     def __FromBipObj(self,
@@ -72,19 +55,19 @@ class HdWalletBipKeys(HdWalletKeysBase):
         """
 
         # Add public keys
-        self._SetKeyData(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
-        self._SetKeyData(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
-        self._SetKeyData(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
+        self._Set(HdWalletBipKeyTypes.EX_PUB, bip_obj.PublicKey().ToExtended())
+        self._Set(HdWalletBipKeyTypes.RAW_COMPR_PUB, bip_obj.PublicKey().RawCompressed().ToHex())
+        self._Set(HdWalletBipKeyTypes.RAW_UNCOMPR_PUB, bip_obj.PublicKey().RawUncompressed().ToHex())
 
         # Add private keys only if not public-only
         if not bip_obj.IsPublicOnly():
-            self._SetKeyData(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
-            self._SetKeyData(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
+            self._Set(HdWalletBipKeyTypes.EX_PRIV, bip_obj.PrivateKey().ToExtended())
+            self._Set(HdWalletBipKeyTypes.RAW_PRIV, bip_obj.PrivateKey().Raw().ToHex())
 
             # Add WIF if supported
             wif = bip_obj.PrivateKey().ToWif()
             if wif != "":
-                self._SetKeyData(HdWalletBipKeyTypes.WIF_PRIV, wif)
+                self._Set(HdWalletBipKeyTypes.WIF_PRIV, wif)
 
         # Address
-        self._SetKeyData(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())
+        self._Set(HdWalletBipKeyTypes.ADDRESS, bip_obj.PublicKey().ToAddress())

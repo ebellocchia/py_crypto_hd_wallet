@@ -23,29 +23,39 @@
 # Imports
 import json
 from abc import ABC
-from typing import Any, Dict, Iterator, List
+from typing import Any, Dict, Iterator, List, Optional
+
+
+class HdWalletAddrBaseConst:
+    """Class container for HD wallet addresses base constants."""
+
+    # Default key string format for dictionary
+    DICT_KEY_DEF_FORMAT: str = "address_{:d}"
 
 
 class HdWalletAddrBase(ABC):
-    """HD wallet addresses base class."""
+    """
+    HD wallet addresses base class.
+    It shall be inherited by wallet addresses classes.
+    """
 
-    m_dict_key_str_format: str
     m_addr_off: int
     m_addr: List[Any]
+    m_dict_key_str_format: str
 
     def __init__(self,
                  addr_off: int,
-                 dict_key_str_format: str) -> None:
+                 dict_key_str_format: Optional[str] = None) -> None:
         """
         Construct class.
 
         Args:
-            addr_off (int)           : Address offset
-            dict_key_str_format (str): Dictionary key string format
+            addr_off (int)                     : Address offset
+            dict_key_str_format (str, optional): Dict key string format
         """
         self.m_addr_off = addr_off
-        self.m_dict_key_str_format = dict_key_str_format
         self.m_addr = []
+        self.m_dict_key_str_format = dict_key_str_format or HdWalletAddrBaseConst.DICT_KEY_DEF_FORMAT
 
     def ToDict(self) -> Dict[str, Any]:
         """

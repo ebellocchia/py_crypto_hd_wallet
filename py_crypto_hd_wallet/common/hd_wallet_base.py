@@ -21,33 +21,18 @@
 """Module with base class for wallet generators."""
 
 # Imports
-import json
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Optional
 
 from py_crypto_hd_wallet.common.hd_wallet_data_types import HdWalletDataTypes
+from py_crypto_hd_wallet.common.hd_wallet_enum_dict import HdWalletEnumDict
 
 
-class HdWalletBase(ABC):
-    """HD wallet base class."""
-
-    m_key_type_enum: Type[HdWalletDataTypes]
-    m_key_type_to_dict_key: Dict[HdWalletDataTypes, str]
-    m_wallet_data: Dict[str, Any]
-
-    def __init__(self,
-                 key_type_enum: Type[HdWalletDataTypes],
-                 key_type_to_dict_key: Dict[HdWalletDataTypes, str]) -> None:
-        """
-        Construct class.
-
-        Args:
-            key_type_enum (HdWalletDataTypes)                  : Data type enumerative
-            key_type_to_dict_key (Dict[HdWalletDataTypes, str]): Data type to dictionary key
-        """
-        self.m_key_type_enum = key_type_enum
-        self.m_key_type_to_dict_key = key_type_to_dict_key
-        self.m_wallet_data = {}
+class HdWalletBase(HdWalletEnumDict, ABC):
+    """
+    HD wallet base class.
+    It shall be inherited by wallet classes.
+    """
 
     @abstractmethod
     def Generate(self,
@@ -76,73 +61,40 @@ class HdWalletBase(ABC):
             dict: Wallet data as a dictionary
         """
         wallet_dict = {}
-        for key, value in self.m_wallet_data.items():
+        for key, value in self.m_dict_data.items():
             wallet_dict[key] = value.ToDict() if hasattr(value, "ToDict") else value
 
         return wallet_dict
 
-    def ToJson(self,
-               json_indent: int = 4) -> str:
-        """
-        Get wallet data as string in JSON format.
-
-        Args:
-            json_indent (int, optional): Indent for JSON format, 4 by default
-
-        Returns:
-            str: Wallet data as string in JSON format
-        """
-        return json.dumps(self.ToDict(), indent=json_indent)
-
     def HasData(self,
-                data_type: HdWalletDataTypes) -> bool:
+                key: HdWalletDataTypes) -> bool:
         """
-        Get if the wallet data of the specified type is present.
+        Get if the specified key is present.
 
         Args:
-            data_type (HdWalletDataTypes): Data type
+            key (HdWalletKeyTypes): Key
 
         Returns:
             bool: True if present, false otherwise
 
         Raises:
-            TypeError: If data type is not of the correct enumerative type
+            TypeError: If the enumerative is not of the correct type
         """
-        if not isinstance(data_type, self.m_key_type_enum):
-            raise TypeError(f"Key type is not an enumerative of {self.m_key_type_enum}")
-
-        dict_key = self.m_key_type_to_dict_key[data_type]
-        return dict_key in self.m_wallet_data
+        return super()._Has(key)
 
     def GetData(self,
-                data_type: HdWalletDataTypes) -> Optional[Any]:
+                key: HdWalletDataTypes) -> Optional[Any]:
         """
-        Get wallet data of the specified type.
+        Get the specified key value.
 
         Args:
-            data_type (HdWalletDataTypes): Data type
+            key (HdWalletKeyTypes): Key
 
         Returns:
-            Any: Wallet data (it depends on the specific data)
-            None: If not found
+            str: Key value
+            None: If the key type is not found
 
         Raises:
-            TypeError: If data type is not of the correct enumerative type
+            TypeError: If the enumerative is not of the correct type
         """
-        if self.HasData(data_type):
-            dict_key = self.m_key_type_to_dict_key[data_type]
-            return self.m_wallet_data[dict_key]
-        return None
-
-    def _SetData(self,
-                 data_type: HdWalletDataTypes,
-                 data_value: Any) -> None:
-        """
-        Set wallet data.
-
-        Args:
-            data_type (HdWalletDataTypes): Data type
-            data_value (any)             : Data value
-        """
-        dict_key = self.m_key_type_to_dict_key[data_type]
-        self.m_wallet_data[dict_key] = data_value
+        return super()._Get(key)

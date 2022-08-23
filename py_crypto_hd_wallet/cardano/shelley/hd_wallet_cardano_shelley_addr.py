@@ -27,13 +27,6 @@ from py_crypto_hd_wallet.cardano.shelley.hd_wallet_cardano_shelley_keys import H
 from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 
 
-class HdWalletCardanoShelleyAddressesConst:
-    """Class container for HD wallet Cardano Shelley addresses constants."""
-
-    # Address key for dictionary
-    ADDR_DICT_KEY: str = "address_{:d}"
-
-
 class HdWalletCardanoShelleyAddresses(HdWalletAddrBase):
     """
     HD wallet Cardano Shelley addresses class.
@@ -53,7 +46,7 @@ class HdWalletCardanoShelleyAddresses(HdWalletAddrBase):
             addr_num (int)                     : Address number
             addr_off (int)                     : Starting address index
         """
-        super().__init__(addr_off, HdWalletCardanoShelleyAddressesConst.ADDR_DICT_KEY)
+        super().__init__(addr_off)
         self.__FromShelleyObj(shelley_obj, addr_num, addr_off)
 
     def __FromShelleyObj(self,

@@ -29,10 +29,6 @@ from py_crypto_hd_wallet import (
     HdWalletAlgorandDataTypes, HdWalletAlgorandFactory, HdWalletAlgorandKeys, HdWalletAlgorandKeyTypes,
     HdWalletAlgorandWordsNum, HdWalletSaver
 )
-from py_crypto_hd_wallet.algorand.hd_wallet_algorand import HdWalletAlgorandConst
-
-# Just for testing
-from py_crypto_hd_wallet.algorand.hd_wallet_algorand_keys import HdWalletAlgorandKeysConst
 
 
 # Test vector
@@ -236,7 +232,7 @@ class HdWalletAlgorandTests(unittest.TestCase):
     # Helper method for testing a wallet data type
     def __test_wallet_data_type(self, data_type, ref_wallet_dict, ut_wallet):
         # Get dictionary key
-        dict_key = HdWalletAlgorandConst.DATA_TYPE_TO_DICT_KEY[data_type]
+        dict_key = data_type.name.lower()
 
         # If data type is present in the reference wallet, check it
         if dict_key in ref_wallet_dict:
@@ -266,7 +262,7 @@ class HdWalletAlgorandTests(unittest.TestCase):
         # Get and test each key type
         for key_type in HdWalletAlgorandKeyTypes:
             # Get current dictionary key
-            dict_key = HdWalletAlgorandKeysConst.KEY_TYPE_TO_DICT_KEY[key_type]
+            dict_key = key_type.name.lower()
 
             # If key type is present in the reference keys, check it
             if dict_key in ref_keys_dict:
