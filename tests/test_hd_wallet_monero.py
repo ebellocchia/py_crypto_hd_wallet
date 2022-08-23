@@ -26,12 +26,14 @@ import os
 import unittest
 
 from py_crypto_hd_wallet import (
-    HdWalletMoneroCoins, HdWalletMoneroDataTypes, HdWalletMoneroFactory, HdWalletMoneroKeys, HdWalletMoneroKeyTypes,
-    HdWalletMoneroSubaddresses, HdWalletMoneroWordsNum, HdWalletSaver
+    HdWalletMoneroCoins, HdWalletMoneroDataTypes, HdWalletMoneroFactory, HdWalletMoneroKeyTypes,
+    HdWalletMoneroWordsNum, HdWalletSaver
 )
 
 # Just for testing
 from py_crypto_hd_wallet.monero.hd_wallet_monero_subaddr import HdWalletMoneroSubaddressesConst
+from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
+from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase
 
 
 # Test vector
@@ -335,11 +337,11 @@ class HdWalletMoneroTests(unittest.TestCase):
             # Get specific data
             wallet_data = ut_wallet.GetData(data_type)
 
-            # In case of HdWalletMoneroKeys, test also keys individually
-            if isinstance(wallet_data, HdWalletMoneroKeys):
+            # Test keys individually
+            if isinstance(wallet_data, HdWalletKeysBase):
                 self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
-            # In case of HdWalletBipAddresses, test also address individually
-            elif isinstance(wallet_data, HdWalletMoneroSubaddresses):
+            # Test subaddresses individually
+            elif isinstance(wallet_data, HdWalletAddrBase):
                 self.__test_wallet_subaddresses(ref_wallet_dict[dict_key], wallet_data, ut_wallet.GetData(HdWalletMoneroDataTypes.SUBADDRESS_OFF))
             # Otherwise just test the content
             else:
@@ -394,7 +396,7 @@ class HdWalletMoneroTests(unittest.TestCase):
     def __test_wallet_save_to_file(self, ut_wallet, file_path):
         # Save wallet to file
         HdWalletSaver(ut_wallet).SaveToFile(file_path)
-        # File shall exists
+        # File shall exist
         self.assertTrue(os.path.exists(file_path))
 
         # Load again from file in JSON format

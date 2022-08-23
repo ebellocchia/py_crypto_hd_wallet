@@ -26,9 +26,12 @@ import os
 import unittest
 
 from py_crypto_hd_wallet import (
-    HdWalletAlgorandDataTypes, HdWalletAlgorandFactory, HdWalletAlgorandKeys, HdWalletAlgorandKeyTypes,
+    HdWalletAlgorandDataTypes, HdWalletAlgorandFactory, HdWalletAlgorandKeyTypes,
     HdWalletAlgorandWordsNum, HdWalletSaver
 )
+
+# Just for testing
+from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase
 
 
 # Test vector
@@ -241,8 +244,8 @@ class HdWalletAlgorandTests(unittest.TestCase):
             # Get specific data
             wallet_data = ut_wallet.GetData(data_type)
 
-            # In case of HdWalletAlgorandKeys, test also keys individually
-            if isinstance(wallet_data, HdWalletAlgorandKeys):
+            # Test keys individually
+            if isinstance(wallet_data, HdWalletKeysBase):
                 self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
             # Otherwise just test the content
             else:
@@ -277,7 +280,7 @@ class HdWalletAlgorandTests(unittest.TestCase):
     def __test_wallet_save_to_file(self, ut_wallet, file_path):
         # Save wallet to file
         HdWalletSaver(ut_wallet).SaveToFile(file_path)
-        # File shall exists
+        # File shall exist
         self.assertTrue(os.path.exists(file_path))
 
         # Load again from file in JSON format

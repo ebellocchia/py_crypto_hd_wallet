@@ -26,12 +26,13 @@ import os
 import unittest
 
 from py_crypto_hd_wallet import (
-    HdWalletElectrumV1Addresses, HdWalletElectrumV1DataTypes, HdWalletElectrumV1DerivedKeys, HdWalletElectrumV1Factory,
-    HdWalletElectrumV1KeyTypes, HdWalletElectrumV1MasterKeys, HdWalletElectrumV1WordsNum, HdWalletSaver
+    HdWalletElectrumV1DataTypes, HdWalletElectrumV1Factory,
+    HdWalletElectrumV1KeyTypes, HdWalletElectrumV1WordsNum, HdWalletSaver
 )
 
 # Just for testing
-from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBaseConst
+from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBaseConst, HdWalletAddrBase
+from py_crypto_hd_wallet.common.hd_wallet_keys_base import HdWalletKeysBase
 
 
 # Test vector
@@ -348,11 +349,11 @@ class HdWalletElectrumV1Tests(unittest.TestCase):
             # Get specific data
             wallet_data = ut_wallet.GetData(data_type)
 
-            # In case of HdWalletElectrumV1MasterKeys/HdWalletElectrumV1DerivedKeys, test also keys individually
-            if isinstance(wallet_data, (HdWalletElectrumV1MasterKeys, HdWalletElectrumV1DerivedKeys)):
+            # Test keys individually
+            if isinstance(wallet_data, HdWalletKeysBase):
                 self.__test_wallet_keys(ref_wallet_dict[dict_key], wallet_data)
-            # In case of HdWalletElectrumV1Addresses, test also address individually
-            elif isinstance(wallet_data, HdWalletElectrumV1Addresses):
+            # Test addresses individually
+            elif isinstance(wallet_data, HdWalletAddrBase):
                 self.__test_wallet_addresses(ref_wallet_dict[dict_key], wallet_data, ut_wallet.GetData(HdWalletElectrumV1DataTypes.ADDRESS_OFF))
             # Otherwise just test the content
             else:
@@ -408,7 +409,7 @@ class HdWalletElectrumV1Tests(unittest.TestCase):
     def __test_wallet_save_to_file(self, ut_wallet, file_path):
         # Save wallet to file
         HdWalletSaver(ut_wallet).SaveToFile(file_path)
-        # File shall exists
+        # File shall exist
         self.assertTrue(os.path.exists(file_path))
 
         # Load again from file in JSON format
