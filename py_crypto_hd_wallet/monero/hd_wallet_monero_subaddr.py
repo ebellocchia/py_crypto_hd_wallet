@@ -29,8 +29,8 @@ from py_crypto_hd_wallet.common.hd_wallet_addr_base import HdWalletAddrBase
 class HdWalletMoneroSubaddressesConst:
     """Class container for HD wallet Monero subaddresses constants."""
 
-    # Subaddress key for dictionary
-    SUBADDR_DICT_KEY: str = "subaddress_{:d}"
+    # Key string format for dictionary
+    DICT_KEY_FORMAT: str = "subaddress_{:d}"
 
 
 class HdWalletMoneroSubaddresses(HdWalletAddrBase):
@@ -54,7 +54,7 @@ class HdWalletMoneroSubaddresses(HdWalletAddrBase):
             subaddr_num (int)         : Subaddress number
             subaddr_off (int)         : Starting subaddress index
         """
-        super().__init__(subaddr_off, HdWalletMoneroSubaddressesConst.SUBADDR_DICT_KEY)
+        super().__init__(subaddr_off, HdWalletMoneroSubaddressesConst.DICT_KEY_FORMAT)
         self.__FromMoneroObj(monero_obj, acc_idx, subaddr_num, subaddr_off)
 
     def __FromMoneroObj(self,
