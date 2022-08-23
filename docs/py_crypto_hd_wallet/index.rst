@@ -5,6 +5,7 @@ py_crypto_hd_wallet
 
    algorand/index.rst
    bip/index.rst
+   cardano/index.rst
    common/index.rst
    electrum/index.rst
    monero/index.rst
