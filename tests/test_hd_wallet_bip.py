@@ -421,106 +421,6 @@ TEST_VECTOR = [
             },
         },
     },
-    # Bitcoin wallet from private key, BIP49
-    {
-        # Data for wallet construction
-        "wallet_name": "btc_bip49_wallet",
-        "coin": HdWalletBip49Coins.BITCOIN,
-        # Data for wallet creation
-        "type": "from_priv_key",
-        "priv_key": b"4b03d6fc340455b363f51020ad3ecca4f0850280cf436c70c727923f6db46c3e",
-        # Data for wallet generation
-        "gen_params": {
-            "acc_idx": 0,
-            "change_idx": HdWalletBipChanges.CHAIN_EXT,
-            "addr_num": 3,
-            "addr_off": 20,
-        },
-        # Data for wallet test
-        "watch_only": False,
-        "wallet_data_dict": {
-            "wallet_name": "btc_bip49_wallet",
-            "spec_name": "BIP-0049",
-            "coin_name": "Bitcoin (BTC)",
-            "master_key": {
-                "ex_pub": "ypub6QqdH2c5z7965qdFmUJxeajk39gR3mywuPXWvK6XLAwfmtVjbHXcckYc7fXPHcYhWCAu18y8Dr43uNcHNwsxEZDy2x2WqJ1pTZ7qLZPxTvS",
-                "raw_compr_pub": "03cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7",
-                "raw_uncompr_pub": "04cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a77bd3305d363c26f82c1e41c667e4b3561c06c60a2104d2b548e6dd059056aa51",
-                "ex_priv": "yprvABrGsX5C9jansMYnfSmxHSo1V7qveKG6YAbv7vgumqQgu6Ab3kDN4xE8GMaAEzKkv9nbLokGTaEgUbR1zwWr5yYhqjB4ycvHxKUDPFsPeDy",
-                "raw_priv": "4b03d6fc340455b363f51020ad3ecca4f0850280cf436c70c727923f6db46c3e",
-                "wif_priv": "KyjXhyHF9wTphBkfpxjL8hkDXDUSbE3tKANT94kXSyh6vn6nKaoy",
-                "address": "3QaGQQTfBvSxXnsggeGxF3zfTAo3uyeREG"
-            },
-            "purpose_key": {
-                "ex_pub": "ypub6U7NYkJBonWAvsR4ngif78vxXruGZBGX7Rot5GY6DrCTSGjT2skpiYB8TUcfoUwXjMXuTh1LY6qKJaU9akwuDWMqjDD23bV6SDbd9vkCCjF",
-                "raw_compr_pub": "039018fb045d2a32f2e41d1009cd9d4733a55c3783a39488778c3481eb7d3331e3",
-                "raw_uncompr_pub": "049018fb045d2a32f2e41d1009cd9d4733a55c3783a39488778c3481eb7d3331e31aa8d28274343877d0c733caf229f149344d1e0c912aa2d07921eb4e3d3a724f",
-                "ex_priv": "yprvAF829EmHyQwsiPLbgfBejzzDyq4n9iYfkCtHGt8UfWfUZUQJVLSaAjrecAhLTpaXdcorsXexgPw5ubzbgC2R5jpMk6DZu6pSjnEUNHjVBzd",
-                "raw_priv": "139da3b6dabc7c04ac2ea51122505e3bb66168af7440b22584a3468dbe9f2ba4",
-                "wif_priv": "KwsqkhXkr245D96XJEcrvGigSvDboBxoMD4Xv8hQvTPU3y4Dx3js",
-                "address": "3NuB8eY95HXNaR2iqaawtgSDZ1VuGLBjDM"
-            },
-            "coin_key": {
-                "ex_pub": "ypub6Vr1RxphF3cn5brzUZgPTMe515cZd2QdWYTDDhEDuKnW2WEyGZfj7xmqox9qiTBUzu32Uvg2UR2b6D6eqQGJhfMwRa8dG7cCC92ct4nvpXh",
-                "raw_compr_pub": "03b78bc9bce27213d29e64fbb1582dc50fb135988259886e5b60ff43a0419cd0e6",
-                "raw_uncompr_pub": "04b78bc9bce27213d29e64fbb1582dc50fb135988259886e5b60ff43a0419cd0e69222471dab2b726156fb60e4876eb8f180211e5b5f17b1ac9f5550413c8e6413",
-                "ex_priv": "yprvAGrf2THoQg4Us7nXNY9P6DhLT3n5DZgn9KXcRJpcLzFX9hupj2MUaATMxetAWHEfGro21FL1NTwLqmhVoQY8H9jsfBs5G9C5FupccTFrPBg",
-                "raw_priv": "9091ea053accfecfacfab8c3532e552607b06e72fc382b444a4e4c9d2951917c",
-                "wif_priv": "L24jeF1R94Gj9hwKn42Yt551cCXeWqLnZ4eLKrZb1fC46NfZHyfB",
-                "address": "3FaJWKMFKA89EXGQjAHZFYhvMpijxNBGPN"
-            },
-            "account_idx": 0,
-            "account_key": {
-                "ex_pub": "ypub6WfJKVoU1C32ngqL7dzvauia5tMn3DH2PimjYMpEHCHTxdmg71jNj9pHmMgjfc7pPWVvkfEv5H85rEasrFxuxzs4pXbJwGa1bZrpccgBBjk",
-                "raw_compr_pub": "02f1856724ab98e6d21e3a73c356fabae54042445a594c2ca602846f7d003fbea1",
-                "raw_uncompr_pub": "04f1856724ab98e6d21e3a73c356fabae54042445a594c2ca602846f7d003fbea13cb40c01d9c031bd90e12599e7f319f3a4f09e9be302059aa711cd14bc6dd3fa",
-                "ex_priv": "yprvAHfwuzGaApUjaCks1cTvDmmqXrXHdkZB2Vr8jyQcirkV5qSXZUR8BMVov6SLnJ8u9k4umRKqoV5VtRY1y1evWMK6Jw6BnfvuL7diukf9NZs",
-                "raw_priv": "d4d8d2395ef50d24a1c6b681c3da492a634a02e65b6f5fd91990155fe4170efa",
-                "wif_priv": "L4MTVTqtYsTKGLEb4SNvCgQgknSKbG8xnit7X9L3TpNr2LBziy4q",
-                "address": "36eG7hdRGxtX6TBrTmYCSKStPpU2KgcoCq"
-            },
-            "change_idx": 0,
-            "change_key": {
-                "ex_pub": "ypub6ZgLt6qrbCX9nZN73KLcvRgugFUV4NCuQh8uWxfNzzNLgR566DYreG3XyJZpVZSFRaQEYLPhqjzbG4WL5tbpDDib7gCV15TiSTQrLtQ7agt",
-                "raw_compr_pub": "02e7d420e18bc318140a9922bc53d45ebe70ded4a21710fbba9dfa2c75c5a486c4",
-                "raw_uncompr_pub": "04e7d420e18bc318140a9922bc53d45ebe70ded4a21710fbba9dfa2c75c5a486c492f88f0001d95843a6d7fcd11e1ff000ced6005824ef6a83bce74925ed65736e",
-                "ex_priv": "yprvALgzUbJxkpxra5HdwHocZHkB8DdzeuV43UDJiaFmSeqMocjwYgEc6Tj482B9EzySTnxXMkPazNWdafdZ1gWBiLGbbdZuiVUNQrcrhNmoreF",
-                "raw_priv": "34a7164935215402ff87863eeb382a5dc32f85601621670e9aa5e235817505ce",
-                "wif_priv": "Kxz4Ur2Skxiyi8wDaqXERKYEZvyaGHeXwdUW5ejPVZWqyvCbDRqc",
-                "address": "35R5fx7vUVpEkALPQ1nDzgzYjJER7ekv3s"
-            },
-            "address_off": 20,
-            "address": {
-                "address_20": {
-                    "ex_pub": "ypub6ad6dUsvsNu2vHGxbQgjZsvoHS73mKvdMjYxsocsY1jr1yWGqdcj32XNfbMEY5LGMCeuhRJvEznVdzz62WsKMyxvmJjuaNgYLkoFFPcKrHY",
-                    "raw_compr_pub": "0311706e632f4c208ac7ae9c7b2af93f3adbc39a5b08822c83b7b5f09250b9d216",
-                    "raw_uncompr_pub": "0411706e632f4c208ac7ae9c7b2af93f3adbc39a5b08822c83b7b5f09250b9d2160faad2fe80a65c4195d85eebdc6b7ab2114d33c70fdf52be07642f665249aef7",
-                    "ex_priv": "yprvAMdkDyM331LjhoCVVP9jCjz4jQGZMsCmzWdN5RDFygCs9BB8J6JUVECtpKQ7rKQou3kskkwQFABHkA8DGULFtQad9c6c64NX4hoVKxdMbrn",
-                    "raw_priv": "984dbf23d5e32b08644d6c6b6d30f07e3b54970f8341ea469de1253d4bb94c3e",
-                    "wif_priv": "L2KmaQWx6FHDe8ASergwc4ewWH7Gmv7NXLuNZKk5cLACfYWVoXju",
-                    "address": "3MkKk236t3YrFndGnsdvk9AiNSK3HYpphc"
-                },
-                "address_21": {
-                    "ex_pub": "ypub6ad6dUsvsNu2xiTsmtTmiEpBmnTu5NK4Xv7o6bVFtT8rgWU2fkuFGyFdMoc16qV9Z5tKDk16qawZMhiYuVwgwsJYwbGNoZJ4evGuS3tCYkC",
-                    "raw_compr_pub": "033c0957bbac822d1f01d214472ecae014326b718361e79ee1dfbf1bc4ffe22b5d",
-                    "raw_uncompr_pub": "043c0957bbac822d1f01d214472ecae014326b718361e79ee1dfbf1bc4ffe22b5d58110a3d3235cb20555d2418bfe11ea9914cd816d28e2ac97c0ac5cd3d2cc705",
-                    "ex_priv": "yprvAMdkDyM331LjkEPQfrvmM6sTDkdQfubDAhCCJD5eL7bsoi8t8DazjAw9WWzJ6LeG6oeSSoDr5EbE64KigjzwnT845c8vVoWEQMMKh71UKGW",
-                    "raw_priv": "6b460e54d1e483afd8cd9273ace5362de4b1a6507b49a48cf0ed15340d9e6798",
-                    "wif_priv": "KzpEh28ArjAQFq5WfGXZ3Qgz66uCMWGz9Mpi9FXCyZuQ7Y1nb1QB",
-                    "address": "3Kp6eRh31PmHTpQxNNkwEJUybp7HKgC5Xn"
-                },
-                "address_22": {
-                    "ex_pub": "ypub6ad6dUsvsNu2yEAftvqTEdYkES2S7heAF5DAgpFLf2s4cEkRwYwPr1bSqUNMfyWAo9XnbmSsKb3e4mciZpLeB3GjjTits4mKKPSKSYYHE8t",
-                    "raw_compr_pub": "023892a117152ebddbb43e96fea54cb20ac6491757ceeff6bc42ba55856b537160",
-                    "raw_uncompr_pub": "043892a117152ebddbb43e96fea54cb20ac6491757ceeff6bc42ba55856b5371606c7e407c8a19ca9e8d5ad37fb594f7ebcd5ccf79bee97426748de90b9feeae42",
-                    "ex_priv": "yprvAMdkDyM331Ljkk6CnuJSsVc1gQBwiEvJsrHZtRqj6hL5jSRHQ1d9JDGxzDiNCtUz8Wnk7eGJWfmMr9jfrf7Qv32CKw87GMhHeVjVye6t2Q2",
-                    "raw_priv": "6a043cc0caecd8ea8341a8821d921050afb943cb05e90950fb94211b90d796f3",
-                    "wif_priv": "KzmnxbRYTzyK2ixB3fUhGtEdrm8EPFEfQCtuoHuHk5a7eiLB6gBh",
-                    "address": "34DP4KF7Ny8WtYJbSQ2BhHkVKUm6Nm41Tk"
-                },
-            },
-        },
-    },
     # Bitcoin wallet from mnemonic, BIP86
     {
         # Data for wallet construction
@@ -615,51 +515,6 @@ TEST_VECTOR = [
             },
         },
     },
-    # Bitcoin wallet from public key
-    {
-        # Data for wallet construction
-        "wallet_name": "btc_wallet",
-        "coin": HdWalletBip49Coins.BITCOIN,
-        # Data for wallet creation
-        "type": "from_pub_key",
-        "pub_key": b"0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
-        # Data for wallet generation
-        "gen_params": {
-            "acc_idx": 0,
-            "change_idx": HdWalletBipChanges.CHAIN_EXT,
-            "addr_num": 1,
-            "addr_off": 0,
-        },
-        # Data for wallet test
-        "watch_only": True,
-        "wallet_data_dict": {
-            "wallet_name": "btc_wallet",
-            "spec_name": "BIP-0049",
-            "coin_name": "Bitcoin (BTC)",
-            "account_key": {
-                "ex_pub": "ypub6WV2rPA9d2A5f9WesShFaz2mRpRF9xKJ75uj3tiXLz2P4dLAi93dyoHQNNToNJicgBsAbmtk7k7ZUhKACoQ2DgHSpSkDeqm2d4s1JPkQMt3",
-                "raw_compr_pub": "0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
-                "raw_uncompr_pub": "0457bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc24310ef3676384179e713be3115e93f34ac9a3933f6367aeb3081527ea74027b7",
-                "address": "3NpdZ19ArtjGyY4jDd7gzz1vHGi67wG6et"
-            },
-            "change_idx": 0,
-            "change_key": {
-                "ex_pub": "ypub6a7qMVQFMRfXvZGSQzJoYTe6j2iKLBG3QB6HeDgPJrEo2aZbiL2YF8xAMRHmsxo1C7EFofeaXwJy1wNoyJKLSGh2J1FQuyCbfNVk4ga6UcJ",
-                "raw_compr_pub": "02c627d9c8c212c0b26a59af421119fe510c0bbd610ea97ad91f413fe2b32e0f09",
-                "raw_uncompr_pub": "04c627d9c8c212c0b26a59af421119fe510c0bbd610ea97ad91f413fe2b32e0f0988c8427d68f44427a72d0d09b2cac27a09bf24f55ef89af0682e02fbc61772ba",
-                "address": "3NsVPcffYEtrAHXuvBSuhgPc8EJpFhDG8D"
-            },
-            "address_off": 0,
-            "address": {
-                "address_0": {
-                    "ex_pub": "ypub6c7qodM5PbRWsCY6HHyx7JxR5V3kgECb8DnkwcmSMZm7fCWW6mA6MLLtafTH1SoUB2DX4bPzDQPR8wD9b5D5p3E5r89ed7z4K4feeEsjbtQ",
-                    "raw_compr_pub": "038ed23d7cfb0a12099eca19c8bfd1393c4ee66c173450d3c5b7185b3c95e2d503",
-                    "raw_uncompr_pub": "048ed23d7cfb0a12099eca19c8bfd1393c4ee66c173450d3c5b7185b3c95e2d503526f1f45eccdc0cf8b7fe17ed84d6fe4d4b94d3c0f037dfe978828f80dff01d9",
-                    "address": "35bm81nzz2jaj8yt8kjfccTUyWgQuDnKuW"
-                },
-            },
-        },
-    },
 ]
 
 
@@ -696,14 +551,6 @@ class HdWalletBipTests(HdWalletBaseTests):
         # Invalid parameter for CreateFromExtendedKey
         invalid_ex_key = "xprv9s21ZrQH143K3GJpoapnV8SFfukcVBSfeCficPSGfubmSFDxo1kuHnListey6gETHL1FYgFnbGTHGh6bsXjp3w31igA2CuxhgLyGu6pvL45"
         self.assertRaises(ValueError, hd_wallet_fact.CreateFromExtendedKey, "test_wallet", invalid_ex_key)
-
-        # Invalid parameter for CreateFromPrivateKey
-        invalid_priv_key = binascii.unhexlify(b"6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
-        self.assertRaises(ValueError, hd_wallet_fact.CreateFromPrivateKey, "test_wallet", invalid_priv_key)
-
-        # Invalid parameter for CreateFromPublicKey
-        invalid_pub_key = binascii.unhexlify(b"019efbcb2db9ee44cb12739e9350e19e5f1ce4563351b770096f0e408f93400c70")
-        self.assertRaises(ValueError, hd_wallet_fact.CreateFromPublicKey, "test_wallet", invalid_pub_key)
 
         # Create wallet
         hd_wallet = hd_wallet_fact.CreateRandom("test_wallet")
