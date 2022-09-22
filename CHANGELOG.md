@@ -1,3 +1,8 @@
+# 1.3.0
+
+- Add support for Cardano (Byron and Shelley)
+- Remove `CreateFromPrivatecKey`/`CreateFromPublicKey` from BIP wallets
+
 # 1.2.0
 
 - Add support for official Algorand wallet
