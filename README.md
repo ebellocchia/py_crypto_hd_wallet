@@ -1,8 +1,7 @@
 # PY crypto HD wallet
 [![PyPI version](https://badge.fury.io/py/py-crypto-hd-wallet.svg)](https://badge.fury.io/py/py-crypto-hd-wallet)
-[![Build Status](https://travis-ci.com/ebellocchia/py_crypto_hd_wallet.svg?branch=master)](https://travis-ci.com/ebellocchia/py_crypto_hd_wallet)
 [![codecov](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet/branch/master/graph/badge.svg)](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/45f6f8c688e4479e83069427ccd24e19)](https://www.codacy.com/gh/ebellocchia/py_crypto_hd_wallet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ebellocchia/py_crypto_hd_wallet&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/45f6f8c688e4479e83069427ccd24e19)](https://app.codacy.com/gh/ebellocchia/py_crypto_hd_wallet/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/ebellocchia/py_crypto_hd_wallet/badge)](https://www.codefactor.io/repository/github/ebellocchia/py_crypto_hd_wallet)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/ebellocchia/py_crypto_hd_wallet/master/LICENSE)
 
