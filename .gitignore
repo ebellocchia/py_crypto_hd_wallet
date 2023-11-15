@@ -13,6 +13,7 @@ sdist/
 *.egg-info/
 *.egg
 py_hd_crypto_wallet-*/
+.pypirc
 
 # Unit test / Coverage reports
 htmlcov
