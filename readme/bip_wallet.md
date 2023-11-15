@@ -16,6 +16,8 @@ Supported coin enumerative:
 |---|---|---|
 |Akash Network|`HdWalletBip44Coins.AKASH_NETWORK`|-|
 |Algorand|`HdWalletBip44Coins.ALGORAND`|-|
+|Aptos|`HdWalletBip44Coins.APTOS`|-|
+|Arbitrum|`HdWalletBip44Coins.ARBITRUM`|-|
 |Avalanche C-Chain|`HdWalletBip44Coins.AVAX_C_CHAIN`|-|
 |Avalanche P-Chain|`HdWalletBip44Coins.AVAX_P_CHAIN`|-|
 |Avalanche X-Chain|`HdWalletBip44Coins.AVAX_X_CHAIN`|-|
@@ -47,6 +49,8 @@ Supported coin enumerative:
 |Harmony One (Ethereum address)|`HdWalletBip44Coins.HARMONY_ONE_ETH`|-|
 |Harmony One (Metamask address)|`HdWalletBip44Coins.HARMONY_ONE_METAMASK`|-|
 |Huobi Chain|`HdWalletBip44Coins.HUOBI_CHAIN`|-|
+|Icon|`HdWalletBip44Coins.ICON`|-|
+|Injective|`HdWalletBip44Coins.INJECTIVE`|-|
 |IRIS Network|`HdWalletBip44Coins.IRIS_NET`|-|
 |Kava|`HdWalletBip44Coins.KAVA`|-|
 |Kusama (ed25519 SLIP-0010)|`HdWalletBip44Coins.KUSAMA_ED25519_SLIP`|-|
@@ -60,7 +64,9 @@ Supported coin enumerative:
 |OKEx Chain (Ethereum address)|`HdWalletBip44Coins.OKEX_CHAIN_ETH`|-|
 |OKEx Chain (Old Cosmos address before mainnet upgrade)|`HdWalletBip44Coins.OKEX_CHAIN_ATOM_OLD`|-|
 |Ontology|`HdWalletBip44Coins.ONTOLOGY`|-|
+|Optimism|`HdWalletBip44Coins.OPTIMISM`|-|
 |Osmosis|`HdWalletBip44Coins.OSMOSIS`|-|
+|Pi Network|`HdWalletBip44Coins.PI_NETWORK`|-|
 |Polkadot (ed25519 SLIP-0010)|`HdWalletBip44Coins.POLKADOT_ED25519_SLIP`|-|
 |Polygon|`HdWalletBip44Coins.POLYGON`|-|
 |Ripple|`HdWalletBip44Coins.RIPPLE`|-|
