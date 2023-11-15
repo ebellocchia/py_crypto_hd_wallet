@@ -8,108 +8,15 @@ A BIP wallet is created using the `HdWalletBipFactory` class.\
 A `HdWalletBipFactory` class is constructed by specifying the desired coin.
 After the construction, the factory can be used to create wallets with the specified coin.
 
-Supported coin enumerative:
+The supported coins are the same of [bip_utils](https://github.com/ebellocchia/bip_utils), so refer to [this page](https://github.com/ebellocchia/bip_utils/blob/master/readme/bip44.md) for the complete list.\
+Please note that the *bip_utils* enumeratives are renamed in the following way:
 
-**BIP-0044**
+- `Bip44Coins`: `HdWalletBip44Coins`
+- `Bip49Coins`: `HdWalletBip49Coins`
+- `Bip84Coins`: `HdWalletBip84Coins`
+- `Bip86Coins`: `HdWalletBip86Coins`
 
-|Coin|Main net enum|Test net enum|
-|---|---|---|
-|Akash Network|`HdWalletBip44Coins.AKASH_NETWORK`|-|
-|Algorand|`HdWalletBip44Coins.ALGORAND`|-|
-|Aptos|`HdWalletBip44Coins.APTOS`|-|
-|Arbitrum|`HdWalletBip44Coins.ARBITRUM`|-|
-|Avalanche C-Chain|`HdWalletBip44Coins.AVAX_C_CHAIN`|-|
-|Avalanche P-Chain|`HdWalletBip44Coins.AVAX_P_CHAIN`|-|
-|Avalanche X-Chain|`HdWalletBip44Coins.AVAX_X_CHAIN`|-|
-|Axelar|`HdWalletBip44Coins.AXELAR`|-|
-|Band Protocol|`HdWalletBip44Coins.BAND_PROTOCOL`|-|
-|Binance Chain|`HdWalletBip44Coins.BINANCE_CHAIN`|-|
-|Binance Smart Chain|`HdWalletBip44Coins.BINANCE_SMART_CHAIN`|-|
-|Bitcoin|`HdWalletBip44Coins.BITCOIN`|`HdWalletBip44Coins.BITCOIN_TESTNET`|
-|Bitcoin Cash|`HdWalletBip44Coins.BITCOIN_CASH`|`HdWalletBip44Coins.BITCOIN_CASH_TESTNET`|
-|Bitcoin Cash SLP|`HdWalletBip44Coins.BITCOIN_CASH_SLP`|`HdWalletBip44Coins.BITCOIN_CASH_SLP_TESTNET`|
-|BitcoinSV|`HdWalletBip44Coins.BITCOIN_SV`|`HdWalletBip44Coins.BITCOIN_SV_TESTNET`|
-|Cardano Byron (Icarus)|`HdWalletBip44Coins.CARDANO_BYRON_ICARUS`|-|
-|Cardano Byron (Ledger)|`HdWalletBip44Coins.CARDANO_BYRON_LEDGER`|-|
-|Celo|`HdWalletBip44Coins.CELO`|-|
-|Certik|`HdWalletBip44Coins.CERTIK`|-|
-|Chihuahua|`HdWalletBip44Coins.CHIHUAHUA`|-|
-|Cosmos|`HdWalletBip44Coins.COSMOS`|-|
-|Dash|`HdWalletBip44Coins.DASH`|`HdWalletBip44Coins.DASH_TESTNET`|
-|Dogecoin|`HdWalletBip44Coins.DOGECOIN`|`HdWalletBip44Coins.DOGECOIN_TESTNET`|
-|eCash|`HdWalletBip44Coins.ECASH`|`HdWalletBip44Coins.ECASH_TESTNET`|
-|Elrond|`HdWalletBip44Coins.ELROND`|-|
-|EOS|`HdWalletBip44Coins.EOS`|-|
-|Ergo|`HdWalletBip44Coins.ERGO`|`HdWalletBip44Coins.ERGO_TESTNET`|
-|Ethereum|`HdWalletBip44Coins.ETHEREUM`|-|
-|Ethereum Classic|`HdWalletBip44Coins.ETHEREUM_CLASSIC`|-|
-|Fantom Opera|`HdWalletBip44Coins.FANTOM_OPERA`|-|
-|Filecoin|`HdWalletBip44Coins.FILECOIN`|-|
-|Harmony One (Cosmos address)|`HdWalletBip44Coins.HARMONY_ONE_ATOM`|-|
-|Harmony One (Ethereum address)|`HdWalletBip44Coins.HARMONY_ONE_ETH`|-|
-|Harmony One (Metamask address)|`HdWalletBip44Coins.HARMONY_ONE_METAMASK`|-|
-|Huobi Chain|`HdWalletBip44Coins.HUOBI_CHAIN`|-|
-|Icon|`HdWalletBip44Coins.ICON`|-|
-|Injective|`HdWalletBip44Coins.INJECTIVE`|-|
-|IRIS Network|`HdWalletBip44Coins.IRIS_NET`|-|
-|Kava|`HdWalletBip44Coins.KAVA`|-|
-|Kusama (ed25519 SLIP-0010)|`HdWalletBip44Coins.KUSAMA_ED25519_SLIP`|-|
-|Litecoin|`HdWalletBip44Coins.LITECOIN`|`HdWalletBip44Coins.LITECOIN_TESTNET`|
-|Monero (ed25519 SLIP-0010)|`HdWalletBip44Coins.MONERO_ED25519_SLIP`|-|
-|Monero (secp256k1)|`HdWalletBip44Coins.MONERO_SECP256K1`|-|
-|Nano|`HdWalletBip44Coins.NANO`|-|
-|Near Protocol|`HdWalletBip44Coins.NEAR_PROTOCOL`|-|
-|NEO|`HdWalletBip44Coins.NEO`|-|
-|OKEx Chain (Cosmos address)|`HdWalletBip44Coins.OKEX_CHAIN_ATOM`|-|
-|OKEx Chain (Ethereum address)|`HdWalletBip44Coins.OKEX_CHAIN_ETH`|-|
-|OKEx Chain (Old Cosmos address before mainnet upgrade)|`HdWalletBip44Coins.OKEX_CHAIN_ATOM_OLD`|-|
-|Ontology|`HdWalletBip44Coins.ONTOLOGY`|-|
-|Optimism|`HdWalletBip44Coins.OPTIMISM`|-|
-|Osmosis|`HdWalletBip44Coins.OSMOSIS`|-|
-|Pi Network|`HdWalletBip44Coins.PI_NETWORK`|-|
-|Polkadot (ed25519 SLIP-0010)|`HdWalletBip44Coins.POLKADOT_ED25519_SLIP`|-|
-|Polygon|`HdWalletBip44Coins.POLYGON`|-|
-|Ripple|`HdWalletBip44Coins.RIPPLE`|-|
-|Secret Network (old path)|`HdWalletBip44Coins.SECRET_NETWORK_OLD`|-|
-|Secret Network (new path)|`HdWalletBip44Coins.SECRET_NETWORK_NEW`|-|
-|Solana|`HdWalletBip44Coins.SOLANA`|-|
-|Stellar|`HdWalletBip44Coins.STELLAR`|-|
-|Terra|`HdWalletBip44Coins.TERRA`|-|
-|Tezos|`HdWalletBip44Coins.TEZOS`|-|
-|Theta Network|`HdWalletBip44Coins.THETA`|-|
-|Tron|`HdWalletBip44Coins.TRON`|-|
-|VeChain|`HdWalletBip44Coins.VECHAIN`|-|
-|Verge|`HdWalletBip44Coins.VERGE`|-|
-|Zcash|`HdWalletBip44Coins.ZCASH`|`HdWalletBip44Coins.ZCASH_TESTNET`|
-|Zilliqa|`HdWalletBip44Coins.ZILLIQA`|-|
-
-Harmony One and OKEx Chain have different formats, see [bip_utils](https://github.com/ebellocchia/bip_utils) description for more information.
-
-**BIP-0049**
-
-|Coin|Main net enum|Test net enum|
-|---|---|---|
-|Bitcoin|`HdWalletBip49Coins.BITCOIN`|`HdWalletBip49Coins.BITCOIN_TESTNET`|
-|Bitcoin Cash|`HdWalletBip49Coins.BITCOIN_CASH`|`HdWalletBip49Coins.BITCOIN_CASH_TESTNET`|
-|Bitcoin Cash SLP|`HdWalletBip49Coins.BITCOIN_CASH_SLP`|`HdWalletBip49Coins.BITCOIN_CASH_SLP_TESTNET`|
-|BitcoinSV|`HdWalletBip49Coins.BITCOIN_SV`|`HdWalletBip49Coins.BITCOIN_SV_TESTNET`|
-|Dash|`HdWalletBip49Coins.DASH`|`HdWalletBip49Coins.DASH_TESTNET`|
-|Dogecoin|`HdWalletBip49Coins.DOGECOIN`|`HdWalletBip49Coins.DOGECOIN_TESTNET`|
-|eCash|`HdWalletBip49Coins.ECASH`|`HdWalletBip49Coins.ECASH_TESTNET`|
-|Litecoin|`HdWalletBip49Coins.LITECOIN`|`HdWalletBip49Coins.LITECOIN_TESTNET`|
-
-**BIP-0084**
-
-|Coin|Main net enum|Test net enum|
-|---|---|---|
-|Bitcoin|`HdWalletBip84Coins.BITCOIN`|`HdWalletBip84Coins.BITCOIN_TESTNET`|
-|Litecoin|`HdWalletBip84Coins.LITECOIN`|`HdWalletBip84Coins.LITECOIN_TESTNET`|
-
-**BIP-0086**
-
-|Coin|Main net enum|Test net enum|
-|---|---|---|
-|Bitcoin|`HdWalletBip86Coins.BITCOIN`|`HdWalletBip86Coins.BITCOIN_TESTNET`|
+So use the correspondent enumerative with the `HdWalletBipFactory` class.
 
 **Example**
 
