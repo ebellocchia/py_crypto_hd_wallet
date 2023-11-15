@@ -16,6 +16,7 @@ py_hd_crypto_wallet-*/
 .pypirc
 
 # Unit test / Coverage reports
+coverage.xml
 htmlcov
 .coverage
 .coverage.*
