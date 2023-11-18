@@ -1,5 +1,6 @@
 # PY crypto HD wallet
 [![PyPI version](https://badge.fury.io/py/py-crypto-hd-wallet.svg)](https://badge.fury.io/py/py-crypto-hd-wallet)
+[![Code Analysis](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml)
 [![Testing](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet/branch/master/graph/badge.svg)](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/45f6f8c688e4479e83069427ccd24e19)](https://app.codacy.com/gh/ebellocchia/py_crypto_hd_wallet/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
