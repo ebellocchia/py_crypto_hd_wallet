@@ -27,22 +27,22 @@ To install it:
 
 **NOTE:** if you are using an Apple M1, please make sure to update *coincurve* (required by *bip_utils*) to version 17.0.0 otherwise it won't work.
 
+# Test and Coverage
+
+Install develop dependencies:
+
+    pip install -r requirements-dev.txt
+
 To run tests:
 
     python -m unittest discover
 
-Or you can install *tox*:
+To run tests with coverage:
 
-    pip install tox
+    coverage run -m unittest discover
+    coverage report
 
-And then simply run it:
-
-    tox
-
-This will run code coverage with different Python versions and perform style and code analysis.\
-For quick test:
-
-    tox -e unittest
+To run code analysis, just execute the `analyze_code` script.
 
 # Modules description
 
