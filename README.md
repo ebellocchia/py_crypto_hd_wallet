@@ -1,4 +1,4 @@
-# PY crypto HD wallet
+# PY Crypto HD Wallet
 [![PyPI version](https://badge.fury.io/py/py-crypto-hd-wallet.svg)](https://badge.fury.io/py/py-crypto-hd-wallet)
 [![Code Analysis](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml)
 [![Testing](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml)
