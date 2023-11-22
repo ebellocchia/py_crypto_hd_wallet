@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies and run tests with different Python versions
 
-name: Testing
+name: Test
 
 on:
   push:
