@@ -1,3 +1,7 @@
+# 1.3.1
+
+- Update `bip_utils` version dependency to 2.9.0
+
 # 1.3.0
 
 - Add support for Cardano (Byron and Shelley)
