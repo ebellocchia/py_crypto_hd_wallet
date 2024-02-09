@@ -1,10 +1,11 @@
 # PY Crypto HD Wallet
-[![PyPI version](https://badge.fury.io/py/py-crypto-hd-wallet.svg)](https://badge.fury.io/py/py-crypto-hd-wallet)
-[![Code Analysis](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml)
-[![Build & Test](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet/branch/master/graph/badge.svg)](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/45f6f8c688e4479e83069427ccd24e19)](https://app.codacy.com/gh/ebellocchia/py_crypto_hd_wallet/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![CodeFactor](https://www.codefactor.io/repository/github/ebellocchia/py_crypto_hd_wallet/badge)](https://www.codefactor.io/repository/github/ebellocchia/py_crypto_hd_wallet)
+
+| |
+|---|
+| [![PyPI - Version](https://img.shields.io/pypi/v/py_crypto_hd_wallet.svg?logo=pypi&label=PyPI&logoColor=gold)](https://pypi.org/project/py_crypto_hd_wallet/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/py_crypto_hd_wallet.svg?logo=python&label=Python&logoColor=gold)](https://pypi.org/project/py_crypto_hd_wallet/) [![GitHub License](https://img.shields.io/github/license/ebellocchia/py_crypto_hd_wallet?label=License)](https://github.com/ebellocchia/py_crypto_hd_wallet?tab=MIT-1-ov-file) |
+| [![Code Coverage](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-coverage.yml) [![Code Analysis](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/code-analysis.yml) [![Build & Test](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml/badge.svg)](https://github.com/ebellocchia/py_crypto_hd_wallet/actions/workflows/test.yml) |
+| [![Codecov](https://img.shields.io/codecov/c/github/ebellocchia/py_crypto_hd_wallet?label=Code%20Coverage)](https://codecov.io/gh/ebellocchia/py_crypto_hd_wallet) [![Codacy grade](https://img.shields.io/codacy/grade/45f6f8c688e4479e83069427ccd24e19?label=Codacy%20Grade)](https://app.codacy.com/gh/ebellocchia/py_crypto_hd_wallet/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/ebellocchia/py_crypto_hd_wallet?label=CodeFactor%20Grade)](https://www.codefactor.io/repository/github/ebellocchia/py_crypto_hd_wallet) |
+| |
 
 ## Introduction
 
