@@ -4,11 +4,13 @@ doc-warnings: true
 member-warnings: true
 
 ignore-paths:
+  - .eggs
   - .tox
   - build
   - docs
   - readme
   - tests
+  - venv
 
 ignore-patterns:
   - setup.py
