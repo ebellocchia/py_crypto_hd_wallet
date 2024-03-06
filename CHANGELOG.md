@@ -1,3 +1,7 @@
+# 1.3.3
+
+- Fix dependencies for Python 3.12
+
 # 1.3.2
 
 - Update Python versions
