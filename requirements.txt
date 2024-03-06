@@ -1,1 +1,2 @@
-bip_utils>=2.9.0,<3.0.0
+bip_utils>=2.9.0,<3.0.0; python_version < '3.12'
+bip_utils>=2.9.2,<3.0.0; python_version >= '3.12'
