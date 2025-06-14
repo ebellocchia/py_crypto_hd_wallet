@@ -24,6 +24,7 @@ pylint:
     - no-self-use
   options:
     max-line-length: 120
+    max-positional-arguments: 6
 
 # pyflakes configuration
 pyflakes:
