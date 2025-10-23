@@ -1,0 +1,140 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py_crypto_hd_wallet"
+dynamic = ["version", "dependencies", "optional-dependencies"]
+authors = [
+    {name = "Emanuele Bellocchia", email = "ebellocchia@gmail.com"}
+]
+maintainers = [
+    {name = "Emanuele Bellocchia", email = "ebellocchia@gmail.com"}
+]
+description = "HD (Hierarchical Deterministic) wallet for cryptocurrencies based on bip_utils library"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+keywords = [
+    "python",
+    "cryptography",
+    "ecdsa",
+    "ed25519",
+    "ed25519-blake2b",
+    "nist256p1",
+    "secp256k1",
+    "sr25519",
+    "wallet",
+    "hd-wallet",
+    "slip10",
+    "slip0010",
+    "bip39",
+    "bip39-substrate",
+    "bip32",
+    "bip44",
+    "bip49",
+    "bip84",
+    "bech32",
+    "bech32m",
+    "segwit",
+    "electrum",
+    "substrate",
+    "taproot",
+    "daedalus",
+    "byron",
+    "shelley",
+    "akash",
+    "algorand",
+    "atom",
+    "avalanche",
+    "avax",
+    "band protocol",
+    "binance chain",
+    "binance smart chain",
+    "bitcoin",
+    "bitcoin cash",
+    "bitcoinsv",
+    "bnb",
+    "cardano",
+    "cardano-byron",
+    "cardano-shelley",
+    "celo",
+    "certik",
+    "cosmos",
+    "dash",
+    "dogecoin",
+    "ecash",
+    "elrond",
+    "eos",
+    "ethereum",
+    "ethereum classic",
+    "fantom opera",
+    "filecoin",
+    "harmony one",
+    "huobi chain",
+    "iris",
+    "irisnet",
+    "kava",
+    "litecoin",
+    "matic",
+    "monero",
+    "okex chain",
+    "ontology",
+    "osmosis",
+    "nano",
+    "near",
+    "near protocol",
+    "neo",
+    "polygon",
+    "ripple",
+    "secret",
+    "solana",
+    "stellar",
+    "substrate",
+    "terra",
+    "tezos",
+    "theta",
+    "tron",
+    "vechain",
+    "verge",
+    "zcash",
+    "zilliqa",
+    "acala",
+    "bifrost",
+    "chainx",
+    "edgeware",
+    "karura",
+    "kusama",
+    "moonbeam",
+    "moonriver",
+    "phala",
+    "plasm",
+    "sora",
+    "stafi",
+    "polkadot",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+]
+
+[project.urls]
+Homepage = "https://github.com/ebellocchia/py_crypto_hd_wallet"
+Download = "https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v{version}.tar.gz"
+
+[tool.setuptools]
+packages = {find = {exclude = ["*tests*"]}}
+
+[tool.setuptools.dynamic]
+version = {attr = "py_crypto_hd_wallet._version.__version__"}
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies.develop = {file = ["requirements-dev.txt"]}
