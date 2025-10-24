@@ -72,8 +72,8 @@ The library documentation is available at [py-crypto-hd-wallet.readthedocs.io](h
 # Buy me a coffee
 
 You know, I'm italian and I love drinking coffee (especially while coding :D). So, if you'd like to buy me one:
-- BTC: `bc1qq4r9cglwzd6f2hzxvdkucmdejvr9h8me5hy0k8`
-- ERC20/BEP20: `0xf84e4898E5E10bf1fBe9ffA3EEC845e82e364b5B`
+- BTC: `bc1qqxwmzs7qyatpht84hqmavkag0r3gnalyjxqr9d`
+- EVM: `0xbe6Ce1d8fc6e72173f00A63FF493dFdFdb664FbF`
 
 Thank you very much for your support.
 
