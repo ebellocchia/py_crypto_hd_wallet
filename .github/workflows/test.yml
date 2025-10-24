@@ -7,14 +7,14 @@ on:
     branches: [ "master" ]
     paths-ignore:
       - README.md
-      - '**/docs/**'
-      - '**/readme/**'
+      - 'docs/**'
+      - 'readme/**'
   pull_request:
     branches: [ "master" ]
     paths-ignore:
       - README.md
-      - '**/docs/**'
-      - '**/readme/**'
+      - 'docs/**'
+      - 'readme/**'
 
 jobs:
   build_test_py307:
