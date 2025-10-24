@@ -1,4 +1,1 @@
-include keywords.txt
-include requirements.txt
-include requirements-dev.txt
 include readme/*
