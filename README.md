@@ -26,12 +26,12 @@ To install it:
 
         pip install py_crypto_hd_wallet
 
-**NOTE:** for Python 3.7 and 3.8, please use the `pyproject_legacy.toml` file and install the package from the local folder.
-Just rename it to `pyproject.toml`, overwriting the existent one, and install the package with *pip* from the local folder:
+### Python 3.7 and 3.8 support
+
+The library works fine with Python 3.7 and 3.8, but it requires Python 3.9 or higher because `pyproject.toml` is not compatible with old versions of *setuptools* and will trigger an error during installation.\
+Therefore, for Python 3.7 and 3.8, the `pyproject_legacy.toml` file is provided. Just rename it to `pyproject.toml`, overwriting the existent one, and install the package with *pip* from the local folder:
 
     pip install .
-
-**NOTE:** if you are using an Apple M1, please make sure to update *coincurve* (required by *bip_utils*) to version 17.0.0 otherwise it won't work.
 
 ## Test and Coverage
 
