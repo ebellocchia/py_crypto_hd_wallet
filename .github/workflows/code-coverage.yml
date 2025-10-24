@@ -2,7 +2,19 @@
 
 name: Code Coverage
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - README.md
+      - '**/docs/**'
+      - '**/readme/**'
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - README.md
+      - '**/docs/**'
+      - '**/readme/**'
 
 jobs:
   code_coverage:

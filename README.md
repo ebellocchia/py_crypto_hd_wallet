@@ -16,7 +16,7 @@ The supported coins are the same of the [bip_utils](https://github.com/ebellocch
 
 ## Install the package
 
-The package requires Python 3, it is not compatible with Python 2.
+The package requires Python 3, it is not compatible with Python 2.\
 To install it:
 - Using *pip*, from this directory (local):
 
@@ -25,6 +25,11 @@ To install it:
 - Using *pip*, from PyPI:
 
         pip install py_crypto_hd_wallet
+
+**NOTE:** for Python 3.7 and 3.8, please use the `pyproject_legacy.toml` file and install the package from the local folder.
+Just rename it to `pyproject.toml`, overwriting the existent one, and install the package with *pip* from the local folder:
+
+    pip install .
 
 **NOTE:** if you are using an Apple M1, please make sure to update *coincurve* (required by *bip_utils*) to version 17.0.0 otherwise it won't work.
 

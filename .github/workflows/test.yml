@@ -5,8 +5,16 @@ name: Build & Test
 on:
   push:
     branches: [ "master" ]
+    paths-ignore:
+      - README.md
+      - '**/docs/**'
+      - '**/readme/**'
   pull_request:
     branches: [ "master" ]
+    paths-ignore:
+      - README.md
+      - '**/docs/**'
+      - '**/readme/**'
 
 jobs:
   build_test_py307:
@@ -26,19 +34,52 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
+      shell: bash
       run: |
-        python -m pip install --upgrade pip
+        mv -f pyproject_legacy.toml pyproject.toml
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
+    - name: Install package
+      run: |
+        pip install .
     - name: Run tests
       run: |
         pytest
 
-  build_test_older_than_py310:
+  build_test_py308:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8"]
+        os:
+          - ubuntu-latest
+          - macOS-13
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      shell: bash
+      run: |
+        mv -f pyproject_legacy.toml pyproject.toml
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+    - name: Install package
+      run: |
+        pip install .
+    - name: Run tests
+      run: |
+        pytest
+
+  build_test_py309_py310:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10"]
         os:
           - ubuntu-latest
           - macOS-13
@@ -55,6 +96,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
+    - name: Install package
+      run: |
+        pip install .
     - name: Run tests
       run: |
         pytest
@@ -80,6 +124,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
+    - name: Install package
+      run: |
+        pip install .
     - name: Run tests
       run: |
         pytest
