@@ -1,3 +1,4 @@
 include pyproject_legacy.toml
 include docs/*
 include readme/*
+include tests/__init__.py
