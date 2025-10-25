@@ -16,17 +16,10 @@ The supported coins are the same of the [bip_utils](https://github.com/ebellocch
 
 ## Install the package
 
-The package requires Python 3, it is not compatible with Python 2.\
+The package requires Python >= 3.7.\
 To install it:
 
     pip install py_crypto_hd_wallet
-
-### Python 3.7 and 3.8 support
-
-The package works fine with Python 3.7 and 3.8, but it requires Python 3.9 or higher because `pyproject.toml` is not compatible with old versions of *setuptools* and will trigger an error during installation.\
-Therefore, for Python 3.7 and 3.8, the `pyproject_legacy.toml` file is provided. Just rename it to `pyproject.toml`, overwriting the existent one, and install the package with *pip* from the local folder:
-
-    pip install .
 
 ## Test and Coverage
 
