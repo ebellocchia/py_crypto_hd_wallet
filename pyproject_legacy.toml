@@ -139,7 +139,7 @@ Homepage = "https://github.com/ebellocchia/py_crypto_hd_wallet"
 Download = "https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v{version}.tar.gz"
 
 [tool.setuptools]
-packages = {find = {exclude = ["*tests*"]}}
+packages = {find = {exclude = ["docs", "readme", "tests"]}}
 
 [tool.setuptools.dynamic]
 version = {attr = "py_crypto_hd_wallet._version.__version__"}
