@@ -1,4 +1,5 @@
 include pyproject_legacy.toml
-include docs/*
-include readme/*
+recursive-include readme *.md
 recursive-include tests *.py
+global-exclude .gitignore
+prune docs
