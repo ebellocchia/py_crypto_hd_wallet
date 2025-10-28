@@ -145,3 +145,7 @@ packages = {find = {exclude = ["docs*", "readme*", "tests*"]}}
 version = {attr = "py_crypto_hd_wallet._version.__version__"}
 dependencies = {file = ["requirements.txt"]}
 optional-dependencies.develop = {file = ["requirements-dev.txt"]}
+
+[tool.mypy]
+ignore_missing_imports = true
+exclude = "(?x)(\\.github|\\.eggs|\\.tox|build|docs|readme|tests|venv)"
