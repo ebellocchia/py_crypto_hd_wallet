@@ -5,6 +5,9 @@
 #
 #     pip install .
 #
+# NOTE: This file is only for installing the package from the folder.
+#       You DON'T need it if you install the package from PyPi (i.e. pip install py_crypto_hd_wallet)
+#
 [build-system]
 requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
@@ -69,6 +72,7 @@ keywords = [
     "certik",
     "cosmos",
     "dash",
+    "digibyte",
     "dogecoin",
     "ecash",
     "elrond",
@@ -84,6 +88,7 @@ keywords = [
     "kava",
     "litecoin",
     "matic",
+    "mavryk",
     "monero",
     "okex chain",
     "ontology",
