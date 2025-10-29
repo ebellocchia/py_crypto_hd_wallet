@@ -36,6 +36,3 @@ venv/
 
 # Ruff
 .ruff_cache/
-
-# Additional folder
-my_tests/
