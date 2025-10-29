@@ -26,7 +26,8 @@ from bip_utils import ElectrumV1, ElectrumV1MnemonicGenerator, ElectrumV1SeedGen
 from py_crypto_hd_wallet.common import HdWalletBase
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1 import HdWalletElectrumV1
 from py_crypto_hd_wallet.electrum.v1.hd_wallet_electrum_v1_enum import (
-    HdWalletElectrumV1Languages, HdWalletElectrumV1WordsNum
+    HdWalletElectrumV1Languages,
+    HdWalletElectrumV1WordsNum,
 )
 
 

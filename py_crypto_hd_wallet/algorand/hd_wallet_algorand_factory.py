@@ -22,8 +22,13 @@
 
 # Imports
 from bip_utils import (
-    AlgorandMnemonicEncoder, AlgorandMnemonicGenerator, AlgorandSeedGenerator, Bip32KeyError, Bip44, Bip44Coins,
-    MnemonicChecksumError
+    AlgorandMnemonicEncoder,
+    AlgorandMnemonicGenerator,
+    AlgorandSeedGenerator,
+    Bip32KeyError,
+    Bip44,
+    Bip44Coins,
+    MnemonicChecksumError,
 )
 
 from py_crypto_hd_wallet.algorand.hd_wallet_algorand import HdWalletAlgorand
