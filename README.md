@@ -65,7 +65,7 @@ To run code analysis:
 
 ## Documentation
 
-The library documentation is available at [py-crypto-hd-wallet.readthedocs.io](https://py-crypto-hd-wallet.readthedocs.io).
+The library documentation is available at [ebellocchia.github.io/py_crypto_hd_wallet](https://ebellocchia.github.io/py_crypto_hd_wallet/).
 
 # Buy me a coffee
 

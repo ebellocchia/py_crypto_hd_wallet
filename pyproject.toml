@@ -134,6 +134,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/ebellocchia/py_crypto_hd_wallet"
 Download = "https://github.com/ebellocchia/py_crypto_hd_wallet/archive/v{version}.tar.gz"
+Documentation = "https://ebellocchia.github.io/py_crypto_hd_wallet/"
 
 [tool.setuptools]
 packages = {find = {exclude = ["docs*", "build*", "dist*", "readme*", "venv*", "tests*"]}}
